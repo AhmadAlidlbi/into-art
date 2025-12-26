@@ -1,0 +1,218 @@
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    transition: box-shadow 200ms ease;
+  
+    &.is-scrolled {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+  
+    &__logo {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+    }
+  
+    &__name {
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  
+    &__link {
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.72);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 6px;
+      border-radius: 10px;
+      transition: background 160ms ease, color 160ms ease;
+  
+      &:hover {
+        background: rgba(0, 0, 0, 0.06);
+        color: rgba(0, 0, 0, 0.92);
+      }
+  
+      &.is-active {
+        background: rgba(0, 0, 0, 0.08);
+        color: rgba(0, 0, 0, 0.95);
+      }
+    }
+  }
+  
+  .actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .btn {
+    border: 0;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-weight: 700;
+    font-size: 14px;
+    transition: transform 120ms ease, background 160ms ease, box-shadow 160ms ease;
+  
+    &:active {
+      transform: translateY(1px);
+    }
+  
+    &--primary {
+      background: #111;
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
+  
+      &:hover {
+        background: #000;
+      }
+    }
+  
+    &--ghost {
+      background: rgba(0, 0, 0, 0.06);
+      color: rgba(0, 0, 0, 0.88);
+  
+      &:hover {
+        background: rgba(0, 0, 0, 0.10);
+      }
+    }
+  }
+  
+  /* Mobile button */
+  .burger {
+    display: none;
+    margin-left: auto;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+  
+    span {
+      display: block;
+      height: 2px;
+      width: 18px;
+      margin: 4px auto;
+      background: rgba(0, 0, 0, 0.80);
+      border-radius: 4px;
+    }
+  }
+  
+  /* Drawer + overlay */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(0, 0, 0, 0.38);
+  }
+  
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: min(360px, 92vw);
+    z-index: 70;
+    background: #fff;
+    box-shadow: -20px 0 40px rgba(0, 0, 0, 0.16);
+    transform: translateX(100%);
+    transition: transform 220ms ease;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  
+    &.is-open {
+      transform: translateX(0);
+    }
+  
+    &__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+  
+    &__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  
+    &__logo {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+    }
+  
+    &__title {
+      font-weight: 900;
+    }
+  
+    &__close {
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+      font-size: 16px;
+    }
+  }
+  
+  .nav--mobile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  
+    .nav__link {
+      padding: 12px 12px;
+    }
+  }
+  
+  .actions--mobile {
+    margin-top: auto;
+    display: grid;
+    gap: 10px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 980px) {
+    .nav--desktop,
+    .actions--desktop {
+      display: none;
+    }
+  
+    .burger {
+      display: inline-block;
+    }
+  }
+  
