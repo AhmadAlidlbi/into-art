@@ -1,0 +1,82 @@
+<section class="wrap" *ngIf="post() as p; else notFound">
+  <div class="container">
+    <a class="back" routerLink="/blog">← Back to blog</a>
+
+    <div class="head">
+      <div class="meta">
+        <span class="pill">{{ p.category }}</span>
+        <span class="muted">• {{ p.readMins }} min read</span>
+        <span class="muted">• {{ formatDate(p.publishedAt) }}</span>
+      </div>
+
+      <h1 class="title">{{ p.title }}</h1>
+      <p class="excerpt">{{ p.excerpt }}</p>
+
+      <div class="tags">
+        <span class="tag" *ngFor="let t of p.tags">{{ t }}</span>
+      </div>
+    </div>
+
+    <div class="cover" [style.backgroundImage]="'url(' + p.cover + ')'"></div>
+
+    <div class="body">
+      <div class="reading">
+        <div class="reading__label">In this article</div>
+        <ol class="reading__list">
+          <li *ngFor="let para of p.content; let i = index">{{ outline(para, i) }}</li>
+        </ol>
+      </div>
+
+      <div class="content">
+        <p class="para" *ngFor="let para of p.content">{{ para }}</p>
+
+        <div class="quote">
+          <div class="quote__icon">“</div>
+          <div class="quote__text">
+            Premium interiors come from clarity: scope, finishes, and supervision — not random upgrades.
+          </div>
+        </div>
+
+        <div class="post-cta">
+          <div>
+            <div class="post-cta__title">Want help with your own space?</div>
+            <div class="post-cta__desc">
+              Book a consultation and we’ll guide you through the right direction for your home.
+            </div>
+          </div>
+
+          <div class="post-cta__actions">
+            <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
+            <a class="btn btn--ghost" routerLink="/projects">View Projects</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="more">
+      <div class="more__title">More insights</div>
+      <div class="more__grid">
+        <a class="mini" *ngFor="let x of related(p.slug)" [routerLink]="['/blog', x.slug]">
+          <div class="mini__img" [style.backgroundImage]="'url(' + x.cover + ')'"></div>
+          <div class="mini__body">
+            <div class="mini__meta">
+              <span class="pill">{{ x.category }}</span>
+              <span class="muted">• {{ x.readMins }} min</span>
+            </div>
+            <div class="mini__title">{{ x.title }}</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #notFound>
+  <section class="wrap">
+    <div class="container">
+      <h1 class="title">Post not found</h1>
+      <p class="excerpt">The article you’re looking for doesn’t exist.</p>
+      <a class="btn btn--primary" routerLink="/blog">Back to blog</a>
+    </div>
+  </section>
+</ng-template>

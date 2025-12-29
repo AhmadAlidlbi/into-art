@@ -1,0 +1,171 @@
+<section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <div class="hero__badge">Portfolio</div>
+  
+        <h1 class="hero__title">
+          A curated showcase of our
+          <span class="hero__accent">residential interiors</span>
+        </h1>
+  
+        <p class="hero__subtitle">
+          Explore projects by category, style, and location — designed with premium detail and delivered with professional execution.
+        </p>
+  
+        <div class="hero__actions">
+          <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
+          <a class="btn btn--ghost" routerLink="/services">View Services</a>
+        </div>
+  
+        <div class="hero__meta">
+          <div class="hero__metaItem">
+            <span class="k">Focus</span>
+            <span class="v">Residential</span>
+          </div>
+          <div class="hero__metaItem">
+            <span class="k">Delivery</span>
+            <span class="v">End-to-End</span>
+          </div>
+          <div class="hero__metaItem">
+            <span class="k">Location</span>
+            <span class="v">Kuwait</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="hero__media" aria-hidden="true">
+        <div class="hero__mediaFrame"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Featured (curated) -->
+  <section class="section">
+    <div class="container">
+      <div class="section__head section__head--row">
+        <div>
+          <h2 class="section__title">Featured work</h2>
+          <p class="section__desc">A selection of projects that represent our finishing and style direction.</p>
+        </div>
+  
+        <a class="link-cta" routerLink="/projects">
+          Browse all projects <span aria-hidden="true">→</span>
+        </a>
+      </div>
+  
+      <div class="featured">
+        <a class="featured__card" *ngFor="let p of featured()" [routerLink]="['/projects', p.slug]">
+          <div class="featured__img" [style.backgroundImage]="'url(' + p.cover + ')'">
+            <div class="featured__overlay"></div>
+          </div>
+  
+          <div class="featured__meta">
+            <div class="featured__title">{{ p.title }}</div>
+  
+            <div class="featured__sub">
+              <span class="pill">{{ p.category }}</span>
+              <span class="muted" *ngIf="p.area">• {{ p.area }}</span>
+              <span class="muted" *ngIf="p.year">• {{ p.year }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Filters -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">Explore by category</h2>
+        <p class="section__desc">Filter the portfolio to quickly find similar spaces and styles.</p>
+      </div>
+  
+      <div class="controls">
+        <div class="chips" role="tablist" aria-label="Project categories">
+          <button
+            class="chip"
+            *ngFor="let c of categories"
+            type="button"
+            [class.is-active]="selectedCategory() === c"
+            (click)="setCategory(c)"
+          >
+            {{ c }}
+          </button>
+        </div>
+  
+        <div class="search">
+          <span class="search__icon" aria-hidden="true">⌕</span>
+          <input
+            class="search__input"
+            type="text"
+            placeholder="Search by title, category, or area..."
+            (input)="setSearch($any($event.target).value)"
+          />
+        </div>
+      </div>
+  
+      <div class="grid">
+        <a class="card" *ngFor="let p of filtered()" [routerLink]="['/projects', p.slug]">
+          <div class="card__img" [style.backgroundImage]="'url(' + p.cover + ')'">
+            <div class="card__overlay"></div>
+          </div>
+  
+          <div class="card__body">
+            <div class="card__title">{{ p.title }}</div>
+            <div class="card__meta">
+              <span class="pill">{{ p.category }}</span>
+              <span class="muted" *ngIf="p.area">• {{ p.area }}</span>
+              <span class="muted" *ngIf="p.year">• {{ p.year }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+  
+      <div class="empty" *ngIf="filtered().length === 0">
+        <div class="empty__title">No projects found</div>
+        <div class="empty__desc">Try a different category or refine your search term.</div>
+        <button class="empty__btn" type="button" (click)="setCategory('All'); setSearch('')">
+          Reset filters
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Before/After -->
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">Before & After</h2>
+        <p class="section__desc">A quick look at transformations. (Connect real before/after images later.)</p>
+      </div>
+  
+      <div class="ba">
+        <div class="ba__item" *ngFor="let _ of [1,2,3]">
+          <div class="ba__img ba__img--before">
+            <span class="ba__label">Before</span>
+          </div>
+          <div class="ba__img ba__img--after">
+            <span class="ba__label">After</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="cta">
+    <div class="container cta__grid">
+      <div>
+        <h2 class="cta__title">Ready to start your project?</h2>
+        <p class="cta__desc">
+          Book a consultation and we’ll guide you through the process based on your space and requirements.
+        </p>
+      </div>
+  
+      <div class="cta__actions">
+        <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
+        <a class="btn btn--ghost" routerLink="/contact">Contact Us</a>
+      </div>
+    </div>
+  </section>
+  

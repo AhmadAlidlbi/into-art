@@ -1,0 +1,141 @@
+<section class="hero">
+    <div class="container">
+      <div class="hero__badge">FAQ</div>
+  
+      <h1 class="hero__title">
+        Frequently asked questions,
+        <span class="hero__accent">answered clearly</span>
+      </h1>
+  
+      <p class="hero__subtitle">
+        Clear answers about process, timeline, pricing, and execution — so you know exactly what to expect.
+      </p>
+  
+      <div class="controls">
+        <div class="chips" role="tablist" aria-label="FAQ categories">
+          <button
+            class="chip"
+            *ngFor="let c of categories"
+            type="button"
+            [class.is-active]="selectedCategory() === c"
+            (click)="setCategory(c)"
+            role="tab"
+            [attr.aria-selected]="selectedCategory() === c"
+          >
+            {{ c }}
+          </button>
+        </div>
+  
+        <div class="search">
+          <div class="search__icon" aria-hidden="true">⌕</div>
+          <input
+            class="search__input"
+            type="text"
+            placeholder="Search questions…"
+            [value]="search()"
+            (input)="setSearch($any($event.target).value)"
+          />
+          <button
+            class="search__clear"
+            type="button"
+            *ngIf="search().trim().length"
+            (click)="setSearch('')"
+            aria-label="Clear search"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+  
+      <div class="hero__meta">
+        <div class="meta">
+          <span class="meta__k">Updated</span>
+          <span class="meta__v">Residential • Kuwait</span>
+        </div>
+        <div class="meta">
+          <span class="meta__k">Coverage</span>
+          <span class="meta__v">Process • Pricing • Execution</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section">
+    <div class="container layout">
+      <!-- Accordion -->
+      <div class="accordion" aria-label="Frequently asked questions">
+        <div class="item" *ngFor="let f of filtered(); let i = index">
+          <button
+            class="item__head"
+            type="button"
+            (click)="toggle(i)"
+            [attr.aria-expanded]="openIndex() === i"
+          >
+            <div class="item__q">{{ f.q }}</div>
+  
+            <div class="item__icon" [class.is-open]="openIndex() === i" aria-hidden="true">
+              <span class="plus"></span>
+              <span class="plus plus--v"></span>
+            </div>
+          </button>
+  
+          <!-- Animated body (CSS grid trick) -->
+          <div class="item__wrap" [class.is-open]="openIndex() === i">
+            <div class="item__body">
+              <div class="item__a">{{ f.a }}</div>
+  
+              <div class="item__foot">
+                <button class="mini" type="button" (click)="goBook()">Book Consultation</button>
+                <button class="mini mini--ghost" type="button" (click)="openWhatsApp()">WhatsApp</button>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="empty" *ngIf="filtered().length === 0">
+          <div class="empty__title">No results</div>
+          <div class="empty__desc">
+            Try a different category or keyword.
+          </div>
+          <button class="btn btn--soft" type="button" (click)="resetFilters()">Reset filters</button>
+        </div>
+      </div>
+  
+      <!-- Side help card -->
+      <aside class="help" aria-label="Need help">
+        <div class="help__card">
+          <div class="help__badge">Need quick guidance?</div>
+          <div class="help__title">We’ll recommend the right approach for your space.</div>
+          <div class="help__desc">
+            Share your apartment/villa details and timeline — we’ll respond with the next step and a clear direction.
+          </div>
+  
+          <div class="help__actions">
+            <button class="btn btn--primary" type="button" (click)="goBook()">Book Consultation</button>
+            <button class="btn btn--outline" type="button" (click)="openWhatsApp()">WhatsApp</button>
+          </div>
+  
+          <div class="help__fine">
+            Typical reply time: within business hours.
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+  
+  <section class="cta">
+    <div class="container cta__grid">
+      <div>
+        <h2 class="cta__title">Still have questions?</h2>
+        <p class="cta__desc">
+          Book a consultation or message us on WhatsApp — we’ll guide you based on your space and requirements.
+        </p>
+      </div>
+  
+      <div class="cta__actions">
+        <button class="btn btn--primary" type="button" (click)="goBook()">Book Consultation</button>
+        <button class="btn btn--ghost" type="button" (click)="openWhatsApp()">WhatsApp</button>
+      </div>
+    </div>
+  </section>
+  

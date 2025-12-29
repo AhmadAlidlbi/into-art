@@ -1,0 +1,111 @@
+<section class="hero">
+    <div class="container">
+      <div class="hero__badge">Blog</div>
+  
+      <h1 class="hero__title">
+        Insights for residential interiors,
+        <span class="hero__accent">made practical</span>
+      </h1>
+  
+      <p class="hero__subtitle">
+        Clear, actionable articles on design decisions, budgeting, and execution — tailored for residential living in Kuwait.
+      </p>
+  
+      <div class="controls">
+        <div class="chips" aria-label="Blog categories">
+          <button
+            class="chip"
+            *ngFor="let c of categories"
+            type="button"
+            [class.is-active]="selectedCategory() === c"
+            (click)="setCategory(c)"
+          >
+            {{ c }}
+          </button>
+        </div>
+  
+        <div class="controls__right">
+          <div class="search">
+            <span class="search__icon" aria-hidden="true">⌕</span>
+            <input
+              class="search__input"
+              type="text"
+              [value]="search()"
+              placeholder="Search by title, tags, or keywords..."
+              (input)="setSearch($any($event.target).value)"
+            />
+            <button class="search__clear" type="button" *ngIf="search()" (click)="setSearch('')">Clear</button>
+          </div>
+  
+          <div class="kpi" aria-label="Results count">
+            <div class="kpi__label">Showing</div>
+            <div class="kpi__value">{{ filtered().length }} posts</div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="quick">
+        <div class="quick__pill">New: {{ newestDate() }}</div>
+        <div class="quick__pill">Sorted: Newest first</div>
+        <a class="quick__link" routerLink="/book-consultation">Need help? Book a consultation →</a>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section">
+    <div class="container">
+      <div class="grid">
+        <a class="card" *ngFor="let p of filtered(); trackBy: trackBySlug" [routerLink]="['/blog', p.slug]">
+          <div class="card__img" [style.backgroundImage]="'url(' + p.cover + ')'">
+            <div class="card__overlay"></div>
+            <div class="card__top">
+              <span class="pill">{{ p.category }}</span>
+              <span class="read">{{ p.readMins }} min</span>
+            </div>
+          </div>
+  
+          <div class="card__body">
+            <div class="meta">
+              <span class="muted">{{ formatDate(p.publishedAt) }}</span>
+              <span class="dot">•</span>
+              <span class="muted">{{ p.tags.length }} tags</span>
+            </div>
+  
+            <div class="card__title">{{ p.title }}</div>
+            <div class="card__excerpt">{{ p.excerpt }}</div>
+  
+            <div class="tags">
+              <span class="tag" *ngFor="let t of p.tags">{{ t }}</span>
+            </div>
+  
+            <div class="card__cta">
+              Read article <span class="arrow">→</span>
+            </div>
+          </div>
+        </a>
+      </div>
+  
+      <div class="empty" *ngIf="filtered().length === 0">
+        <div class="empty__title">No posts match your filters.</div>
+        <div class="empty__desc">Try a different category or clear the search term.</div>
+        <button class="btn btn--ghost" type="button" (click)="reset()">Reset filters</button>
+      </div>
+    </div>
+  </section>
+  
+  <section class="cta">
+    <div class="container cta__grid">
+      <div>
+        <h2 class="cta__title">Want professional guidance for your space?</h2>
+        <p class="cta__desc">
+          Book a consultation and we’ll recommend the right direction based on your lifestyle and scope.
+        </p>
+      </div>
+  
+      <div class="cta__actions">
+        <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
+        <a class="btn btn--ghost" routerLink="/projects">View Projects</a>
+      </div>
+    </div>
+  </section>
+  

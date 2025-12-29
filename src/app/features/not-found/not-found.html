@@ -1,0 +1,76 @@
+<section class="wrap">
+    <div class="container">
+      <div class="card">
+        <div class="top">
+          <div class="badge">404</div>
+          <div class="top__right">
+            <div class="hint">You can recover fast using the shortcuts below.</div>
+          </div>
+        </div>
+  
+        <div class="hero">
+          <div class="mark" aria-hidden="true">
+            <div class="mark__ring"></div>
+            <div class="mark__dot"></div>
+          </div>
+  
+          <div>
+            <h1 class="title">Page not found</h1>
+            <p class="subtitle">
+              The page you’re trying to reach doesn’t exist or may have been moved.
+              Use the options below to navigate to a valid destination.
+            </p>
+  
+            <div class="actions">
+              <a class="btn btn--primary" routerLink="/">Go to Home</a>
+              <a class="btn btn--ghost" routerLink="/book-consultation">Book Consultation</a>
+            </div>
+  
+            <div class="mini">
+              <button class="mini__btn" type="button" (click)="goBack()">
+                ← Go back
+              </button>
+              <div class="mini__sep">•</div>
+              <a class="mini__btn" routerLink="/contact">
+                Contact support →
+              </a>
+            </div>
+          </div>
+        </div>
+  
+        <div class="links">
+          <div class="links__head">
+            <div class="links__title">Quick links</div>
+  
+            <div class="search" aria-label="Quick link search">
+              <span class="search__icon" aria-hidden="true">⌕</span>
+              <input
+                class="search__input"
+                type="text"
+                placeholder="Search pages..."
+                [value]="q()"
+                (input)="setQ($any($event.target).value)"
+              />
+              <button class="search__clear" type="button" *ngIf="q()" (click)="setQ('')">
+                Clear
+              </button>
+            </div>
+          </div>
+  
+          <div class="links__grid">
+            <a class="link" *ngFor="let l of filteredLinks(); trackBy: trackByPath" [routerLink]="l.path">
+              <div class="link__label">{{ l.label }}</div>
+              <div class="link__path">{{ l.path }}</div>
+              <div class="link__arrow">→</div>
+            </a>
+          </div>
+  
+          <div class="empty" *ngIf="filteredLinks().length === 0">
+            No results. Try a different search term.
+            <button class="empty__btn" type="button" (click)="setQ('')">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

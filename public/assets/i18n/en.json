@@ -1,0 +1,17 @@
+{
+    "nav": {
+      "home": "Home",
+      "services": "Services",
+      "portfolio": "Portfolio",
+      "about": "About",
+      "faq": "FAQ",
+      "contact": "Contact",
+      "blog": "Blog",
+      "projects": "Projects"
+    },
+    "actions": {
+      "whatsapp": "WhatsApp",
+      "book": "Book Consultation"
+    }
+  }
+  

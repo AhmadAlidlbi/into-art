@@ -1,0 +1,422 @@
+/* =========================================
+   Header (Fixed RTL + Drawer Ghost Fix)
+   - RTL: logo RIGHT, actions LEFT
+   - LTR: logo LEFT, actions RIGHT
+   - Drawer:
+     LTR opens from LEFT
+     RTL opens from RIGHT
+   - Prevent "ghost flying" when dir changes:
+     html.dir-switching disables transitions briefly
+   ========================================= */
+
+   .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  
+    background: #fff;
+    backdrop-filter: none;
+    border-bottom: 1px solid rgba(22, 20, 20, 0.08);
+    transition: box-shadow 200ms ease, background 200ms ease, border-color 200ms ease;
+  
+    &.is-scrolled {
+      background: #fff;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+      border-bottom-color: rgba(22, 20, 20, 0.10);
+    }
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  
+  /* =========================
+     Desktop layout
+     ========================= */
+  .header__inner {
+    padding: 15px 0;
+  
+    --side-slot: clamp(220px, 22vw, 340px);
+  
+    /* keep grid stable */
+    direction: ltr;
+  
+    display: grid;
+    grid-template-columns: var(--side-slot) auto var(--side-slot);
+    grid-template-areas: "brand nav actions";
+    align-items: center;
+    gap: 16px;
+  }
+  
+  /* ✅ RTL flips positions: actions | nav | brand */
+  :host-context(html[dir="rtl"]) .header__inner {
+    grid-template-areas: "actions nav brand";
+  }
+  
+  /* Brand */
+  .brand {
+    grid-area: brand;
+    justify-self: start;
+  
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    color: inherit;
+  
+    &__logo {
+      height: 38px;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+      display: block;
+    }
+  }
+  
+  /* ✅ RTL: logo to the RIGHT */
+  :host-context(html[dir="rtl"]) .brand {
+    justify-self: end;
+  }
+  
+  /* Desktop nav */
+  .nav {
+    grid-area: nav;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  
+    &__link {
+      color: var(--text-2);
+      font-weight: 750;
+      font-size: 13px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      transition: background 160ms ease, color 160ms ease;
+      text-decoration: none;
+  
+      &:hover {
+        background: rgba(112, 95, 82, 0.08);
+        color: var(--text);
+      }
+  
+      &.is-active {
+        background: rgba(112, 95, 82, 0.12);
+        color: var(--text);
+      }
+    }
+  }
+  
+  /* ✅ RTL: just text direction for nav */
+  :host-context(html[dir="rtl"]) .nav {
+    direction: rtl;
+  }
+  
+  /* Desktop actions */
+  .actions {
+    grid-area: actions;
+    justify-self: end;
+  
+    /* keep CTA + lang aligned consistently */
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    white-space: nowrap;
+  }
+  
+  .actions .btn {
+    border-radius: 14px;
+    padding: 12px 14px;
+  }
+  
+  .actions .btn--primary {
+    min-width: 170px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  
+  /* ✅ RTL: actions to the LEFT */
+  :host-context(html[dir="rtl"]) .actions {
+    justify-self: start;
+  }
+  
+  /* Hide desktop nav/actions when drawer open */
+  .is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  
+  /* =========================
+     Language toggle
+     ========================= */
+  .lang {
+    border: 1.7px solid rgba(22, 20, 20, 0.10);
+    background: #fff;
+    border-radius: 14px;
+    height: 44px;
+    min-width: 56px;
+    cursor: pointer;
+  
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  
+    transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
+  
+    &:hover {
+      background: rgba(0, 0, 0, 0.02);
+      border-color: rgba(22, 20, 20, 0.14);
+    }
+  
+    &:active {
+      transform: translateY(1px);
+    }
+  
+    &__pill {
+      font-weight: 950;
+      font-size: 12px;
+      letter-spacing: 0.6px;
+    }
+  }
+  
+  /* =========================
+     Burger (mobile toggle)
+     ========================= */
+  .burger {
+    width: 46px;
+    height: 46px;
+  
+    background-color: #fff;
+    background-image: none;
+    opacity: 1;
+  
+    border: 1px solid rgba(22, 20, 20, 0.14);
+    border-radius: 14px;
+    cursor: pointer;
+  
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+    transition: transform 120ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  
+    display: none;
+  
+    &:hover {
+      border-color: rgba(22, 20, 20, 0.20);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+    }
+  
+    &:active {
+      transform: translateY(1px);
+    }
+  
+    span {
+      display: block;
+      height: 2px;
+      width: 18px;
+      margin: 4px auto;
+      background: rgba(22, 20, 20, 0.85);
+      border-radius: 4px;
+    }
+  }
+  
+  /* Overlay */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(15, 14, 14, 0.44);
+  }
+  
+  /* =========================
+     Drawer
+     ========================= */
+  
+  /* 🔥 IMPORTANT: prevent “ghost flying” when dir changes */
+  :host-context(html.dir-switching) .drawer {
+    transition: none !important;
+  }
+  
+  /* LTR = LEFT drawer */
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: auto;
+  
+    height: 100%;
+    width: min(380px, 92vw);
+    z-index: 70;
+  
+    background: #fff;
+  
+    border-right: 1px solid rgba(22, 20, 20, 0.10);
+    border-left: 0;
+  
+    box-shadow: 20px 0 40px rgba(0, 0, 0, 0.16);
+  
+    transform: translateX(-100%);
+    transition: transform 220ms ease;
+  
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  
+    &.is-open {
+      transform: translateX(0);
+    }
+  
+    &__top {
+      /* stable internal layout */
+      direction: ltr;
+  
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(22, 20, 20, 0.08);
+    }
+  
+    &__logo {
+      height: 38px;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+      display: block;
+    }
+  
+    &__close {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(22, 20, 20, 0.10);
+      border-radius: 14px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  }
+  
+  /* RTL = RIGHT drawer */
+  :host-context(html[dir="rtl"]) .drawer {
+    right: 0;
+    left: auto;
+  
+    border-left: 1px solid rgba(22, 20, 20, 0.10);
+    border-right: 0;
+  
+    box-shadow: -20px 0 40px rgba(0, 0, 0, 0.16);
+  
+    transform: translateX(100%);
+  
+    &.is-open {
+      transform: translateX(0);
+    }
+  }
+  
+  /* Mobile nav */
+  .nav--mobile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  
+    .nav__link {
+      padding: 14px 12px;
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(22, 20, 20, 0.08);
+  
+      &:hover {
+        background: rgba(215, 198, 178, 0.22);
+        border-color: rgba(112, 95, 82, 0.14);
+      }
+  
+      &.is-active {
+        background: rgba(215, 198, 178, 0.30);
+        border-color: rgba(112, 95, 82, 0.18);
+      }
+    }
+  }
+  
+  /* RTL: mobile menu text direction */
+  :host-context(html[dir="rtl"]) .nav--mobile {
+    direction: rtl;
+  }
+  
+  /* Bottom row: CTA + Lang side-by-side */
+  .drawer__bottom {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid rgba(22, 20, 20, 0.08);
+  
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: center;
+  
+    .btn--primary {
+      width: 100%;
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+  
+    .lang--bottom {
+      width: 72px;
+    }
+  }
+  
+  /* =========================
+     Responsive
+     ========================= */
+     @media (max-width: 980px) {
+      .nav--desktop,
+      .actions--desktop {
+        display: none;
+      }
+    
+      /* LTR: brand left, burger right */
+      .header__inner {
+        direction: ltr;
+        grid-template-columns: 1fr auto;
+        grid-template-areas: "brand burger";
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+    
+      .burger {
+        display: inline-block;
+        grid-area: burger;
+        }
+    
+      /* ✅ RTL: burger left, brand right */
+      :host-context(html[dir="rtl"]) .header__inner {
+        grid-template-columns: auto 1fr;
+        grid-template-areas: "burger brand";
+      }
+    
+      :host-context(html[dir="rtl"]) .burger {
+        grid-area: burger;
+        justify-self: start; /* left */
+      }
+    
+      :host-context(html[dir="rtl"]) .brand {
+        justify-self: end; /* right */
+      }
+    }    
+  
+  @media (max-width: 480px) {
+    .brand__logo,
+    .drawer__logo {
+      height: 36px;
+      max-width: 190px;
+    }
+  }
+  

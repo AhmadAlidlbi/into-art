@@ -1,0 +1,52 @@
+.ts {
+    display: grid;
+    gap: 8px;
+  }
+  
+  .ts__label {
+    font-weight: 850;
+    font-size: 12px;
+    color: rgba(0,0,0,0.75);
+  }
+  
+  .ts__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  
+  .ts__slot {
+    border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.92);
+    border-radius: 14px;
+    padding: 12px 10px;
+    cursor: pointer;
+    font-weight: 850;
+    transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
+  
+    &:hover { background: rgba(0,0,0,0.03); }
+    &:active { transform: translateY(1px); }
+  
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+  
+    &.is-selected {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+  }
+  
+  .ts__hint {
+    color: rgba(0,0,0,0.62);
+    font-size: 12px;
+    line-height: 1.6;
+    font-weight: 650;
+  }
+  
+  @media (max-width: 720px) {
+    .ts__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  

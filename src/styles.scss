@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'styles/tokens';
+@use 'styles/base';
+@use 'styles/components';
+@use 'styles/utilities';
+
+html[dir="rtl"] body { direction: rtl; }
+html[dir="rtl"] .hero,
+html[dir="rtl"] .card,
+html[dir="rtl"] .channel { text-align: right; }

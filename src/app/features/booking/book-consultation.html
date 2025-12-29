@@ -1,0 +1,193 @@
+<section class="hero">
+  <div class="container hero__grid">
+    <div>
+      <div class="hero__badge">Book Consultation</div>
+      <h1 class="hero__title">Let’s plan your interior project properly</h1>
+      <p class="hero__subtitle">
+        Share a few details and we’ll confirm your consultation with the right specialist. This is
+        the fastest way to get an accurate direction for your space.
+      </p>
+
+      <div class="cta-cards">
+        <button class="cta-card" type="button" (click)="openWhatsApp()">
+          <div class="cta-card__title">WhatsApp</div>
+          <div class="cta-card__desc">Fastest response for questions and confirmations</div>
+          <div class="cta-card__action">Message now →</div>
+        </button>
+
+        <button class="cta-card" type="button" (click)="callNow()">
+          <div class="cta-card__title">Call</div>
+          <div class="cta-card__desc">Speak directly with our team</div>
+          <div class="cta-card__action">Call now →</div>
+        </button>
+      </div>
+
+      <div class="trust">
+        <div class="trust__item">✓ Kuwait-based team</div>
+        <div class="trust__item">✓ Residential focus</div>
+        <div class="trust__item">✓ Structured workflow</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__title">Consultation request</div>
+      <div class="card__sub">Fields marked with * are required.</div>
+
+      <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="row">
+          <label class="field">
+            <span class="field__label">Full name *</span>
+            <input
+              class="field__input"
+              type="text"
+              formControlName="fullName"
+              placeholder="Your name"
+            />
+            <span
+              class="field__error"
+              *ngIf="form.controls.fullName.touched && form.controls.fullName.invalid"
+            >
+              Please enter your name.
+            </span>
+          </label>
+
+          <label class="field">
+            <span class="field__label">Phone *</span>
+            <input
+              class="field__input"
+              type="tel"
+              formControlName="phone"
+              placeholder="+965 5xxxxxxx"
+            />
+            <span
+              class="field__error"
+              *ngIf="form.controls.phone.touched && form.controls.phone.invalid"
+            >
+              Please enter a valid phone number.
+            </span>
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span class="field__label">Email (optional)</span>
+            <input
+              class="field__input"
+              type="email"
+              formControlName="email"
+              placeholder="you@email.com"
+            />
+            <span
+              class="field__error"
+              *ngIf="form.controls.email.touched && form.controls.email.invalid"
+            >
+              Please enter a valid email address.
+            </span>
+          </label>
+
+          <label class="field">
+            <span class="field__label">Area (optional)</span>
+            <input
+              class="field__input"
+              type="text"
+              formControlName="area"
+              placeholder="e.g., Salmiya"
+            />
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span class="field__label">Property type *</span>
+            <select class="field__input" formControlName="propertyType">
+              <option value="Villa">Villa</option>
+              <option value="Apartment">Apartment</option>
+              <option value="Room">Room</option>
+              <option value="Office">Office</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="field__label">Preferred date *</span>
+
+            <app-date-picker
+              formControlName="preferredDate"
+              [minDateISO]="todayISO()"
+              [blockedWeekdays]="[5]"
+              placeholder="Select a date"
+            ></app-date-picker>
+
+            <span
+              class="field__error"
+              *ngIf="form.controls.preferredDate.touched && form.controls.preferredDate.invalid"
+            >
+              Please select a date.
+            </span>
+          </label>
+
+          <label class="field">
+            <app-time-slots
+              formControlName="preferredHour"
+              [selectedDateISO]="selectedDateISO()"
+              [startHour]="10"
+              [endHour]="20"
+              [stepMinutes]="60"
+              [minLeadMinutes]="60"
+              [blockedWeekdays]="[5]"
+              label="Preferred hour *"
+            ></app-time-slots>
+
+            <span
+              class="field__error"
+              *ngIf="form.controls.preferredHour.touched && form.controls.preferredHour.invalid"
+            >
+              Please select an hour.
+            </span>
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span class="field__label">Preferred time *</span>
+            <select class="field__input" formControlName="preferredTime">
+              <option value="Morning">Morning</option>
+              <option value="Afternoon">Afternoon</option>
+              <option value="Evening">Evening</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="field__label">Preferred contact *</span>
+            <select class="field__input" formControlName="contactPreference">
+              <option value="WhatsApp">WhatsApp</option>
+              <option value="Call">Call</option>
+              <option value="Email">Email</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="field__label">Project details (optional)</span>
+          <textarea
+            class="field__input field__textarea"
+            formControlName="message"
+            rows="4"
+            placeholder="Tell us what you want to design or renovate..."
+          ></textarea>
+        </label>
+
+        <div class="alert" *ngIf="submitError()">{{ submitError() }}</div>
+
+        <button class="submit" type="submit" [disabled]="isSubmitting()">
+          <span *ngIf="!isSubmitting()">Submit request</span>
+          <span *ngIf="isSubmitting()">Submitting...</span>
+        </button>
+
+        <div class="privacy">
+          By submitting, you agree that we may contact you to confirm your appointment.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

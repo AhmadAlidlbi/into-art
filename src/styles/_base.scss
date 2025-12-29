@@ -1,0 +1,69 @@
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ar);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Typography scale */
+.h1, h1 {
+  font-size: 44px;
+  line-height: 1.12;
+  letter-spacing: -0.6px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.h2, h2 {
+  font-size: 30px;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.h3, h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 800;
+  margin: 0;
+}
+
+.p, p {
+  margin: 0;
+  color: var(--text-2);
+  font-weight: 500;
+}
+
+/* English text helper */
+.lang-en {
+  font-family: var(--font-en);
+  direction: ltr;
+  unicode-bidi: plaintext;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .h1, h1 { font-size: 36px; }
+  .h2, h2 { font-size: 26px; }
+}

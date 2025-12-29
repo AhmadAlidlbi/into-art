@@ -1,0 +1,225 @@
+<!-- HERO -->
+<section class="hero hero--image">
+  <div class="hero__bg" aria-hidden="true"></div>
+
+  <div class="container hero__overlay">
+    <div class="hero__content">
+      <div class="badge">Kuwait • Residential Interior Design</div>
+
+      <h1 class="hero__title">
+        Elevate your home with
+        <span class="hero__title--accent">refined interior design</span>
+      </h1>
+
+      <p class="hero__subtitle">
+        From concept to execution, {{ brandName }} delivers residential interiors that feel premium,
+        practical, and built to last.
+      </p>
+
+      <div class="hero__actions">
+        <button class="btn btn--secondary" type="button" (click)="goBook()">
+          {{ 'actions.book' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 SERVICE BOXES -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="cards3">
+      <a class="cards3__card" *ngFor="let c of serviceCards" [routerLink]="c.path">
+        <div class="cards3__title">{{ c.title }}</div>
+        <div class="cards3__desc">{{ c.desc }}</div>
+        <div class="cards3__arrow">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE ARE -->
+<section class="section">
+  <div class="container who">
+    <div class="who__media" aria-hidden="true"></div>
+
+    <div class="who__content">
+      <div class="eyebrow">Who we are</div>
+
+      <h2 class="section__title">
+        We are a residential interior team built for
+        <span class="accent">premium results</span>
+      </h2>
+
+      <p class="section__desc">
+        We help homeowners in Kuwait create calm, functional, and timeless interiors. Our workflow is
+        structured, our communication is clear, and our finishing standards are high.
+      </p>
+
+      <div class="who__metrics">
+        <div class="metric">
+          <div class="metric__value">{{ metrics.years }}</div>
+          <div class="metric__label">Years experience</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value">{{ metrics.team }}</div>
+          <div class="metric__label">Team members</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value">{{ metrics.clients }}</div>
+          <div class="metric__label">Clients served</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR WORK PROCEDURE -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__head">
+      <div class="eyebrow">How we work</div>
+      <h2 class="section__title">Our work procedure</h2>
+      <p class="section__desc">A clear process that keeps timelines predictable and decisions easy.</p>
+    </div>
+
+    <div class="procedure">
+      <div class="proc" *ngFor="let s of procedureSteps; let i = index">
+        <div class="proc__top">
+          <div class="proc__num">{{ i + 1 }}</div>
+          <div class="proc__icon">✦</div>
+        </div>
+        <div class="proc__title">{{ s.title }}</div>
+        <div class="proc__desc">{{ s.desc }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECTS SLIDER (AUTO FLIP 3s) -->
+<section class="section">
+  <div class="container">
+    <div class="section__head section__head--row">
+      <div>
+        <div class="eyebrow">Featured</div>
+        <h2 class="section__title">Featured projects</h2>
+        <p class="section__desc">A selection of recent residential work.</p>
+      </div>
+
+      <div class="slider-actions">
+        <button class="icon-btn" type="button" (click)="prevProjects()" aria-label="Previous">
+          ←
+        </button>
+        <button class="icon-btn" type="button" (click)="nextProjects()" aria-label="Next">
+          →
+        </button>
+      </div>
+    </div>
+
+    <div class="slider">
+      <div class="slider__track" [style.transform]="'translateX(' + (-projectIndex * 100) + '%)'">
+        <a
+          class="slide"
+          *ngFor="let p of featuredProjects"
+          [routerLink]="p.slug ? '/projects/' + p.slug : '/portfolio'"
+        >
+          <div class="slide__img" [style.backgroundImage]="'url(' + p.image + ')'"></div>
+          <div class="slide__meta">
+            <div class="slide__title">{{ p.title }}</div>
+            <div class="slide__cat">{{ p.category }}</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="dots">
+      <button
+        class="dot"
+        *ngFor="let _ of featuredProjects; let i = index"
+        type="button"
+        [class.is-active]="i === projectIndex"
+        (click)="projectIndex = i"
+        [attr.aria-label]="'Go to slide ' + (i + 1)"
+      ></button>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CLIENTS CHOOSE US -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="section__title">Why clients choose us</h2>
+      <p class="section__desc">
+        A streamlined process, premium finishing, and consistent communication.
+      </p>
+    </div>
+
+    <div class="features">
+      <div class="feature" *ngFor="let f of features">
+        <div class="feature__icon">✦</div>
+        <div class="feature__title">{{ f.title }}</div>
+        <div class="feature__desc">{{ f.desc }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENT REVIEWS (AUTO MOVING SMALL BOXES - 100s) -->
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <div class="eyebrow">Clients feedback</div>
+      <h2 class="section__title">Client reviews</h2>
+      <p class="section__desc">Real words from homeowners we worked with.</p>
+    </div>
+
+    <div class="reviews-marquee" aria-label="Client reviews auto slider">
+      <div class="reviews-marquee__viewport">
+        <div class="reviews-marquee__track">
+          <!-- Track A -->
+          <article class="review-card" *ngFor="let r of reviews">
+            <div class="review-card__stars">★★★★★</div>
+            <p class="review-card__text">“{{ r.text }}”</p>
+
+            <div class="review-card__person">
+              <div class="review-card__avatar"></div>
+              <div>
+                <div class="review-card__name">{{ r.name }}</div>
+                <div class="review-card__role">{{ r.role }}</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Track B (duplicate for seamless loop) -->
+          <article class="review-card" *ngFor="let r of reviews" aria-hidden="true">
+            <div class="review-card__stars">★★★★★</div>
+            <p class="review-card__text">“{{ r.text }}”</p>
+
+            <div class="review-card__person">
+              <div class="review-card__avatar"></div>
+              <div>
+                <div class="review-card__name">{{ r.name }}</div>
+                <div class="review-card__role">{{ r.role }}</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEEP THIS CTA SECTION AS-IS -->
+<section class="cta">
+  <div class="container cta__grid">
+    <div>
+      <h2 class="cta__title">Ready to start your consultation?</h2>
+      <p class="cta__desc">Tell us what you need and we’ll guide you through the next steps.</p>
+    </div>
+
+    <div class="cta__actions">
+      <button class="btn btn--primary" type="button" (click)="goBook()">Book Consultation</button>
+    </div>
+  </div>
+</section>

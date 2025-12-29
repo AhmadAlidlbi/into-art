@@ -1,0 +1,45 @@
+.bar {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 9999;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  
+    padding: 14px;
+    border-radius: 18px;
+    border: 1px solid rgba(0,0,0,0.10);
+    background: rgba(255,255,255,0.96);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.16);
+  }
+  
+  .bar__title { font-weight: 950; }
+  .bar__text {
+    margin-top: 6px;
+    color: rgba(0,0,0,0.70);
+    line-height: 1.6;
+    font-weight: 650;
+    font-size: 13px;
+  
+    a { color: rgba(0,0,0,0.85); font-weight: 850; text-decoration: underline; }
+  }
+  
+  .bar__actions { display: flex; gap: 10px; }
+  
+  .btn {
+    border: 0;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-weight: 900;
+    font-size: 13px;
+  
+    &--primary { background: #111; color: #fff; }
+    &--ghost { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.88); }
+  }
+  

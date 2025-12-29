@@ -1,0 +1,158 @@
+<section class="hero" *ngIf="project() as p; else notFound">
+  <div class="hero__cover" [style.backgroundImage]="'url(' + p.cover + ')'">
+    <div class="hero__overlay"></div>
+
+    <div class="container hero__inner">
+      <a class="back" routerLink="/projects">← Back to projects</a>
+
+      <div class="hero__grid">
+        <div class="hero__content">
+          <h1 class="hero__title">{{ p.title }}</h1>
+
+          <div class="meta">
+            <span class="pill">{{ p.category }}</span>
+            <span class="muted" *ngIf="p.area">• {{ p.area }}</span>
+            <span class="muted" *ngIf="p.location">• {{ p.location }}</span>
+            <span class="muted" *ngIf="p.year">• {{ p.year }}</span>
+          </div>
+
+          <p class="hero__subtitle">{{ p.summary }}</p>
+
+          <div class="actions">
+            <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
+            <a class="btn btn--ghost" routerLink="/services">View Services</a>
+          </div>
+        </div>
+
+        <div class="hero__stats">
+          <div class="stat">
+            <div class="k">Area</div>
+            <div class="v">{{ p.area || 'Kuwait' }}</div>
+          </div>
+          <div class="stat">
+            <div class="k">Category</div>
+            <div class="v">{{ p.category }}</div>
+          </div>
+          <div class="stat">
+            <div class="k">Year</div>
+            <div class="v">{{ p.year || '—' }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #notFound>
+  <section class="section">
+    <div class="container">
+      <h1 class="nf__title">Project not found</h1>
+      <p class="nf__desc">The project you’re looking for doesn’t exist.</p>
+      <a class="btn btn--primary" routerLink="/projects">Back to Projects</a>
+    </div>
+  </section>
+</ng-template>
+
+<section class="section" *ngIf="project() as p">
+  <div class="container">
+    <div class="case">
+      <div class="case__left">
+        <h2 class="section__title">Scope</h2>
+
+        <div class="scope">
+          <div class="scope__item" *ngFor="let s of p.scope">
+            <div class="scope__dot">✓</div>
+            <div class="scope__text">{{ s }}</div>
+          </div>
+        </div>
+
+        <div class="note">
+          <div class="note__title">Next step</div>
+          <div class="note__text">
+            Book a consultation and we’ll recommend the best direction for your space, scope, and
+            timeline.
+          </div>
+          <div class="note__actions">
+            <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
+            <a class="btn btn--ghost" routerLink="/projects">More Projects</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="case__right">
+        <h2 class="section__title">Gallery</h2>
+
+        <div class="gallery">
+          <button
+            class="gallery__img"
+            type="button"
+            *ngFor="let img of p.gallery; let i = index"
+            [style.backgroundImage]="'url(' + img + ')'"
+            (click)="openLightbox(i)"
+            [attr.aria-label]="'Open image ' + (i + 1)"
+          ></button>
+        </div>
+
+        <div class="hint">
+          Tip: later we can add a lightbox (click to open full screen) without changing the layout.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div
+  class="lightbox"
+  *ngIf="lightboxOpen()"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Image viewer"
+  (click)="closeLightbox()"
+>
+  <!-- Stop overlay close when clicking content -->
+  <div class="lightbox__inner" (click)="$event.stopPropagation()">
+    <button class="lightbox__close" type="button" (click)="closeLightbox()" aria-label="Close">
+      ✕
+    </button>
+
+    <button
+      class="lightbox__nav lightbox__nav--prev"
+      type="button"
+      (click)="prevImage()"
+      aria-label="Previous image"
+    >
+      ‹
+    </button>
+
+    <div class="lightbox__stage">
+      <img class="lightbox__img" [src]="activeImage()" alt="Project image" />
+    </div>
+
+    <button
+      class="lightbox__nav lightbox__nav--next"
+      type="button"
+      (click)="nextImage()"
+      aria-label="Next image"
+    >
+      ›
+    </button>
+
+    <div class="lightbox__counter">{{ activeIndex() + 1 }} / {{ images().length }}</div>
+  </div>
+</div>
+
+<section class="cta" *ngIf="project()">
+  <div class="container cta__grid">
+    <div>
+      <h2 class="cta__title">Want a similar style for your home?</h2>
+      <p class="cta__desc">
+        Book a consultation and we’ll recommend the right direction for your space.
+      </p>
+    </div>
+    <div class="cta__actions">
+      <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
+      <a class="btn btn--ghost" routerLink="/projects">More Projects</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,103 @@
+/* Sections */
+.section {
+    padding: var(--section-y) 0;
+  }
+  
+  .section--sm {
+    padding: var(--section-y-sm) 0;
+  }
+  
+  /* Card */
+  .card {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* Luxury dark block for mixed theme */
+  .theme-dark {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+  
+    /* Remap tokens locally so children “just work” */
+    --bg: var(--dark-bg);
+    --surface: var(--dark-surface);
+    --surface-2: var(--dark-surface);
+    --border: var(--dark-border);
+    --text: var(--dark-text);
+    --text-2: var(--dark-text-2);
+  }
+  
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 14px;
+    padding: 12px 16px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 14px;
+    transition: transform 120ms ease, opacity 120ms ease, background 120ms ease;
+  
+    &:active { transform: translateY(1px); }
+    &:disabled { opacity: 0.6; cursor: not-allowed; }
+  }
+  
+  .btn--primary {
+    background: var(--text);
+    color: #fff;
+  }
+
+  .btn--secondary {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+  
+  .btn--outline {
+    background: transparent;
+    border-color: var(--text);
+    color: var(--text);
+  }
+  
+  .btn--ghost {
+    background: rgba(0,0,0,0.06);
+    color: var(--text);
+  }
+  
+  /* Forms */
+  .field {
+    display: grid;
+    gap: 6px;
+  }
+  
+  .field__label {
+    font-weight: 800;
+    font-size: 12px;
+    color: rgba(0,0,0,0.72);
+  }
+  
+  .input, select, textarea {
+    width: 100%;
+    border-radius: 14px;
+    padding: 12px 12px;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.92);
+    outline: none;
+    font-weight: 600;
+    font-family: inherit;
+  
+    &:focus { border-color: rgba(0,0,0,0.26); }
+  }
+  
+  textarea { resize: vertical; min-height: 120px; }
+  
+  .error-text {
+    color: rgba(180, 0, 0, 0.9);
+    font-weight: 700;
+    font-size: 12px;
+  }
+  

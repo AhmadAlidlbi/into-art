@@ -1,0 +1,151 @@
+<section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <div class="hero__badge">About {{ brandName }}</div>
+  
+        <h1 class="hero__title">
+          A residential interior team built on
+          <span class="hero__accent">design, quality, and delivery</span>
+        </h1>
+  
+        <p class="hero__subtitle">
+          We help homeowners in Kuwait transform their spaces through a structured design process and professional execution.
+          Our workflow is built to deliver premium results with clear communication and attention to detail.
+        </p>
+  
+        <div class="hero__actions">
+          <button class="btn btn--primary" type="button" (click)="goBook()">Book Consultation</button>
+          <button class="btn btn--ghost" type="button" (click)="openWhatsApp()">WhatsApp</button>
+        </div>
+  
+        <div class="hero__proof">
+          <div class="proof">
+            <div class="proof__k">Residential</div>
+            <div class="proof__v">Villas • Apartments • Private spaces</div>
+          </div>
+          <div class="proof">
+            <div class="proof__k">Delivery</div>
+            <div class="proof__v">Design + Execution + Handover</div>
+          </div>
+          <div class="proof">
+            <div class="proof__k">Quality</div>
+            <div class="proof__v">Details, finishing, supervision</div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Hero media block (use real photo later) -->
+      <div class="hero__media" aria-hidden="true">
+        <div class="media__card">
+          <div class="media__overlay"></div>
+        </div>
+  
+        <div class="media__chip">
+          Kuwait-based • Premium residential
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2">
+        <article class="card card--soft">
+          <h2 class="card__title">Who we are</h2>
+          <p class="card__text">
+            {{ brandName }} is a Kuwait-based interior design company specialized in residential design and execution.
+            We aim to create spaces that feel refined, functional, and aligned with your lifestyle.
+          </p>
+          <p class="card__text">
+            Our delivery model combines local presence in Kuwait with extended production and support capabilities through
+            a partner team in Egypt — enabling efficient planning and consistent design output.
+          </p>
+        </article>
+  
+        <article class="card card--soft">
+          <h2 class="card__title">What we focus on</h2>
+          <ul class="bullets">
+            <li>Residential interiors: villas, apartments, and private spaces</li>
+            <li>Concept design, space planning, and material selection</li>
+            <li>Execution supervision and premium finishing quality</li>
+            <li>Structured handover and post-delivery support mindset</li>
+          </ul>
+  
+          <div class="note">
+            <div class="note__title">Best fit</div>
+            <div class="note__text">
+              Clients who value clean planning, refined finishing, and a calm end-to-end experience.
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">Our values</h2>
+        <p class="section__desc">
+          The internal standards we apply to every project — from first meeting to final handover.
+        </p>
+      </div>
+  
+      <div class="values">
+        <div class="value" *ngFor="let v of values">
+          <div class="value__icon" aria-hidden="true">✦</div>
+          <div class="value__title">{{ v.title }}</div>
+          <div class="value__desc">{{ v.desc }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title">How we work</h2>
+        <p class="section__desc">
+          A clear process that keeps the experience professional and the outcome consistent.
+        </p>
+      </div>
+  
+      <div class="timeline">
+        <div class="step" *ngFor="let s of process; let i = index">
+          <div class="step__rail" aria-hidden="true">
+            <div class="step__dot">{{ i + 1 }}</div>
+            <div class="step__line" *ngIf="i !== process.length - 1"></div>
+          </div>
+  
+          <div class="step__body">
+            <div class="step__title">{{ s.title }}</div>
+            <div class="step__desc">{{ s.desc }}</div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="callout">
+        <div class="callout__title">Outcome you should expect</div>
+        <div class="callout__text">
+          A premium result that matches the approved design — with a structured plan, controlled execution, and clean handover.
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="cta">
+    <div class="container cta__grid">
+      <div>
+        <h2 class="cta__title">Let’s design your space properly</h2>
+        <p class="cta__desc">
+          Book a consultation and we’ll guide you through the next steps based on your style, scope, and timeline.
+        </p>
+      </div>
+  
+      <div class="cta__actions">
+        <button class="btn btn--primary" type="button" (click)="goBook()">Book Consultation</button>
+        <button class="btn btn--ghost" type="button" (click)="openWhatsApp()">WhatsApp</button>
+      </div>
+    </div>
+  </section>
+  

@@ -1,0 +1,177 @@
+<section class="hero">
+    <div class="container hero__grid">
+      <!-- Left: Channels + Info -->
+      <div>
+        <div class="hero__badge">Contact</div>
+  
+        <h1 class="hero__title">
+          Let’s talk about your space,
+          <span class="hero__accent">properly</span>
+        </h1>
+  
+        <p class="hero__subtitle">
+          For the fastest response, use WhatsApp. You can also call us or send a message using the form.
+        </p>
+  
+        <div class="channels" role="list" aria-label="Contact channels">
+          <button class="channel" type="button" (click)="openWhatsApp()" role="listitem">
+            <div class="channel__icon" aria-hidden="true">💬</div>
+            <div class="channel__body">
+              <div class="channel__title">WhatsApp</div>
+              <div class="channel__desc">Fast confirmations and quick questions</div>
+            </div>
+            <div class="channel__action">Message</div>
+          </button>
+  
+          <button class="channel" type="button" (click)="callNow()" role="listitem">
+            <div class="channel__icon" aria-hidden="true">☎️</div>
+            <div class="channel__body">
+              <div class="channel__title">Call</div>
+              <div class="channel__desc">Speak directly with the team</div>
+            </div>
+            <div class="channel__action">Call</div>
+          </button>
+  
+          <button class="channel" type="button" (click)="sendEmail()" role="listitem">
+            <div class="channel__icon" aria-hidden="true">✉️</div>
+            <div class="channel__body">
+              <div class="channel__title">Email</div>
+              <div class="channel__desc">For formal inquiries and documents</div>
+            </div>
+            <div class="channel__action">Email</div>
+          </button>
+        </div>
+  
+        <div class="trust" aria-label="Service info">
+          <div class="trust__item">
+            <div class="trust__k">Working hours</div>
+            <div class="trust__v">Sat – Thu, 10:00 AM – 8:00 PM</div>
+          </div>
+          <div class="trust__item">
+            <div class="trust__k">Location</div>
+            <div class="trust__v">Kuwait • Residential focus</div>
+          </div>
+          <div class="trust__item">
+            <div class="trust__k">Response time</div>
+            <div class="trust__v">Same day for most inquiries</div>
+          </div>
+        </div>
+  
+        <div class="micro">
+          Prefer WhatsApp? Use this:
+          <a class="micro__link" [href]="whatsAppHref" target="_blank" rel="noopener noreferrer">{{ whatsappDisplay }}</a>
+          <span class="dot">•</span>
+          Call:
+          <a class="micro__link" [href]="telHref">{{ phoneDisplay }}</a>
+        </div>
+      </div>
+  
+      <!-- Right: Form card -->
+      <div class="card">
+        <div class="card__top">
+          <div>
+            <div class="card__title">Send us a message</div>
+            <div class="card__sub">Fields marked with * are required.</div>
+          </div>
+  
+          <div class="card__badge" *ngIf="submittedOk()">Received</div>
+        </div>
+  
+        <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+          <div class="row">
+            <label class="field">
+              <span class="field__label">Full name *</span>
+              <input
+                class="field__input"
+                type="text"
+                formControlName="fullName"
+                placeholder="Your name"
+                [class.is-invalid]="isInvalid('fullName')"
+              />
+              <span class="field__error" *ngIf="isInvalid('fullName')">
+                Please enter your name.
+              </span>
+            </label>
+  
+            <label class="field">
+              <span class="field__label">Phone (optional)</span>
+              <input
+                class="field__input"
+                type="tel"
+                formControlName="phone"
+                placeholder="+965 5xxxxxxx"
+                [class.is-invalid]="isInvalid('phone')"
+              />
+              <span class="field__error" *ngIf="isInvalid('phone')">
+                Please enter a valid phone number.
+              </span>
+            </label>
+          </div>
+  
+          <div class="row">
+            <label class="field">
+              <span class="field__label">Email (optional)</span>
+              <input
+                class="field__input"
+                type="email"
+                formControlName="email"
+                placeholder="you@email.com"
+                [class.is-invalid]="isInvalid('email')"
+              />
+              <span class="field__error" *ngIf="isInvalid('email')">
+                Please enter a valid email address.
+              </span>
+            </label>
+  
+            <label class="field">
+              <span class="field__label">Subject (optional)</span>
+              <input class="field__input" type="text" formControlName="subject" placeholder="e.g., Apartment renovation" />
+            </label>
+          </div>
+  
+          <div class="row row--single">
+            <label class="field">
+              <span class="field__label">Preferred contact *</span>
+              <select class="field__input" formControlName="contactPreference">
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Call">Call</option>
+                <option value="Email">Email</option>
+              </select>
+            </label>
+          </div>
+  
+          <label class="field">
+            <span class="field__label">Message *</span>
+            <textarea
+              class="field__input field__textarea"
+              rows="6"
+              formControlName="message"
+              placeholder="Tell us what you need (space type, style, timeline) and we’ll respond with the best next step…"
+              [class.is-invalid]="isInvalid('message')"
+            ></textarea>
+            <div class="hint">
+              Tip: Mention villa/apartment, area in Kuwait, and your timeline.
+            </div>
+            <span class="field__error" *ngIf="isInvalid('message')">
+              Please write a message (at least 10 characters).
+            </span>
+          </label>
+  
+          <div class="alerts">
+            <div class="alert alert--error" *ngIf="submitError()">{{ submitError() }}</div>
+            <div class="alert alert--ok" *ngIf="submittedOk()">Message received. We’ll contact you shortly.</div>
+          </div>
+  
+          <button class="submit" type="submit" [disabled]="isSubmitting()">
+            <span *ngIf="!isSubmitting()">Send message</span>
+            <span *ngIf="isSubmitting()">Sending…</span>
+          </button>
+  
+          <div class="privacy">
+            By submitting, you agree that we may contact you regarding your request.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  

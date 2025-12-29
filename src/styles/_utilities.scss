@@ -1,0 +1,15 @@
+.muted { color: var(--text-2); }
+
+.rounded { border-radius: var(--radius-lg); }
+
+.border { border: 1px solid var(--border); }
+
+.surface { background: var(--surface); }
+.surface-2 { background: var(--surface-2); }
+
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+
+/* RTL/LTR helpers */
+.dir-rtl { direction: rtl; }
+.dir-ltr { direction: ltr; unicode-bidi: plaintext; }

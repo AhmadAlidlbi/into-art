@@ -1,0 +1,237 @@
+<section class="hero">
+    <div class="container">
+      <div class="hero__badge">Legal</div>
+  
+      <h1 class="hero__title">Legal information</h1>
+  
+      <p class="hero__subtitle">
+        This page outlines our website terms, privacy practices, and cookie usage.
+        If you have any questions, contact us at
+        <button class="inline-link mono" type="button" (click)="copyEmail()">
+          {{ contactEmail }}
+        </button>.
+      </p>
+  
+      <div class="meta">
+        <div class="meta__item"><span>Effective date:</span> {{ effectiveDate }}</div>
+        <div class="meta__item"><span>Last updated:</span> {{ lastUpdated }}</div>
+  
+        <div class="meta__actions">
+          <button class="meta__btn" type="button" (click)="printPage()">Print</button>
+          <button class="meta__btn" type="button" (click)="scrollTo('privacy')">Start reading →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section">
+    <div class="container content">
+      <aside class="toc" aria-label="Legal table of contents">
+        <div class="toc__title">Contents</div>
+  
+        <a
+          class="toc__link"
+          [class.is-active]="activeId() === 'privacy'"
+          href="#privacy"
+          (click)="onTocClick($event, 'privacy')"
+        >
+          Privacy Policy
+        </a>
+  
+        <a
+          class="toc__link"
+          [class.is-active]="activeId() === 'cookies'"
+          href="#cookies"
+          (click)="onTocClick($event, 'cookies')"
+        >
+          Cookie Policy
+        </a>
+  
+        <a
+          class="toc__link"
+          [class.is-active]="activeId() === 'terms'"
+          href="#terms"
+          (click)="onTocClick($event, 'terms')"
+        >
+          Terms of Service
+        </a>
+  
+        <a
+          class="toc__link"
+          [class.is-active]="activeId() === 'disclaimer'"
+          href="#disclaimer"
+          (click)="onTocClick($event, 'disclaimer')"
+        >
+          Disclaimer
+        </a>
+  
+        <a
+          class="toc__link"
+          [class.is-active]="activeId() === 'contact'"
+          href="#contact"
+          (click)="onTocClick($event, 'contact')"
+        >
+          Contact
+        </a>
+  
+        <div class="toc__divider"></div>
+  
+        <button class="toc__btn" type="button" (click)="copyEmail()">
+          Copy email
+        </button>
+        <button class="toc__btn" type="button" (click)="scrollToTop()">
+          Back to top
+        </button>
+  
+        <div class="toast" *ngIf="toast()">{{ toast() }}</div>
+      </aside>
+  
+      <article class="doc">
+        <!-- Privacy -->
+        <section class="doc__section" id="privacy" data-observe>
+          <div class="doc__head">
+            <h2>Privacy Policy</h2>
+            <button class="anchor" type="button" (click)="copyLink('privacy')">Copy link</button>
+          </div>
+  
+          <p>
+            <strong>{{ brandName }}</strong> (“we”, “our”, “us”) respects your privacy. This Privacy Policy explains how
+            we collect, use, and protect information when you use <strong>{{ website }}</strong>.
+          </p>
+  
+          <div class="callout">
+            <div class="callout__title">Summary</div>
+            <div class="callout__text">
+              We collect the minimum needed to respond to you and improve the site. We do not sell personal data.
+            </div>
+          </div>
+  
+          <h3>Information we collect</h3>
+          <ul>
+            <li><strong>Contact details</strong> you submit through forms (e.g., name, phone number, email, message).</li>
+            <li><strong>Consultation booking details</strong> such as preferred date/time and project notes.</li>
+            <li><strong>Basic analytics data</strong> (e.g., page views, device/browser type) used to improve the website.</li>
+          </ul>
+  
+          <h3>How we use your information</h3>
+          <ul>
+            <li>To respond to inquiries and confirm consultations.</li>
+            <li>To improve our services, content, and website experience.</li>
+            <li>To prevent abuse, ensure security, and maintain website integrity.</li>
+          </ul>
+  
+          <h3>Sharing of information</h3>
+          <p>
+            We do not sell your personal data. We may share information with trusted service providers (e.g., hosting,
+            website analytics) only to operate our website and services. These providers are expected to protect your data.
+          </p>
+  
+          <h3>Data retention</h3>
+          <p>
+            We retain submitted information only for as long as needed to fulfill the purpose (e.g., follow up and
+            consultation coordination), unless a longer retention period is required for legal or operational reasons.
+          </p>
+  
+          <h3>Your rights</h3>
+          <p>
+            You may request access, correction, or deletion of your submitted information by contacting us at
+            <span class="mono">{{ contactEmail }}</span>.
+          </p>
+        </section>
+  
+        <!-- Cookies -->
+        <section class="doc__section" id="cookies" data-observe>
+          <div class="doc__head">
+            <h2>Cookie Policy</h2>
+            <button class="anchor" type="button" (click)="copyLink('cookies')">Copy link</button>
+          </div>
+  
+          <p>
+            Cookies are small files stored on your device that help websites function and improve user experience.
+          </p>
+  
+          <h3>How we use cookies</h3>
+          <ul>
+            <li><strong>Essential cookies</strong> needed for core website functionality (where applicable).</li>
+            <li><strong>Analytics cookies</strong> to understand website performance and improve content.</li>
+          </ul>
+  
+          <h3>Managing cookies</h3>
+          <p>
+            You can control cookies through your browser settings. Disabling cookies may impact certain website features.
+          </p>
+        </section>
+  
+        <!-- Terms -->
+        <section class="doc__section" id="terms" data-observe>
+          <div class="doc__head">
+            <h2>Terms of Service</h2>
+            <button class="anchor" type="button" (click)="copyLink('terms')">Copy link</button>
+          </div>
+  
+          <p>
+            By using this website, you agree to these Terms of Service. If you do not agree, please discontinue use.
+          </p>
+  
+          <h3>Use of website content</h3>
+          <ul>
+            <li>Our portfolio, images, and text content are provided for informational purposes and brand presentation.</li>
+            <li>You may not copy, reproduce, or distribute website content without written permission.</li>
+          </ul>
+  
+          <h3>Consultation requests</h3>
+          <p>
+            Submitting a consultation request does not guarantee availability. We will confirm your appointment via your
+            preferred contact method.
+          </p>
+  
+          <h3>External links</h3>
+          <p>
+            Our website may include links to third-party websites (e.g., WhatsApp). We are not responsible for third-party
+            content or policies.
+          </p>
+        </section>
+  
+        <!-- Disclaimer -->
+        <section class="doc__section" id="disclaimer" data-observe>
+          <div class="doc__head">
+            <h2>Disclaimer</h2>
+            <button class="anchor" type="button" (click)="copyLink('disclaimer')">Copy link</button>
+          </div>
+  
+          <p>
+            Website content is provided “as is” and may be updated at any time. While we aim for accuracy, we do not
+            guarantee that all information is complete or current at all times.
+          </p>
+  
+          <p>
+            Project visuals, renders, or examples are illustrative. Final results may vary based on site conditions,
+            material availability, and client approvals.
+          </p>
+        </section>
+  
+        <!-- Contact -->
+        <section class="doc__section" id="contact" data-observe>
+          <div class="doc__head">
+            <h2>Contact</h2>
+            <button class="anchor" type="button" (click)="copyLink('contact')">Copy link</button>
+          </div>
+  
+          <p>
+            If you have questions about these policies, contact us at
+            <span class="mono">{{ contactEmail }}</span>.
+          </p>
+  
+          <div class="contact-card">
+            <div class="contact-card__label">Email</div>
+            <div class="contact-card__value mono">{{ contactEmail }}</div>
+            <div class="contact-card__actions">
+              <button class="contact-card__btn" type="button" (click)="copyEmail()">Copy</button>
+              <a class="contact-card__btn contact-card__btn--ghost" [href]="'mailto:' + contactEmail">Email us</a>
+            </div>
+          </div>
+        </section>
+      </article>
+    </div>
+  </section>
+  

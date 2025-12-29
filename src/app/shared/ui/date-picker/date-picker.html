@@ -1,0 +1,56 @@
+<div class="dp">
+    <button
+      class="dp__trigger"
+      type="button"
+      [class.is-disabled]="isDisabled()"
+      [class.is-empty]="!valueISO()"
+      (click)="toggle()"
+    >
+      <span class="dp__text">
+        <ng-container *ngIf="valueISO(); else placeholderTpl">
+          {{ displayValue() }}
+        </ng-container>
+        <ng-template #placeholderTpl>{{ placeholder }}</ng-template>
+      </span>
+  
+      <span class="dp__icon">📅</span>
+    </button>
+  
+    <div class="dp__backdrop" *ngIf="isOpen()" (click)="onBackdrop()"></div>
+  
+    <div class="dp__panel" *ngIf="isOpen()">
+      <div class="dp__head">
+        <button class="dp__nav" type="button" (click)="prevMonth()">←</button>
+        <div class="dp__label">{{ monthLabel() }}</div>
+        <button class="dp__nav" type="button" (click)="nextMonth()">→</button>
+      </div>
+  
+      <div class="dp__week">
+        <div class="dp__wk" *ngFor="let w of weekLabels">{{ w }}</div>
+      </div>
+  
+      <div class="dp__grid">
+        <ng-container *ngFor="let c of grid()">
+          <div class="dp__cell" *ngIf="c.kind === 'blank'"></div>
+  
+          <button
+            *ngIf="c.kind === 'day'"
+            class="dp__day"
+            type="button"
+            [class.is-disabled]="c.disabled"
+            [class.is-today]="c.isToday"
+            [class.is-selected]="c.isSelected"
+            (click)="selectDay(c)"
+          >
+            {{ c.label }}
+          </button>
+        </ng-container>
+      </div>
+  
+      <div class="dp__hint">
+        <span class="dp__dot dp__dot--disabled"></span>
+        Fridays are unavailable
+      </div>
+    </div>
+  </div>
+  

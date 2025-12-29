@@ -1,0 +1,15 @@
+<div class="bar" *ngIf="visible()">
+    <div class="bar__content">
+      <div class="bar__title">Cookies</div>
+      <div class="bar__text">
+        We use cookies to improve website experience. Analytics cookies will be enabled only if you accept.
+        Learn more in our <a routerLink="/legal" fragment="cookies">Cookie Policy</a>.
+      </div>
+    </div>
+  
+    <div class="bar__actions">
+      <button class="btn btn--ghost" type="button" (click)="reject()">Reject</button>
+      <button class="btn btn--primary" type="button" (click)="accept()">Accept</button>
+    </div>
+  </div>
+  

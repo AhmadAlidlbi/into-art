@@ -1,0 +1,41 @@
+:root {
+    /* Brand fonts */
+    --font-ar: "IBM Plex Sans Arabic", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    --font-en: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  
+    /* Core palette (locked) */
+    --bg: #F5F0EA;         /* Ivory background */
+    --surface: #FFFFFF;    /* Cards */
+    --surface-2: #FBF7F2;  /* Soft surface */
+    --border: #E7E0D8;     /* Soft border */
+  
+    --text: #161414;       /* Charcoal */
+    --text-2: #5B5450;     /* Secondary */
+  
+    --accent-sand: #D7C6B2;
+    --accent-walnut: #705F52;
+    --accent-greige: #AAA49C;
+  
+    /* Luxury dark section (for mixed theme blocks) */
+    --dark-bg: #0F0E0E;
+    --dark-surface: rgba(255, 255, 255, 0.06);
+    --dark-border: rgba(255, 255, 255, 0.12);
+    --dark-text: #F7F4EF;
+    --dark-text-2: rgba(247, 244, 239, 0.72);
+  
+    /* Spacing / radius */
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+  
+    --container: 1200px;
+  
+    /* Shadows (minimal) */
+    --shadow-sm: 0 8px 18px rgba(0,0,0,0.06);
+    --shadow-md: 0 14px 34px rgba(0,0,0,0.10);
+  
+    /* Section rhythm */
+    --section-y: 72px;
+    --section-y-sm: 52px;
+  }
+  
