@@ -1,6 +1,6 @@
 <section class="wrap" *ngIf="post() as p; else notFound">
   <div class="container">
-    <a class="back" routerLink="/blog">← Back to blog</a>
+    <a class="back" routerLink="/under-construction">← Back to blog</a>
 
     <div class="head">
       <div class="meta">
@@ -47,7 +47,7 @@
 
           <div class="post-cta__actions">
             <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
-            <a class="btn btn--ghost" routerLink="/projects">View Projects</a>
+            <a class="btn btn--ghost" routerLink="/under-construction">View Projects</a>
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@
     <div class="more">
       <div class="more__title">More insights</div>
       <div class="more__grid">
-        <a class="mini" *ngFor="let x of related(p.slug)" [routerLink]="['/blog', x.slug]">
+        <a class="mini" *ngFor="let x of related(p.slug)" [routerLink]="['/under-construction', x.slug]">
           <div class="mini__img" [style.backgroundImage]="'url(' + x.cover + ')'"></div>
           <div class="mini__body">
             <div class="mini__meta">
@@ -76,7 +76,7 @@
     <div class="container">
       <h1 class="title">Post not found</h1>
       <p class="excerpt">The article you’re looking for doesn’t exist.</p>
-      <a class="btn btn--primary" routerLink="/blog">Back to blog</a>
+      <a class="btn btn--primary" routerLink="/under-construction">Back to blog</a>
     </div>
   </section>
 </ng-template>

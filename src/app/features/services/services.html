@@ -9,7 +9,7 @@
 
       <div class="hero__actions">
         <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
-        <a class="btn btn--ghost" routerLink="/portfolio">View Portfolio</a>
+        <a class="btn btn--ghost" routerLink="/under-construction">View Portfolio</a>
       </div>
     </div>
 
@@ -27,7 +27,7 @@
     </div>
 
     <div class="cards">
-      <a class="card" *ngFor="let s of services" [routerLink]="['/services', s.slug]">
+      <a class="card" *ngFor="let s of services" [routerLink]="['/under-construction', s.slug]">
         <div class="card__top">
           <div class="card__title">{{ s.title }}</div>
           <div class="card__arrow" aria-hidden="true">→</div>
@@ -56,7 +56,7 @@
 
     <div class="cta__actions">
       <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
-      <a class="btn btn--ghost" routerLink="/portfolio">View Portfolio</a>
+      <a class="btn btn--ghost" routerLink="/under-construction">View Portfolio</a>
     </div>
   </div>
 </section>

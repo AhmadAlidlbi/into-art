@@ -1,17 +1,38 @@
 {
-    "nav": {
-      "home": "Home",
-      "services": "Services",
-      "portfolio": "Portfolio",
-      "about": "About",
-      "faq": "FAQ",
-      "contact": "Contact",
-      "blog": "Blog",
-      "projects": "Projects"
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "blog": "Blog",
+    "projects": "Projects"
+  },
+  "actions": {
+    "whatsapp": "WhatsApp",
+    "book": "Book Consultation"
+  },
+  "home": {
+    "hero": {
+      "title_1": "Elevate your home with",
+      "title_2": "refined interior design",
+      "subtitle": "From concept to execution, into art delivers residential interiors that feel premium, practical, and built to last"
+    }
+  },
+
+  "cards": {
+    "card_1": {
+      "title": "Home design consultation",
+      "description": "Quick direction + budget-aligned plan for your space."
     },
-    "actions": {
-      "whatsapp": "WhatsApp",
-      "book": "Book Consultation"
+    "card_2": {
+      "title": "Renovation planning",
+      "description": "Layout improvements, material selections, and clear timelines."
+    },
+    "card_3": {
+      "title": "Design + execution",
+      "description": "End-to-end delivery with site supervision and finishing control."
     }
   }
-  
+}

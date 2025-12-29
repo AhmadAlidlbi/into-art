@@ -14,13 +14,13 @@ type QuickLink = { label: string; path: string };
 export class NotFoundPage {
   quickLinks: QuickLink[] = [
     { label: 'Home', path: '/' },
-    { label: 'Services', path: '/services' },
-    { label: 'Portfolio', path: '/portfolio' },
-    { label: 'Projects', path: '/projects' },
-    { label: 'Blog', path: '/blog' },
-    { label: 'FAQ', path: '/faq' },
+    { label: 'Services', path: '/under-construction' },
+    { label: 'Portfolio', path: '/under-construction' },
+    { label: 'Projects', path: '/under-construction' },
+    { label: 'Blog', path: '/under-construction' },
+    { label: 'FAQ', path: '/under-construction' },
     { label: 'Book Consultation', path: '/book-consultation' },
-    { label: 'Contact', path: '/contact' },
+    { label: 'Contact', path: '/under-construction' },
   ];
 
   q = signal<string>('');

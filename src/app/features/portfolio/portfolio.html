@@ -14,7 +14,7 @@
   
         <div class="hero__actions">
           <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
-          <a class="btn btn--ghost" routerLink="/services">View Services</a>
+          <a class="btn btn--ghost" routerLink="/under-construction">View Services</a>
         </div>
   
         <div class="hero__meta">
@@ -48,13 +48,13 @@
           <p class="section__desc">A selection of projects that represent our finishing and style direction.</p>
         </div>
   
-        <a class="link-cta" routerLink="/projects">
+        <a class="link-cta" routerLink="/under-construction">
           Browse all projects <span aria-hidden="true">→</span>
         </a>
       </div>
   
       <div class="featured">
-        <a class="featured__card" *ngFor="let p of featured()" [routerLink]="['/projects', p.slug]">
+        <a class="featured__card" *ngFor="let p of featured()" [routerLink]="['/under-construction', p.slug]">
           <div class="featured__img" [style.backgroundImage]="'url(' + p.cover + ')'">
             <div class="featured__overlay"></div>
           </div>
@@ -106,7 +106,7 @@
       </div>
   
       <div class="grid">
-        <a class="card" *ngFor="let p of filtered()" [routerLink]="['/projects', p.slug]">
+        <a class="card" *ngFor="let p of filtered()" [routerLink]="['/under-construction', p.slug]">
           <div class="card__img" [style.backgroundImage]="'url(' + p.cover + ')'">
             <div class="card__overlay"></div>
           </div>
@@ -164,7 +164,7 @@
   
       <div class="cta__actions">
         <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
-        <a class="btn btn--ghost" routerLink="/contact">Contact Us</a>
+        <a class="btn btn--ghost" routerLink="/under-construction">Contact Us</a>
       </div>
     </div>
   </section>

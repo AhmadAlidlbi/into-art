@@ -55,7 +55,7 @@
   <section class="section">
     <div class="container">
       <div class="grid">
-        <a class="card" *ngFor="let p of filtered(); trackBy: trackBySlug" [routerLink]="['/blog', p.slug]">
+        <a class="card" *ngFor="let p of filtered(); trackBy: trackBySlug" [routerLink]="['/under-construction', p.slug]">
           <div class="card__img" [style.backgroundImage]="'url(' + p.cover + ')'">
             <div class="card__overlay"></div>
             <div class="card__top">
@@ -104,7 +104,7 @@
   
       <div class="cta__actions">
         <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
-        <a class="btn btn--ghost" routerLink="/projects">View Projects</a>
+        <a class="btn btn--ghost" routerLink="/under-construction">View Projects</a>
       </div>
     </div>
   </section>

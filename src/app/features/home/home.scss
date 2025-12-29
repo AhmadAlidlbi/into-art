@@ -1,7 +1,7 @@
 /* IMPORTANT: keep global .container + .btn in your global styles, not here */
 
 .hero {
-  padding: 120px 0 56px;
+  padding: 150px 0 56px;
   position: relative;
   overflow: hidden;
 }
@@ -164,6 +164,16 @@
   border: 1px solid rgba(215, 198, 178, 0.34);
   font-weight: 950;
 }
+
+/* Flip the arrow and move it to the LEFT in RTL */
+:host-context(html[dir="rtl"]) .cards3__arrow {
+  right: auto;
+  left: 14px;
+
+  /* visually flip the arrow direction */
+  transform: scaleX(-1);
+}
+
 
 /* WHO WE ARE */
 .who {

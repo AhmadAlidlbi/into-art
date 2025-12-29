@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 type Feature = { title: string; desc: string };
 type ProjectCard = { title: string; category: string; image: string; slug?: string };
 type Review = { name: string; role: string; text: string };
-type Card = { title: string; desc: string; path: string };
+type Card = { titleKey: string; descKey: string; path: string };
 type Step = { title: string; desc: string };
 
 @Component({
@@ -24,19 +24,19 @@ export class HomePage implements OnInit, OnDestroy {
   // Top 3 cards
   serviceCards: Card[] = [
     {
-      title: 'Home design consultation',
-      desc: 'Quick direction + budget-aligned plan for your space.',
+      titleKey: 'cards.card_1.title',
+      descKey: 'cards.card_1.description',
       path: '/book-consultation',
     },
     {
-      title: 'Design + execution',
-      desc: 'End-to-end delivery with site supervision and finishing control.',
-      path: '/services',
+      titleKey: 'cards.card_2.title',
+      descKey: 'cards.card_2.description',
+      path: '/under-construction',
     },
     {
-      title: 'Renovation planning',
-      desc: 'Layout improvements, material selections, and clear timelines.',
-      path: '/services',
+      titleKey: 'cards.card_3.title',
+      descKey: 'cards.card_3.description',
+      path: '/under-construction',
     },
   ];
 

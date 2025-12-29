@@ -4,16 +4,13 @@
 
   <div class="container hero__overlay">
     <div class="hero__content">
-      <div class="badge">Kuwait • Residential Interior Design</div>
-
       <h1 class="hero__title">
-        Elevate your home with
-        <span class="hero__title--accent">refined interior design</span>
+        {{ 'home.hero.title_1' | translate }}
+        <span class="hero__title--accent"> {{ 'home.hero.title_2' | translate }}</span>
       </h1>
 
       <p class="hero__subtitle">
-        From concept to execution, {{ brandName }} delivers residential interiors that feel premium,
-        practical, and built to last.
+        {{ 'home.hero.subtitle' | translate }}
       </p>
 
       <div class="hero__actions">
@@ -30,8 +27,8 @@
   <div class="container">
     <div class="cards3">
       <a class="cards3__card" *ngFor="let c of serviceCards" [routerLink]="c.path">
-        <div class="cards3__title">{{ c.title }}</div>
-        <div class="cards3__desc">{{ c.desc }}</div>
+        <div class="cards3__title">{{ c.titleKey | translate }}</div>
+        <div class="cards3__desc">{{ c.descKey | translate }}</div>
         <div class="cards3__arrow">→</div>
       </a>
     </div>
@@ -52,8 +49,8 @@
       </h2>
 
       <p class="section__desc">
-        We help homeowners in Kuwait create calm, functional, and timeless interiors. Our workflow is
-        structured, our communication is clear, and our finishing standards are high.
+        We help homeowners in Kuwait create calm, functional, and timeless interiors. Our workflow
+        is structured, our communication is clear, and our finishing standards are high.
       </p>
 
       <div class="who__metrics">
@@ -80,7 +77,9 @@
     <div class="section__head">
       <div class="eyebrow">How we work</div>
       <h2 class="section__title">Our work procedure</h2>
-      <p class="section__desc">A clear process that keeps timelines predictable and decisions easy.</p>
+      <p class="section__desc">
+        A clear process that keeps timelines predictable and decisions easy.
+      </p>
     </div>
 
     <div class="procedure">
@@ -110,19 +109,22 @@
         <button class="icon-btn" type="button" (click)="prevProjects()" aria-label="Previous">
           ←
         </button>
-        <button class="icon-btn" type="button" (click)="nextProjects()" aria-label="Next">
-          →
-        </button>
+        <button class="icon-btn" type="button" (click)="nextProjects()" aria-label="Next">→</button>
       </div>
     </div>
 
     <div class="slider">
-      <div class="slider__track" [style.transform]="'translateX(' + (-projectIndex * 100) + '%)'">
-        <a
+      <div class="slider__track" [style.transform]="'translateX(' + -projectIndex * 100 + '%)'">
+        <!-- <a
           class="slide"
           *ngFor="let p of featuredProjects"
           [routerLink]="p.slug ? '/projects/' + p.slug : '/portfolio'"
-        >
+        > -->
+        <a
+        class="slide"
+        *ngFor="let p of featuredProjects"
+        [routerLink]="'/under-construction'"
+      >
           <div class="slide__img" [style.backgroundImage]="'url(' + p.image + ')'"></div>
           <div class="slide__meta">
             <div class="slide__title">{{ p.title }}</div>

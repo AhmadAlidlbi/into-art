@@ -1,48 +1,52 @@
 <section class="hero" *ngIf="service() as s; else notFound">
-    <div class="container hero__grid">
-      <div>
-        <a class="back" routerLink="/services">← Back to services</a>
-  
-        <h1 class="hero__title">{{ s.title }}</h1>
-        <p class="hero__subtitle">{{ s.short }}</p>
-  
-        <div class="actions">
-          <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
-          <a class="btn btn--ghost" routerLink="/portfolio">View Portfolio</a>
-        </div>
+  <div class="container hero__grid">
+    <div>
+      <a class="back" routerLink="/under-construction">← Back to services</a>
+
+      <h1 class="hero__title">{{ s.title }}</h1>
+      <p class="hero__subtitle">{{ s.short }}</p>
+
+      <div class="actions">
+        <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
+        <a class="btn btn--ghost" routerLink="/under-construction">View Portfolio</a>
       </div>
-  
-      <div class="media" *ngIf="s.heroImage" [style.backgroundImage]="'url(' + s.heroImage + ')'"></div>
     </div>
-  </section>
-  
-  <ng-template #notFound>
-    <section class="hero">
-      <div class="container">
-        <h1 class="hero__title">Service not found</h1>
-        <p class="hero__subtitle">The page you’re looking for doesn’t exist.</p>
-        <a class="btn btn--primary" routerLink="/services">Back to Services</a>
-      </div>
-    </section>
-  </ng-template>
-  
-  <section class="section" *ngIf="service() as s">
+
+    <div
+      class="media"
+      *ngIf="s.heroImage"
+      [style.backgroundImage]="'url(' + s.heroImage + ')'"
+    ></div>
+  </div>
+</section>
+
+<ng-template #notFound>
+  <section class="hero">
     <div class="container">
-      <h2 class="section__title">What’s included</h2>
-  
-      <div class="list">
-        <div class="item" *ngFor="let b of s.bullets">
-          <div class="item__dot">✓</div>
-          <div class="item__text">{{ b }}</div>
-        </div>
-      </div>
-  
-      <div class="note">
-        <div class="note__title">Next step</div>
-        <div class="note__text">
-          Book a consultation and we’ll advise you on scope, timeline, and the best approach for your space.
-        </div>
-      </div>
+      <h1 class="hero__title">Service not found</h1>
+      <p class="hero__subtitle">The page you’re looking for doesn’t exist.</p>
+      <a class="btn btn--primary" routerLink="/under-construction">Back to Services</a>
     </div>
   </section>
-  
+</ng-template>
+
+<section class="section" *ngIf="service() as s">
+  <div class="container">
+    <h2 class="section__title">What’s included</h2>
+
+    <div class="list">
+      <div class="item" *ngFor="let b of s.bullets">
+        <div class="item__dot">✓</div>
+        <div class="item__text">{{ b }}</div>
+      </div>
+    </div>
+
+    <div class="note">
+      <div class="note__title">Next step</div>
+      <div class="note__text">
+        Book a consultation and we’ll advise you on scope, timeline, and the best approach for your
+        space.
+      </div>
+    </div>
+  </div>
+</section>

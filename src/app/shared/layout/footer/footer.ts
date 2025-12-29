@@ -34,24 +34,24 @@ export class FooterComponent {
 
   quickLinks: FooterLink[] = [
     { label: 'Home', path: '/' },
-    { label: 'Services', path: '/services' },
-    { label: 'Portfolio', path: '/portfolio' },
-    { label: 'About', path: '/about' },
-    { label: 'FAQ', path: '/faq' },
-    { label: 'Contact', path: '/contact' },
-    { label: 'Blog', path: '/blog' },
-    { label: 'Projects', path: '/projects' },
+    { label: 'Services', path: '/under-construction' },
+    { label: 'Portfolio', path: '/under-construction' },
+    { label: 'About', path: '/under-construction' },
+    { label: 'FAQ', path: '/under-construction' },
+    { label: 'Contact', path: '/under-construction' },
+    { label: 'Blog', path: '/under-construction' },
+    { label: 'Projects', path: '/under-construction' },
   ];
 
   serviceLinks: FooterLink[] = [
-    { label: 'Residential Interior Design', path: '/services/residential-interior-design' },
-    { label: 'Apartment Renovation', path: '/services/apartment-renovation' },
-    { label: 'Turnkey Fit-out', path: '/services/turnkey-fitout' },
+    { label: 'Residential Interior Design', path: '/under-construction' },
+    { label: 'Apartment Renovation', path: '/under-construction' },
+    { label: 'Turnkey Fit-out', path: '/under-construction' },
   ];
 
   // ✅ Replace hrefs later with your real URLs
   socialLinks: SocialLink[] = [
-    { label: 'Instagram', href: '#https://www.instagram.com/intoart_kwt/?igsh=cG90N2dlNTFxbjBu#', icon: 'instagram' },
+    { label: 'Instagram', href: '#', icon: 'instagram' },
     { label: 'TikTok', href: '#', icon: 'tiktok' },
     { label: 'YouTube', href: '#', icon: 'youtube' },
     { label: 'LinkedIn', href: '#', icon: 'linkedin' },
