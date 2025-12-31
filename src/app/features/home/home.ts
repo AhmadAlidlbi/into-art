@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  signal,
+} from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -16,10 +25,20 @@ type Step = { title: string; desc: string };
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
 })
-export class HomePage implements OnInit, OnDestroy {
+export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   @Input() brandName = 'IntoArt';
   @Input() consultationPath = '/book-consultation';
   @Input() whatsappNumber = '96550000000';
+
+  // ✅ Enter animations (used by @if + animate.enter)
+  heroEnter = signal(false);
+  ctaEnter = signal(false);
+
+  // ✅ CTA visibility trigger
+  @ViewChild('ctaSection', { read: ElementRef })
+  ctaSection?: ElementRef<HTMLElement>;
+
+  private ctaIO?: IntersectionObserver;
 
   // Top 3 cards
   serviceCards: Card[] = [
@@ -114,7 +133,6 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   // Reviews (continuous marquee)
-  // NOTE: Reviews no longer use index-based slider. Using CSS continuous marquee (small cards auto-scroll).
   reviews: Review[] = [
     {
       name: 'Client A',
@@ -152,8 +170,35 @@ export class HomePage implements OnInit, OnDestroy {
     }, 3000);
   }
 
+  ngAfterViewInit(): void {
+    // HERO stays as you want (runs on load)
+    requestAnimationFrame(() => this.heroEnter.set(true));
+  
+    const el = this.ctaSection?.nativeElement;
+    if (!el) return;
+  
+    this.ctaIO = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry?.isIntersecting) return;
+  
+        this.ctaEnter.set(true);      // ✅ this will insert the CTA and trigger animate.enter
+        this.ctaIO?.disconnect();     // ✅ play once only
+        this.ctaIO = undefined;
+      },
+      {
+        threshold: 0.25,              // ✅ trigger when ~25% visible
+        rootMargin: '0px 0px -10% 0px'// ✅ avoids triggering too early
+      }
+    );
+  
+    this.ctaIO.observe(el);
+  }
+  
+
   ngOnDestroy(): void {
     if (this.projectTimer) window.clearInterval(this.projectTimer);
+    this.ctaIO?.disconnect();
   }
 
   goBook(): void {

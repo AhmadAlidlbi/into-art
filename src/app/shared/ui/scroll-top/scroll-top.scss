@@ -1,0 +1,65 @@
+.to-top {
+    position: fixed;
+    bottom: 18px;
+  
+    /* Default LTR: left. RTL switches to right below */
+    left: 18px;
+    right: auto;
+  
+    z-index: 99999;
+  
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
+  
+    /* ✅ white surface */
+    border: 1px solid rgba(22, 20, 20, 0.12);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+  
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  
+    box-shadow: 0 16px 34px rgba(22, 20, 20, 0.14);
+    transition: transform 140ms ease, box-shadow 160ms ease, opacity 160ms ease;
+  
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(22, 20, 20, 0.18);
+    }
+  
+    &:active {
+      transform: translateY(0px);
+    }
+  }
+  
+  .to-top__icon {
+    font-size: 20px;
+    font-weight: 950;
+    /* ✅ dark icon on white bg */
+    color: rgba(22, 20, 20, 0.88);
+    line-height: 1;
+  }
+  
+  /* RTL => move to right */
+  :host-context(html[dir="rtl"]) .to-top {
+    right: 18px;
+    left: auto;
+  }
+  
+  @media (max-width: 560px) {
+    .to-top {
+      bottom: 14px;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      left: 14px;
+    }
+  
+    :host-context(html[dir="rtl"]) .to-top {
+      right: 14px;
+      left: auto;
+    }
+  }
+  

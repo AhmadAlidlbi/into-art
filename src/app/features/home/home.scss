@@ -533,3 +533,123 @@
   .slide__img { height: 260px; }
   .review-card { flex-basis: 300px; }
 }
+
+/* ============================
+   Premium subtle elevation
+   - Adds slight shadow around bordered blocks
+   - Keeps the design calm (not heavy)
+   ============================ */
+
+/* Single source of truth for all shadows in Home */
+:host {
+  --elev-1: 0 10px 26px rgba(22, 20, 20, 0.07);
+  --elev-2: 0 14px 34px rgba(22, 20, 20, 0.10);
+  --stroke: 1px solid rgba(231, 224, 216, 0.95);
+  --shine: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+/* A helper “surface” look for bordered blocks */
+.cards3__card,
+.metric,
+.proc,
+.feature,
+.slider,
+.reviews-marquee__viewport,
+.who__media {
+  border: var(--stroke);
+  box-shadow: var(--shine), var(--elev-1);
+  transition: transform 140ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+/* Hover lift for clickable/interactive pieces only */
+.cards3__card:hover,
+.proc:hover,
+.feature:hover,
+.review-card:hover,
+.icon-btn:hover {
+  box-shadow: var(--shine), var(--elev-2);
+  transform: translateY(-2px);
+}
+
+/* Keep metrics stable (no lift) but slightly stronger depth */
+.metric {
+  box-shadow: var(--shine), 0 12px 28px rgba(22, 20, 20, 0.08);
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+}
+
+/* Procedure + Feature cards: small polish */
+.proc,
+.feature {
+  background: rgba(255, 255, 255, 0.82); /* slightly less flat */
+}
+
+/* Slider container: crisp depth */
+.slider {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+/* Reviews viewport: subtle depth + looks like a “tray” */
+.reviews-marquee__viewport {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+/* Review cards: already have shadow, just align with system */
+.review-card {
+  box-shadow: var(--shine), 0 12px 28px rgba(22, 20, 20, 0.08);
+  transition: transform 140ms ease, box-shadow 160ms ease;
+}
+
+/* Buttons in slider: add a slight shadow so they feel clickable */
+.icon-btn {
+  box-shadow: var(--shine), 0 10px 22px rgba(22, 20, 20, 0.08);
+  transition: transform 120ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.icon-btn:hover {
+  box-shadow: var(--shine), 0 14px 28px rgba(22, 20, 20, 0.10);
+}
+
+.icon-btn:active {
+  transform: translateY(1px);
+}
+
+/* CTA section: add a tiny shadow to separate it from background */
+.cta {
+  box-shadow: 0 -10px 28px rgba(22, 20, 20, 0.04);
+}
+
+.cta__grid--placeholder {
+  min-height: 140px; // tweak if your CTA is taller on your layout
+}
+
+/* ============================
+   Enter animation (Angular animate.enter)
+   - used by: animate.enter="enter-animation"
+   - delays: enter-delay-0/1/2
+   ============================ */
+
+   .enter-animation {
+    animation: slide-fade 900ms cubic-bezier(0.22, 0.7, 0.18, 1) both;
+  }
+  
+  .enter-delay-0 { animation-delay: 0ms; }
+  .enter-delay-1 { animation-delay: 140ms; }
+  .enter-delay-2 { animation-delay: 280ms; }
+  
+  @keyframes slide-fade {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .enter-animation {
+      animation: none !important;
+    }
+  }
+  

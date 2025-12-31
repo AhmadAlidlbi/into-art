@@ -25,15 +25,14 @@
 }
 
 .brand__logo {
-  width: 52px;          /* was 40px */
-  height: 52px;         /* was 40px */
+  width: 52px;
+  height: 52px;
   object-fit: contain;
-  border-radius: 16px;  /* slightly larger to match */
-  padding: 3px;         /* was 7px */
-  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 3px;
+  background: rgb(255, 255, 255);
   border: 1px solid rgba(255, 255, 255, 0.10);
 }
-
 
 .brand__name {
   font-weight: 950;
@@ -84,86 +83,44 @@
   }
 }
 
-/* CTA area */
-.ctas {
+/* Social icons row */
+.social {
   display: flex;
   gap: 10px;
-  align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 16px;
+  margin-top: 10px;
 }
 
-/* ✅ Icon-only WhatsApp button */
-.icon-cta {
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.06);
+.social__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
   display: grid;
   place-items: center;
-  cursor: pointer;
+  text-decoration: none;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
 
   svg {
-    width: 22px;
-    height: 22px;
-    color: rgba(247, 244, 239, 0.94);
+    width: 18px;
+    height: 18px;
+    color: rgba(247, 244, 239, 0.88);
   }
 
   &:hover {
-    background: rgba(37, 211, 102, 0.12); /* subtle WhatsApp tint */
-    border-color: rgba(37, 211, 102, 0.25);
+    transform: translateY(-1px);
+    background: rgba(215, 198, 178, 0.12);
+    border-color: rgba(215, 198, 178, 0.22);
+
+    svg {
+      color: rgba(247, 244, 239, 0.96);
+    }
   }
 
   &:active {
-    transform: translateY(1px);
-  }
-}
-
-/* Adjust global buttons for dark footer only */
-.site-footer .btn--primary {
-  background: rgba(247, 244, 239, 0.96);
-  color: var(--dark-bg);
-}
-
-.site-footer .btn--primary:hover {
-  opacity: 0.92;
-}
-
-.site-footer .btn--ghost {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(247, 244, 239, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-}
-
-.site-footer .btn--ghost:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-/* Social */
-.social {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: 4px;
-}
-
-.social__link {
-  color: rgba(247, 244, 239, 0.72);
-  font-weight: 800;
-  font-size: 13px;
-  text-decoration: none;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(255, 255, 255, 0.04);
-  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
-
-  &:hover {
-    color: rgba(247, 244, 239, 0.96);
-    background: rgba(215, 198, 178, 0.12);
-    border-color: rgba(215, 198, 178, 0.22);
+    transform: translateY(0px);
   }
 }
 
@@ -198,7 +155,7 @@
   }
 }
 
-/* ✅ Mini map */
+/* Mini map */
 .map {
   margin-top: 12px;
   border-radius: 18px;
@@ -209,9 +166,9 @@
 
 .map__frame {
   width: 100%;
-  height: 160px;
+  height: 150px;
   border: 0;
-  filter: grayscale(0.6) contrast(1.05) brightness(0.92);
+  filter: saturate(0.95) contrast(1.02);
 }
 
 /* Bottom bar */
@@ -277,87 +234,3 @@
     height: 190px;
   }
 }
-/* Icon CTA (WhatsApp) */
-.icon-cta {
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.06);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
-
-  svg {
-    width: 22px;
-    height: 22px;
-    color: rgba(247, 244, 239, 0.94);
-  }
-
-  &:hover {
-    background: rgba(37, 211, 102, 0.12);
-    border-color: rgba(37, 211, 102, 0.25);
-  }
-
-  &:active {
-    transform: translateY(1px);
-  }
-}
-
-/* Social icons row */
-.social {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-.social__icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  text-decoration: none;
-
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
-
-  svg {
-    width: 18px;
-    height: 18px;
-    color: rgba(247, 244, 239, 0.88);
-  }
-
-  &:hover {
-    transform: translateY(-1px);
-    background: rgba(215, 198, 178, 0.12);
-    border-color: rgba(215, 198, 178, 0.22);
-
-    svg {
-      color: rgba(247, 244, 239, 0.96);
-    }
-  }
-
-  &:active {
-    transform: translateY(0px);
-  }
-}
-
-/* Map container — keeps the pin visually centered in the visible frame */
-.map {
-  height: 210px;
-  overflow: hidden;
-  border-radius: 18px;
-}
-
-.map__frame {
-  width: 100%;
-  height: 100%;
-  display: block;
-  filter: saturate(0.95) contrast(1.02);
-}
-
-

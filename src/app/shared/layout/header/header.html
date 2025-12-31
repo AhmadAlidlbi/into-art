@@ -24,9 +24,8 @@
         {{ 'actions.book' | translate }}
       </button>
 
-      <!-- Language toggle -->
       <button class="lang" type="button" (click)="toggleLang()" aria-label="Toggle language">
-        <span class="lang__pill">{{ currentLang() === 'ar' ? 'EN' : 'AR' }} </span>
+        <span class="lang__pill">{{ currentLang() === 'ar' ? 'EN' : 'AR' }}</span>
       </button>
     </div>
 
@@ -43,17 +42,12 @@
     </button>
   </div>
 
-  <!-- Mobile drawer + overlay -->
+  <!-- Overlay -->
   <div class="overlay" *ngIf="mobileOpen()" (click)="closeMobile()" aria-hidden="true"></div>
 
+  <!-- Drawer -->
   <aside id="mobileMenu" class="drawer" [class.is-open]="mobileOpen()" aria-label="Mobile menu">
     <div class="drawer__top">
-      <div class="drawer__brand">
-        <a routerLink="/" aria-label="Go to homepage">
-          <img class="drawer__logo" [src]="logoSrc" [alt]="brandName + ' logo'" />
-        </a>
-      </div>
-
       <button class="drawer__close" type="button" (click)="closeMobile()" aria-label="Close menu">
         ✕
       </button>
@@ -72,19 +66,13 @@
       </a>
     </nav>
 
-    <!-- Bottom actions: CTA + Lang side-by-side -->
     <div class="drawer__bottom">
       <button class="btn btn--primary" type="button" (click)="goToConsultation()">
         {{ 'actions.book' | translate }}
       </button>
 
-      <button
-        class="lang lang--bottom"
-        type="button"
-        (click)="toggleLang()"
-        aria-label="Toggle language"
-      >
-        <span class="lang__pill">{{ currentLang() === 'ar' ? 'EN' : 'AR' }} </span>
+      <button class="lang lang--bottom" type="button" (click)="toggleLang()" aria-label="Toggle language">
+        <span class="lang__pill">{{ currentLang() === 'ar' ? 'EN' : 'AR' }}</span>
       </button>
     </div>
   </aside>

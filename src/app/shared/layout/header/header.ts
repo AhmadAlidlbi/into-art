@@ -3,6 +3,7 @@ import { Component, HostListener, Input, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { EventEmitter, Output } from '@angular/core';
 
 type HeaderLink = {
   labelKey: string;
@@ -18,6 +19,7 @@ type HeaderLink = {
   styleUrls: ['./header.scss'],
 })
 export class HeaderComponent {
+  @Output() mobileOpenChange = new EventEmitter<boolean>();
   /** Branding */
   @Input() logoSrc = 'assets/images/branding/logo.svg';
   @Input() brandName = 'IntoArt';
@@ -42,22 +44,28 @@ export class HeaderComponent {
   currentLang = signal<'en' | 'ar'>('en');
 
   constructor(private router: Router, private translate: TranslateService) {
-    // close drawer on navigation
+    // Close drawer on navigation
     this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
-      .subscribe(() => this.mobileOpen.set(false));
+      .subscribe(() => {
+        this.mobileOpen.set(false);
+        this.mobileOpenChange.emit(false);
+      });
 
-    // init language from storage (fallback en)
+    // Init language from storage
     const saved = (localStorage.getItem('lang') as 'en' | 'ar' | null) ?? 'en';
     this.applyLang(saved, false);
   }
 
   toggleMobile(): void {
-    this.mobileOpen.set(!this.mobileOpen());
+    const next = !this.mobileOpen();
+    this.mobileOpen.set(next);
+    this.mobileOpenChange.emit(next);
   }
 
   closeMobile(): void {
     this.mobileOpen.set(false);
+    this.mobileOpenChange.emit(false);
   }
 
   goToConsultation(): void {
@@ -66,19 +74,17 @@ export class HeaderComponent {
   }
 
   toggleLang(): void {
-    // close drawer first to avoid mid-transition swap
-    const wasOpen = this.mobileOpen();
-    if (wasOpen) this.closeMobile();
+    // Close drawer first to avoid mid-transition swap
+    if (this.mobileOpen()) this.closeMobile();
 
     const next = this.currentLang() === 'ar' ? 'en' : 'ar';
 
-    // prevent CSS transition during dir change
+    // Lock transitions during direction flip
     document.documentElement.classList.add('dir-switching');
 
-    // do the actual switch
     this.applyLang(next, true);
 
-    // remove the transition lock after the browser applies layout
+    // Unlock after layout applied
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         document.documentElement.classList.remove('dir-switching');
@@ -88,13 +94,10 @@ export class HeaderComponent {
 
   private applyLang(lang: 'en' | 'ar', persist: boolean): void {
     this.currentLang.set(lang);
-
     if (persist) localStorage.setItem('lang', lang);
 
-    // apply translate
     this.translate.use(lang);
 
-    // apply direction + lang immediately for correct layout
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
   }
@@ -111,9 +114,6 @@ export class HeaderComponent {
 
   @HostListener('window:resize')
   onResize(): void {
-    // ✅ If user expands browser to desktop width, close mobile drawer
-    if (window.innerWidth > 980 && this.mobileOpen()) {
-      this.closeMobile();
-    }
+    if (window.innerWidth > 980 && this.mobileOpen()) this.closeMobile();
   }
 }

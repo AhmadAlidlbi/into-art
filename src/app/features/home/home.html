@@ -4,20 +4,22 @@
 
   <div class="container hero__overlay">
     <div class="hero__content">
-      <h1 class="hero__title">
+      @if (heroEnter()) {
+      <h1 class="hero__title enter-delay-0" animate.enter="enter-animation">
         {{ 'home.hero.title_1' | translate }}
         <span class="hero__title--accent"> {{ 'home.hero.title_2' | translate }}</span>
       </h1>
 
-      <p class="hero__subtitle">
+      <p class="hero__subtitle enter-delay-1" animate.enter="enter-animation">
         {{ 'home.hero.subtitle' | translate }}
       </p>
 
-      <div class="hero__actions">
+      <div class="hero__actions enter-delay-2" animate.enter="enter-animation">
         <button class="btn btn--secondary" type="button" (click)="goBook()">
           {{ 'actions.book' | translate }}
         </button>
       </div>
+      }
     </div>
   </div>
 </section>
@@ -120,11 +122,7 @@
           *ngFor="let p of featuredProjects"
           [routerLink]="p.slug ? '/projects/' + p.slug : '/portfolio'"
         > -->
-        <a
-        class="slide"
-        *ngFor="let p of featuredProjects"
-        [routerLink]="'/under-construction'"
-      >
+        <a class="slide" *ngFor="let p of featuredProjects" [routerLink]="'/under-construction'">
           <div class="slide__img" [style.backgroundImage]="'url(' + p.image + ')'"></div>
           <div class="slide__meta">
             <div class="slide__title">{{ p.title }}</div>
@@ -212,16 +210,22 @@
   </div>
 </section>
 
-<!-- KEEP THIS CTA SECTION AS-IS -->
-<section class="cta">
-  <div class="container cta__grid">
-    <div>
-      <h2 class="cta__title">Ready to start your consultation?</h2>
-      <p class="cta__desc">Tell us what you need and we’ll guide you through the next steps.</p>
-    </div>
+<!-- KEEP THIS CTA SECTION AS-IS (but animate only when in view) -->
+<section class="cta" #ctaSection>
+  @if (ctaEnter()) {
+    <div class="container cta__grid" animate.enter="enter-animation">
+      <div>
+        <h2 class="cta__title">Ready to start your consultation?</h2>
+        <p class="cta__desc">Tell us what you need and we’ll guide you through the next steps.</p>
+      </div>
 
-    <div class="cta__actions">
-      <button class="btn btn--primary" type="button" (click)="goBook()">Book Consultation</button>
+      <div class="cta__actions">
+        <button class="btn btn--primary" type="button" (click)="goBook()">Book Consultation</button>
+      </div>
     </div>
-  </div>
+  } @else {
+    <!-- placeholder keeps layout stable so no jump -->
+    <div class="container cta__grid cta__grid--placeholder" aria-hidden="true"></div>
+  }
 </section>
+

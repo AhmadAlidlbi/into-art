@@ -1,0 +1,10 @@
+<button
+  *ngIf="enabled && visible"
+  type="button"
+  class="to-top"
+  (click)="scrollToTop()"
+  aria-label="Scroll to top"
+  title="Back to top"
+>
+  <span class="to-top__icon" aria-hidden="true">↑</span>
+</button>
