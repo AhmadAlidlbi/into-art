@@ -235,21 +235,19 @@
   width: min(380px, 92vw);
   z-index: 1100;
 
-  background-color: #fff;
+  background: #fff;
+  opacity: 1;
+  isolation: isolate;
+
   border-left: 1px solid rgba(22, 20, 20, 0.10);
   box-shadow: -20px 0 40px rgba(0, 0, 0, 0.16);
 
-  transform: translateX(101%);
+  transform: translateX(100%);
   transition: transform 220ms ease;
 
   display: flex;
   flex-direction: column;
   padding: 16px;
-
-  /* ✅ Mobile Safari fix */
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  will-change: transform;
 }
   
   .drawer.is-open {
@@ -299,28 +297,28 @@
     }
   }
   
-  /* Mobile nav */
-  .nav--mobile {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  
-    .nav__link {
-      padding: 14px 12px;
-      background: rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(22, 20, 20, 0.08);
-  
-      &:hover {
-        background: rgba(215, 198, 178, 0.22);
-        border-color: rgba(112, 95, 82, 0.14);
-      }
-  
-      &.is-active {
-        background: rgba(215, 198, 178, 0.30);
-        border-color: rgba(112, 95, 82, 0.18);
-      }
-    }
-  }
+/* Mobile nav – solid (no transparency) */
+.nav--mobile {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.nav--mobile .nav__link {
+  padding: 14px 12px;
+  background: #f4f4f4;
+  border: 1px solid #e0e0e0;
+}
+
+.nav--mobile .nav__link:hover {
+  background: #eaeaea;
+  border-color: #d0d0d0;
+}
+
+.nav--mobile .nav__link.is-active {
+  background: #e6ddd4;
+  border-color: #c9b9a7;
+}
   
   /* Drawer bottom actions */
   .drawer__bottom {
