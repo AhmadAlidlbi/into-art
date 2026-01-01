@@ -227,28 +227,30 @@
     transition: none !important;
   }
   
-  .drawer {
-    position: fixed;
-    top: 0;
-    right: 0; /* ✅ ALWAYS right */
-    left: auto;
-  
-    height: 100%;
-    width: min(380px, 92vw);
-    z-index: 70;
-  
-    background: #fff;
-  
-    border-left: 1px solid rgba(22, 20, 20, 0.10);
-    box-shadow: -20px 0 40px rgba(0, 0, 0, 0.16);
-  
-    transform: translateX(100%); /* ✅ hidden to the right */
-    transition: transform 220ms ease;
-  
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-  }
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(380px, 92vw);
+  z-index: 70;
+
+  background-color: #fff;
+  border-left: 1px solid rgba(22, 20, 20, 0.10);
+  box-shadow: -20px 0 40px rgba(0, 0, 0, 0.16);
+
+  transform: translateX(101%);
+  transition: transform 220ms ease;
+
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+
+  /* ✅ Mobile Safari fix */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+}
   
   .drawer.is-open {
     transform: translateX(0);
