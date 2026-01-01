@@ -1,10 +1,21 @@
 /* IMPORTANT: keep global .container + .btn in your global styles, not here */
+:host {
+  --header-h: 74px; /* desktop default (approx) */
+}
+
+/* Mobile header is a bit tighter */
+@media (max-width: 980px) {
+  :host {
+    --header-h: 68px;
+  }
+}
 
 .hero {
-  padding: 150px 0 56px;
+  padding: calc(var(--header-h) + 56px) 0 56px; /* ✅ no more push-down */
   position: relative;
   overflow: hidden;
 }
+
 
 .hero--image .hero__bg {
   position: absolute;
