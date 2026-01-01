@@ -41,7 +41,7 @@ export class HeaderComponent {
   scrolled = signal(false);
 
   // Lang state
-  currentLang = signal<'en' | 'ar'>('en');
+  currentLang = signal<'en' | 'ar'>('ar'); // ✅ default signal
 
   constructor(private router: Router, private translate: TranslateService) {
     // Close drawer on navigation
@@ -53,7 +53,7 @@ export class HeaderComponent {
       });
 
     // Init language from storage
-    const saved = (localStorage.getItem('lang') as 'en' | 'ar' | null) ?? 'en';
+    const saved = (localStorage.getItem('lang') as 'en' | 'ar' | null) ?? 'ar'; // ✅ fallback
     this.applyLang(saved, false);
   }
 
