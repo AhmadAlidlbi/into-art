@@ -1,28 +1,23 @@
 /* =========================================
    Header + Drawer (Clean)
-   - Desktop: Header fixed always
-   - Mobile/Touch: Header becomes sticky to prevent iOS pull-to-refresh gap
+   - Header fixed on all devices (desktop + mobile)
+   - Never disappears on scroll
    - Mobile header ALWAYS: logo left, burger right (EN + AR)
    - Drawer ALWAYS opens from RIGHT (EN + AR)
    - Drawer content RTL when html[dir="rtl"]
    ========================================= */
 
    .site-header {
-    position: fixed; /* Desktop default */
+    position: fixed; /* Always fixed on all devices */
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
     background: #fff;
     border-bottom: 1px solid rgba(22, 20, 20, 0.08);
-  }
-  
-  /* ✅ iOS/Android touch devices: prevent the “gap” while pulling down */
-  @media (hover: none) and (pointer: coarse) {
-    .site-header {
-      position: sticky; /* Key fix */
-      top: 0;
-    }
+    /* Prevent gap on mobile refresh */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
   
   .site-header.is-scrolled {
