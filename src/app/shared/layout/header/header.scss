@@ -230,7 +230,7 @@
 .drawer {
   position: fixed;
   top: 0;
-  right: 0;
+  right: -100%;
   height: 100%;
   width: min(380px, 92vw);
   z-index: 1100;
@@ -242,17 +242,16 @@
   border-left: 1px solid rgba(22, 20, 20, 0.10);
   box-shadow: -20px 0 40px rgba(0, 0, 0, 0.16);
 
-  transform: translateX(100%);
-  transition: transform 220ms ease;
+  transition: right 220ms ease;
 
   display: flex;
   flex-direction: column;
   padding: 16px;
 }
-  
-  .drawer.is-open {
-    transform: translateX(0);
-  }
+
+.drawer.is-open {
+  right: 0;
+}
   
   /* Drawer content direction */
   :host-context(html[dir="rtl"]) .drawer {
