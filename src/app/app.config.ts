@@ -1,5 +1,5 @@
 import { ApplicationConfig, APP_INITIALIZER, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
 import { provideHttpClient, HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
@@ -7,8 +7,6 @@ import { routes } from './app.routes';
 
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
-// ✅ No TranslateHttpLoader (avoids your TS2554 constructor mismatch)
-// Loads: /assets/i18n/en.json , /assets/i18n/ar.json
 export function translateLoaderFactory(http: HttpClient): TranslateLoader {
   return {
     getTranslation: (lang: string) =>
@@ -16,18 +14,19 @@ export function translateLoaderFactory(http: HttpClient): TranslateLoader {
   };
 }
 
-// ✅ Force language + load translations BEFORE app renders
 export function i18nInitFactory(translate: TranslateService) {
   return async () => {
-    const saved = (localStorage.getItem('lang') as 'en' | 'ar' | null) ?? 'en';
+    // ✅ default is AR if nothing saved
+    const saved = (localStorage.getItem('lang') as 'en' | 'ar' | null) ?? 'ar';
 
-    translate.setDefaultLang('en');
+    // ✅ default language becomes AR
+    translate.setDefaultLang('ar');
 
-    // important: set dir/lang early for layout correctness
+    // ✅ set direction/lang before render
     document.documentElement.lang = saved;
     document.documentElement.dir = saved === 'ar' ? 'rtl' : 'ltr';
 
-    // wait for translation file to be loaded
+    // ✅ load translations before app renders
     await firstValueFrom(translate.use(saved));
   };
 }
@@ -35,11 +34,12 @@ export function i18nInitFactory(translate: TranslateService) {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
-    provideRouter(routes),
+    provideRouter(routes, withEnabledBlockingInitialNavigation()),
 
     importProvidersFrom(
       TranslateModule.forRoot({
-        defaultLanguage: 'en',
+        // ✅ default becomes AR
+        defaultLanguage: 'ar',
         useDefaultLang: true,
         loader: {
           provide: TranslateLoader,
