@@ -1,8 +1,21 @@
 /* IMPORTANT: keep global .container + .btn in your global styles, not here */
 
 .hero {
+  /* Controlled height: not too tall, not too short */
+  min-height: 560px;
+  height: clamp(520px, 68vh, 760px);
+
+  padding: 150px 0 70px;
   position: relative;
   overflow: hidden;
+}
+
+@media (max-width: 560px) {
+  .hero {
+    min-height: 500px;
+    height: clamp(480px, 60vh, 620px);
+    padding: 120px 0 60px;
+  }
 }
 
 
@@ -118,7 +131,11 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
-  transform: translateY(-26px);
+  transform: translateY(-36px);
+  -webkit-transform: translateY(-36px);
+  -moz-transform: translateY(-36px);
+  -ms-transform: translateY(-36px);
+  -o-transform: translateY(-36px);
 }
 
 .cards3__card {
