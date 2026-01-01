@@ -1,25 +1,29 @@
 /* =========================================
    Header + Drawer (Clean)
-   - Header fixed always
+   - Desktop: Header fixed always
+   - Mobile/Touch: Header becomes sticky to prevent iOS pull-to-refresh gap
    - Mobile header ALWAYS: logo left, burger right (EN + AR)
    - Drawer ALWAYS opens from RIGHT (EN + AR)
    - Drawer content RTL when html[dir="rtl"]
    ========================================= */
 
    .site-header {
-    position: fixed;
+    position: fixed; /* Desktop default */
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
     background: #fff;
     border-bottom: 1px solid rgba(22, 20, 20, 0.08);
-    transition: box-shadow 200ms ease, border-color 200ms ease;
-    -webkit-transition: box-shadow 200ms ease, border-color 200ms ease;
-    -moz-transition: box-shadow 200ms ease, border-color 200ms ease;
-    -ms-transition: box-shadow 200ms ease, border-color 200ms ease;
-    -o-transition: box-shadow 200ms ease, border-color 200ms ease;
-}
+  }
+  
+  /* ✅ iOS/Android touch devices: prevent the “gap” while pulling down */
+  @media (hover: none) and (pointer: coarse) {
+    .site-header {
+      position: sticky; /* Key fix */
+      top: 0;
+    }
+  }
   
   .site-header.is-scrolled {
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
@@ -174,29 +178,29 @@
     }
   }
   
-/* Burger */
-.burger {
-  width: 46px;
-  height: 46px;
-
-  background-color: #fff;
-  border: 1px solid rgba(22, 20, 20, 0.14);
-  border-radius: 14px;
-  cursor: pointer;
-
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
-  transition: transform 120ms ease, border-color 160ms ease, box-shadow 160ms ease;
-
-  display: none;
-
-  &:hover {
-    border-color: rgba(22, 20, 20, 0.20);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
-  }
+  /* Burger */
+  .burger {
+    width: 46px;
+    height: 46px;
+  
+    background-color: #fff;
+    border: 1px solid rgba(22, 20, 20, 0.14);
+    border-radius: 14px;
+    cursor: pointer;
+  
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+    transition: transform 120ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  
+    display: none;
+  
+    &:hover {
+      border-color: rgba(22, 20, 20, 0.20);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+    }
   
     &:active {
       transform: translateY(1px);
@@ -232,7 +236,7 @@
   .drawer {
     position: fixed;
     top: 0;
-    right: 0;        /* ✅ ALWAYS right */
+    right: 0; /* ✅ ALWAYS right */
     left: auto;
   
     height: 100%;
