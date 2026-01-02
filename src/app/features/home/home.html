@@ -1,3 +1,5 @@
+<!-- home.html (FULL - updated) -->
+
 <!-- HERO -->
 <section class="hero hero--image">
   <div class="hero__bg" aria-hidden="true"></div>
@@ -97,7 +99,7 @@
   </div>
 </section>
 
-<!-- FEATURED PROJECTS SLIDER (AUTO FLIP 3s) -->
+<!-- FEATURED PROJECTS SLIDER (AUTO FLIP 3s + HAND SWIPE) -->
 <section class="section">
   <div class="container">
     <div class="section__head section__head--row">
@@ -108,20 +110,36 @@
       </div>
 
       <div class="slider-actions">
-        <button class="icon-btn" type="button" (click)="prevProjects()" aria-label="Previous">
-          ←
-        </button>
-        <button class="icon-btn" type="button" (click)="nextProjects()" aria-label="Next">→</button>
+        <button
+          class="icon-btn icon-btn--prev"
+          type="button"
+          (click)="prevProjects()"
+          aria-label="Previous"
+        ></button>
+        <button
+          class="icon-btn icon-btn--next"
+          type="button"
+          (click)="nextProjects()"
+          aria-label="Next"
+        ></button>
       </div>
     </div>
 
-    <div class="slider">
-      <div class="slider__track" [style.transform]="'translateX(' + -projectIndex * 100 + '%)'">
-        <!-- <a
-          class="slide"
-          *ngFor="let p of featuredProjects"
-          [routerLink]="p.slug ? '/projects/' + p.slug : '/portfolio'"
-        > -->
+    <div
+      class="slider"
+      (pointerdown)="projectsPointerDown($event)"
+      (pointermove)="projectsPointerMove($event)"
+      (pointerup)="projectsPointerUp($event)"
+      (pointercancel)="projectsPointerUp($event)"
+      (pointerleave)="projectsPointerUp($event)"
+    >
+      <div
+        class="slider__track"
+        [class.is-dragging]="projectsDragging"
+        [style.transform]="
+          'translateX(calc(' + -projectIndex * 100 + '% + ' + projectsDragPx + 'px))'
+        "
+      >
         <a class="slide" *ngFor="let p of featuredProjects" [routerLink]="'/under-construction'">
           <div class="slide__img" [style.backgroundImage]="'url(' + p.image + ')'"></div>
           <div class="slide__meta">
@@ -165,7 +183,7 @@
   </div>
 </section>
 
-<!-- CLIENT REVIEWS (AUTO MOVING SMALL BOXES - 100s) -->
+<!-- CLIENT REVIEWS (AUTO MOVING + TOUCH PAUSE + DIRECTION CONTROL) -->
 <section class="section">
   <div class="container">
     <div class="section__head">
@@ -175,8 +193,21 @@
     </div>
 
     <div class="reviews-marquee" aria-label="Client reviews auto slider">
-      <div class="reviews-marquee__viewport">
-        <div class="reviews-marquee__track">
+      <div
+        class="reviews-marquee__viewport"
+        (pointerdown)="reviewsPointerDown($event)"
+        (pointermove)="reviewsPointerMove($event)"
+        (pointerup)="reviewsPointerUp($event)"
+        (pointercancel)="reviewsPointerUp($event)"
+        (pointerleave)="reviewsPointerUp($event)"
+      >
+        <div
+          class="reviews-marquee__track"
+          [class.is-paused]="reviewsPaused"
+          [class.dir-left]="reviewsDir === 'left'"
+          [class.dir-right]="reviewsDir === 'right'"
+          [style.transform]="reviewsTransform"
+        >
           <!-- Track A -->
           <article class="review-card" *ngFor="let r of reviews">
             <div class="review-card__stars">★★★★★</div>
@@ -191,7 +222,7 @@
             </div>
           </article>
 
-          <!-- Track B (duplicate for seamless loop) -->
+          <!-- Track B -->
           <article class="review-card" *ngFor="let r of reviews" aria-hidden="true">
             <div class="review-card__stars">★★★★★</div>
             <p class="review-card__text">“{{ r.text }}”</p>
@@ -213,19 +244,17 @@
 <!-- KEEP THIS CTA SECTION AS-IS (but animate only when in view) -->
 <section class="cta" #ctaSection>
   @if (ctaEnter()) {
-    <div class="container cta__grid" animate.enter="enter-animation">
-      <div>
-        <h2 class="cta__title">Ready to start your consultation?</h2>
-        <p class="cta__desc">Tell us what you need and we’ll guide you through the next steps.</p>
-      </div>
-
-      <div class="cta__actions">
-        <button class="btn btn--primary" type="button" (click)="goBook()">Book Consultation</button>
-      </div>
+  <div class="container cta__grid" animate.enter="enter-animation">
+    <div>
+      <h2 class="cta__title">Ready to start your consultation?</h2>
+      <p class="cta__desc">Tell us what you need and we’ll guide you through the next steps.</p>
     </div>
+
+    <div class="cta__actions">
+      <button class="btn btn--primary" type="button" (click)="goBook()">Book Consultation</button>
+    </div>
+  </div>
   } @else {
-    <!-- placeholder keeps layout stable so no jump -->
-    <div class="container cta__grid cta__grid--placeholder" aria-hidden="true"></div>
+  <div class="container cta__grid cta__grid--placeholder" aria-hidden="true"></div>
   }
 </section>
-

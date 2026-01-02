@@ -1,10 +1,10 @@
+/* home.scss (FULL - updated, clean) */
 /* IMPORTANT: keep global .container + .btn in your global styles, not here */
 
+/* HERO */
 .hero {
-  /* Controlled height: not too tall, not too short */
   min-height: 560px;
   height: clamp(520px, 68vh, 760px);
-
   padding: 150px 0 70px;
   position: relative;
   overflow: hidden;
@@ -18,12 +18,11 @@
   }
 }
 
-
 .hero--image .hero__bg {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.46) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.26) 0%, rgba(0, 0, 0, 0.46) 100%),
     url('/assets/images/portfolio/projects/living.jpg');
   background-size: cover;
   background-position: center;
@@ -48,9 +47,9 @@
   font-weight: 900;
   font-size: 12px;
   letter-spacing: 0.2px;
-  color: rgba(255,255,255,0.88);
-  background: rgba(0,0,0,0.22);
-  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(10px);
 }
 
@@ -67,7 +66,7 @@
   margin: 0 0 20px;
   font-size: 16px;
   line-height: 1.85;
-  color: rgba(255,255,255,0.86);
+  color: rgba(255, 255, 255, 0.86);
   max-width: 560px;
 }
 
@@ -81,14 +80,9 @@
 .section {
   padding: 30px 0;
 }
-
 .section--tight {
   padding: 0px 0 10px;
 }
-
-// .section--alt {
-//   // background: rgba(251, 247, 242, 0.70);
-// }
 
 .section__head {
   margin-bottom: 18px;
@@ -132,10 +126,6 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   transform: translateY(-36px);
-  -webkit-transform: translateY(-36px);
-  -moz-transform: translateY(-36px);
-  -ms-transform: translateY(-36px);
-  -o-transform: translateY(-36px);
 }
 
 .cards3__card {
@@ -145,7 +135,7 @@
   padding: 18px;
   border: 1px solid rgba(231, 224, 216, 0.95);
   background: rgba(255, 255, 255, 0.86);
-  box-shadow: 0 18px 44px rgba(22, 20, 20, 0.10);
+  box-shadow: 0 18px 44px rgba(22, 20, 20, 0.1);
   transition: transform 140ms ease, box-shadow 140ms ease;
   position: relative;
 }
@@ -182,15 +172,12 @@
   font-weight: 950;
 }
 
-/* Flip the arrow and move it to the LEFT in RTL */
-:host-context(html[dir="rtl"]) .cards3__arrow {
+/* RTL arrow placement + flip */
+:host-context(html[dir='rtl']) .cards3__arrow {
   right: auto;
   left: 14px;
-
-  /* visually flip the arrow direction */
   transform: scaleX(-1);
 }
-
 
 /* WHO WE ARE */
 .who {
@@ -209,7 +196,7 @@
     url('/assets/images/portfolio/projects/living.jpg');
   background-size: cover;
   background-position: center;
-  box-shadow: 0 18px 40px rgba(22, 20, 20, 0.10);
+  box-shadow: 0 18px 40px rgba(22, 20, 20, 0.1);
 }
 
 .who__metrics {
@@ -275,7 +262,6 @@
   opacity: 0.8;
   font-weight: 950;
 }
-
 .proc__title {
   font-weight: 950;
   margin-bottom: 6px;
@@ -310,7 +296,7 @@
   place-items: center;
   font-weight: 950;
   background: rgba(215, 198, 178, 0.28);
-  border: 1px solid rgba(215, 198, 178, 0.40);
+  border: 1px solid rgba(215, 198, 178, 0.4);
   margin-bottom: 10px;
 }
 
@@ -332,6 +318,8 @@
   gap: 8px;
 }
 
+/* ✅ Arrow buttons (centered, consistent in LTR + RTL)
+   IMPORTANT: buttons should be empty in HTML; arrows rendered via ::before */
 .icon-btn {
   width: 44px;
   height: 44px;
@@ -339,10 +327,76 @@
   border: 1px solid rgba(231, 224, 216, 0.95);
   background: rgba(255, 255, 255, 0.85);
   cursor: pointer;
+  user-select: none;
+
+  color: var(--text) !important;
+  -webkit-text-fill-color: var(--text) !important;
+  text-decoration: none !important;
+
   font-weight: 950;
+
+  /* ✅ hard-center glyph */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* ✅ remove default button quirks */
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+
+  /* ✅ consistent feel */
+  box-shadow: var(--shine), 0 10px 22px rgba(22, 20, 20, 0.08);
+  transition: transform 120ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 
-.icon-btn:active { transform: translateY(1px); }
+.icon-btn::before {
+  content: '';
+  display: block;
+
+  /* ✅ optical centering */
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  font-size: 18px;
+
+  transform: translateY(-0.5px); /* tiny baseline fix */
+}
+
+.icon-btn--prev::before {
+  content: '←';
+}
+.icon-btn--next::before {
+  content: '→';
+}
+
+/* ✅ swap glyphs in RTL (but keep button placement the same) */
+:host-context(html[dir='rtl']) .icon-btn--prev::before {
+  content: '→';
+}
+:host-context(html[dir='rtl']) .icon-btn--next::before {
+  content: '←';
+}
+
+/* If you accidentally still have text inside the button, this hides it safely */
+.icon-btn {
+  font-size: 0;
+}
+.icon-btn::before {
+  font-size: 18px; /* restore */
+}
+
+.icon-btn:hover {
+  border-color: rgba(231, 224, 216, 1);
+  box-shadow: var(--shine), 0 14px 28px rgba(22, 20, 20, 0.1);
+}
+
+.icon-btn:active {
+  transform: translateY(1px);
+}
+.icon-btn:focus {
+  outline: none;
+}
 
 .dots {
   display: flex;
@@ -355,13 +409,13 @@
   width: 9px;
   height: 9px;
   border-radius: 999px;
-  border: 1px solid rgba(22, 20, 20, 0.20);
-  background: rgba(22, 20, 20, 0.10);
+  border: 1px solid rgba(22, 20, 20, 0.2);
+  background: rgba(22, 20, 20, 0.1);
   cursor: pointer;
 }
 
 .dot.is-active {
-  background: rgba(22, 20, 20, 0.50);
+  background: rgba(22, 20, 20, 0.5);
 }
 
 /* Projects slider */
@@ -370,12 +424,20 @@
   border: 1px solid rgba(231, 224, 216, 0.95);
   background: rgba(255, 255, 255, 0.75);
   overflow: hidden;
+
+  touch-action: pan-y;
+  user-select: none;
 }
 
 .slider__track {
   display: flex;
   transition: transform 420ms ease;
   will-change: transform;
+}
+
+.slider__track.is-dragging {
+  transition: none;
+  cursor: grabbing;
 }
 
 .slide {
@@ -406,11 +468,17 @@
   font-size: 13px;
 }
 
-/* ============================
-   Reviews continuous marquee (small cards auto-moving)
-   Duration: 100s full loop
-   ============================ */
+/* ✅ Featured slider: DO NOT flip in RTL */
+:host-context(html[dir='rtl']) .slider {
+  direction: ltr;
+}
+:host-context(html[dir='rtl']) .slide__meta,
+:host-context(html[dir='rtl']) .section__head {
+  direction: rtl;
+  text-align: right;
+}
 
+/* Reviews marquee */
 .reviews-marquee {
   margin-top: 14px;
 }
@@ -421,6 +489,8 @@
   border: 1px solid rgba(231, 224, 216, 0.95);
   background: rgba(255, 255, 255, 0.75);
   padding: 14px;
+
+  touch-action: pan-y;
 }
 
 .reviews-marquee__track {
@@ -429,12 +499,24 @@
   width: max-content;
   will-change: transform;
   transform: translate3d(0, 0, 0);
+
   animation: reviewsMarquee 100s cubic-bezier(0.25, 0.15, 0.75, 0.85) infinite;
 }
 
-/* Pause on hover */
+/* Pause helpers */
 .reviews-marquee__viewport:hover .reviews-marquee__track {
   animation-play-state: paused;
+}
+.reviews-marquee__track.is-paused {
+  animation-play-state: paused;
+}
+
+/* Direction control */
+.reviews-marquee__track.dir-left {
+  animation-direction: normal;
+}
+.reviews-marquee__track.dir-right {
+  animation-direction: reverse;
 }
 
 .review-card {
@@ -470,8 +552,8 @@
   width: 40px;
   height: 40px;
   border-radius: 14px;
-  background: rgba(215, 198, 178, 0.30);
-  border: 1px solid rgba(215, 198, 178, 0.40);
+  background: rgba(215, 198, 178, 0.3);
+  border: 1px solid rgba(215, 198, 178, 0.4);
 }
 
 .review-card__name {
@@ -486,12 +568,21 @@
 }
 
 @keyframes reviewsMarquee {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(calc(-50% - 7px), 0, 0); }
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-50% - 7px), 0, 0);
+  }
 }
 
-:host-context(html[dir="rtl"]) .reviews-marquee__track {
-  animation-direction: reverse;
+/* ✅ Keep marquee stable in RTL */
+:host-context(html[dir='rtl']) .reviews-marquee {
+  direction: ltr;
+}
+:host-context(html[dir='rtl']) .review-card {
+  direction: rtl;
+  text-align: right;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -501,13 +592,13 @@
   }
 }
 
-/* CTA band — keep your existing look */
+/* CTA */
 .cta {
   padding: 56px 0;
-  background: rgba(251, 247, 242, 0.70);
-
+  background: rgba(251, 247, 242, 0.7);
   color: var(--text);
   border-top: 1px solid rgba(231, 224, 216, 0.85);
+  box-shadow: 0 -10px 28px rgba(22, 20, 20, 0.04);
 }
 
 .cta__grid {
@@ -539,33 +630,47 @@
   flex-wrap: wrap;
 }
 
-/* Responsive */
-@media (max-width: 980px) {
-  .hero__title { font-size: 40px; }
-  .cards3 { grid-template-columns: 1fr; transform: translateY(-18px); }
-  .who { grid-template-columns: 1fr; }
-  .who__metrics { grid-template-columns: 1fr; }
-  .procedure { grid-template-columns: 1fr; }
-  .features { grid-template-columns: 1fr; }
-  .slide__img { height: 260px; }
-  .review-card { flex-basis: 300px; }
+.cta__grid--placeholder {
+  min-height: 140px;
 }
 
-/* ============================
-   Premium subtle elevation
-   - Adds slight shadow around bordered blocks
-   - Keeps the design calm (not heavy)
-   ============================ */
+/* Responsive */
+@media (max-width: 980px) {
+  .hero__title {
+    font-size: 40px;
+  }
+  .cards3 {
+    grid-template-columns: 1fr;
+    transform: translateY(-18px);
+  }
+  .who {
+    grid-template-columns: 1fr;
+  }
+  .who__metrics {
+    grid-template-columns: 1fr;
+  }
+  .procedure {
+    grid-template-columns: 1fr;
+  }
+  .features {
+    grid-template-columns: 1fr;
+  }
+  .slide__img {
+    height: 260px;
+  }
+  .review-card {
+    flex-basis: 300px;
+  }
+}
 
-/* Single source of truth for all shadows in Home */
+/* Premium subtle elevation system */
 :host {
   --elev-1: 0 10px 26px rgba(22, 20, 20, 0.07);
-  --elev-2: 0 14px 34px rgba(22, 20, 20, 0.10);
+  --elev-2: 0 14px 34px rgba(22, 20, 20, 0.1);
   --stroke: 1px solid rgba(231, 224, 216, 0.95);
   --shine: inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 
-/* A helper “surface” look for bordered blocks */
 .cards3__card,
 .metric,
 .proc,
@@ -578,7 +683,6 @@
   transition: transform 140ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 
-/* Hover lift for clickable/interactive pieces only */
 .cards3__card:hover,
 .proc:hover,
 .feature:hover,
@@ -588,85 +692,57 @@
   transform: translateY(-2px);
 }
 
-/* Keep metrics stable (no lift) but slightly stronger depth */
 .metric {
   box-shadow: var(--shine), 0 12px 28px rgba(22, 20, 20, 0.08);
   transition: box-shadow 160ms ease, border-color 160ms ease;
 }
 
-/* Procedure + Feature cards: small polish */
 .proc,
 .feature {
-  background: rgba(255, 255, 255, 0.82); /* slightly less flat */
+  background: rgba(255, 255, 255, 0.82);
 }
 
-/* Slider container: crisp depth */
 .slider {
   background: rgba(255, 255, 255, 0.82);
 }
 
-/* Reviews viewport: subtle depth + looks like a “tray” */
 .reviews-marquee__viewport {
   background: rgba(255, 255, 255, 0.82);
 }
 
-/* Review cards: already have shadow, just align with system */
 .review-card {
   box-shadow: var(--shine), 0 12px 28px rgba(22, 20, 20, 0.08);
   transition: transform 140ms ease, box-shadow 160ms ease;
 }
 
-/* Buttons in slider: add a slight shadow so they feel clickable */
-.icon-btn {
-  box-shadow: var(--shine), 0 10px 22px rgba(22, 20, 20, 0.08);
-  transition: transform 120ms ease, box-shadow 160ms ease, border-color 160ms ease;
+/* Enter animation */
+.enter-animation {
+  animation: slide-fade 900ms cubic-bezier(0.22, 0.7, 0.18, 1) both;
 }
 
-.icon-btn:hover {
-  box-shadow: var(--shine), 0 14px 28px rgba(22, 20, 20, 0.10);
+.enter-delay-0 {
+  animation-delay: 0ms;
+}
+.enter-delay-1 {
+  animation-delay: 140ms;
+}
+.enter-delay-2 {
+  animation-delay: 280ms;
 }
 
-.icon-btn:active {
-  transform: translateY(1px);
-}
-
-/* CTA section: add a tiny shadow to separate it from background */
-.cta {
-  box-shadow: 0 -10px 28px rgba(22, 20, 20, 0.04);
-}
-
-.cta__grid--placeholder {
-  min-height: 140px; // tweak if your CTA is taller on your layout
-}
-
-/* ============================
-   Enter animation (Angular animate.enter)
-   - used by: animate.enter="enter-animation"
-   - delays: enter-delay-0/1/2
-   ============================ */
-
-   .enter-animation {
-    animation: slide-fade 900ms cubic-bezier(0.22, 0.7, 0.18, 1) both;
+@keyframes slide-fade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
   }
-  
-  .enter-delay-0 { animation-delay: 0ms; }
-  .enter-delay-1 { animation-delay: 140ms; }
-  .enter-delay-2 { animation-delay: 280ms; }
-  
-  @keyframes slide-fade {
-    from {
-      opacity: 0;
-      transform: translateY(18px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  @media (prefers-reduced-motion: reduce) {
-    .enter-animation {
-      animation: none !important;
-    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-animation {
+    animation: none !important;
   }
-  
+}

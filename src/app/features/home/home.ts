@@ -1,3 +1,4 @@
+// home.ts (FULL - updated, clean)
 import { CommonModule } from '@angular/common';
 import {
   Component,
@@ -30,11 +31,10 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   @Input() consultationPath = '/book-consultation';
   @Input() whatsappNumber = '96550000000';
 
-  // ✅ Enter animations (used by @if + animate.enter)
+  // Enter animations
   heroEnter = signal(false);
   ctaEnter = signal(false);
 
-  // ✅ CTA visibility trigger
   @ViewChild('ctaSection', { read: ElementRef })
   ctaSection?: ElementRef<HTMLElement>;
 
@@ -42,31 +42,13 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   // Top 3 cards
   serviceCards: Card[] = [
-    {
-      titleKey: 'cards.card_1.title',
-      descKey: 'cards.card_1.description',
-      path: '/book-consultation',
-    },
-    {
-      titleKey: 'cards.card_2.title',
-      descKey: 'cards.card_2.description',
-      path: '/under-construction',
-    },
-    {
-      titleKey: 'cards.card_3.title',
-      descKey: 'cards.card_3.description',
-      path: '/under-construction',
-    },
+    { titleKey: 'cards.card_1.title', descKey: 'cards.card_1.description', path: '/book-consultation' },
+    { titleKey: 'cards.card_2.title', descKey: 'cards.card_2.description', path: '/under-construction' },
+    { titleKey: 'cards.card_3.title', descKey: 'cards.card_3.description', path: '/under-construction' },
   ];
 
-  // Who we are metrics (make them real later)
-  metrics = {
-    years: '15+',
-    team: '25+',
-    clients: '500+',
-  };
+  metrics = { years: '15+', team: '25+', clients: '500+' };
 
-  // Procedure
   procedureSteps: Step[] = [
     {
       title: 'Client design consultation',
@@ -82,130 +64,177 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     },
   ];
 
-  // Why choose us
   features: Feature[] = [
-    {
-      title: 'Design that reflects your lifestyle',
-      desc: 'Concept-to-detail solutions tailored for modern living.',
-    },
-    {
-      title: 'Transparent timelines and steps',
-      desc: 'Clear phases and communication from consultation to handover.',
-    },
-    {
-      title: 'Execution with attention to detail',
-      desc: 'Site supervision and finishing quality you can trust.',
-    },
+    { title: 'Design that reflects your lifestyle', desc: 'Concept-to-detail solutions tailored for modern living.' },
+    { title: 'Transparent timelines and steps', desc: 'Clear phases and communication from consultation to handover.' },
+    { title: 'Execution with attention to detail', desc: 'Site supervision and finishing quality you can trust.' },
   ];
 
-  // Projects slider
   featuredProjects: ProjectCard[] = [
-    {
-      title: 'Modern Apartment Living Room',
-      category: 'Apartment',
-      image: 'assets/images/portfolio/projects/living.jpg',
-      slug: 'modern-apartment-living-room',
-    },
-    {
-      title: 'Warm Minimal Bedroom',
-      category: 'Bedroom',
-      image: 'assets/images/portfolio/projects/room.jpg',
-      slug: 'warm-minimal-bedroom',
-    },
-    {
-      title: 'Contemporary Villa Majlis',
-      category: 'Villa',
-      image: 'assets/images/portfolio/projects/living.jpg',
-      slug: 'contemporary-villa-majlis',
-    },
+    { title: 'Modern Apartment Living Room', category: 'Apartment', image: 'assets/images/portfolio/projects/living.jpg', slug: 'modern-apartment-living-room' },
+    { title: 'Warm Minimal Bedroom', category: 'Bedroom', image: 'assets/images/portfolio/projects/room.jpg', slug: 'warm-minimal-bedroom' },
+    { title: 'Contemporary Villa Majlis', category: 'Villa', image: 'assets/images/portfolio/projects/living.jpg', slug: 'contemporary-villa-majlis' },
   ];
 
   projectIndex = 0;
   private projectTimer: number | null = null;
 
-  nextProjects(): void {
-    this.projectIndex = (this.projectIndex + 1) % this.featuredProjects.length;
-  }
+  // ===== Featured Projects swipe/drag =====
+  projectsDragging = false;
+  projectsDragPx = 0;
 
-  prevProjects(): void {
-    this.projectIndex =
-      (this.projectIndex - 1 + this.featuredProjects.length) % this.featuredProjects.length;
-  }
+  private projectsStartX = 0;
+  private projectsActivePointerId: number | null = null;
+  private projectsMoved = false;
 
-  // Reviews (continuous marquee)
+  // Reviews marquee
   reviews: Review[] = [
-    {
-      name: 'Client A',
-      role: 'Kuwait',
-      text: 'Very structured process. Clear steps, great finishing, and fast responses.',
-    },
-    {
-      name: 'Client B',
-      role: 'Apartment Renovation',
-      text: 'They understood our taste quickly and delivered exactly what we wanted.',
-    },
-    {
-      name: 'Client C',
-      role: 'Villa Interior',
-      text: 'Professional team, clean timelines, and excellent material recommendations.',
-    },
-    {
-      name: 'Client D',
-      role: 'Majlis Design',
-      text: 'High attention to detail and very smooth communication through all stages.',
-    },
-    {
-      name: 'Client E',
-      role: 'Full Renovation',
-      text: 'Timeline was clear, material choices were premium, and the final result was perfect.',
-    },
+    { name: 'Client A', role: 'Kuwait', text: 'Very structured process. Clear steps, great finishing, and fast responses.' },
+    { name: 'Client B', role: 'Apartment Renovation', text: 'They understood our taste quickly and delivered exactly what we wanted.' },
+    { name: 'Client C', role: 'Villa Interior', text: 'Professional team, clean timelines, and excellent material recommendations.' },
+    { name: 'Client D', role: 'Majlis Design', text: 'High attention to detail and very smooth communication through all stages.' },
+    { name: 'Client E', role: 'Full Renovation', text: 'Timeline was clear, material choices were premium, and the final result was perfect.' },
   ];
+
+  // ===== Reviews touch controls =====
+  reviewsPaused = false;
+  reviewsDir: 'left' | 'right' = 'left';
+  reviewsTransform = '';
+
+  private reviewsDragging = false;
+  private reviewsStartX = 0;
+  private reviewsLastDx = 0;
+  private reviewsPointerId: number | null = null;
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // ✅ Auto-flip featured projects every 3 seconds
+    // Auto-flip featured projects every 3s
     this.projectTimer = window.setInterval(() => {
-      this.nextProjects();
+      if (!this.projectsDragging) this.nextProjects();
     }, 3000);
   }
 
   ngAfterViewInit(): void {
-    // HERO stays as you want (runs on load)
     requestAnimationFrame(() => this.heroEnter.set(true));
-  
+
     const el = this.ctaSection?.nativeElement;
     if (!el) return;
-  
+
     this.ctaIO = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (!entry?.isIntersecting) return;
-  
-        this.ctaEnter.set(true);      // ✅ this will insert the CTA and trigger animate.enter
-        this.ctaIO?.disconnect();     // ✅ play once only
+
+        this.ctaEnter.set(true);
+        this.ctaIO?.disconnect();
         this.ctaIO = undefined;
       },
-      {
-        threshold: 0.25,              // ✅ trigger when ~25% visible
-        rootMargin: '0px 0px -10% 0px'// ✅ avoids triggering too early
-      }
+      { threshold: 0.25, rootMargin: '0px 0px -10% 0px' }
     );
-  
+
     this.ctaIO.observe(el);
   }
-  
 
   ngOnDestroy(): void {
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     this.ctaIO?.disconnect();
   }
 
+  // ===== Navigation actions =====
   goBook(): void {
     this.router.navigateByUrl(this.consultationPath);
   }
 
   openWhatsApp(): void {
     window.open(`https://wa.me/${this.whatsappNumber}`, '_blank', 'noopener,noreferrer');
+  }
+
+  // ===== Featured projects controls =====
+  nextProjects(): void {
+    this.projectIndex = (this.projectIndex + 1) % this.featuredProjects.length;
+  }
+
+  prevProjects(): void {
+    this.projectIndex = (this.projectIndex - 1 + this.featuredProjects.length) % this.featuredProjects.length;
+  }
+
+  // ===== Featured Projects pointer handlers =====
+  projectsPointerDown(e: PointerEvent) {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+    this.projectsDragging = true;
+    this.projectsMoved = false;
+    this.projectsDragPx = 0;
+
+    this.projectsStartX = e.clientX;
+    this.projectsActivePointerId = e.pointerId;
+
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  }
+
+  projectsPointerMove(e: PointerEvent) {
+    if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
+
+    const dx = e.clientX - this.projectsStartX;
+
+    if (Math.abs(dx) > 6) this.projectsMoved = true;
+
+    this.projectsDragPx = dx;
+  }
+
+  projectsPointerUp(e: PointerEvent) {
+    if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
+
+    this.projectsDragging = false;
+    this.projectsActivePointerId = null;
+
+    const dx = this.projectsDragPx;
+    this.projectsDragPx = 0;
+
+    if (!this.projectsMoved) return;
+
+    const threshold = 60;
+    if (dx <= -threshold) this.nextProjects();
+    else if (dx >= threshold) this.prevProjects();
+  }
+
+  // ===== Reviews pointer handlers =====
+  reviewsPointerDown(e: PointerEvent) {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+    this.reviewsDragging = true;
+    this.reviewsPaused = true;
+    this.reviewsPointerId = e.pointerId;
+
+    this.reviewsStartX = e.clientX;
+    this.reviewsLastDx = 0;
+
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  }
+
+  reviewsPointerMove(e: PointerEvent) {
+    if (!this.reviewsDragging || this.reviewsPointerId !== e.pointerId) return;
+
+    const dx = e.clientX - this.reviewsStartX;
+    this.reviewsLastDx = dx;
+
+    // manual push while paused
+    this.reviewsTransform = `translate3d(${dx}px, 0, 0)`;
+  }
+
+  reviewsPointerUp(e: PointerEvent) {
+    if (!this.reviewsDragging || this.reviewsPointerId !== e.pointerId) return;
+
+    this.reviewsDragging = false;
+    this.reviewsPointerId = null;
+
+    // choose direction based on swipe
+    if (this.reviewsLastDx > 20) this.reviewsDir = 'right';
+    if (this.reviewsLastDx < -20) this.reviewsDir = 'left';
+
+    // clear manual override and resume auto
+    this.reviewsTransform = '';
+    this.reviewsPaused = false;
   }
 }
