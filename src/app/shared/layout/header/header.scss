@@ -1,10 +1,12 @@
 /* =========================================
-   Header + Drawer (Final)
+   Header + Drawer (Final + Mobile fixes)
    - Header fixed on all devices
    - Desktop: brand | nav | actions (RTL flips)
    - Mobile: logo left, burger right (EN + AR)
    - Drawer always from RIGHT
    - Overlay never covers header
+   - Drawer language toggle never blue
+   - Drawer close button never blue
    ========================================= */
 
 /* ========= Header shell ========= */
@@ -26,7 +28,7 @@
   border-bottom-color: rgba(22, 20, 20, 0.10);
 }
 
-/* Make header container fill height (helps vertical alignment) */
+/* Fill header height for vertical centering */
 .site-header .container {
   height: 100%;
 }
@@ -41,7 +43,7 @@
 
   --side-slot: clamp(220px, 22vw, 340px);
 
-  direction: ltr; /* stable desktop base */
+  direction: ltr;
 
   grid-template-columns: var(--side-slot) auto var(--side-slot);
   grid-template-areas: "brand nav actions";
@@ -52,7 +54,7 @@
   grid-template-areas: "actions nav brand";
 }
 
-/* Brand */
+/* ========= Brand ========= */
 .brand {
   grid-area: brand;
   justify-self: start;
@@ -71,12 +73,11 @@
   }
 }
 
-/* Desktop RTL: logo to the RIGHT */
 :host-context(html[dir="rtl"]) .brand {
   justify-self: end;
 }
 
-/* Desktop nav */
+/* ========= Desktop nav ========= */
 .nav {
   grid-area: nav;
 
@@ -106,7 +107,7 @@
   }
 }
 
-/* Desktop actions */
+/* ========= Desktop actions ========= */
 .actions {
   grid-area: actions;
   justify-self: end;
@@ -129,7 +130,6 @@
   text-align: center;
 }
 
-/* Desktop RTL: actions to the LEFT */
 :host-context(html[dir="rtl"]) .actions {
   justify-self: start;
 }
@@ -141,7 +141,7 @@
   visibility: hidden;
 }
 
-/* Language toggle */
+/* ========= Language toggle (shared) ========= */
 .lang {
   border: 1.7px solid rgba(22, 20, 20, 0.10);
   background: #fff;
@@ -169,10 +169,11 @@
     font-weight: 950;
     font-size: 12px;
     letter-spacing: 0.6px;
+    color: var(--text); /* ✅ ensure not blue */
   }
 }
 
-/* Burger */
+/* ========= Burger ========= */
 .burger {
   width: 46px;
   height: 46px;
@@ -217,7 +218,7 @@
   right: 0;
   bottom: 0;
 
-  z-index: 999; /* below header */
+  z-index: 999;
   background: rgba(15, 14, 14, 0.44);
 }
 
@@ -234,7 +235,7 @@
   bottom: 0;
 
   width: min(380px, 92vw);
-  z-index: 1100; /* above header + overlay */
+  z-index: 1100;
 
   background: #fff;
   border-left: 1px solid rgba(22, 20, 20, 0.10);
@@ -257,7 +258,7 @@
   direction: rtl;
 }
 
-/* Drawer top */
+/* ========= Drawer top ========= */
 .drawer__top {
   display: flex;
   align-items: center;
@@ -271,30 +272,38 @@
   justify-content: flex-start;
 }
 
+/* ✅ Drawer close button: force neutral (no blue) */
 .drawer__close {
   width: 44px;
   height: 44px;
-  border: 1px solid rgba(22, 20, 20, 0.10);
+
+  border: 1px solid rgba(22, 20, 20, 0.12);
   border-radius: 14px;
   background: #fff;
+
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
+  line-height: 1;
 
   display: grid;
   place-items: center;
 
-  transition: transform 120ms ease, box-shadow 160ms ease;
+  color: var(--text);              /* ✅ not blue */
+  text-decoration: none;
 
-  &:hover {
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
-  }
-
-  &:active {
-    transform: translateY(1px);
-  }
+  transition: transform 120ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 
-/* Mobile nav – solid */
+.drawer__close:hover {
+  border-color: rgba(22, 20, 20, 0.18);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+}
+
+.drawer__close:active {
+  transform: translateY(1px);
+}
+
+/* ========= Mobile nav – solid ========= */
 .nav--mobile {
   flex-direction: column;
   align-items: stretch;
@@ -317,7 +326,7 @@
   border-color: #c9b9a7;
 }
 
-/* Drawer bottom actions */
+/* ========= Drawer bottom actions ========= */
 .drawer__bottom {
   margin-top: auto;
   padding-top: 14px;
@@ -339,6 +348,32 @@
   }
 }
 
+/* ✅ Fix drawer language toggle blue text (hard override) */
+.drawer .lang,
+.drawer .lang--bottom {
+  color: var(--text) !important;
+  text-decoration: none !important;
+}
+
+.drawer .lang__pill {
+  color: var(--text) !important;
+}
+
+.drawer .lang:visited,
+.drawer .lang--bottom:visited {
+  color: var(--text) !important;
+}
+
+/* Also ensure drawer nav links never become "default blue" */
+.drawer .nav__link {
+  color: var(--text-2);
+  text-decoration: none;
+}
+
+.drawer .nav__link:visited {
+  color: var(--text-2);
+}
+
 /* ========= Mobile header ========= */
 @media (max-width: 980px) {
   .nav--desktop,
@@ -346,7 +381,6 @@
     display: none;
   }
 
-  /* keep everything aligned inside container; no extra margins */
   .header__inner {
     direction: ltr;
     grid-template-columns: 1fr auto;
@@ -366,7 +400,6 @@
     margin: 0;
   }
 
-  /* Cancel desktop RTL swap only for mobile header */
   :host-context(html[dir="rtl"]) .header__inner {
     grid-template-areas: "brand burger";
   }
