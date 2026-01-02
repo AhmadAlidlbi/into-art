@@ -13,12 +13,11 @@ import {
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-type Feature = { title: string; desc: string };
-type ProjectCard = { title: string; category: string; image: string; slug?: string };
-type Review = { name: string; role: string; text: string };
+type Feature = { titleKey: string; descKey: string };
+type ProjectCard = { titleKey: string; categoryKey: string; image: string; slug?: string };
+type Review = { nameKey: string; roleKey: string; textKey: string };
 type Card = { titleKey: string; descKey: string; path: string };
-type Step = { title: string; desc: string };
-
+type Step = { titleKey: string; descKey: string };
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -56,30 +55,37 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   clientsDisplay = 0;
 
   procedureSteps: Step[] = [
-    {
-      title: 'Client design consultation',
-      desc: 'We understand your needs, style, and constraints to align direction early.',
-    },
-    {
-      title: 'Concept + proposal',
-      desc: 'We present layout, mood direction, and estimated scope before full detailing.',
-    },
-    {
-      title: 'Execution + handover',
-      desc: 'Site follow-up, finishing quality, and clear handover with final checks.',
-    },
+    { titleKey: 'home.procedure.steps.1.title', descKey: 'home.procedure.steps.1.desc' },
+    { titleKey: 'home.procedure.steps.2.title', descKey: 'home.procedure.steps.2.desc' },
+    { titleKey: 'home.procedure.steps.3.title', descKey: 'home.procedure.steps.3.desc' },
   ];
 
   features: Feature[] = [
-    { title: 'Design that reflects your lifestyle', desc: 'Concept-to-detail solutions tailored for modern living.' },
-    { title: 'Transparent timelines and steps', desc: 'Clear phases and communication from consultation to handover.' },
-    { title: 'Execution with attention to detail', desc: 'Site supervision and finishing quality you can trust.' },
+    { titleKey: 'home.why.items.1.title', descKey: 'home.why.items.1.desc' },
+    { titleKey: 'home.why.items.2.title', descKey: 'home.why.items.2.desc' },
+    { titleKey: 'home.why.items.3.title', descKey: 'home.why.items.3.desc' },
   ];
+  
 
   featuredProjects: ProjectCard[] = [
-    { title: 'Modern Apartment Living Room', category: 'Apartment', image: 'assets/images/portfolio/projects/living.jpg' },
-    { title: 'Warm Minimal Bedroom', category: 'Bedroom', image: 'assets/images/portfolio/projects/room.jpg' },
-    { title: 'Contemporary Villa Majlis', category: 'Villa', image: 'assets/images/portfolio/projects/living.jpg' },
+    {
+      titleKey: 'home.featured.items.1.title',
+      categoryKey: 'home.featured.items.1.category',
+      image: 'assets/images/portfolio/projects/living.jpg',
+      slug: 'modern-apartment-living-room',
+    },
+    {
+      titleKey: 'home.featured.items.2.title',
+      categoryKey: 'home.featured.items.2.category',
+      image: 'assets/images/portfolio/projects/room.jpg',
+      slug: 'warm-minimal-bedroom',
+    },
+    {
+      titleKey: 'home.featured.items.3.title',
+      categoryKey: 'home.featured.items.3.category',
+      image: 'assets/images/portfolio/projects/living.jpg',
+      slug: 'contemporary-villa-majlis',
+    },
   ];
 
   projectIndex = 0;
@@ -95,11 +101,11 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   // Reviews (auto-marquee only)
   reviews: Review[] = [
-    { name: 'Client A', role: 'Kuwait', text: 'Very structured process. Clear steps, great finishing, and fast responses.' },
-    { name: 'Client B', role: 'Apartment Renovation', text: 'They understood our taste quickly and delivered exactly what we wanted.' },
-    { name: 'Client C', role: 'Villa Interior', text: 'Professional team, clean timelines, and excellent material recommendations.' },
-    { name: 'Client D', role: 'Majlis Design', text: 'High attention to detail and very smooth communication through all stages.' },
-    { name: 'Client E', role: 'Full Renovation', text: 'Timeline was clear, material choices were premium, and the final result was perfect.' },
+    { nameKey: 'home.reviews.items.1.name', roleKey: 'home.reviews.items.1.role', textKey: 'home.reviews.items.1.text' },
+    { nameKey: 'home.reviews.items.2.name', roleKey: 'home.reviews.items.2.role', textKey: 'home.reviews.items.2.text' },
+    { nameKey: 'home.reviews.items.3.name', roleKey: 'home.reviews.items.3.role', textKey: 'home.reviews.items.3.text' },
+    { nameKey: 'home.reviews.items.4.name', roleKey: 'home.reviews.items.4.role', textKey: 'home.reviews.items.4.text' },
+    { nameKey: 'home.reviews.items.5.name', roleKey: 'home.reviews.items.5.role', textKey: 'home.reviews.items.5.text' },
   ];
 
   constructor(private router: Router) {}

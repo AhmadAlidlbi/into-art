@@ -1,4 +1,4 @@
-<!-- home.html (FULL - updated) -->
+<!-- home.html (FULL - i18n ready) -->
 
 <!-- HERO -->
 <section class="hero hero--image">
@@ -39,38 +39,37 @@
   </div>
 </section>
 
-<!-- WHO WE ARE (Animated counters when metrics grid enters view) -->
+<!-- WHO WE ARE -->
 <section class="section">
   <div class="container who">
     <div class="who__media" aria-hidden="true"></div>
 
     <div class="who__content">
-      <div class="eyebrow">Who we are</div>
+      <div class="eyebrow">{{ 'home.who.eyebrow' | translate }}</div>
 
       <h2 class="section__title">
-        We are a residential interior team built for
-        <span class="accent">premium results</span>
+        {{ 'home.who.title_1' | translate }}
+        <span class="accent">{{ 'home.who.title_2' | translate }}</span>
       </h2>
 
       <p class="section__desc">
-        We help homeowners in Kuwait create calm, functional, and timeless interiors. Our workflow
-        is structured, our communication is clear, and our finishing standards are high.
+        {{ 'home.who.desc' | translate }}
       </p>
 
       <div class="who__metrics" #whoMetrics>
         <div class="metric">
           <div class="metric__value">{{ yearsDisplay }}+</div>
-          <div class="metric__label">Years experience</div>
+          <div class="metric__label">{{ 'home.who.metrics.years' | translate }}</div>
         </div>
 
         <div class="metric">
           <div class="metric__value">{{ teamDisplay }}+</div>
-          <div class="metric__label">Team members</div>
+          <div class="metric__label">{{ 'home.who.metrics.team' | translate }}</div>
         </div>
 
         <div class="metric">
           <div class="metric__value">{{ clientsDisplay }}+</div>
-          <div class="metric__label">Clients served</div>
+          <div class="metric__label">{{ 'home.who.metrics.clients' | translate }}</div>
         </div>
       </div>
     </div>
@@ -81,9 +80,9 @@
 <section class="section section--alt">
   <div class="container">
     <div class="section__head">
-      <div class="eyebrow">How we work</div>
-      <h2 class="section__title">Our work procedure</h2>
-      <p class="section__desc">A clear process that keeps timelines predictable and decisions easy.</p>
+      <div class="eyebrow">{{ 'home.procedure.eyebrow' | translate }}</div>
+      <h2 class="section__title">{{ 'home.procedure.title' | translate }}</h2>
+      <p class="section__desc">{{ 'home.procedure.desc' | translate }}</p>
     </div>
 
     <div class="procedure">
@@ -92,21 +91,21 @@
           <div class="proc__num">{{ i + 1 }}</div>
           <div class="proc__icon">✦</div>
         </div>
-        <div class="proc__title">{{ s.title }}</div>
-        <div class="proc__desc">{{ s.desc }}</div>
+        <div class="proc__title">{{ s.titleKey | translate }}</div>
+        <div class="proc__desc">{{ s.descKey | translate }}</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FEATURED PROJECTS SLIDER (AUTO FLIP 3s + HAND SWIPE) -->
+<!-- FEATURED PROJECTS -->
 <section class="section">
   <div class="container">
     <div class="section__head section__head--row">
       <div>
-        <div class="eyebrow">Featured</div>
-        <h2 class="section__title">Featured projects</h2>
-        <p class="section__desc">A selection of recent residential work.</p>
+        <div class="eyebrow">{{ 'home.featured.eyebrow' | translate }}</div>
+        <h2 class="section__title">{{ 'home.featured.title' | translate }}</h2>
+        <p class="section__desc">{{ 'home.featured.desc' | translate }}</p>
       </div>
 
       <div class="slider-actions">
@@ -114,13 +113,13 @@
           class="icon-btn icon-btn--prev"
           type="button"
           (click)="prevProjects()"
-          aria-label="Previous"
+          [attr.aria-label]="'home.featured.prev' | translate"
         ></button>
         <button
           class="icon-btn icon-btn--next"
           type="button"
           (click)="nextProjects()"
-          aria-label="Next"
+          [attr.aria-label]="'home.featured.next' | translate"
         ></button>
       </div>
     </div>
@@ -143,8 +142,8 @@
         <a class="slide" *ngFor="let p of featuredProjects" [routerLink]="'/under-construction'">
           <div class="slide__img" [style.backgroundImage]="'url(' + p.image + ')'"></div>
           <div class="slide__meta">
-            <div class="slide__title">{{ p.title }}</div>
-            <div class="slide__cat">{{ p.category }}</div>
+            <div class="slide__title">{{ p.titleKey | translate }}</div>
+            <div class="slide__cat">{{ p.categoryKey | translate }}</div>
           </div>
         </a>
       </div>
@@ -157,7 +156,7 @@
         type="button"
         [class.is-active]="i === projectIndex"
         (click)="projectIndex = i"
-        [attr.aria-label]="'Go to slide ' + (i + 1)"
+        [attr.aria-label]="('home.featured.goTo' | translate) + ' ' + (i + 1)"
       ></button>
     </div>
   </div>
@@ -167,42 +166,42 @@
 <section class="section section--alt">
   <div class="container">
     <div class="section__head">
-      <h2 class="section__title">Why clients choose us</h2>
-      <p class="section__desc">A streamlined process, premium finishing, and consistent communication.</p>
+      <h2 class="section__title">{{ 'home.why.title' | translate }}</h2>
+      <p class="section__desc">{{ 'home.why.desc' | translate }}</p>
     </div>
 
     <div class="features">
       <div class="feature" *ngFor="let f of features">
         <div class="feature__icon">✦</div>
-        <div class="feature__title">{{ f.title }}</div>
-        <div class="feature__desc">{{ f.desc }}</div>
+        <div class="feature__title">{{ f.titleKey | translate }}</div>
+        <div class="feature__desc">{{ f.descKey | translate }}</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CLIENT REVIEWS (AUTO MOVING + HOVER PAUSE ONLY) -->
+<!-- CLIENT REVIEWS -->
 <section class="section">
   <div class="container">
     <div class="section__head">
-      <div class="eyebrow">Clients feedback</div>
-      <h2 class="section__title">Client reviews</h2>
-      <p class="section__desc">Real words from homeowners we worked with.</p>
+      <div class="eyebrow">{{ 'home.reviews.eyebrow' | translate }}</div>
+      <h2 class="section__title">{{ 'home.reviews.title' | translate }}</h2>
+      <p class="section__desc">{{ 'home.reviews.desc' | translate }}</p>
     </div>
 
-    <div class="reviews-marquee" aria-label="Client reviews auto slider">
+    <div class="reviews-marquee" [attr.aria-label]="'home.reviews.aria' | translate">
       <div class="reviews-marquee__viewport">
         <div class="reviews-marquee__track">
           <!-- Track A -->
           <article class="review-card" *ngFor="let r of reviews">
             <div class="review-card__stars">★★★★★</div>
-            <p class="review-card__text">“{{ r.text }}”</p>
+            <p class="review-card__text">“{{ r.textKey | translate }}”</p>
 
             <div class="review-card__person">
               <div class="review-card__avatar"></div>
               <div>
-                <div class="review-card__name">{{ r.name }}</div>
-                <div class="review-card__role">{{ r.role }}</div>
+                <div class="review-card__name">{{ r.nameKey | translate }}</div>
+                <div class="review-card__role">{{ r.roleKey | translate }}</div>
               </div>
             </div>
           </article>
@@ -210,13 +209,13 @@
           <!-- Track B -->
           <article class="review-card" *ngFor="let r of reviews" aria-hidden="true">
             <div class="review-card__stars">★★★★★</div>
-            <p class="review-card__text">“{{ r.text }}”</p>
+            <p class="review-card__text">“{{ r.textKey | translate }}”</p>
 
             <div class="review-card__person">
               <div class="review-card__avatar"></div>
               <div>
-                <div class="review-card__name">{{ r.name }}</div>
-                <div class="review-card__role">{{ r.role }}</div>
+                <div class="review-card__name">{{ r.nameKey | translate }}</div>
+                <div class="review-card__role">{{ r.roleKey | translate }}</div>
               </div>
             </div>
           </article>
@@ -226,17 +225,19 @@
   </div>
 </section>
 
-<!-- KEEP THIS CTA SECTION AS-IS (but animate only when in view) -->
+<!-- CTA -->
 <section class="cta" #ctaSection>
   @if (ctaEnter()) {
   <div class="container cta__grid" animate.enter="enter-animation">
     <div>
-      <h2 class="cta__title">Ready to start your consultation?</h2>
-      <p class="cta__desc">Tell us what you need and we’ll guide you through the next steps.</p>
+      <h2 class="cta__title">{{ 'home.cta.title' | translate }}</h2>
+      <p class="cta__desc">{{ 'home.cta.desc' | translate }}</p>
     </div>
 
     <div class="cta__actions">
-      <button class="btn btn--primary" type="button" (click)="goBook()">Book Consultation</button>
+      <button class="btn btn--primary" type="button" (click)="goBook()">
+        {{ 'home.cta.button' | translate }}
+      </button>
     </div>
   </div>
   } @else {

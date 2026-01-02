@@ -13,13 +13,6 @@
     "whatsapp": "WhatsApp",
     "book": "Book Consultation"
   },
-  "home": {
-    "hero": {
-      "title_1": "Elevate your home with",
-      "title_2": "refined interior design",
-      "subtitle": "From concept to execution, into art delivers residential interiors that feel premium, practical, and built to last"
-    }
-  },
 
   "cards": {
     "card_1": {
@@ -34,5 +27,73 @@
       "title": "Design + execution",
       "description": "End-to-end delivery with site supervision and finishing control."
     }
+  },
+    "home": {
+      "hero": {
+        "title_1": "Elevate your home with",
+        "title_2": "refined interior design",
+        "subtitle": "From concept to execution, into art delivers residential interiors that feel premium, practical, and built to last"
+      },
+      "who": {
+        "eyebrow": "Who we are",
+        "title_1": "We are a residential interior team built for",
+        "title_2": "premium results",
+        "desc": "We help homeowners in Kuwait create calm, functional, and timeless interiors. Our workflow is structured, our communication is clear, and our finishing standards are high.",
+        "metrics": {
+          "years": "Years experience",
+          "team": "Team members",
+          "clients": "Clients served"
+        }
+      },
+      "procedure": {
+        "eyebrow": "How we work",
+        "title": "Our work procedure",
+        "desc": "A clear process that keeps timelines predictable and decisions easy.",
+        "steps": {
+          "1": { "title": "Client design consultation", "desc": "We understand your needs, style, and constraints to align direction early." },
+          "2": { "title": "Concept + proposal", "desc": "We present layout, mood direction, and estimated scope before full detailing." },
+          "3": { "title": "Execution + handover", "desc": "Site follow-up, finishing quality, and clear handover with final checks." }
+        }
+      },
+      "featured": {
+        "eyebrow": "Featured",
+        "title": "Featured projects",
+        "desc": "A selection of recent residential work.",
+        "prev": "Previous",
+        "next": "Next",
+        "goTo": "Go to slide",
+        "items": {
+          "1": { "title": "Modern Apartment Living Room", "category": "Apartment" },
+          "2": { "title": "Warm Minimal Bedroom", "category": "Bedroom" },
+          "3": { "title": "Contemporary Villa Majlis", "category": "Villa" }
+        }
+      },
+      "why": {
+        "title": "Why clients choose us",
+        "desc": "A streamlined process, premium finishing, and consistent communication.",
+        "items": {
+          "1": { "title": "Design that reflects your lifestyle", "desc": "Concept-to-detail solutions tailored for modern living." },
+          "2": { "title": "Transparent timelines and steps", "desc": "Clear phases and communication from consultation to handover." },
+          "3": { "title": "Execution with attention to detail", "desc": "Site supervision and finishing quality you can trust." }
+        }
+      },
+      "reviews": {
+        "eyebrow": "Clients feedback",
+        "title": "Client reviews",
+        "desc": "Real words from homeowners we worked with.",
+        "aria": "Client reviews auto slider",
+        "items": {
+          "1": { "name": "Client A", "role": "Kuwait", "text": "Very structured process. Clear steps, great finishing, and fast responses." },
+          "2": { "name": "Client B", "role": "Apartment Renovation", "text": "They understood our taste quickly and delivered exactly what we wanted." },
+          "3": { "name": "Client C", "role": "Villa Interior", "text": "Professional team, clean timelines, and excellent material recommendations." },
+          "4": { "name": "Client D", "role": "Majlis Design", "text": "High attention to detail and very smooth communication through all stages." },
+          "5": { "name": "Client E", "role": "Full Renovation", "text": "Timeline was clear, material choices were premium, and the final result was perfect." }
+        }
+      },
+      "cta": {
+        "title": "Ready to start your consultation?",
+        "desc": "Tell us what you need and we’ll guide you through the next steps.",
+        "button": "Book Consultation"
+      }
+    }
   }
-}
