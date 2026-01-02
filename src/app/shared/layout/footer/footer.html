@@ -4,25 +4,28 @@
       <!-- Brand -->
       <section class="brand">
         <div class="brand__row">
-          <a class="brand" routerLink="/" aria-label="Go to homepage">
-            <img class="brand__logo" [src]="logoSrc" [alt]="brandName + ' logo'" />
+          <a class="brand" routerLink="/" [attr.aria-label]="'footer.homeAria' | translate">
+            <img class="brand__logo" src="assets/images/branding/logo.svg" [alt]="'footer.brandAlt' | translate" />
           </a>
-          <div class="brand__name">{{ brandName }}</div>
+
+          <div class="brand__name">
+            {{ 'footer.brandName' | translate }}
+          </div>
         </div>
 
         <p class="brand__desc">
-          {{ description }}
+          {{ 'footer.description' | translate }}
         </p>
 
-        <!-- ✅ Social icons -->
-        <div class="social" aria-label="Social links">
+        <!-- Social icons -->
+        <div class="social" [attr.aria-label]="'footer.socialAria' | translate">
           <a
             *ngFor="let s of socialLinks"
             class="social__icon"
             [href]="s.href"
             target="_blank"
             rel="noopener noreferrer"
-            [attr.aria-label]="s.label"
+            [attr.aria-label]="s.labelKey | translate"
             (click)="s.href === '#' ? $event.preventDefault() : null"
           >
             <ng-container [ngSwitch]="s.icon">
@@ -64,38 +67,44 @@
 
       <!-- Quick links -->
       <section class="col">
-        <h3 class="title">Quick Links</h3>
-        <nav class="links links--two" aria-label="Footer quick links">
-          <a *ngFor="let l of quickLinks" class="link" [routerLink]="l.path">{{ l.label }}</a>
+        <h3 class="title">{{ 'footer.quickLinks' | translate }}</h3>
+        <nav class="links links--two" [attr.aria-label]="'footer.quickLinksAria' | translate">
+          <a *ngFor="let l of quickLinks" class="link" [routerLink]="l.path">
+            {{ l.labelKey | translate }}
+          </a>
         </nav>
       </section>
 
       <!-- Services -->
       <section class="col">
-        <h3 class="title">Services</h3>
-        <nav class="links" aria-label="Footer services links">
-          <a *ngFor="let l of serviceLinks" class="link" [routerLink]="l.path">{{ l.label }}</a>
+        <h3 class="title">{{ 'footer.services' | translate }}</h3>
+        <nav class="links" [attr.aria-label]="'footer.servicesAria' | translate">
+          <a *ngFor="let l of serviceLinks" class="link" [routerLink]="l.path">
+            {{ l.labelKey | translate }}
+          </a>
         </nav>
       </section>
 
       <!-- Contact -->
       <section class="col">
-        <h3 class="title">Contact</h3>
+        <h3 class="title">{{ 'footer.contact' | translate }}</h3>
 
         <div class="contact">
           <div class="contact__row">
-            <span class="contact__label">Phone</span>
-            <a class="contact__value" [href]="'tel:' + phoneNumberDial">{{ phoneNumberDisplay }}</a>
+            <span class="contact__label">{{ 'footer.phone' | translate }}</span>
+            <a class="contact__value" href="tel:+96566576673">+965 6657 6673</a>
           </div>
 
           <div class="contact__row">
-            <span class="contact__label">Email</span>
-            <a class="contact__value" [href]="'mailto:' + email">{{ email }}</a>
+            <span class="contact__label">{{ 'footer.email' | translate }}</span>
+            <a class="contact__value" href="mailto:info@intoakwt.com">info@intoakwt.com</a>
           </div>
 
           <div class="contact__row">
-            <span class="contact__label">Location</span>
-            <span class="contact__value">{{ address }}</span>
+            <span class="contact__label">{{ 'footer.location' | translate }}</span>
+            <span class="contact__value">
+              {{ 'footer.address' | translate }}
+            </span>
           </div>
 
           <div class="map">
@@ -106,7 +115,7 @@
               allowfullscreen
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
-              title="IntoArt office location"
+              [attr.title]="'footer.mapTitle' | translate"
             ></iframe>
           </div>
         </div>
@@ -114,12 +123,14 @@
     </div>
 
     <div class="bottom">
-      <div class="bottom__left">© {{ brandName }} {{ year }}. All rights reserved.</div>
+      <div class="bottom__left">
+        © {{ 'footer.brandName' | translate }} {{ year }}. {{ 'footer.rights' | translate }}
+      </div>
 
       <div class="bottom__right">
-        <a class="bottom__link" routerLink="/under-construction">Privacy Policy</a>
+        <a class="bottom__link" routerLink="/under-construction">{{ 'footer.privacy' | translate }}</a>
         <span class="dot">•</span>
-        <a class="bottom__link" routerLink="/under-construction">Terms</a>
+        <a class="bottom__link" routerLink="/under-construction">{{ 'footer.terms' | translate }}</a>
       </div>
     </div>
   </div>

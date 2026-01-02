@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
-type FooterLink = { label: string; path: string };
+type FooterLink = { labelKey: string; path: string };
 type SocialLink = {
-  label: string;
+  labelKey: string;
   href: string;
   icon: 'instagram' | 'tiktok' | 'youtube' | 'linkedin';
 };
@@ -12,47 +13,36 @@ type SocialLink = {
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './footer.html',
   styleUrls: ['./footer.scss'],
 })
 export class FooterComponent {
   year = new Date().getFullYear();
 
-  @Input() brandName = 'IntoArt';
-  @Input() logoSrc = 'assets/images/branding/logo.svg';
-
-  @Input() description =
-    'Residential interior design and turnkey fit-out solutions in Kuwait. We design, execute, and deliver refined spaces with a focus on quality and detail.';
-
-  @Input() phoneNumberDisplay = '+965 6657 6673';
-  @Input() phoneNumberDial = '+96566576673';
-
-  @Input() email = 'info@intoakwt.com';
-  @Input() address = 'Silk Tower. Floor 23. Office 66, Jaber St, Kuwait City';
-
   // ✅ Replace later with your real URLs
   socialLinks: SocialLink[] = [
-    { label: 'Instagram', href: '#', icon: 'instagram' },
-    { label: 'TikTok', href: '#', icon: 'tiktok' },
-    { label: 'YouTube', href: '#', icon: 'youtube' },
-    { label: 'LinkedIn', href: '#', icon: 'linkedin' },
+    { labelKey: 'footer.social.instagram', href: '#', icon: 'instagram' },
+    { labelKey: 'footer.social.tiktok', href: '#', icon: 'tiktok' },
+    { labelKey: 'footer.social.youtube', href: '#', icon: 'youtube' },
+    { labelKey: 'footer.social.linkedin', href: '#', icon: 'linkedin' },
   ];
 
+  // ✅ Paths unchanged — labels are translation keys
   quickLinks: FooterLink[] = [
-    { label: 'Home', path: '/' },
-    { label: 'Services', path: '/under-construction' },
-    { label: 'Portfolio', path: '/under-construction' },
-    { label: 'About', path: '/under-construction' },
-    { label: 'FAQ', path: '/under-construction' },
-    { label: 'Contact', path: '/under-construction' },
-    { label: 'Blog', path: '/under-construction' },
-    { label: 'Projects', path: '/under-construction' },
+    { labelKey: 'footer.links.home', path: '/' },
+    { labelKey: 'footer.links.services', path: '/under-construction' },
+    { labelKey: 'footer.links.portfolio', path: '/under-construction' },
+    { labelKey: 'footer.links.about', path: '/under-construction' },
+    { labelKey: 'footer.links.faq', path: '/under-construction' },
+    { labelKey: 'footer.links.contact', path: '/under-construction' },
+    { labelKey: 'footer.links.blog', path: '/under-construction' },
+    { labelKey: 'footer.links.projects', path: '/under-construction' },
   ];
 
   serviceLinks: FooterLink[] = [
-    { label: 'Residential Interior Design', path: '/under-construction' },
-    { label: 'Apartment Renovation', path: '/under-construction' },
-    { label: 'Turnkey Fit-out', path: '/under-construction' },
+    { labelKey: 'footer.servicesLinks.residentialInterior', path: '/under-construction' },
+    { labelKey: 'footer.servicesLinks.apartmentRenovation', path: '/under-construction' },
+    { labelKey: 'footer.servicesLinks.turnkeyFitOut', path: '/under-construction' },
   ];
 }
