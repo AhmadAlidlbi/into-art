@@ -39,7 +39,7 @@
   </div>
 </section>
 
-<!-- WHO WE ARE -->
+<!-- WHO WE ARE (Animated counters when metrics grid enters view) -->
 <section class="section">
   <div class="container who">
     <div class="who__media" aria-hidden="true"></div>
@@ -57,17 +57,19 @@
         is structured, our communication is clear, and our finishing standards are high.
       </p>
 
-      <div class="who__metrics">
+      <div class="who__metrics" #whoMetrics>
         <div class="metric">
-          <div class="metric__value">{{ metrics.years }}</div>
+          <div class="metric__value">{{ yearsDisplay }}+</div>
           <div class="metric__label">Years experience</div>
         </div>
+
         <div class="metric">
-          <div class="metric__value">{{ metrics.team }}</div>
+          <div class="metric__value">{{ teamDisplay }}+</div>
           <div class="metric__label">Team members</div>
         </div>
+
         <div class="metric">
-          <div class="metric__value">{{ metrics.clients }}</div>
+          <div class="metric__value">{{ clientsDisplay }}+</div>
           <div class="metric__label">Clients served</div>
         </div>
       </div>
@@ -81,9 +83,7 @@
     <div class="section__head">
       <div class="eyebrow">How we work</div>
       <h2 class="section__title">Our work procedure</h2>
-      <p class="section__desc">
-        A clear process that keeps timelines predictable and decisions easy.
-      </p>
+      <p class="section__desc">A clear process that keeps timelines predictable and decisions easy.</p>
     </div>
 
     <div class="procedure">
@@ -168,9 +168,7 @@
   <div class="container">
     <div class="section__head">
       <h2 class="section__title">Why clients choose us</h2>
-      <p class="section__desc">
-        A streamlined process, premium finishing, and consistent communication.
-      </p>
+      <p class="section__desc">A streamlined process, premium finishing, and consistent communication.</p>
     </div>
 
     <div class="features">
@@ -183,7 +181,7 @@
   </div>
 </section>
 
-<!-- CLIENT REVIEWS (AUTO MOVING + TOUCH PAUSE + DIRECTION CONTROL) -->
+<!-- CLIENT REVIEWS (AUTO MOVING + HOVER PAUSE ONLY) -->
 <section class="section">
   <div class="container">
     <div class="section__head">
@@ -193,21 +191,8 @@
     </div>
 
     <div class="reviews-marquee" aria-label="Client reviews auto slider">
-      <div
-        class="reviews-marquee__viewport"
-        (pointerdown)="reviewsPointerDown($event)"
-        (pointermove)="reviewsPointerMove($event)"
-        (pointerup)="reviewsPointerUp($event)"
-        (pointercancel)="reviewsPointerUp($event)"
-        (pointerleave)="reviewsPointerUp($event)"
-      >
-        <div
-          class="reviews-marquee__track"
-          [class.is-paused]="reviewsPaused"
-          [class.dir-left]="reviewsDir === 'left'"
-          [class.dir-right]="reviewsDir === 'right'"
-          [style.transform]="reviewsTransform"
-        >
+      <div class="reviews-marquee__viewport">
+        <div class="reviews-marquee__track">
           <!-- Track A -->
           <article class="review-card" *ngFor="let r of reviews">
             <div class="review-card__stars">★★★★★</div>

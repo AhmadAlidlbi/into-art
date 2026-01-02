@@ -1,4 +1,4 @@
-/* home.scss (FULL - updated, clean) */
+/* home.scss (FULL - updated) */
 /* IMPORTANT: keep global .container + .btn in your global styles, not here */
 
 /* HERO */
@@ -39,20 +39,6 @@
   padding: 18px 0;
 }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 14px;
-  border-radius: 999px;
-  font-weight: 900;
-  font-size: 12px;
-  letter-spacing: 0.2px;
-  color: rgba(255, 255, 255, 0.88);
-  background: rgba(0, 0, 0, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(10px);
-}
-
 .hero__title {
   margin: 14px 0 12px;
   font-size: 54px;
@@ -74,6 +60,25 @@
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+/* ✅ CTA buttons: same hover effect as 3 cards */
+.hero__actions .btn,
+.cta__actions .btn {
+  transition: transform 140ms ease, box-shadow 140ms ease;
+  box-shadow: 0 18px 44px rgba(22, 20, 20, 0.1);
+  will-change: transform;
+}
+
+.hero__actions .btn:hover,
+.cta__actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 56px rgba(22, 20, 20, 0.14);
+}
+
+.hero__actions .btn:active,
+.cta__actions .btn:active {
+  transform: translateY(0px);
 }
 
 /* Sections */
@@ -318,8 +323,7 @@
   gap: 8px;
 }
 
-/* ✅ Arrow buttons (centered, consistent in LTR + RTL)
-   IMPORTANT: buttons should be empty in HTML; arrows rendered via ::before */
+/* ✅ Arrow buttons */
 .icon-btn {
   width: 44px;
   height: 44px;
@@ -335,32 +339,27 @@
 
   font-weight: 950;
 
-  /* ✅ hard-center glyph */
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  /* ✅ remove default button quirks */
   padding: 0;
   appearance: none;
   -webkit-appearance: none;
 
-  /* ✅ consistent feel */
   box-shadow: var(--shine), 0 10px 22px rgba(22, 20, 20, 0.08);
   transition: transform 120ms ease, box-shadow 160ms ease, border-color 160ms ease;
+
+  font-size: 0;
 }
 
 .icon-btn::before {
-  content: '';
   display: block;
-
-  /* ✅ optical centering */
   width: 1em;
   height: 1em;
   line-height: 1;
   font-size: 18px;
-
-  transform: translateY(-0.5px); /* tiny baseline fix */
+  transform: translateY(-0.5px);
 }
 
 .icon-btn--prev::before {
@@ -370,32 +369,11 @@
   content: '→';
 }
 
-/* ✅ swap glyphs in RTL (but keep button placement the same) */
 :host-context(html[dir='rtl']) .icon-btn--prev::before {
   content: '→';
 }
 :host-context(html[dir='rtl']) .icon-btn--next::before {
   content: '←';
-}
-
-/* If you accidentally still have text inside the button, this hides it safely */
-.icon-btn {
-  font-size: 0;
-}
-.icon-btn::before {
-  font-size: 18px; /* restore */
-}
-
-.icon-btn:hover {
-  border-color: rgba(231, 224, 216, 1);
-  box-shadow: var(--shine), 0 14px 28px rgba(22, 20, 20, 0.1);
-}
-
-.icon-btn:active {
-  transform: translateY(1px);
-}
-.icon-btn:focus {
-  outline: none;
 }
 
 .dots {
@@ -478,7 +456,7 @@
   text-align: right;
 }
 
-/* Reviews marquee */
+/* Reviews marquee (hover pause only) */
 .reviews-marquee {
   margin-top: 14px;
 }
@@ -503,20 +481,9 @@
   animation: reviewsMarquee 100s cubic-bezier(0.25, 0.15, 0.75, 0.85) infinite;
 }
 
-/* Pause helpers */
+/* ✅ Stop on hover */
 .reviews-marquee__viewport:hover .reviews-marquee__track {
   animation-play-state: paused;
-}
-.reviews-marquee__track.is-paused {
-  animation-play-state: paused;
-}
-
-/* Direction control */
-.reviews-marquee__track.dir-left {
-  animation-direction: normal;
-}
-.reviews-marquee__track.dir-right {
-  animation-direction: reverse;
 }
 
 .review-card {
@@ -528,6 +495,7 @@
   box-shadow: 0 14px 34px rgba(22, 20, 20, 0.08);
 }
 
+/* ... remaining review-card styles unchanged ... */
 .review-card__stars {
   font-weight: 950;
   letter-spacing: 1px;

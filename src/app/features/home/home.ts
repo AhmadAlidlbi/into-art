@@ -1,4 +1,4 @@
-// home.ts (FULL - updated, clean)
+// home.ts (FULL - updated)
 import { CommonModule } from '@angular/common';
 import {
   Component,
@@ -27,9 +27,7 @@ type Step = { title: string; desc: string };
   styleUrls: ['./home.scss'],
 })
 export class HomePage implements OnInit, AfterViewInit, OnDestroy {
-  @Input() brandName = 'IntoArt';
   @Input() consultationPath = '/book-consultation';
-  @Input() whatsappNumber = '96550000000';
 
   // Enter animations
   heroEnter = signal(false);
@@ -37,17 +35,25 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('ctaSection', { read: ElementRef })
   ctaSection?: ElementRef<HTMLElement>;
-
   private ctaIO?: IntersectionObserver;
 
-  // Top 3 cards
+  // WHO observer (observe the metrics grid)
+  @ViewChild('whoMetrics', { read: ElementRef })
+  whoMetrics?: ElementRef<HTMLElement>;
+  private whoIO?: IntersectionObserver;
+  private metricsAnimated = false;
+
   serviceCards: Card[] = [
     { titleKey: 'cards.card_1.title', descKey: 'cards.card_1.description', path: '/book-consultation' },
     { titleKey: 'cards.card_2.title', descKey: 'cards.card_2.description', path: '/under-construction' },
     { titleKey: 'cards.card_3.title', descKey: 'cards.card_3.description', path: '/under-construction' },
   ];
 
-  metrics = { years: '15+', team: '25+', clients: '500+' };
+  metricsTarget = { years: 15, team: 25, clients: 500 };
+
+  yearsDisplay = 0;
+  teamDisplay = 0;
+  clientsDisplay = 0;
 
   procedureSteps: Step[] = [
     {
@@ -71,15 +77,15 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   featuredProjects: ProjectCard[] = [
-    { title: 'Modern Apartment Living Room', category: 'Apartment', image: 'assets/images/portfolio/projects/living.jpg', slug: 'modern-apartment-living-room' },
-    { title: 'Warm Minimal Bedroom', category: 'Bedroom', image: 'assets/images/portfolio/projects/room.jpg', slug: 'warm-minimal-bedroom' },
-    { title: 'Contemporary Villa Majlis', category: 'Villa', image: 'assets/images/portfolio/projects/living.jpg', slug: 'contemporary-villa-majlis' },
+    { title: 'Modern Apartment Living Room', category: 'Apartment', image: 'assets/images/portfolio/projects/living.jpg' },
+    { title: 'Warm Minimal Bedroom', category: 'Bedroom', image: 'assets/images/portfolio/projects/room.jpg' },
+    { title: 'Contemporary Villa Majlis', category: 'Villa', image: 'assets/images/portfolio/projects/living.jpg' },
   ];
 
   projectIndex = 0;
   private projectTimer: number | null = null;
 
-  // ===== Featured Projects swipe/drag =====
+  // Featured Projects swipe/drag
   projectsDragging = false;
   projectsDragPx = 0;
 
@@ -87,7 +93,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private projectsActivePointerId: number | null = null;
   private projectsMoved = false;
 
-  // Reviews marquee
+  // Reviews (auto-marquee only)
   reviews: Review[] = [
     { name: 'Client A', role: 'Kuwait', text: 'Very structured process. Clear steps, great finishing, and fast responses.' },
     { name: 'Client B', role: 'Apartment Renovation', text: 'They understood our taste quickly and delivered exactly what we wanted.' },
@@ -96,20 +102,9 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     { name: 'Client E', role: 'Full Renovation', text: 'Timeline was clear, material choices were premium, and the final result was perfect.' },
   ];
 
-  // ===== Reviews touch controls =====
-  reviewsPaused = false;
-  reviewsDir: 'left' | 'right' = 'left';
-  reviewsTransform = '';
-
-  private reviewsDragging = false;
-  private reviewsStartX = 0;
-  private reviewsLastDx = 0;
-  private reviewsPointerId: number | null = null;
-
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // Auto-flip featured projects every 3s
     this.projectTimer = window.setInterval(() => {
       if (!this.projectsDragging) this.nextProjects();
     }, 3000);
@@ -118,48 +113,101 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     requestAnimationFrame(() => this.heroEnter.set(true));
 
-    const el = this.ctaSection?.nativeElement;
-    if (!el) return;
+    // CTA animate on view
+    const ctaEl = this.ctaSection?.nativeElement;
+    if (ctaEl) {
+      this.ctaIO = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (!entry?.isIntersecting) return;
 
-    this.ctaIO = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (!entry?.isIntersecting) return;
+          this.ctaEnter.set(true);
+          this.ctaIO?.disconnect();
+          this.ctaIO = undefined;
+        },
+        { threshold: 0.25, rootMargin: '0px 0px -10% 0px' }
+      );
 
-        this.ctaEnter.set(true);
-        this.ctaIO?.disconnect();
-        this.ctaIO = undefined;
-      },
-      { threshold: 0.25, rootMargin: '0px 0px -10% 0px' }
-    );
+      this.ctaIO.observe(ctaEl);
+    }
 
-    this.ctaIO.observe(el);
+    // WHO metrics animate on view (75%)
+    const target = this.whoMetrics?.nativeElement;
+    if (target) {
+      this.whoIO = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (!entry || this.metricsAnimated) return;
+          if (!entry.isIntersecting) return;
+
+          if (entry.intersectionRatio < 0.75) return;
+
+          this.metricsAnimated = true;
+          this.animateWhoMetrics();
+
+          this.whoIO?.disconnect();
+          this.whoIO = undefined;
+        },
+        {
+          threshold: 0.75,
+          rootMargin: '-8% 0px 0px 0px',
+        }
+      );
+
+      this.whoIO.observe(target);
+    }
   }
 
   ngOnDestroy(): void {
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     this.ctaIO?.disconnect();
+    this.whoIO?.disconnect();
   }
 
-  // ===== Navigation actions =====
+  private animateWhoMetrics(): void {
+    const start = performance.now();
+    const duration = 1400;
+
+    const yTarget = this.metricsTarget.years;
+    const tTarget = this.metricsTarget.team;
+    const cTarget = this.metricsTarget.clients;
+
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const p = Math.min(1, elapsed / duration);
+      const e = easeOutCubic(p);
+
+      this.yearsDisplay = Math.round(yTarget * e);
+      this.teamDisplay = Math.round(tTarget * e);
+      this.clientsDisplay = Math.round(cTarget * e);
+
+      if (p < 1) requestAnimationFrame(tick);
+      else {
+        this.yearsDisplay = yTarget;
+        this.teamDisplay = tTarget;
+        this.clientsDisplay = cTarget;
+      }
+    };
+
+    requestAnimationFrame(tick);
+  }
+
   goBook(): void {
     this.router.navigateByUrl(this.consultationPath);
   }
 
-  openWhatsApp(): void {
-    window.open(`https://wa.me/${this.whatsappNumber}`, '_blank', 'noopener,noreferrer');
-  }
-
-  // ===== Featured projects controls =====
   nextProjects(): void {
     this.projectIndex = (this.projectIndex + 1) % this.featuredProjects.length;
   }
 
   prevProjects(): void {
-    this.projectIndex = (this.projectIndex - 1 + this.featuredProjects.length) % this.featuredProjects.length;
+    this.projectIndex =
+      (this.projectIndex - 1 + this.featuredProjects.length) % this.featuredProjects.length;
   }
 
-  // ===== Featured Projects pointer handlers =====
+  // Featured Projects pointer handlers
   projectsPointerDown(e: PointerEvent) {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
 
@@ -177,7 +225,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
 
     const dx = e.clientX - this.projectsStartX;
-
     if (Math.abs(dx) > 6) this.projectsMoved = true;
 
     this.projectsDragPx = dx;
@@ -197,44 +244,5 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     const threshold = 60;
     if (dx <= -threshold) this.nextProjects();
     else if (dx >= threshold) this.prevProjects();
-  }
-
-  // ===== Reviews pointer handlers =====
-  reviewsPointerDown(e: PointerEvent) {
-    if (e.pointerType === 'mouse' && e.button !== 0) return;
-
-    this.reviewsDragging = true;
-    this.reviewsPaused = true;
-    this.reviewsPointerId = e.pointerId;
-
-    this.reviewsStartX = e.clientX;
-    this.reviewsLastDx = 0;
-
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-  }
-
-  reviewsPointerMove(e: PointerEvent) {
-    if (!this.reviewsDragging || this.reviewsPointerId !== e.pointerId) return;
-
-    const dx = e.clientX - this.reviewsStartX;
-    this.reviewsLastDx = dx;
-
-    // manual push while paused
-    this.reviewsTransform = `translate3d(${dx}px, 0, 0)`;
-  }
-
-  reviewsPointerUp(e: PointerEvent) {
-    if (!this.reviewsDragging || this.reviewsPointerId !== e.pointerId) return;
-
-    this.reviewsDragging = false;
-    this.reviewsPointerId = null;
-
-    // choose direction based on swipe
-    if (this.reviewsLastDx > 20) this.reviewsDir = 'right';
-    if (this.reviewsLastDx < -20) this.reviewsDir = 'left';
-
-    // clear manual override and resume auto
-    this.reviewsTransform = '';
-    this.reviewsPaused = false;
   }
 }
