@@ -1,303 +1,300 @@
 /* =========================================
-   Header + Drawer (Clean)
-   - Header fixed on all devices (desktop + mobile)
-   - Never disappears on scroll
-   - Mobile header ALWAYS: logo left, burger right (EN + AR)
-   - Drawer ALWAYS opens from RIGHT (EN + AR)
-   - Drawer content RTL when html[dir="rtl"]
+   Header + Drawer (Final)
+   - Header fixed on all devices
+   - Desktop: brand | nav | actions (RTL flips)
+   - Mobile: logo left, burger right (EN + AR)
+   - Drawer always from RIGHT
+   - Overlay never covers header
    ========================================= */
 
-   .site-header {
-    position: fixed; /* Always fixed on all devices */
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: #fff;
-    border-bottom: 1px solid rgba(22, 20, 20, 0.08);
-    /* Prevent gap on mobile refresh */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+/* ========= Header shell ========= */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 1000;
+  height: var(--header-height);
+
+  background: #fff;
+  border-bottom: 1px solid rgba(22, 20, 20, 0.08);
+}
+
+.site-header.is-scrolled {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  border-bottom-color: rgba(22, 20, 20, 0.10);
+}
+
+/* Make header container fill height (helps vertical alignment) */
+.site-header .container {
+  height: 100%;
+}
+
+/* ========= Desktop layout ========= */
+.header__inner {
+  height: 100%;
+
+  display: grid;
+  align-items: center;
+  gap: 16px;
+
+  --side-slot: clamp(220px, 22vw, 340px);
+
+  direction: ltr; /* stable desktop base */
+
+  grid-template-columns: var(--side-slot) auto var(--side-slot);
+  grid-template-areas: "brand nav actions";
+}
+
+/* Desktop RTL flips positions: actions | nav | brand */
+:host-context(html[dir="rtl"]) .header__inner {
+  grid-template-areas: "actions nav brand";
+}
+
+/* Brand */
+.brand {
+  grid-area: brand;
+  justify-self: start;
+
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+
+  &__logo {
+    height: 38px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    display: block;
   }
-  
-  .site-header.is-scrolled {
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-    border-bottom-color: rgba(22, 20, 20, 0.10);
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
-  }
-  
-  /* =========================
-     Desktop layout
-     ========================= */
-  .header__inner {
-    padding: 15px 0;
-  
-    --side-slot: clamp(220px, 22vw, 340px);
-  
-    /* Desktop can keep your RTL flip */
-    direction: ltr;
-  
-    display: grid;
-    grid-template-columns: var(--side-slot) auto var(--side-slot);
-    grid-template-areas: "brand nav actions";
-    align-items: center;
-    gap: 16px;
-  }
-  
-  /* Desktop RTL flips positions: actions | nav | brand */
-  :host-context(html[dir="rtl"]) .header__inner {
-    grid-template-areas: "actions nav brand";
-  }
-  
-  /* Brand */
-  .brand {
-    grid-area: brand;
-    justify-self: start;
-  
-    display: inline-flex;
-    align-items: center;
+}
+
+/* Desktop RTL: logo to the RIGHT */
+:host-context(html[dir="rtl"]) .brand {
+  justify-self: end;
+}
+
+/* Desktop nav */
+.nav {
+  grid-area: nav;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  &__link {
+    color: var(--text-2);
+    font-weight: 750;
+    font-size: 13px;
+    padding: 10px 10px;
+    border-radius: 12px;
+    transition: background 160ms ease, color 160ms ease;
     text-decoration: none;
-    color: inherit;
-  
-    &__logo {
-      height: 38px;
-      width: auto;
-      max-width: 220px;
-      object-fit: contain;
-      display: block;
-    }
-  }
-  
-  /* Desktop RTL: logo to the RIGHT */
-  :host-context(html[dir="rtl"]) .brand {
-    justify-self: end;
-  }
-  
-  /* Desktop nav */
-  .nav {
-    grid-area: nav;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  
-    &__link {
-      color: var(--text-2);
-      font-weight: 750;
-      font-size: 13px;
-      padding: 10px 10px;
-      border-radius: 12px;
-      transition: background 160ms ease, color 160ms ease;
-      text-decoration: none;
-  
-      &:hover {
-        background: rgba(112, 95, 82, 0.08);
-        color: var(--text);
-      }
-  
-      &.is-active {
-        background: rgba(112, 95, 82, 0.12);
-        color: var(--text);
-      }
-    }
-  }
-  
-  /* Desktop actions */
-  .actions {
-    grid-area: actions;
-    justify-self: end;
-  
-    direction: ltr;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 10px;
-    white-space: nowrap;
-  }
-  
-  .actions .btn {
-    border-radius: 14px;
-    padding: 12px 14px;
-  }
-  
-  .actions .btn--primary {
-    min-width: 170px;
-    text-align: center;
-  }
-  
-  /* Desktop RTL: actions to the LEFT */
-  :host-context(html[dir="rtl"]) .actions {
-    justify-self: start;
-  }
-  
-  /* Hide desktop nav/actions when drawer open */
-  .is-hidden {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-  }
-  
-  /* Language toggle */
-  .lang {
-    border: 1.7px solid rgba(22, 20, 20, 0.10);
-    background: #fff;
-    border-radius: 14px;
-    height: 44px;
-    min-width: 56px;
-    cursor: pointer;
-  
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  
-    transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
-  
+
     &:hover {
-      background: rgba(0, 0, 0, 0.02);
-      border-color: rgba(22, 20, 20, 0.14);
+      background: rgba(112, 95, 82, 0.08);
+      color: var(--text);
     }
-  
-    &:active {
-      transform: translateY(1px);
-    }
-  
-    &__pill {
-      font-weight: 950;
-      font-size: 12px;
-      letter-spacing: 0.6px;
+
+    &.is-active {
+      background: rgba(112, 95, 82, 0.12);
+      color: var(--text);
     }
   }
-  
-  /* Burger */
-  .burger {
-    width: 46px;
-    height: 46px;
-  
-    background-color: #fff;
-    border: 1px solid rgba(22, 20, 20, 0.14);
-    border-radius: 14px;
-    cursor: pointer;
-  
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-  
-    transition: transform 120ms ease, border-color 160ms ease, box-shadow 160ms ease;
-  
-    display: none;
-  
-    &:hover {
-      border-color: rgba(22, 20, 20, 0.20);
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
-    }
-  
-    &:active {
-      transform: translateY(1px);
-    }
-  
-    span {
-      display: block;
-      height: 2px;
-      width: 18px;
-      margin: 4px auto;
-      background: rgba(22, 20, 20, 0.85);
-      border-radius: 4px;
-    }
+}
+
+/* Desktop actions */
+.actions {
+  grid-area: actions;
+  justify-self: end;
+
+  direction: ltr;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.actions .btn {
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.actions .btn--primary {
+  min-width: 170px;
+  text-align: center;
+}
+
+/* Desktop RTL: actions to the LEFT */
+:host-context(html[dir="rtl"]) .actions {
+  justify-self: start;
+}
+
+/* Hide desktop nav/actions when drawer open */
+.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Language toggle */
+.lang {
+  border: 1.7px solid rgba(22, 20, 20, 0.10);
+  background: #fff;
+  border-radius: 14px;
+  height: 44px;
+  min-width: 56px;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(22, 20, 20, 0.14);
   }
-  
-  /* Overlay */
-  .overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1001; /* Above header, below drawer */
-    background: rgba(15, 14, 14, 0.44);
+
+  &:active {
+    transform: translateY(1px);
   }
-  
-  /* =========================
-     Drawer (ALWAYS from RIGHT)
-     ========================= */
-  
-  /* Prevent “ghost flying” when dir changes */
-  :host-context(html.dir-switching) .drawer {
-    transition: none !important;
+
+  &__pill {
+    font-weight: 950;
+    font-size: 12px;
+    letter-spacing: 0.6px;
   }
-  
-  .drawer {
-    position: fixed;
-    top: 0;
-    right: 0; /* ✅ ALWAYS right */
-    left: auto;
-  
-    height: 100%;
-    width: min(380px, 92vw);
-    z-index: 70;
-  
-    background: #fff;
-  
-    border-left: 1px solid rgba(22, 20, 20, 0.10);
-    box-shadow: -20px 0 40px rgba(0, 0, 0, 0.16);
-  
-    transform: translateX(100%); /* ✅ hidden to the right */
-    transition: transform 220ms ease;
-  
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
+}
+
+/* Burger */
+.burger {
+  width: 46px;
+  height: 46px;
+
+  background-color: #fff;
+  border: 1px solid rgba(22, 20, 20, 0.14);
+  border-radius: 14px;
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  transition: transform 120ms ease, border-color 160ms ease, box-shadow 160ms ease;
+
+  display: none; /* desktop hidden */
+
+  &:hover {
+    border-color: rgba(22, 20, 20, 0.20);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
   }
-  
-  .drawer.is-open {
-    transform: translateX(0);
+
+  &:active {
+    transform: translateY(1px);
   }
-  
-  /* Drawer content direction */
-  :host-context(html[dir="rtl"]) .drawer {
-    direction: rtl; /* nav text etc. RTL */
+
+  span {
+    display: block;
+    height: 2px;
+    width: 18px;
+    margin: 4px auto;
+    background: rgba(22, 20, 20, 0.85);
+    border-radius: 4px;
   }
-  
-  /* Drawer top */
-  .drawer__top {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* close on right in EN */
-    margin-bottom: 14px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(22, 20, 20, 0.08);
+}
+
+/* ========= Overlay (never covers header) ========= */
+.overlay {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 999; /* below header */
+  background: rgba(15, 14, 14, 0.44);
+}
+
+/* ========= Drawer (always from RIGHT) ========= */
+:host-context(html.dir-switching) .drawer {
+  transition: none !important;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: auto;
+  bottom: 0;
+
+  width: min(380px, 92vw);
+  z-index: 1100; /* above header + overlay */
+
+  background: #fff;
+  border-left: 1px solid rgba(22, 20, 20, 0.10);
+  box-shadow: -20px 0 40px rgba(0, 0, 0, 0.16);
+
+  transform: translateX(100%);
+  transition: transform 220ms ease;
+
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.drawer.is-open {
+  transform: translateX(0);
+}
+
+:host-context(html[dir="rtl"]) .drawer {
+  direction: rtl;
+}
+
+/* Drawer top */
+.drawer__top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(22, 20, 20, 0.08);
+}
+
+:host-context(html[dir="rtl"]) .drawer__top {
+  justify-content: flex-start;
+}
+
+.drawer__close {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(22, 20, 20, 0.10);
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 16px;
+
+  display: grid;
+  place-items: center;
+
+  transition: transform 120ms ease, box-shadow 160ms ease;
+
+  &:hover {
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
   }
-  
-  /* RTL: close on left */
-  :host-context(html[dir="rtl"]) .drawer__top {
-    justify-content: flex-start;
+
+  &:active {
+    transform: translateY(1px);
   }
-  
-  .drawer__close {
-    width: 44px;
-    height: 44px;
-    border: 1px solid rgba(22, 20, 20, 0.10);
-    border-radius: 14px;
-    background: #fff;
-    cursor: pointer;
-    font-size: 16px;
-  
-    display: grid;
-    place-items: center;
-  
-    transition: transform 120ms ease, box-shadow 160ms ease;
-  
-    &:hover {
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
-    }
-  
-    &:active {
-      transform: translateY(1px);
-    }
-  }
-  
-/* Mobile nav – solid (no transparency) */
+}
+
+/* Mobile nav – solid */
 .nav--mobile {
   flex-direction: column;
   align-items: stretch;
@@ -319,77 +316,73 @@
   background: #e6ddd4;
   border-color: #c9b9a7;
 }
-  
-  /* Drawer bottom actions */
-  .drawer__bottom {
-    margin-top: auto;
-    padding-top: 14px;
-    border-top: 1px solid rgba(22, 20, 20, 0.08);
-  
-    display: grid;
+
+/* Drawer bottom actions */
+.drawer__bottom {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(22, 20, 20, 0.08);
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+
+  .btn--primary {
+    width: 100%;
+    border-radius: 14px;
+    padding: 12px 14px;
+  }
+
+  .lang--bottom {
+    width: 72px;
+  }
+}
+
+/* ========= Mobile header ========= */
+@media (max-width: 980px) {
+  .nav--desktop,
+  .actions--desktop {
+    display: none;
+  }
+
+  /* keep everything aligned inside container; no extra margins */
+  .header__inner {
+    direction: ltr;
     grid-template-columns: 1fr auto;
-    gap: 10px;
-    align-items: center;
-  
-    .btn--primary {
-      width: 100%;
-      border-radius: 14px;
-      padding: 12px 14px;
-    }
-  
-    .lang--bottom {
-      width: 72px;
-    }
+    grid-template-areas: "brand burger";
+    gap: 12px;
   }
-  
-  /* =========================
-     Responsive (Mobile header)
-     - Always logo left, burger right (EN + AR)
-     ========================= */
-  @media (max-width: 980px) {
-    .nav--desktop,
-    .actions--desktop {
-      display: none;
-    }
-  
-    .header__inner {
-      direction: ltr; /* ✅ keep order stable for both languages */
-      grid-template-columns: 1fr auto;
-      grid-template-areas: "brand burger";
-      margin-right: 10px;
-      margin-left: 10px;
-    }
-  
-    /* Force brand left + burger right ALWAYS */
-    .brand {
-      grid-area: brand;
-      justify-self: start;
-    }
-  
-    .burger {
-      display: inline-block;
-      grid-area: burger;
-      justify-self: end;
-    }
-  
-    /* Cancel desktop RTL swap only for mobile header */
-    :host-context(html[dir="rtl"]) .header__inner {
-      grid-template-areas: "brand burger";
-    }
-  
-    :host-context(html[dir="rtl"]) .brand {
-      justify-self: start;
-    }
-  
-    :host-context(html[dir="rtl"]) .burger {
-      justify-self: end;
-    }
+
+  .brand {
+    grid-area: brand;
+    justify-self: start;
   }
-  
-  @media (max-width: 480px) {
-    .brand__logo {
-      height: 36px;
-      max-width: 190px;
-    }
+
+  .burger {
+    display: inline-block;
+    grid-area: burger;
+    justify-self: end;
+    margin: 0;
   }
-  
+
+  /* Cancel desktop RTL swap only for mobile header */
+  :host-context(html[dir="rtl"]) .header__inner {
+    grid-template-areas: "brand burger";
+  }
+
+  :host-context(html[dir="rtl"]) .brand {
+    justify-self: start;
+  }
+
+  :host-context(html[dir="rtl"]) .burger {
+    justify-self: end;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand__logo {
+    height: 36px;
+    max-width: 190px;
+  }
+}
