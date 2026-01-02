@@ -214,7 +214,7 @@
   .overlay {
     position: fixed;
     inset: 0;
-    z-index: 60;
+    z-index: 1001; /* Above header, below drawer */
     background: rgba(15, 14, 14, 0.44);
   }
   
@@ -227,32 +227,32 @@
     transition: none !important;
   }
   
-.drawer {
-  position: fixed;
-  top: var(--header-height); /* ✅ start below header */
-  right: -100%;
-  height: calc(100dvh - var(--header-height));
-  width: min(380px, 92vw);
-
-  z-index: 900; /* BELOW header */
-
-  background: #fff;
-  opacity: 1;
-  isolation: isolate;
-
-  border-left: 1px solid rgba(22, 20, 20, 0.10);
-  box-shadow: -20px 0 40px rgba(0, 0, 0, 0.16);
-
-  transition: right 220ms ease;
-
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-}
-
-.drawer.is-open {
-  right: 0;
-}
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: 0; /* ✅ ALWAYS right */
+    left: auto;
+  
+    height: 100%;
+    width: min(380px, 92vw);
+    z-index: 70;
+  
+    background: #fff;
+  
+    border-left: 1px solid rgba(22, 20, 20, 0.10);
+    box-shadow: -20px 0 40px rgba(0, 0, 0, 0.16);
+  
+    transform: translateX(100%); /* ✅ hidden to the right */
+    transition: transform 220ms ease;
+  
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }
+  
+  .drawer.is-open {
+    transform: translateX(0);
+  }
   
   /* Drawer content direction */
   :host-context(html[dir="rtl"]) .drawer {
