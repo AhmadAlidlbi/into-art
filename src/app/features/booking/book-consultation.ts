@@ -36,12 +36,16 @@ type DesignPackage =
 })
 export class BookConsultationPage {
   isSubmitting = signal(false);
+  hasSelectedDate = signal(false);
+  timeTaken = signal(false);
+  loadingSlots = signal(false);
   submitError = signal<string | null>(null);
   availableHours = signal<string[]>([]);
 
   today = new Date();
   private readonly BLOCKED_DAY = 5; // Friday
-  private readonly HOURS = ['09:00', '10:30', '12:00', '14:00', '16:00', '18:00'];
+  public readonly HOURS = ['09:00', '10:30', '12:00', '14:00', '16:00', '18:00'];
+  private slotsCache = new Map<string, string[]>();
 
   form; // ← declare only
 
@@ -80,15 +84,40 @@ export class BookConsultationPage {
     return date.getDay() !== this.BLOCKED_DAY;
   };
 
-  onDateSelected(date: Date | null): void {
-    this.availableHours.set([]);
+  async onDateSelected(date: Date | null) {
+    this.hasSelectedDate.set(!!date);
+    this.timeTaken.set(false);
+
     this.form.controls.preferredHour.reset();
+    this.availableHours.set([]);
 
     if (!date) return;
-    this.availableHours.set(this.HOURS);
+
+    const iso = this.formatLocalDate(date);
+
+    // ✅ use cache if available
+    if (this.slotsCache.has(iso)) {
+      this.availableHours.set(this.slotsCache.get(iso)!);
+      return;
+    }
+
+    // ⏳ show loading instantly
+    this.loadingSlots.set(true);
+
+    try {
+      const res = await this.booking.getBookedSlots(iso);
+      const free = this.HOURS.filter((h) => !res.bookedSlots.includes(h));
+
+      // ✅ cache result
+      this.slotsCache.set(iso, free);
+      this.availableHours.set(free);
+    } finally {
+      this.loadingSlots.set(false);
+    }
   }
 
   selectHour(hour: string): void {
+    this.timeTaken.set(false);
     this.form.controls.preferredHour.setValue(hour);
   }
 
@@ -113,13 +142,21 @@ export class BookConsultationPage {
 
       designPackage: v.designPackage,
 
-      preferredDate: v.preferredDate ? v.preferredDate.toISOString().split('T')[0] : '',
+      preferredDate: v.preferredDate ? this.formatLocalDate(v.preferredDate) : '',
       preferredHour: v.preferredHour,
     };
   }
 
+  private formatLocalDate(date: Date): string {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
   async submit(): Promise<void> {
     this.submitError.set(null);
+    this.timeTaken.set(false);
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -130,6 +167,17 @@ export class BookConsultationPage {
 
     try {
       const res = await this.booking.submitConsultation(this.toPayload());
+
+      if (!res.ok && res.error?.includes('already booked')) {
+        this.timeTaken.set(true);
+
+        const d = this.form.controls.preferredDate.value;
+        if (d) {
+          this.slotsCache.delete(this.formatLocalDate(d));
+          await this.onDateSelected(d);
+        }
+        return;
+      }
 
       if (res.ok) {
         this.router.navigateByUrl('/book-consultation/success');

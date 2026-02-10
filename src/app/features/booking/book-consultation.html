@@ -148,19 +148,33 @@
 
           <small class="hint">Saturday–Thursday only. Fridays unavailable.</small>
 
-          <div class="field" *ngIf="availableHours().length">
+          <div class="field">
             <span>Preferred time *</span>
-            <div class="time-slots">
+
+            <!-- LOADING -->
+            <p class="hint" *ngIf="loadingSlots()">Checking availability…</p>
+
+            <!-- AVAILABLE SLOTS -->
+            <div class="time-slots" *ngIf="!loadingSlots() && availableHours().length > 0">
               <button
                 type="button"
                 class="time-slot"
-                *ngFor="let h of availableHours()"
+                *ngFor="let h of HOURS"
+                [disabled]="!availableHours().includes(h)"
                 [class.active]="form.controls.preferredHour.value === h"
                 (click)="selectHour(h)"
               >
                 {{ h }}
               </button>
             </div>
+
+            <!-- NO SLOTS -->
+            <p
+              class="no-slots"
+              *ngIf="!loadingSlots() && hasSelectedDate() && availableHours().length === 0"
+            >
+              All time slots for this date are fully booked.
+            </p>
           </div>
         </section>
 

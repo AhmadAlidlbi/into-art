@@ -285,3 +285,21 @@
       border-radius: 50%;
     }
   }
+
+  .time-slot:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: #f3f3f3;
+  }
+  
+  .no-slots {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #9a2c2c;
+    background: #fff2f2;
+    border: 1px solid #f3caca;
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+  

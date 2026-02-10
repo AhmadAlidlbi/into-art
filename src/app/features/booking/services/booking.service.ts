@@ -18,7 +18,7 @@ export interface ConsultationPayload {
 @Injectable({ providedIn: 'root' })
 export class BookingService {
   private endpoint =
-    'https://script.google.com/macros/s/AKfycbw9wV538G75f9JzgVTcxmVuTY2hA1ADDcWbXc6_fwSUVNNs9Hfqj_ho1-8vvLWjLJU6/exec';
+    'https://script.google.com/macros/s/AKfycbzIRMhQ7wSr6nQHdbx3EccKxcqjVJNX4qmltRPn9HPL_CIeQyYyKCy_QT7oDMMxZfJE/exec';
 
   constructor(private http: HttpClient) {}
 
@@ -32,7 +32,19 @@ export class BookingService {
     });
 
     return firstValueFrom(
-      this.http.post<{ ok: boolean }>(this.endpoint, formData)
+      this.http.post<{
+        ok: boolean;
+        error?: string; // ✅ optional
+      }>(this.endpoint, formData)
+    );
+  }
+
+  getBookedSlots(date: string) {
+    return firstValueFrom(
+      this.http.get<{
+        ok: boolean;
+        bookedSlots: string[];
+      }>(`${this.endpoint}?date=${date}`)
     );
   }
 }
