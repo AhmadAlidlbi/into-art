@@ -5,9 +5,9 @@ import { Router, RouterModule } from '@angular/router';
 import { BookingService, ConsultationPayload } from './services/booking.service';
 
 // your custom date picker (already added earlier)
-import { DatePickerComponent } from '../../shared/ui/date-picker/date-picker';
+import { DatePickerComponent } from './components/date-picker/date-picker';
 // new time slots
-import { TimeSlotsComponent } from '../../shared/ui/time-slots/time-slots';
+import { TimeSlotsComponent } from './components/time-slots/time-slots';
 
 type BookingForm = FormGroup<{
   fullName: FormControl<string>;

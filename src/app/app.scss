@@ -1,0 +1,7 @@
+/* Global fix for fixed header */
+/* Add padding-top to main content area to account for fixed navbar */
+/* This applies to all pages automatically without needing individual page changes */
+.main-content {
+  padding-top: var(--header-height);
+}
+

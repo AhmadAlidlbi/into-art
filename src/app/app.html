@@ -1,6 +1,8 @@
 <app-header (mobileOpenChange)="isDrawerOpen.set($event)"></app-header>
 
-<router-outlet> </router-outlet>
+<div class="main-content">
+  <router-outlet> </router-outlet>
+</div>
 
 <app-whatsapp-float
   [enabled]="!isDrawerOpen()"

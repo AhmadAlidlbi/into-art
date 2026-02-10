@@ -5,13 +5,13 @@ const READY = new Set<string>([
   '', // home
   'under-construction',
   'not-found',
+  'book-consultation',
 
   // add ONLY the pages you want accessible right now:
   // 'services',
   // 'projects',
   // 'about',
   // 'contact',
-  // 'book-consultation',
   // 'privacy-policy',
 ]);
 
