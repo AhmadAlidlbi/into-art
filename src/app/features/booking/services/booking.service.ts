@@ -1,24 +1,38 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
-export type ConsultationPayload = {
+export interface ConsultationPayload {
   fullName: string;
   phone: string;
-  email?: string | null;
-  area?: string | null;
-  propertyType: 'Villa' | 'Apartment' | 'Room' | 'Office' | 'Other';
-  preferredDate: string;  // yyyy-mm-dd
-  preferredHour: string;  // HH:mm
-  message?: string | null;
-  contactPreference: 'WhatsApp' | 'Call' | 'Email';
-};
+
+  buildingCondition: string;
+  buildingConditionOther: string | null;
+
+  designPackage: string;
+
+  preferredDate: string;
+  preferredHour: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class BookingService {
-  async submitConsultation(payload: ConsultationPayload): Promise<{ ok: boolean; id?: string }> {
-    console.log('[Consultation Submission]', payload);
+  private endpoint =
+    'https://script.google.com/macros/s/AKfycbw9wV538G75f9JzgVTcxmVuTY2hA1ADDcWbXc6_fwSUVNNs9Hfqj_ho1-8vvLWjLJU6/exec';
 
-    await new Promise((r) => setTimeout(r, 650));
+  constructor(private http: HttpClient) {}
 
-    return { ok: true, id: crypto?.randomUUID?.() ?? `${Date.now()}` };
+  submitConsultation(payload: ConsultationPayload) {
+    const formData = new FormData();
+
+    Object.entries(payload).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        formData.append(key, value);
+      }
+    });
+
+    return firstValueFrom(
+      this.http.post<{ ok: boolean }>(this.endpoint, formData)
+    );
   }
 }

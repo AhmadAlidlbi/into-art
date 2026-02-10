@@ -1,89 +1,103 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators, FormControl, FormGroup } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Component, signal } from '@angular/core';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BookingService, ConsultationPayload } from './services/booking.service';
 
-// your custom date picker (already added earlier)
-import { DatePickerComponent } from './components/date-picker/date-picker';
-// new time slots
-import { TimeSlotsComponent } from './components/time-slots/time-slots';
+/* Angular Material */
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
-type BookingForm = FormGroup<{
-  fullName: FormControl<string>;
-  phone: FormControl<string>;
-  email: FormControl<string>;
-  area: FormControl<string>;
-  propertyType: FormControl<'Villa' | 'Apartment' | 'Room' | 'Office' | 'Other'>;
-  preferredDate: FormControl<string>;
-  preferredHour: FormControl<string>; // "HH:mm"
-  contactPreference: FormControl<'WhatsApp' | 'Call' | 'Email'>;
-  message: FormControl<string>;
-}>;
+/* NEW TYPES */
+type BuildingCondition = 'New building' | 'Restoration' | 'Other';
+
+type DesignPackage =
+  | 'Two-space design package'
+  | '4-space design package'
+  | '5-space design package'
+  | 'Floor Design Package'
+  | 'Complete coupon design package';
 
 @Component({
   selector: 'app-book-consultation',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, DatePickerComponent, TimeSlotsComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
   templateUrl: './book-consultation.html',
   styleUrls: ['./book-consultation.scss'],
 })
 export class BookConsultationPage {
-  whatsappNumber = '96550000000';
-  phoneNumber = '+965 5000 0000';
-
   isSubmitting = signal(false);
   submitError = signal<string | null>(null);
+  availableHours = signal<string[]>([]);
 
-  form!: BookingForm;
+  today = new Date();
+  private readonly BLOCKED_DAY = 5; // Friday
+  private readonly HOURS = ['09:00', '10:30', '12:00', '14:00', '16:00', '18:00'];
 
-  todayISO = computed(() => {
-    const d = new Date();
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
-    const dd = String(d.getDate()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd}`;
-  });
+  form; // ← declare only
 
-  selectedDateISO = computed(() => this.form?.controls.preferredDate.value || '');
-
-  constructor(
-    private fb: FormBuilder,
-    private booking: BookingService,
-    private router: Router
-  ) {
+  constructor(private fb: FormBuilder, private booking: BookingService, private router: Router) {
+    // ✅ initialize AFTER fb exists
     this.form = this.fb.nonNullable.group({
-      fullName: this.fb.nonNullable.control('', [Validators.required, Validators.minLength(2)]),
-      phone: this.fb.nonNullable.control('', [
-        Validators.required,
-        Validators.pattern(/^[0-9+\-\s]{6,20}$/),
-      ]),
-      email: this.fb.nonNullable.control('', [Validators.email]),
-      area: this.fb.nonNullable.control(''),
-      propertyType: this.fb.nonNullable.control<'Villa' | 'Apartment' | 'Room' | 'Office' | 'Other'>(
-        'Apartment',
-        [Validators.required]
+      /* REQUIRED */
+      fullName: ['', [Validators.required, Validators.minLength(2)]],
+      phone: ['', Validators.required],
+
+      /* BUILDING CONDITION */
+      buildingCondition: this.fb.nonNullable.control<'New building' | 'Restoration' | 'Other'>(
+        'New building',
+        Validators.required
       ),
+      buildingConditionOther: [''],
 
-      // date from date picker (yyyy-mm-dd)
-      preferredDate: this.fb.nonNullable.control('', [Validators.required]),
+      /* DESIGN PACKAGE */
+      designPackage: this.fb.nonNullable.control<
+        | 'Two-space design package'
+        | '4-space design package'
+        | '5-space design package'
+        | 'Floor Design Package'
+        | 'Complete coupon design package'
+      >('Two-space design package', Validators.required),
 
-      // NEW: hour slot (HH:mm)
-      preferredHour: this.fb.nonNullable.control('', [Validators.required]),
+      /* DATE + TIME */
+      preferredDate: [null as Date | null, Validators.required],
+      preferredHour: ['', Validators.required],
+    });
+  }
 
-      contactPreference: this.fb.nonNullable.control<'WhatsApp' | 'Call' | 'Email'>('WhatsApp', [
-        Validators.required,
-      ]),
-      message: this.fb.nonNullable.control(''),
-    }) as BookingForm;
+  /** Disable Fridays */
+  dateFilter = (date: Date | null): boolean => {
+    if (!date) return false;
+    return date.getDay() !== this.BLOCKED_DAY;
+  };
+
+  onDateSelected(date: Date | null): void {
+    this.availableHours.set([]);
+    this.form.controls.preferredHour.reset();
+
+    if (!date) return;
+    this.availableHours.set(this.HOURS);
+  }
+
+  selectHour(hour: string): void {
+    this.form.controls.preferredHour.setValue(hour);
   }
 
   openWhatsApp(): void {
-    window.open(`https://wa.me/${this.whatsappNumber}`, '_blank', 'noopener,noreferrer');
+    window.open('https://wa.me/96550000000', '_blank', 'noopener');
   }
 
   callNow(): void {
-    window.open(`tel:${this.phoneNumber.replace(/\s/g, '')}`, '_self');
+    window.open('tel:+96550000000');
   }
 
   private toPayload(): ConsultationPayload {
@@ -92,13 +106,15 @@ export class BookConsultationPage {
     return {
       fullName: v.fullName.trim(),
       phone: v.phone.trim(),
-      email: v.email.trim() || null,
-      area: v.area.trim() || null,
-      propertyType: v.propertyType,
-      preferredDate: v.preferredDate,
-      preferredHour: v.preferredHour, // "HH:mm"
-      message: v.message.trim() || null,
-      contactPreference: v.contactPreference,
+
+      buildingCondition: v.buildingCondition,
+      buildingConditionOther:
+        v.buildingCondition === 'Other' ? v.buildingConditionOther?.trim() || null : null,
+
+      designPackage: v.designPackage,
+
+      preferredDate: v.preferredDate ? v.preferredDate.toISOString().split('T')[0] : '',
+      preferredHour: v.preferredHour,
     };
   }
 
@@ -107,22 +123,19 @@ export class BookConsultationPage {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.submitError.set('Please review the required fields and try again.');
       return;
     }
 
     this.isSubmitting.set(true);
 
     try {
-      const payload = this.toPayload();
-      const res = await this.booking.submitConsultation(payload);
+      const res = await this.booking.submitConsultation(this.toPayload());
 
-      if (!res.ok) {
+      if (res.ok) {
+        this.router.navigateByUrl('/book-consultation/success');
+      } else {
         this.submitError.set('Submission failed. Please try again.');
-        return;
       }
-
-      this.router.navigateByUrl('/book-consultation/success');
     } catch {
       this.submitError.set('Something went wrong. Please try again.');
     } finally {

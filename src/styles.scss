@@ -1,9 +1,58 @@
-@use 'styles/tokens';
-@use 'styles/base';
-@use 'styles/components';
-@use 'styles/utilities';
-
-html[dir="rtl"] body { direction: rtl; }
-html[dir="rtl"] .hero,
-html[dir="rtl"] .card,
-html[dir="rtl"] .channel { text-align: right; }
+/* =========================
+   ALL @use MUST BE FIRST
+   ========================= */
+   @use '@angular/material' as mat;
+   @use 'styles/tokens';
+   @use 'styles/base';
+   @use 'styles/components';
+   @use 'styles/utilities';
+   
+   /* =========================
+      Angular Material Theme
+      ========================= */
+   html {
+     @include mat.theme((
+       color: (
+         primary: mat.$azure-palette,
+         tertiary: mat.$blue-palette,
+       ),
+       typography: Roboto,
+       density: 0,
+     ));
+   
+     /* 🔑 BRIDGE MATERIAL → YOUR TOKENS */
+     --mat-sys-surface: var(--bg);
+     --mat-sys-background: var(--bg);
+     --mat-sys-on-surface: var(--text);
+   }
+   
+   /* =========================
+      Base document styles
+      ========================= */
+   html, body {
+     height: 100%;
+   }
+   
+   body {
+     margin: 0;
+     background: var(--bg); /* ← now respected again */
+     color: var(--text);
+     font-family: var(--font-ar);
+     line-height: 1.8;
+     -webkit-font-smoothing: antialiased;
+     text-rendering: optimizeLegibility;
+   }
+   
+   /* =========================
+      RTL Support
+      ========================= */
+   html[dir="rtl"] body {
+     direction: rtl;
+   }
+   
+   html[dir="rtl"] .hero,
+   html[dir="rtl"] .card,
+   html[dir="rtl"] .channel {
+     text-align: right;
+   }
+   
