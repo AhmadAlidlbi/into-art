@@ -30,7 +30,7 @@ export class HeaderComponent {
   /** Navigation */
   links: HeaderLink[] = [
     { labelKey: 'nav.home', path: '/', exact: true },
-    { labelKey: 'nav.services', path: '/under-construction' },
+    { labelKey: 'nav.services', path: '/services' },
     { labelKey: 'nav.projects', path: '/under-construction' },
     { labelKey: 'nav.about', path: '/under-construction' },
     { labelKey: 'nav.contact', path: '/under-construction' },

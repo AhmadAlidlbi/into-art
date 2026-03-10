@@ -54,6 +54,11 @@
   grid-template-areas: "actions nav brand";
 }
 
+/* Desktop nav items should mirror in RTL */
+:host-context(html[dir="rtl"]) .nav--desktop {
+  flex-direction: row-reverse;
+}
+
 /* ========= Brand ========= */
 .brand {
   grid-area: brand;

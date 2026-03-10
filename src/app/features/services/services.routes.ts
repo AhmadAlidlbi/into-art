@@ -7,6 +7,7 @@ export const SERVICES_ROUTES: Routes = [
   },
   {
     path: ':slug',
-    loadComponent: () => import('./components/service-details/service-details').then((m) => m.ServiceDetailsPage),
+    loadComponent: () =>
+      import('./components/service-details/service-details').then((m) => m.ServiceDetailsPage),
   },
 ];

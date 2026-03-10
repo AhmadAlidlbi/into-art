@@ -31,7 +31,7 @@ export class FooterComponent {
   // ✅ Paths unchanged — labels are translation keys
   quickLinks: FooterLink[] = [
     { labelKey: 'footer.links.home', path: '/' },
-    { labelKey: 'footer.links.services', path: '/under-construction' },
+    { labelKey: 'footer.links.services', path: '/services' },
     { labelKey: 'footer.links.portfolio', path: '/under-construction' },
     { labelKey: 'footer.links.about', path: '/under-construction' },
     { labelKey: 'footer.links.faq', path: '/under-construction' },
@@ -41,8 +41,8 @@ export class FooterComponent {
   ];
 
   serviceLinks: FooterLink[] = [
-    { labelKey: 'footer.servicesLinks.residentialInterior', path: '/under-construction' },
-    { labelKey: 'footer.servicesLinks.apartmentRenovation', path: '/under-construction' },
-    { labelKey: 'footer.servicesLinks.turnkeyFitOut', path: '/under-construction' },
+    { labelKey: 'footer.servicesLinks.residentialInterior', path: '/services' },
+    { labelKey: 'footer.servicesLinks.apartmentRenovation', path: '/services' },
+    { labelKey: 'footer.servicesLinks.turnkeyFitOut', path: '/services' },
   ];
 }

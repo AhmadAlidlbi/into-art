@@ -11,9 +11,9 @@
   },
   "actions": {
     "whatsapp": "WhatsApp",
-    "book": "Book Consultation"
+    "book": "Book Consultation",
+    "viewPortfolio": "View Portfolio"
   },
-
   "cards": {
     "card_1": {
       "title": "Home design consultation",
@@ -134,7 +134,483 @@
       "button": "Book Consultation"
     }
   },
-
+  "services": {
+    "pageTitle": "Services",
+    "pageSubtitle": "Premium interior design services in Kuwait — structured, clear, and focused on refined results.",
+    "grid": {
+      "kicker": "What we do",
+      "title": "Services designed for premium residential spaces"
+    },
+    "note": {
+      "title": "Designed for clarity, built for quality",
+      "desc": "Every service follows a structured workflow — from early consultation to final handover. We keep decisions simple, timelines predictable, and finishing standards consistently high."
+    },
+    "procedure": {
+      "kicker": "How we work",
+      "title": "A simple workflow that keeps everything on track",
+      "1": {
+        "title": "Consultation & requirements",
+        "desc": "We align on your goals, style, budget range, and practical needs before moving forward."
+      },
+      "2": {
+        "title": "Concept & planning",
+        "desc": "We develop layouts, mood direction, and scope — so you see the full direction early."
+      },
+      "3": {
+        "title": "Execution & handover",
+        "desc": "We coordinate the finishing, follow up on site, and deliver a handover-ready result."
+      }
+    },
+    "testimonial": {
+      "kicker": "Client feedback",
+      "title": "Trusted by homeowners who value details",
+      "note": "Clear steps, premium finishing, and consistent communication — that’s what our clients highlight most.",
+      "quote": "Very professional and organized. They delivered exactly what we wanted with high finishing quality and clear communication.",
+      "name": "Client Review",
+      "role": "Residential Project — Kuwait"
+    },
+    "ctaStrip": {
+      "title": "Ready to start your consultation?",
+      "desc": "Tell us what you need and we’ll guide you through the next steps."
+    },
+    "cta": {
+      "title": "Ready to start your consultation?",
+      "desc": "Share your project details and we’ll guide you through the next steps."
+    },
+    "details": {
+      "back": "Back to Services",
+      "backToAll": "All Services",
+      "eyebrow": "Service details",
+      "aboutTitle": "About this service",
+      "benefitsTitle": "What you get",
+      "benefitsDesc": "Clear deliverables, premium coordination, and execution-ready outcomes tailored to your space.",
+      "faqTitle": "FAQ",
+      "faqDesc": "Common questions about scope, workflow, and delivery.",
+      "viewAllFaq": "View all FAQs",
+      "faqEmptyTitle": "No FAQ available yet",
+      "faqEmptyDesc": "This service does not include FAQs at the moment. You can view the general FAQ page for more information.",
+      "notFoundTitle": "Service not found",
+      "notFoundDesc": "The service you’re looking for may have been moved or is no longer available."
+    },
+    "items": {
+      "residential": {
+        "title": "Residential Interior Design",
+        "short": "End-to-end residential design for villas and apartments with a clear workflow and premium finishing.",
+        "bullets": {
+          "1": "Define the design direction and space identity",
+          "2": "Functional planning for furniture, circulation, and zones",
+          "3": "Materials, colors, and lighting aligned to your lifestyle",
+          "4": "Execution-ready deliverables with support through the build"
+        },
+        "highlights": {
+          "1": "Premium design with clear decision-making",
+          "2": "Materials and finishing aligned to your budget",
+          "3": "Consistent delivery from concept to handover"
+        },
+        "deliverables": {
+          "1": "Space planning + furniture layouts",
+          "2": "Mood & materials boards",
+          "3": "Lighting guidance + curated selections",
+          "4": "Execution-ready drawing pack & notes"
+        },
+        "timeline": { "value": "Depends on project size — typically 3–8 weeks for design phase" },
+        "scope": { "value": "Villas and apartments — full home or selected areas" },
+        "process": {
+          "1": {
+            "title": "Consultation & requirements",
+            "desc": "We capture your needs, taste, and priorities, and define the scope."
+          },
+          "2": {
+            "title": "Concept & planning",
+            "desc": "We develop layout direction, mood, and material options."
+          },
+          "3": {
+            "title": "Detailing & handover",
+            "desc": "We finalize execution deliverables and review details for site readiness."
+          }
+        },
+        "faq": {
+          "1": {
+            "q": "Do you offer site supervision?",
+            "a": "Yes — supervision options are available depending on your package."
+          },
+          "2": {
+            "q": "Can you design a single room only?",
+            "a": "Yes — we can handle one space (living, majlis, bedroom, etc.) or a full home."
+          }
+        }
+      },
+      "renovation": {
+        "title": "Apartment Renovation",
+        "short": "A structured renovation plan with premium finishing direction and clear execution milestones.",
+        "bullets": {
+          "1": "Improve layouts and functionality based on your needs",
+          "2": "Finishing solutions that respect budget without sacrificing quality",
+          "3": "Organized material, flooring, and lighting selections",
+          "4": "Execution follow-up for a handover-ready result"
+        },
+        "highlights": {
+          "1": "Clear plan that reduces on-site rework",
+          "2": "Materials chosen for daily use and longevity",
+          "3": "Better cost and quality control"
+        },
+        "deliverables": {
+          "1": "Updated layout and planning",
+          "2": "Finishes, materials, and color direction",
+          "3": "Priorities list and execution timeline"
+        },
+        "timeline": { "value": "Typically 2–6 weeks depending on change scope" },
+        "scope": { "value": "Partial or full apartment renovation (layout / finishes / upgrades)" },
+        "process": {
+          "1": {
+            "title": "Site assessment",
+            "desc": "We review constraints, opportunities, and required changes."
+          },
+          "2": {
+            "title": "Planning & options",
+            "desc": "We present layout/material options and estimate scope."
+          },
+          "3": {
+            "title": "Execution & handover",
+            "desc": "We follow up on finishing and coordination through delivery."
+          }
+        },
+        "faq": {
+          "1": {
+            "q": "Can you renovate while keeping some existing furniture?",
+            "a": "Yes — we can design around existing pieces when required."
+          }
+        }
+      },
+      "fitout": {
+        "title": "Turnkey Fit-Out",
+        "short": "From design to execution: coordination, supervision, and premium handover with clear quality controls.",
+        "bullets": {
+          "1": "Project coordination across all parties",
+          "2": "Premium finishing standards with clear checkpoints",
+          "3": "Structured timeline and progress tracking",
+          "4": "Final inspection and handover readiness"
+        },
+        "highlights": {
+          "1": "Single point of contact",
+          "2": "Quality control and finishing supervision",
+          "3": "Clear inspections and final snag closure"
+        },
+        "deliverables": {
+          "1": "Execution coordination and vendor management",
+          "2": "Site supervision and quality follow-up",
+          "3": "Final snag list and structured handover"
+        },
+        "timeline": { "value": "Depends on project size — typically 6 weeks to several months" },
+        "scope": {
+          "value": "Residential turnkey execution including coordination, supervision, and delivery"
+        },
+        "process": {
+          "1": {
+            "title": "Finalize execution scope",
+            "desc": "We lock materials, scope, and site plan before starting."
+          },
+          "2": {
+            "title": "Coordination & supervision",
+            "desc": "We track daily progress, quality, and site coordination."
+          },
+          "3": {
+            "title": "Inspection & handover",
+            "desc": "We close snags and run final checks for a clean handover."
+          }
+        },
+        "faq": {
+          "1": {
+            "q": "Does this include procurement?",
+            "a": "Procurement can be included depending on the package and project needs."
+          }
+        }
+      },
+      "kitchen": {
+        "title": "Kitchen Design",
+        "short": "Practical kitchen planning with durable cabinetry, smart storage, and execution-ready details.",
+        "bullets": {
+          "1": "Functional layout based on workflow and circulation",
+          "2": "Durable cabinetry and countertop material direction",
+          "3": "Clear MEP and lighting coordination guidance",
+          "4": "Execution-ready dimensions and detailing"
+        },
+        "highlights": {
+          "1": "Smart storage solutions",
+          "2": "Durable materials that are easy to maintain",
+          "3": "Balanced design: looks premium, works daily"
+        },
+        "deliverables": {
+          "1": "Kitchen layout and work zones",
+          "2": "Cabinet detailing and dimensions",
+          "3": "Materials, finishes, and accessory direction"
+        },
+        "timeline": { "value": "Typically 2–4 weeks depending on kitchen size" },
+        "scope": { "value": "Apartment and villa kitchens — new build or full upgrade" },
+        "process": {
+          "1": {
+            "title": "Measure & requirements",
+            "desc": "We define usage, appliances, and storage priorities."
+          },
+          "2": {
+            "title": "Layout & materials",
+            "desc": "We propose layout options and aligned finishing."
+          },
+          "3": {
+            "title": "Execution details",
+            "desc": "We finalize dimensions and production-ready notes."
+          }
+        },
+        "faq": {
+          "1": {
+            "q": "Do you help with appliance selection?",
+            "a": "Yes — we guide sizes and placements to fit the final plan."
+          }
+        }
+      },
+      "bathroom": {
+        "title": "Bathroom Design",
+        "short": "Premium bathroom layouts with moisture-ready materials and execution-level detailing.",
+        "bullets": {
+          "1": "Practical sanitary layout planning",
+          "2": "Tile palettes and waterproof material direction",
+          "3": "Lighting, mirrors, and accessories coordination",
+          "4": "Detailed drawings ready for site execution"
+        },
+        "highlights": {
+          "1": "Solutions for both compact and spacious bathrooms",
+          "2": "Moisture-appropriate materials and easy cleaning",
+          "3": "Premium details without complexity"
+        },
+        "deliverables": {
+          "1": "Sanitary layout plan",
+          "2": "Tiles and material selections",
+          "3": "Lighting and accessories detailing"
+        },
+        "timeline": { "value": "Typically 1–3 weeks per bathroom" },
+        "scope": { "value": "Guest / master / kids bathrooms — design or full renovation" },
+        "process": {
+          "1": {
+            "title": "Constraints review",
+            "desc": "We review plumbing constraints and choose the best layout."
+          },
+          "2": {
+            "title": "Materials & palette",
+            "desc": "We prepare material options with budget-aligned alternatives."
+          },
+          "3": {
+            "title": "Execution detailing",
+            "desc": "We finalize heights, dimensions, and accessory positions."
+          }
+        },
+        "faq": {
+          "1": {
+            "q": "Do you provide budget alternatives?",
+            "a": "Yes — we offer multiple options while keeping the same overall look."
+          }
+        }
+      },
+      "flooring": {
+        "title": "Flooring & Materials",
+        "short": "A clear material strategy with samples, alternatives, and specifications aligned to your project goals.",
+        "bullets": {
+          "1": "Flooring selection based on durability and maintenance",
+          "2": "Consistent materials across the home",
+          "3": "Sample boards and pre-purchase clarity",
+          "4": "Clear specifications for procurement and execution"
+        },
+        "highlights": {
+          "1": "Faster decisions with sample boards",
+          "2": "Full harmony across floors, walls, and lighting",
+          "3": "Reduce costly mistakes on site"
+        },
+        "deliverables": {
+          "1": "Materials and color boards",
+          "2": "Flooring list with alternatives",
+          "3": "Procurement and execution specs"
+        },
+        "timeline": { "value": "Typically 1–2 weeks to finalize materials and alternatives" },
+        "scope": { "value": "Materials, finishes, and flooring strategy by area" },
+        "process": {
+          "1": {
+            "title": "Lifestyle analysis",
+            "desc": "We align materials to daily use, kids/pets, and durability needs."
+          },
+          "2": {
+            "title": "Materials proposal",
+            "desc": "We propose a coherent set with cost-tier alternatives."
+          },
+          "3": {
+            "title": "Finalize specifications",
+            "desc": "We lock specs into clear supplier/execution notes."
+          }
+        },
+        "faq": {
+          "1": {
+            "q": "Do you provide real samples?",
+            "a": "We guide sample sourcing from the market and support selection."
+          }
+        }
+      },
+      "lighting": {
+        "title": "Lighting Design",
+        "short": "Lighting that supports mood and function: layered layouts, scene planning, and curated fixture direction.",
+        "bullets": {
+          "1": "Layered lighting: functional + ambient by space",
+          "2": "Fixture recommendations aligned to the design",
+          "3": "Scene planning for key areas",
+          "4": "Execution guidance for dimming and controls"
+        },
+        "highlights": {
+          "1": "Premium look without overdoing it",
+          "2": "Better mood control and atmosphere",
+          "3": "Clean coordination with gypsum and furniture"
+        },
+        "deliverables": {
+          "1": "Lighting layout plans",
+          "2": "Fixture and accessory recommendations",
+          "3": "Scene and control guidance"
+        },
+        "timeline": { "value": "Typically 1–3 weeks depending on number of spaces" },
+        "scope": {
+          "value": "Residential lighting for apartments and villas (zones or full scope)"
+        },
+        "process": {
+          "1": {
+            "title": "Needs analysis",
+            "desc": "We define task zones, relaxation zones, and required lux levels."
+          },
+          "2": { "title": "Layout & scenes", "desc": "We design layers and propose scene logic." },
+          "3": {
+            "title": "Fixture selection",
+            "desc": "We recommend fixtures and finalize execution notes."
+          }
+        },
+        "faq": {
+          "1": {
+            "q": "Does this include market fixture selection?",
+            "a": "Yes — we provide curated options aligned to style and budget."
+          }
+        }
+      },
+      "spacePlanning": {
+        "title": "Space Planning",
+        "short": "Optimized furniture layouts and circulation planning that makes daily living smoother and more functional.",
+        "bullets": {
+          "1": "Improve circulation and functional zoning",
+          "2": "Realistic furniture layouts based on dimensions",
+          "3": "Storage ideas and usage zones definition",
+          "4": "Multiple options before locking a final plan"
+        },
+        "highlights": {
+          "1": "Maximize space efficiency",
+          "2": "Faster furniture decisions",
+          "3": "More comfortable and organized spaces"
+        },
+        "deliverables": {
+          "1": "Furniture layout plans",
+          "2": "Layout options (alternatives)",
+          "3": "Dimension recommendations"
+        },
+        "timeline": { "value": "Typically 1–2 weeks depending on number of spaces" },
+        "scope": { "value": "Living / majlis / bedrooms / multi-space planning" },
+        "process": {
+          "1": {
+            "title": "Lifestyle capture",
+            "desc": "We align layouts to your daily routine and preferences."
+          },
+          "2": {
+            "title": "Layout options",
+            "desc": "We balance flow, function, and aesthetics through variants."
+          },
+          "3": {
+            "title": "Lock & detail",
+            "desc": "We finalize the best option and confirm dimensions."
+          }
+        },
+        "faq": {
+          "1": {
+            "q": "Do I need exact furniture dimensions?",
+            "a": "Preferred, but we can start with standard ranges then refine later."
+          }
+        }
+      },
+      "joinery": {
+        "title": "Custom Joinery",
+        "short": "Bespoke built-ins with production-ready detailing: wardrobes, TV walls, storage, and more.",
+        "bullets": {
+          "1": "Design for wardrobes, TV walls, storage, and built-ins",
+          "2": "Production-level details (panels, thickness, divisions)",
+          "3": "Material, color, and hardware direction",
+          "4": "Execution-ready drawings for carpenter/factory"
+        },
+        "highlights": {
+          "1": "Smart use of space",
+          "2": "Clear details that reduce mistakes",
+          "3": "Premium, cohesive final look"
+        },
+        "deliverables": {
+          "1": "Elevations and detailed dimensions",
+          "2": "Internal divisions and hardware notes",
+          "3": "Materials, colors, and execution guidance"
+        },
+        "timeline": { "value": "Typically 2–4 weeks depending on number of items" },
+        "scope": { "value": "Built-ins (wardrobes / TV units / storage / custom joinery)" },
+        "process": {
+          "1": {
+            "title": "Requirements & planning",
+            "desc": "We define functions, storage needs, and visual direction."
+          },
+          "2": {
+            "title": "Design & detailing",
+            "desc": "We produce elevations, internals, and sizing."
+          },
+          "3": {
+            "title": "Finalize & coordinate",
+            "desc": "We review final specs and support during production."
+          }
+        },
+        "faq": {
+          "1": {
+            "q": "Can this be executed by any carpenter?",
+            "a": "Yes — as long as the contractor follows the approved specifications."
+          }
+        }
+      }
+    },
+    "catalog": {
+      "kicker": "All services",
+      "title": "Find the right service fast",
+      "desc": "Filter by category or search by keyword to get to the right service details.",
+      "aria": "Services filter and search section",
+      "searchPlaceholder": "Search a service…",
+      "searchAria": "Service search input",
+      "clearSearch": "Clear search",
+      "filtersAria": "Filter by category",
+      "reset": "Reset",
+      "emptyTitle": "No results found",
+      "emptyDesc": "Try switching the category or adjusting your search term.",
+      "filters": {
+        "all": "All",
+        "residential": "Residential",
+        "renovation": "Renovation",
+        "fitout": "Fit-out"
+      },
+      "badges": {
+        "residential": "Residential",
+        "renovation": "Renovation",
+        "fitout": "Fit-out"
+      }
+    }
+  },
+  "servicesDetails": {
+    "fallbackAbout": "This service is delivered with a clear workflow and premium finishing standards — aligned to your space, goals, and timeline.",
+    "benefitDot": "Included"
+  },
+  "servicesCta": {
+    "buttonPrimary": "Book Consultation",
+    "buttonSecondary": "All Services"
+  },
   "footer": {
     "brandName": "IntoArt",
     "brandAlt": "IntoArt logo",
@@ -147,26 +623,22 @@
     "services": "Services",
     "quickLinks": "Quick Links",
     "rights": "All rights reserved.",
-
     "homeAria": "Go to homepage",
     "socialAria": "Social media links",
     "quickLinksAria": "Quick links",
     "servicesAria": "Services links",
     "mapTitle": "Office location map",
-
     "sections": {
       "quickLinks": "Quick Links",
       "services": "Services",
       "contact": "Contact"
     },
-
     "social": {
       "instagram": "Instagram",
       "tiktok": "TikTok",
       "youtube": "YouTube",
       "linkedin": "LinkedIn"
     },
-
     "links": {
       "home": "Home",
       "services": "Services",
@@ -178,20 +650,17 @@
       "projects": "Projects",
       "contact": "Contact Us"
     },
-
     "servicesLinks": {
       "residentialInterior": "Residential Interior Design",
       "apartmentRenovation": "Apartment Renovation",
       "turnkeyFitOut": "Turnkey Fit-Out"
     },
-
     "labels": {
       "phone": "Phone",
       "email": "Email",
       "location": "Location"
     },
-
-      "privacy": "Privacy Policy",
-      "terms": "Terms & Conditions"
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions"
   }
 }

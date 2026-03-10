@@ -1,52 +1,144 @@
-<section class="hero" *ngIf="service() as s; else notFound">
-  <div class="container hero__grid">
-    <div>
-      <a class="back" routerLink="/under-construction">← Back to services</a>
+<section class="head" *ngIf="service() as s; else notFound">
+  <div class="container head__grid">
+    <div class="head__content">
+      <div class="kicker">{{ 'services.details.eyebrow' | translate }}</div>
 
-      <h1 class="hero__title">{{ s.title }}</h1>
-      <p class="hero__subtitle">{{ s.short }}</p>
+      <h1 class="title">{{ s.titleKey | translate }}</h1>
 
-      <div class="actions">
-        <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
-        <a class="btn btn--ghost" routerLink="/under-construction">View Portfolio</a>
+      <p class="p head__summary">
+        {{ aboutKey() ? (aboutKey() | translate) : (s.shortKey | translate) }}
+      </p>
+
+      <div class="head__actions">
+        <a class="btn btn--primary" routerLink="/book-consultation">
+          {{ 'actions.book' | translate }}
+        </a>
+        <a class="btn btn--ghost" routerLink="/services">
+          {{ 'services.details.backToAll' | translate }}
+        </a>
       </div>
     </div>
 
-    <div
-      class="media"
-      *ngIf="s.heroImage"
-      [style.backgroundImage]="'url(' + s.heroImage + ')'"
-    ></div>
+    <div class="head__media" [style.backgroundImage]="'url(' + s.heroImage + ')'"></div>
+  </div>
+</section>
+
+<section class="section" *ngIf="service() as s">
+  <div class="container">
+    <div class="center-block">
+      <h2 class="h2 h2--center">{{ 'services.details.aboutTitle' | translate }}</h2>
+      <p class="p p--center">
+        {{ aboutKey() ? (aboutKey() | translate) : (s.shortKey | translate) }}
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" *ngIf="loopedTrackImages().length > 0 && service()">
+  <div class="container">
+    <div class="gallery">
+      <button
+        class="gallery__nav gallery__nav--prev"
+        type="button"
+        (click)="scrollGallery('prev')"
+        aria-label="Previous images"
+      ></button>
+
+      <div class="gallery__viewport" role="region" aria-label="Service images">
+        <div class="gallery__track" #galleryTrack>
+          <div class="gallery__item" *ngFor="let img of loopedTrackImages()">
+            <img class="gallery__img" [src]="img" alt="" loading="lazy" />
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="gallery__nav gallery__nav--next"
+        type="button"
+        (click)="scrollGallery('next')"
+        aria-label="Next images"
+      ></button>
+    </div>
+  </div>
+</section>
+
+<section class="section" *ngIf="service() as s">
+  <div class="container">
+    <div class="center-block center-block--wide">
+      <h2 class="h2 h2--center">{{ 'services.details.benefitsTitle' | translate }}</h2>
+
+      <p class="p p--center benefits-intro">
+        {{ 'services.details.benefitsDesc' | translate }}
+      </p>
+
+      <div class="benefits benefits--center">
+        <div class="benefit" *ngFor="let b of benefits()">
+          <div class="benefit__dot" aria-hidden="true">✓</div>
+          <div class="benefit__text">{{ b | translate }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" *ngIf="service() as s">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <div class="kicker kicker--dark">{{ 'services.details.faqTitle' | translate }}</div>
+        <h2 class="h2 h2--big">{{ 'services.details.faqDesc' | translate }}</h2>
+      </div>
+
+      <a class="link" [routerLink]="faqLink()">
+        {{ 'services.details.viewAllFaq' | translate }}
+        <span class="link__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="faq" *ngIf="faqsPreview().length > 0">
+      <details class="faq__item" *ngFor="let f of faqsPreview()">
+        <summary class="faq__q">
+          <span>{{ f.qKey | translate }}</span>
+          <span class="faq__arrow" aria-hidden="true">→</span>
+        </summary>
+        <div class="faq__a">{{ f.aKey | translate }}</div>
+      </details>
+    </div>
+
+    <div class="faq-empty" *ngIf="faqsPreview().length === 0">
+      <div class="faq-empty__title">{{ 'services.details.faqEmptyTitle' | translate }}</div>
+      <div class="faq-empty__desc">{{ 'services.details.faqEmptyDesc' | translate }}</div>
+
+      <a class="btn btn--secondary" [routerLink]="faqLink()">
+        {{ 'services.details.viewAllFaq' | translate }}
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="cta" *ngIf="service() as s">
+  <div class="container cta__grid">
+    <div>
+      <h2 class="cta__title">{{ 'services.cta.title' | translate }}</h2>
+      <p class="cta__desc">{{ 'services.cta.desc' | translate }}</p>
+    </div>
+
+    <div class="cta__actions">
+      <a class="btn btn--primary" routerLink="/book-consultation">
+        {{ 'actions.book' | translate }}
+      </a>
+    </div>
   </div>
 </section>
 
 <ng-template #notFound>
-  <section class="hero">
+  <section class="head head--notfound">
     <div class="container">
-      <h1 class="hero__title">Service not found</h1>
-      <p class="hero__subtitle">The page you’re looking for doesn’t exist.</p>
-      <a class="btn btn--primary" routerLink="/under-construction">Back to Services</a>
+      <h1 class="title">{{ 'services.details.notFoundTitle' | translate }}</h1>
+      <p class="p">{{ 'services.details.notFoundDesc' | translate }}</p>
+      <a class="btn btn--primary" routerLink="/services">
+        {{ 'services.details.backToAll' | translate }}
+      </a>
     </div>
   </section>
 </ng-template>
-
-<section class="section" *ngIf="service() as s">
-  <div class="container">
-    <h2 class="section__title">What’s included</h2>
-
-    <div class="list">
-      <div class="item" *ngFor="let b of s.bullets">
-        <div class="item__dot">✓</div>
-        <div class="item__text">{{ b }}</div>
-      </div>
-    </div>
-
-    <div class="note">
-      <div class="note__title">Next step</div>
-      <div class="note__text">
-        Book a consultation and we’ll advise you on scope, timeline, and the best approach for your
-        space.
-      </div>
-    </div>
-  </div>
-</section>

@@ -6,9 +6,9 @@ const READY = new Set<string>([
   'under-construction',
   'not-found',
   'book-consultation',
+  'services',
 
   // add ONLY the pages you want accessible right now:
-  // 'services',
   // 'projects',
   // 'about',
   // 'contact',

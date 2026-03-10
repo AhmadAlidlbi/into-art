@@ -1,5 +1,9 @@
 import { ApplicationConfig, APP_INITIALIZER, importProvidersFrom } from '@angular/core';
-import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
+import {
+  provideRouter,
+  withEnabledBlockingInitialNavigation,
+  withInMemoryScrolling,
+} from '@angular/router';
 import { provideHttpClient, HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
@@ -34,7 +38,15 @@ export function i18nInitFactory(translate: TranslateService) {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
-    provideRouter(routes, withEnabledBlockingInitialNavigation()),
+
+    provideRouter(
+      routes,
+      withEnabledBlockingInitialNavigation(),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'top', // ✅ always go top on route change
+        anchorScrolling: 'enabled',       // ✅ supports #anchors if you use them
+      })
+    ),
 
     importProvidersFrom(
       TranslateModule.forRoot({

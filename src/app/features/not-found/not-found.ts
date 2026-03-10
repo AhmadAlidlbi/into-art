@@ -14,7 +14,7 @@ type QuickLink = { label: string; path: string };
 export class NotFoundPage {
   quickLinks: QuickLink[] = [
     { label: 'Home', path: '/' },
-    { label: 'Services', path: '/under-construction' },
+    { label: 'Services', path: '/services' },
     { label: 'Portfolio', path: '/under-construction' },
     { label: 'Projects', path: '/under-construction' },
     { label: 'Blog', path: '/under-construction' },
