@@ -29,6 +29,7 @@
 <section class="section section--tight">
   <div class="container">
     <div class="note-plain">
+      <div class="section__kicker">{{ 'services.note.kicker' | translate }}</div>
       <h3 class="note-plain__title">{{ 'services.note.title' | translate }}</h3>
       <p class="note-plain__desc">{{ 'services.note.desc' | translate }}</p>
     </div>
@@ -71,6 +72,7 @@
 
     <div class="catalog-controls" role="region" [attr.aria-label]="'services.catalog.aria' | translate">
       <div class="catalog-search">
+        <span class="catalog-search__icon" aria-hidden="true">⌕</span>
         <input
           class="catalog-search__input"
           type="text"
@@ -79,7 +81,6 @@
           [attr.placeholder]="'services.catalog.searchPlaceholder' | translate"
           [attr.aria-label]="'services.catalog.searchAria' | translate"
         />
-
         <button
           class="catalog-search__clear"
           type="button"
@@ -169,18 +170,21 @@
   </div>
 </section>
 
-<!-- Standard CTA -->
-<section class="cta">
-  <div class="container cta__grid">
+<!-- CTA -->
+<section class="cta" #ctaSection>
+  @if (ctaEnter()) {
+  <div class="container cta__grid enter-animation">
     <div>
-      <h2 class="cta__title">{{ 'services.ctaStrip.title' | translate }}</h2>
-      <p class="cta__desc">{{ 'services.ctaStrip.desc' | translate }}</p>
+      <h2 class="cta__title">{{ 'home.cta.title' | translate }}</h2>
+      <p class="cta__desc">{{ 'home.cta.desc' | translate }}</p>
     </div>
-
     <div class="cta__actions">
-      <a class="btn btn--primary" routerLink="/book-consultation">
-        {{ 'actions.book' | translate }}
-      </a>
+      <button class="btn btn--primary" type="button" (click)="goBook()">
+        {{ 'home.cta.button' | translate }}
+      </button>
     </div>
   </div>
+  } @else {
+  <div class="container cta__grid cta__grid--placeholder" aria-hidden="true"></div>
+  }
 </section>

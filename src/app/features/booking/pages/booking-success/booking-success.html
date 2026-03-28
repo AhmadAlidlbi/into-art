@@ -1,21 +1,16 @@
 <section class="wrap">
-    <div class="container">
-      <div class="card">
-        <div class="badge">Submitted</div>
-        <h1 class="title">Your consultation request is received</h1>
-        <p class="subtitle">
-          We’ll contact you shortly to confirm the appointment and next steps.
-        </p>
-  
-        <div class="actions">
-          <a class="btn btn--primary" routerLink="/">Back to Home</a>
-          <a class="btn btn--ghost" routerLink="/under-construction">View Projects</a>
-        </div>
-  
-        <div class="note">
-          If you need faster confirmation, contact us via WhatsApp from the consultation page.
-        </div>
+  <div class="container">
+    <div class="card">
+      <div class="badge">{{ 'booking.success.badge' | translate }}</div>
+      <h1 class="title">{{ 'booking.success.title' | translate }}</h1>
+      <p class="subtitle">{{ 'booking.success.subtitle' | translate }}</p>
+
+      <div class="actions">
+        <a class="btn btn--primary" routerLink="/">{{ 'booking.success.backHome' | translate }}</a>
+        <a class="btn btn--ghost" routerLink="/under-construction">{{ 'booking.success.viewProjects' | translate }}</a>
       </div>
+
+      <div class="note">{{ 'booking.success.note' | translate }}</div>
     </div>
-  </section>
-  
+  </div>
+</section>

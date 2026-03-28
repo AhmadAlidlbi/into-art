@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, computed, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild, computed, signal } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SERVICES, Service, ServiceCategory } from './services/services.data';
 
@@ -18,7 +18,7 @@ type CategoryFilter = 'all' | ServiceCategory;
   templateUrl: './services.html',
   styleUrls: ['./services.scss'],
 })
-export class ServicesPage {
+export class ServicesPage implements AfterViewInit, OnDestroy {
   @Input() brandName = 'IntoArt';
 
   private readonly staticServices: Service[] = SERVICES;
@@ -52,7 +52,37 @@ export class ServicesPage {
     { value: 'fitout', labelKey: 'services.catalog.filters.fitout' },
   ];
 
-  constructor(private translate: TranslateService) {}
+  ctaEnter = signal(false);
+
+  @ViewChild('ctaSection', { read: ElementRef })
+  ctaSection?: ElementRef<HTMLElement>;
+  private ctaIO?: IntersectionObserver;
+
+  constructor(private router: Router, private translate: TranslateService) {}
+
+  ngAfterViewInit(): void {
+    const ctaEl = this.ctaSection?.nativeElement;
+    if (ctaEl) {
+      this.ctaIO = new IntersectionObserver(
+        (entries) => {
+          if (!entries[0]?.isIntersecting) return;
+          this.ctaEnter.set(true);
+          this.ctaIO?.disconnect();
+          this.ctaIO = undefined;
+        },
+        { threshold: 0.25, rootMargin: '0px 0px -10% 0px' }
+      );
+      this.ctaIO.observe(ctaEl);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.ctaIO?.disconnect();
+  }
+
+  goBook(): void {
+    this.router.navigateByUrl('/book-consultation');
+  }
 
   filteredServices = computed(() => {
     const list = this.services();

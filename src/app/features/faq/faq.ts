@@ -1,20 +1,20 @@
-import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, computed, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { FAQS, FAQ_CATEGORIES, FaqItem } from './services/faq.data';
 
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule, TranslateModule],
   templateUrl: './faq.html',
   styleUrls: ['./faq.scss'],
 })
-export class FaqPage {
+export class FaqPage implements AfterViewInit, OnDestroy {
   categories = FAQ_CATEGORIES;
   all: FaqItem[] = FAQS;
 
-  selectedCategory = signal<string>('All');
+  selectedCategory = signal<string>('all');
   search = signal<string>('');
   openIndex = signal<number | null>(0);
 
@@ -23,7 +23,7 @@ export class FaqPage {
     const q = this.search().trim().toLowerCase();
 
     return this.all.filter((x) => {
-      const matchCat = cat === 'All' ? true : x.category === cat;
+      const matchCat = cat === 'all' ? true : x.category === cat;
       const matchQ =
         !q ||
         x.q.toLowerCase().includes(q) ||
@@ -34,7 +34,33 @@ export class FaqPage {
     });
   });
 
+  ctaEnter = signal(false);
+
+  @ViewChild('ctaSection', { read: ElementRef })
+  ctaSection?: ElementRef<HTMLElement>;
+  private ctaIO?: IntersectionObserver;
+
   constructor(private router: Router) {}
+
+  ngAfterViewInit(): void {
+    const ctaEl = this.ctaSection?.nativeElement;
+    if (ctaEl) {
+      this.ctaIO = new IntersectionObserver(
+        (entries) => {
+          if (!entries[0]?.isIntersecting) return;
+          this.ctaEnter.set(true);
+          this.ctaIO?.disconnect();
+          this.ctaIO = undefined;
+        },
+        { threshold: 0.25, rootMargin: '0px 0px -10% 0px' }
+      );
+      this.ctaIO.observe(ctaEl);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.ctaIO?.disconnect();
+  }
 
   setCategory(cat: string): void {
     this.selectedCategory.set(cat);
@@ -47,7 +73,7 @@ export class FaqPage {
   }
 
   resetFilters(): void {
-    this.selectedCategory.set('All');
+    this.selectedCategory.set('all');
     this.search.set('');
     this.openIndex.set(null);
   }

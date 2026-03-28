@@ -1,15 +1,15 @@
-<!-- home.html (FULL - i18n ready) -->
-
 <!-- HERO -->
 <section class="hero hero--image">
   <div class="hero__bg" aria-hidden="true"></div>
 
   <div class="container hero__overlay">
     <div class="hero__content">
+      <div class="hero__brand">{{ 'home.hero.brand' | translate }}</div>
+
       @if (heroEnter()) {
       <h1 class="hero__title enter-delay-0" animate.enter="enter-animation">
         {{ 'home.hero.title_1' | translate }}
-        <span class="hero__title--accent"> {{ 'home.hero.title_2' | translate }}</span>
+        <span class="hero__title--accent">{{ 'home.hero.title_2' | translate }}</span>
       </h1>
 
       <p class="hero__subtitle enter-delay-1" animate.enter="enter-animation">
@@ -26,7 +26,7 @@
   </div>
 </section>
 
-<!-- 3 SERVICE BOXES -->
+<!-- 4 SERVICE BOXES -->
 <section class="section section--tight">
   <div class="container">
     <div class="cards3">
@@ -63,13 +63,13 @@
         </div>
 
         <div class="metric">
-          <div class="metric__value">{{ teamDisplay }}+</div>
-          <div class="metric__label">{{ 'home.who.metrics.team' | translate }}</div>
+          <div class="metric__value">{{ designProjectsDisplay }}+</div>
+          <div class="metric__label">{{ 'home.who.metrics.designProjects' | translate }}</div>
         </div>
 
         <div class="metric">
-          <div class="metric__value">{{ clientsDisplay }}+</div>
-          <div class="metric__label">{{ 'home.who.metrics.clients' | translate }}</div>
+          <div class="metric__value">{{ executionProjectsDisplay }}+</div>
+          <div class="metric__label">{{ 'home.who.metrics.executionProjects' | translate }}</div>
         </div>
       </div>
     </div>
@@ -85,14 +85,40 @@
       <p class="section__desc">{{ 'home.procedure.desc' | translate }}</p>
     </div>
 
-    <div class="procedure">
-      <div class="proc" *ngFor="let s of procedureSteps; let i = index">
-        <div class="proc__top">
-          <div class="proc__num">{{ i + 1 }}</div>
-          <div class="proc__icon">✦</div>
+    <div class="timeline timeline--home">
+      <div class="step" *ngFor="let s of procedureSteps; let i = index">
+        <div class="step__rail" aria-hidden="true">
+          <div class="step__dot">{{ i + 1 }}</div>
+          <div class="step__line" *ngIf="i !== procedureSteps.length - 1"></div>
         </div>
-        <div class="proc__title">{{ s.titleKey | translate }}</div>
-        <div class="proc__desc">{{ s.descKey | translate }}</div>
+
+        <div class="step__body">
+          <div class="step__title">{{ s.titleKey | translate }}</div>
+          <div class="step__desc">{{ s.descKey | translate }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CLIENTS CHOOSE US -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__head">
+      <div class="eyebrow">{{ 'home.why.eyebrow' | translate }}</div>
+      <h2 class="section__title">{{ 'home.why.title' | translate }}</h2>
+      <p class="section__desc">{{ 'home.why.desc' | translate }}</p>
+    </div>
+
+    <div class="features">
+      <div class="feature" *ngFor="let f of features; let i = index">
+        <div class="feature__top">
+          <div class="feature__num">{{ i + 1 }}</div>
+          <div class="feature__icon">✦</div>
+        </div>
+
+        <div class="feature__title">{{ f.titleKey | translate }}</div>
+        <div class="feature__desc">{{ f.descKey | translate }}</div>
       </div>
     </div>
   </div>
@@ -162,24 +188,6 @@
   </div>
 </section>
 
-<!-- WHY CLIENTS CHOOSE US -->
-<section class="section section--alt">
-  <div class="container">
-    <div class="section__head">
-      <h2 class="section__title">{{ 'home.why.title' | translate }}</h2>
-      <p class="section__desc">{{ 'home.why.desc' | translate }}</p>
-    </div>
-
-    <div class="features">
-      <div class="feature" *ngFor="let f of features">
-        <div class="feature__icon">✦</div>
-        <div class="feature__title">{{ f.titleKey | translate }}</div>
-        <div class="feature__desc">{{ f.descKey | translate }}</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- CLIENT REVIEWS -->
 <section class="section">
   <div class="container">
@@ -192,7 +200,6 @@
     <div class="reviews-marquee" [attr.aria-label]="'home.reviews.aria' | translate">
       <div class="reviews-marquee__viewport">
         <div class="reviews-marquee__track">
-          <!-- Track A -->
           <article class="review-card" *ngFor="let r of reviews">
             <div class="review-card__stars">★★★★★</div>
             <p class="review-card__text">“{{ r.textKey | translate }}”</p>
@@ -206,7 +213,6 @@
             </div>
           </article>
 
-          <!-- Track B -->
           <article class="review-card" *ngFor="let r of reviews" aria-hidden="true">
             <div class="review-card__stars">★★★★★</div>
             <p class="review-card__text">“{{ r.textKey | translate }}”</p>
@@ -228,7 +234,7 @@
 <!-- CTA -->
 <section class="cta" #ctaSection>
   @if (ctaEnter()) {
-  <div class="container cta__grid" animate.enter="enter-animation">
+  <div class="container cta__grid enter-animation">
     <div>
       <h2 class="cta__title">{{ 'home.cta.title' | translate }}</h2>
       <p class="cta__desc">{{ 'home.cta.desc' | translate }}</p>

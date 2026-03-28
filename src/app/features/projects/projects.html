@@ -1,102 +1,131 @@
-<section class="hero">
-    <div class="container hero__grid">
-      <div class="hero__content">
-        <div class="hero__badge">Projects</div>
-  
-        <h1 class="hero__title">
-          Explore our <span class="hero__accent">residential work</span>
-        </h1>
-  
-        <p class="hero__subtitle">
-          A curated selection of interiors designed and delivered with attention to detail.
-        </p>
-  
-        <div class="controls">
-          <div class="chips" role="tablist" aria-label="Project categories">
-            <button
-              class="chip"
-              *ngFor="let c of categories"
-              type="button"
-              [class.is-active]="selectedCategory() === c"
-              (click)="setCategory(c)"
-            >
-              {{ c }}
-            </button>
-          </div>
-  
-          <div class="search">
-            <span class="search__icon" aria-hidden="true">⌕</span>
-            <input
-              class="search__input"
-              type="text"
-              placeholder="Search by title, category, or area..."
-              (input)="setSearch($any($event.target).value)"
-            />
-          </div>
-        </div>
-      </div>
-  
-      <div class="hero__media" aria-hidden="true">
-        <div class="hero__frame"></div>
+<!-- Page Head -->
+<section class="page-head">
+  <div class="container page-head__inner">
+    <h1 class="page-head__title">{{ 'projects.heroTitle' | translate }}</h1>
+    <p class="page-head__subtitle">{{ 'projects.heroSubtitle' | translate }}</p>
+  </div>
+
+  <div class="page-head__decor" aria-hidden="true"></div>
+</section>
+
+<!-- Intro / Portfolio Showcase -->
+<section class="intro">
+  <div class="container intro__grid">
+    <!-- Left content -->
+    <div class="intro__content">
+      <div class="section__kicker">{{ 'projects.introKicker' | translate }}</div>
+      <h2 class="intro__title">{{ 'projects.introTitle' | translate }}</h2>
+      <p class="intro__desc">{{ 'projects.introDesc' | translate }}</p>
+      <div class="intro__actions">
+        <a class="btn btn--primary" routerLink="/book-consultation">{{ 'actions.book' | translate }}</a>
+        <a class="btn btn--ghost" routerLink="/services">{{ 'nav.services' | translate }}</a>
       </div>
     </div>
-  </section>
-  
-  <section class="section">
-    <div class="container">
-      <div class="grid">
-        <a class="card" *ngFor="let p of filtered()" [routerLink]="['/under-construction', p.slug]">
-          <div class="card__img" [style.backgroundImage]="'url(' + p.cover + ')'">
-            <div class="card__overlay"></div>
-            <div class="card__corner">
-              <span class="pill">{{ p.category }}</span>
-            </div>
-          </div>
-  
-          <div class="card__body">
-            <div class="card__title">{{ p.title }}</div>
-  
-            <div class="card__meta">
-              <span class="muted" *ngIf="p.area">{{ p.area }}</span>
-              <span class="dot" *ngIf="p.area && p.year">•</span>
-              <span class="muted" *ngIf="p.year">{{ p.year }}</span>
-              <span class="dot" *ngIf="(p.area || p.year) && p.location">•</span>
-              <span class="muted" *ngIf="p.location">{{ p.location }}</span>
-            </div>
-  
-            <div class="card__desc">{{ p.summary }}</div>
-  
-            <div class="card__cta">
-              View project <span aria-hidden="true">→</span>
-            </div>
-          </div>
-        </a>
+
+    <!-- Right: staggered images -->
+    <div class="intro__images" aria-hidden="true">
+      <div class="stagger-img stagger-img--1"></div>
+      <div class="stagger-img stagger-img--2"></div>
+      <div class="stagger-img stagger-img--3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Filter + Projects Grid -->
+<section class="section">
+  <div class="container">
+
+    <div class="section__head">
+      <div class="section__kicker">{{ 'projects.grid.kicker' | translate }}</div>
+      <h2 class="section__title">{{ 'projects.grid.title' | translate }}</h2>
+      <p class="section__desc">{{ 'projects.grid.desc' | translate }}</p>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <div class="search">
+        <span class="search__icon" aria-hidden="true">⌕</span>
+        <input
+          class="search__input"
+          type="text"
+          [placeholder]="'projects.searchPlaceholder' | translate"
+          (input)="setSearch($any($event.target).value)"
+        />
       </div>
-  
-      <div class="empty" *ngIf="filtered().length === 0">
-        <div class="empty__title">No projects found</div>
-        <div class="empty__desc">Try a different category or refine your search.</div>
-  
-        <button class="empty__btn" type="button" (click)="setCategory('All'); setSearch('')">
-          Reset filters
+
+      <div class="chips" role="tablist">
+        <button
+          class="chip"
+          *ngFor="let c of categories"
+          type="button"
+          [class.is-active]="selectedCategory() === c"
+          (click)="setCategory(c)"
+        >
+          {{ c }}
         </button>
       </div>
     </div>
-  </section>
-  
-  <section class="cta">
-    <div class="container cta__grid">
-      <div>
-        <h2 class="cta__title">Want a similar result for your home?</h2>
-        <p class="cta__desc">
-          Book a consultation and we’ll recommend the right approach based on your space and scope.
-        </p>
-      </div>
-  
-      <div class="cta__actions">
-        <a class="btn btn--primary" routerLink="/book-consultation">Book Consultation</a>
-        <a class="btn btn--ghost" routerLink="/services">View Services</a>
-      </div>
+
+    <!-- Grid -->
+    <div class="grid">
+      <a class="card" *ngFor="let p of filtered()" [routerLink]="['/projects', p.slug]">
+        <!-- Image -->
+        <div class="card__img" [style.backgroundImage]="'url(' + p.cover + ')'">
+          <div class="card__overlay"></div>
+          <div class="card__badge">
+            <span class="pill">{{ p.category }}</span>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="card__body">
+          <div class="card__title">{{ p.title }}</div>
+
+          <div class="card__meta">
+            <span class="muted" *ngIf="p.area">{{ p.area }}</span>
+            <span class="dot" *ngIf="p.area && p.year">·</span>
+            <span class="muted" *ngIf="p.year">{{ p.year }}</span>
+            <span class="dot" *ngIf="(p.area || p.year) && p.location">·</span>
+            <span class="muted" *ngIf="p.location">{{ p.location }}</span>
+          </div>
+
+          <p class="card__desc">{{ p.summary }}</p>
+
+          <div class="card__cta">
+            {{ 'projects.viewProject' | translate }}
+            <span class="card__arrow" aria-hidden="true">→</span>
+          </div>
+        </div>
+      </a>
     </div>
-  </section>
-  
+
+    <!-- Empty state -->
+    <div class="empty" *ngIf="filtered().length === 0">
+      <div class="empty__title">{{ 'projects.noResults' | translate }}</div>
+      <div class="empty__desc">{{ 'projects.noResultsDesc' | translate }}</div>
+      <button class="empty__btn" type="button" (click)="setCategory('All'); setSearch('')">
+        {{ 'projects.resetFilters' | translate }}
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" #ctaSection>
+  @if (ctaEnter()) {
+  <div class="container cta__grid enter-animation">
+    <div>
+      <h2 class="cta__title">{{ 'home.cta.title' | translate }}</h2>
+      <p class="cta__desc">{{ 'home.cta.desc' | translate }}</p>
+    </div>
+    <div class="cta__actions">
+      <button class="btn btn--primary" type="button" (click)="goBook()">
+        {{ 'home.cta.button' | translate }}
+      </button>
+    </div>
+  </div>
+  } @else {
+  <div class="container cta__grid cta__grid--placeholder" aria-hidden="true"></div>
+  }
+</section>

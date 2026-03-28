@@ -1,4 +1,3 @@
-// home.ts (FULL - updated)
 import { CommonModule } from '@angular/common';
 import {
   Component,
@@ -18,6 +17,7 @@ type ProjectCard = { titleKey: string; categoryKey: string; image: string; slug?
 type Review = { nameKey: string; roleKey: string; textKey: string };
 type Card = { titleKey: string; descKey: string; path: string };
 type Step = { titleKey: string; descKey: string };
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -28,7 +28,6 @@ type Step = { titleKey: string; descKey: string };
 export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   @Input() consultationPath = '/book-consultation';
 
-  // Enter animations
   heroEnter = signal(false);
   ctaEnter = signal(false);
 
@@ -36,28 +35,46 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ctaSection?: ElementRef<HTMLElement>;
   private ctaIO?: IntersectionObserver;
 
-  // WHO observer (observe the metrics grid)
   @ViewChild('whoMetrics', { read: ElementRef })
   whoMetrics?: ElementRef<HTMLElement>;
   private whoIO?: IntersectionObserver;
   private metricsAnimated = false;
 
   serviceCards: Card[] = [
-    { titleKey: 'cards.card_1.title', descKey: 'cards.card_1.description', path: '/book-consultation' },
-    { titleKey: 'cards.card_2.title', descKey: 'cards.card_2.description', path: '/under-construction' },
-    { titleKey: 'cards.card_3.title', descKey: 'cards.card_3.description', path: '/under-construction' },
+    {
+      titleKey: 'cards.card_1.title',
+      descKey: 'cards.card_1.description',
+      path: '/book-consultation',
+    },
+    {
+      titleKey: 'cards.card_2.title',
+      descKey: 'cards.card_2.description',
+      path: '/under-construction',
+    },
+    {
+      titleKey: 'cards.card_3.title',
+      descKey: 'cards.card_3.description',
+      path: '/under-construction',
+    },
+    {
+      titleKey: 'cards.card_4.title',
+      descKey: 'cards.card_4.description',
+      path: '/under-construction',
+    },
   ];
 
-  metricsTarget = { years: 15, team: 25, clients: 500 };
+  metricsTarget = { years: 6, designProjects: 200, executionProjects: 50 };
 
   yearsDisplay = 0;
-  teamDisplay = 0;
-  clientsDisplay = 0;
+  designProjectsDisplay = 0;
+  executionProjectsDisplay = 0;
 
   procedureSteps: Step[] = [
     { titleKey: 'home.procedure.steps.1.title', descKey: 'home.procedure.steps.1.desc' },
     { titleKey: 'home.procedure.steps.2.title', descKey: 'home.procedure.steps.2.desc' },
     { titleKey: 'home.procedure.steps.3.title', descKey: 'home.procedure.steps.3.desc' },
+    { titleKey: 'home.procedure.steps.4.title', descKey: 'home.procedure.steps.4.desc' },
+    { titleKey: 'home.procedure.steps.5.title', descKey: 'home.procedure.steps.5.desc' },
   ];
 
   features: Feature[] = [
@@ -65,7 +82,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     { titleKey: 'home.why.items.2.title', descKey: 'home.why.items.2.desc' },
     { titleKey: 'home.why.items.3.title', descKey: 'home.why.items.3.desc' },
   ];
-  
 
   featuredProjects: ProjectCard[] = [
     {
@@ -91,7 +107,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   projectIndex = 0;
   private projectTimer: number | null = null;
 
-  // Featured Projects swipe/drag
   projectsDragging = false;
   projectsDragPx = 0;
 
@@ -99,13 +114,32 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private projectsActivePointerId: number | null = null;
   private projectsMoved = false;
 
-  // Reviews (auto-marquee only)
   reviews: Review[] = [
-    { nameKey: 'home.reviews.items.1.name', roleKey: 'home.reviews.items.1.role', textKey: 'home.reviews.items.1.text' },
-    { nameKey: 'home.reviews.items.2.name', roleKey: 'home.reviews.items.2.role', textKey: 'home.reviews.items.2.text' },
-    { nameKey: 'home.reviews.items.3.name', roleKey: 'home.reviews.items.3.role', textKey: 'home.reviews.items.3.text' },
-    { nameKey: 'home.reviews.items.4.name', roleKey: 'home.reviews.items.4.role', textKey: 'home.reviews.items.4.text' },
-    { nameKey: 'home.reviews.items.5.name', roleKey: 'home.reviews.items.5.role', textKey: 'home.reviews.items.5.text' },
+    {
+      nameKey: 'home.reviews.items.1.name',
+      roleKey: 'home.reviews.items.1.role',
+      textKey: 'home.reviews.items.1.text',
+    },
+    {
+      nameKey: 'home.reviews.items.2.name',
+      roleKey: 'home.reviews.items.2.role',
+      textKey: 'home.reviews.items.2.text',
+    },
+    {
+      nameKey: 'home.reviews.items.3.name',
+      roleKey: 'home.reviews.items.3.role',
+      textKey: 'home.reviews.items.3.text',
+    },
+    {
+      nameKey: 'home.reviews.items.4.name',
+      roleKey: 'home.reviews.items.4.role',
+      textKey: 'home.reviews.items.4.text',
+    },
+    {
+      nameKey: 'home.reviews.items.5.name',
+      roleKey: 'home.reviews.items.5.role',
+      textKey: 'home.reviews.items.5.text',
+    },
   ];
 
   constructor(private router: Router) {}
@@ -119,7 +153,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     requestAnimationFrame(() => this.heroEnter.set(true));
 
-    // CTA animate on view
     const ctaEl = this.ctaSection?.nativeElement;
     if (ctaEl) {
       this.ctaIO = new IntersectionObserver(
@@ -137,7 +170,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       this.ctaIO.observe(ctaEl);
     }
 
-    // WHO metrics animate on view (75%)
     const target = this.whoMetrics?.nativeElement;
     if (target) {
       this.whoIO = new IntersectionObserver(
@@ -145,7 +177,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
           const entry = entries[0];
           if (!entry || this.metricsAnimated) return;
           if (!entry.isIntersecting) return;
-
           if (entry.intersectionRatio < 0.75) return;
 
           this.metricsAnimated = true;
@@ -175,25 +206,26 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     const duration = 1400;
 
     const yTarget = this.metricsTarget.years;
-    const tTarget = this.metricsTarget.team;
-    const cTarget = this.metricsTarget.clients;
+    const dTarget = this.metricsTarget.designProjects;
+    const eTarget = this.metricsTarget.executionProjects;
 
     const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
     const tick = (now: number) => {
       const elapsed = now - start;
       const p = Math.min(1, elapsed / duration);
-      const e = easeOutCubic(p);
+      const eased = easeOutCubic(p);
 
-      this.yearsDisplay = Math.round(yTarget * e);
-      this.teamDisplay = Math.round(tTarget * e);
-      this.clientsDisplay = Math.round(cTarget * e);
+      this.yearsDisplay = Math.round(yTarget * eased);
+      this.designProjectsDisplay = Math.round(dTarget * eased);
+      this.executionProjectsDisplay = Math.round(eTarget * eased);
 
-      if (p < 1) requestAnimationFrame(tick);
-      else {
+      if (p < 1) {
+        requestAnimationFrame(tick);
+      } else {
         this.yearsDisplay = yTarget;
-        this.teamDisplay = tTarget;
-        this.clientsDisplay = cTarget;
+        this.designProjectsDisplay = dTarget;
+        this.executionProjectsDisplay = eTarget;
       }
     };
 
@@ -213,7 +245,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       (this.projectIndex - 1 + this.featuredProjects.length) % this.featuredProjects.length;
   }
 
-  // Featured Projects pointer handlers
   projectsPointerDown(e: PointerEvent) {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
 

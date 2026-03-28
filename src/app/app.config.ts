@@ -43,8 +43,8 @@ export const appConfig: ApplicationConfig = {
       routes,
       withEnabledBlockingInitialNavigation(),
       withInMemoryScrolling({
-        scrollPositionRestoration: 'top', // ✅ always go top on route change
-        anchorScrolling: 'enabled',       // ✅ supports #anchors if you use them
+        scrollPositionRestoration: 'disabled', // managed manually in App component
+        anchorScrolling: 'enabled',
       })
     ),
 

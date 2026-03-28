@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import {
   FormBuilder,
@@ -8,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { ContactPayload, ContactService } from './services/contact.service';
 
 type ContactForm = FormGroup<{
@@ -22,7 +22,7 @@ type ContactForm = FormGroup<{
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [RouterModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './contact.html',
   styleUrls: ['./contact.scss'],
 })
@@ -104,7 +104,7 @@ export class ContactPage {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.submitError.set('Please review the required fields and try again.');
+      this.submitError.set('contact.form.errorReview');
       return;
     }
 
@@ -115,7 +115,7 @@ export class ContactPage {
       const res = await this.contact.submit(payload);
 
       if (!res.ok) {
-        this.submitError.set('Submission failed. Please try again.');
+        this.submitError.set('contact.form.errorRetry');
         return;
       }
 
@@ -129,7 +129,7 @@ export class ContactPage {
         contactPreference: 'WhatsApp',
       });
     } catch {
-      this.submitError.set('Something went wrong. Please try again.');
+      this.submitError.set('contact.form.errorGeneric');
     } finally {
       this.isSubmitting.set(false);
     }

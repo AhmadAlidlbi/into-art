@@ -21,12 +21,13 @@
 
   /* LEFT */
   .hero__badge {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.06);
+    display: block;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 950;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: rgba(22, 20, 20, 0.55);
+    margin-bottom: 10px;
   }
 
   .hero__title {

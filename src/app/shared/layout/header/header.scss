@@ -99,6 +99,7 @@
     border-radius: 12px;
     transition: background 160ms ease, color 160ms ease;
     text-decoration: none;
+    white-space: nowrap;
 
     &:hover {
       background: rgba(112, 95, 82, 0.08);
@@ -127,12 +128,6 @@
 
 .actions .btn {
   border-radius: 14px;
-  padding: 12px 14px;
-}
-
-.actions .btn--primary {
-  min-width: 170px;
-  text-align: center;
 }
 
 :host-context(html[dir="rtl"]) .actions {

@@ -7,12 +7,13 @@ const READY = new Set<string>([
   'not-found',
   'book-consultation',
   'services',
+  'about',
+  'contact',
+  'privacy-policy',
 
   // add ONLY the pages you want accessible right now:
-  // 'projects',
-  // 'about',
-  // 'contact',
-  // 'privacy-policy',
+  'projects',
+  'faq',
 ]);
 
 function normalize(url: string): string {
@@ -29,8 +30,8 @@ export const readyPagesGuard: CanActivateFn = (_route, state): boolean | UrlTree
   // allow any "ready" top-level path
   if (READY.has(path)) return true;
 
-  // also allow sub-routes under a ready section if you want:
-  // if (path.startsWith('projects/')) return true;
+  // allow sub-routes under ready sections
+  if (path.startsWith('projects/')) return true;
 
   return router.parseUrl('/under-construction');
 };

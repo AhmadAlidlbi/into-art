@@ -4,6 +4,8 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BookingService, ConsultationPayload } from './services/booking.service';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 /* Angular Material */
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -26,6 +28,7 @@ type DesignPackage =
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    TranslateModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
@@ -182,10 +185,10 @@ export class BookConsultationPage {
       if (res.ok) {
         this.router.navigateByUrl('/book-consultation/success');
       } else {
-        this.submitError.set('Submission failed. Please try again.');
+        this.submitError.set('booking.form.errorRetry');
       }
     } catch {
-      this.submitError.set('Something went wrong. Please try again.');
+      this.submitError.set('booking.form.errorGeneric');
     } finally {
       this.isSubmitting.set(false);
     }

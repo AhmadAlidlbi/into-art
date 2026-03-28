@@ -2,54 +2,51 @@
   <div class="container hero__grid">
     <!-- LEFT -->
     <div class="hero__content">
-      <span class="hero__badge">Book Consultation</span>
+      <span class="hero__badge">{{ 'booking.hero.badge' | translate }}</span>
 
-      <h1 class="hero__title">Let’s plan your interior project properly</h1>
+      <h1 class="hero__title">{{ 'booking.hero.title' | translate }}</h1>
 
-      <p class="hero__subtitle">
-        Share a few details and we’ll confirm your consultation with the right specialist. This is
-        the fastest way to get clear direction for your space.
-      </p>
+      <p class="hero__subtitle">{{ 'booking.hero.subtitle' | translate }}</p>
 
       <ul class="trust">
-        <li>✓ Kuwait-based team</li>
-        <li>✓ Residential focus</li>
-        <li>✓ Structured workflow</li>
+        <li>✓ {{ 'booking.hero.trust.1' | translate }}</li>
+        <li>✓ {{ 'booking.hero.trust.2' | translate }}</li>
+        <li>✓ {{ 'booking.hero.trust.3' | translate }}</li>
       </ul>
     </div>
 
     <!-- RIGHT -->
     <div class="card form-card">
       <header class="card__header">
-        <h3>Consultation request</h3>
-        <p>Fields marked with * are required.</p>
+        <h3>{{ 'booking.form.header' | translate }}</h3>
+        <p>{{ 'booking.form.requiredNote' | translate }}</p>
       </header>
 
       <form class="form" [formGroup]="form" (ngSubmit)="submit()">
         <!-- STEP 1 -->
         <section class="form-section">
-          <h4>1. Your details</h4>
+          <h4>{{ 'booking.form.step1.title' | translate }}</h4>
 
           <div class="row">
             <label class="field">
-              <span>Full name *</span>
+              <span>{{ 'booking.form.step1.fullName' | translate }}</span>
               <input class="field__input" type="text" formControlName="fullName" />
               <small
                 class="field__error"
                 *ngIf="form.controls.fullName.touched && form.controls.fullName.invalid"
               >
-                Please enter your name
+                {{ 'booking.form.step1.fullNameError' | translate }}
               </small>
             </label>
 
             <label class="field">
-              <span>Contact number *</span>
+              <span>{{ 'booking.form.step1.phone' | translate }}</span>
               <input class="field__input" type="tel" formControlName="phone" />
               <small
                 class="field__error"
                 *ngIf="form.controls.phone.touched && form.controls.phone.invalid"
               >
-                Please enter a valid phone number
+                {{ 'booking.form.step1.phoneError' | translate }}
               </small>
             </label>
           </div>
@@ -57,22 +54,22 @@
 
         <!-- STEP 2 -->
         <section class="form-section">
-          <h4>2. Building condition *</h4>
+          <h4>{{ 'booking.form.step2.title' | translate }}</h4>
 
           <div class="radio-group">
             <label class="radio">
               <input type="radio" value="New building" formControlName="buildingCondition" />
-              <span>New building</span>
+              <span>{{ 'booking.form.step2.new' | translate }}</span>
             </label>
 
             <label class="radio">
               <input type="radio" value="Restoration" formControlName="buildingCondition" />
-              <span>Restoration</span>
+              <span>{{ 'booking.form.step2.restoration' | translate }}</span>
             </label>
 
             <label class="radio">
               <input type="radio" value="Other" formControlName="buildingCondition" />
-              <span>Other</span>
+              <span>{{ 'booking.form.step2.other' | translate }}</span>
             </label>
           </div>
 
@@ -80,7 +77,7 @@
             <input
               class="field__input"
               type="text"
-              placeholder="Please specify"
+              [placeholder]="'booking.form.step2.specify' | translate"
               formControlName="buildingConditionOther"
             />
           </label>
@@ -88,47 +85,39 @@
 
         <!-- STEP 3 -->
         <section class="form-section">
-          <h4>3. Design package *</h4>
+          <h4>{{ 'booking.form.step3.title' | translate }}</h4>
 
           <div class="radio-group">
             <label class="radio">
-              <input
-                type="radio"
-                value="Two-space design package"
-                formControlName="designPackage"
-              />
-              <span>Two-space design package</span>
+              <input type="radio" value="Two-space design package" formControlName="designPackage" />
+              <span>{{ 'booking.form.step3.twoSpace' | translate }}</span>
             </label>
 
             <label class="radio">
               <input type="radio" value="4-space design package" formControlName="designPackage" />
-              <span>4-space design package</span>
+              <span>{{ 'booking.form.step3.fourSpace' | translate }}</span>
             </label>
 
             <label class="radio">
               <input type="radio" value="5-space design package" formControlName="designPackage" />
-              <span>5-space design package</span>
+              <span>{{ 'booking.form.step3.fiveSpace' | translate }}</span>
             </label>
 
             <label class="radio">
               <input type="radio" value="Floor Design Package" formControlName="designPackage" />
-              <span>Floor Design Package</span>
+              <span>{{ 'booking.form.step3.floor' | translate }}</span>
             </label>
 
             <label class="radio">
-              <input
-                type="radio"
-                value="Complete coupon design package"
-                formControlName="designPackage"
-              />
-              <span>Complete coupon design package</span>
+              <input type="radio" value="Complete coupon design package" formControlName="designPackage" />
+              <span>{{ 'booking.form.step3.complete' | translate }}</span>
             </label>
           </div>
         </section>
 
         <!-- STEP 4 -->
         <section class="form-section">
-          <h4>4. Preferred date *</h4>
+          <h4>{{ 'booking.form.step4.title' | translate }}</h4>
 
           <mat-form-field class="material-field">
             <input
@@ -146,13 +135,15 @@
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
 
-          <small class="hint">Saturday–Thursday only. Fridays unavailable.</small>
+          <small class="hint">{{ 'booking.form.step4.hint' | translate }}</small>
 
           <div class="field">
-            <span>Preferred time *</span>
+            <span>{{ 'booking.form.step4.timeLabel' | translate }}</span>
 
             <!-- LOADING -->
-            <p class="hint" *ngIf="loadingSlots()">Checking availability…</p>
+            <p class="hint" *ngIf="loadingSlots()">
+              {{ 'booking.form.step4.checking' | translate }}
+            </p>
 
             <!-- AVAILABLE SLOTS -->
             <div class="time-slots" *ngIf="!loadingSlots() && availableHours().length > 0">
@@ -173,16 +164,18 @@
               class="no-slots"
               *ngIf="!loadingSlots() && hasSelectedDate() && availableHours().length === 0"
             >
-              All time slots for this date are fully booked.
+              {{ 'booking.form.step4.noSlots' | translate }}
             </p>
           </div>
         </section>
 
+        <p class="field__error submit-error" *ngIf="submitError()">{{ submitError() | translate }}</p>
+
         <button class="submit" type="submit" [disabled]="form.invalid || isSubmitting()">
-          {{ isSubmitting() ? 'Submitting…' : 'Request consultation' }}
+          {{ (isSubmitting() ? 'booking.form.submitting' : 'booking.form.submit') | translate }}
         </button>
 
-        <p class="privacy">We’ll contact you only to confirm your appointment.</p>
+        <p class="privacy">{{ 'booking.form.privacy' | translate }}</p>
       </form>
     </div>
   </div>

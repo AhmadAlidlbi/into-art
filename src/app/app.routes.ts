@@ -26,17 +26,8 @@ export const routes: Routes = [
           import('./features/projects/projects.routes').then((m) => m.PROJECTS_ROUTES),
       },
       {
-        path: 'portfolio',
-        loadChildren: () =>
-          import('./features/portfolio/portfolio.routes').then((m) => m.PORTFOLIO_ROUTES),
-      },
-      {
         path: 'faq',
         loadChildren: () => import('./features/faq/faq.routes').then((m) => m.FAQ_ROUTES),
-      },
-      {
-        path: 'blog',
-        loadChildren: () => import('./features/blog/blog.routes').then((m) => m.BLOG_ROUTES),
       },
       {
         path: 'book-consultation',

@@ -30,10 +30,10 @@ export class HeaderComponent {
   /** Navigation */
   links: HeaderLink[] = [
     { labelKey: 'nav.home', path: '/', exact: true },
+    { labelKey: 'nav.about', path: '/about' },
     { labelKey: 'nav.services', path: '/services' },
-    { labelKey: 'nav.projects', path: '/under-construction' },
-    { labelKey: 'nav.about', path: '/under-construction' },
-    { labelKey: 'nav.contact', path: '/under-construction' },
+    { labelKey: 'nav.projects', path: '/projects' },
+    { labelKey: 'nav.contact', path: '/contact' },
   ];
 
   // UI state
@@ -43,7 +43,10 @@ export class HeaderComponent {
   // Lang state
   currentLang = signal<'en' | 'ar'>('ar'); // ✅ default signal
 
-  constructor(private router: Router, private translate: TranslateService) {
+  constructor(
+    private router: Router,
+    private translate: TranslateService,
+  ) {
     // Close drawer on navigation
     this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))

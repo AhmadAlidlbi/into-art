@@ -32,12 +32,10 @@ export class FooterComponent {
   quickLinks: FooterLink[] = [
     { labelKey: 'footer.links.home', path: '/' },
     { labelKey: 'footer.links.services', path: '/services' },
-    { labelKey: 'footer.links.portfolio', path: '/under-construction' },
-    { labelKey: 'footer.links.about', path: '/under-construction' },
-    { labelKey: 'footer.links.faq', path: '/under-construction' },
-    { labelKey: 'footer.links.contact', path: '/under-construction' },
-    { labelKey: 'footer.links.blog', path: '/under-construction' },
-    { labelKey: 'footer.links.projects', path: '/under-construction' },
+    { labelKey: 'footer.links.about', path: '/about' },
+    { labelKey: 'footer.links.faq', path: '/faq' },
+    { labelKey: 'footer.links.contact', path: '/contact' },
+    { labelKey: 'footer.links.projects', path: '/projects' },
   ];
 
   serviceLinks: FooterLink[] = [
