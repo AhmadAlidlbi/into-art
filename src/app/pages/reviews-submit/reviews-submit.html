@@ -1,106 +1,106 @@
 <section class="reviews-submit-hero">
-    <div class="container">
-      <div class="reviews-submit-hero__content">
-        <div class="eyebrow">{{ 'reviewsForm.hero.eyebrow' | translate }}</div>
-        <h1 class="reviews-submit-hero__title">
-          {{ 'reviewsForm.hero.title' | translate }}
-        </h1>
-        <p class="reviews-submit-hero__desc">
-          {{ 'reviewsForm.hero.desc' | translate }}
-        </p>
-      </div>
+  <div class="container">
+    <div class="reviews-submit-hero__content">
+      <div class="eyebrow">{{ 'reviewsForm.hero.eyebrow' | translate }}</div>
+      <h1 class="reviews-submit-hero__title">
+        {{ 'reviewsForm.hero.title' | translate }}
+      </h1>
+      <p class="reviews-submit-hero__desc">
+        {{ 'reviewsForm.hero.desc' | translate }}
+      </p>
     </div>
-  </section>
-  
-  <section class="section section--alt">
-    <div class="container">
-      <div class="reviews-submit-card">
-        <form class="reviews-form" #reviewForm="ngForm" (ngSubmit)="submitReview(reviewForm)">
-          <div class="reviews-form__grid">
-            <div class="form-field">
-              <label for="clientName">{{ 'reviewsForm.form.nameLabel' | translate }}</label>
-              <input
-                id="clientName"
-                name="clientName"
-                type="text"
-                [(ngModel)]="form.clientName"
-                #clientName="ngModel"
-                required
-                [placeholder]="'reviewsForm.form.namePlaceholder' | translate"
-              />
-              @if (clientName.invalid && clientName.touched) {
-              <div class="form-error">
-                {{ 'reviewsForm.form.nameError' | translate }}
-              </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="reviews-submit-card">
+      <form class="reviews-form" #reviewForm="ngForm" (ngSubmit)="submitReview(reviewForm)">
+        <div class="reviews-form__grid">
+          <div class="form-field">
+            <label for="clientName">{{ 'reviewsForm.form.nameLabel' | translate }}</label>
+            <input
+              id="clientName"
+              name="clientName"
+              type="text"
+              [(ngModel)]="form.clientName"
+              #clientName="ngModel"
+              required
+              [placeholder]="'reviewsForm.form.namePlaceholder' | translate"
+            />
+            @if (clientName.invalid && clientName.touched) {
+            <div class="form-error">
+              {{ 'reviewsForm.form.nameError' | translate }}
+            </div>
+            }
+          </div>
+
+          <div class="form-field">
+            <label>{{ 'reviewsForm.form.ratingLabel' | translate }}</label>
+
+            <div class="rating-select" role="radiogroup" aria-label="Rating">
+              @for (star of stars; track star) {
+              <button
+                type="button"
+                class="rating-select__star"
+                [class.is-active]="star <= form.rating"
+                (click)="setRating(star)"
+                [attr.aria-label]="star + ' stars'"
+              >
+                ★
+              </button>
               }
             </div>
-  
-            <div class="form-field">
-              <label>{{ 'reviewsForm.form.ratingLabel' | translate }}</label>
-  
-              <div class="rating-select" role="radiogroup" aria-label="Rating">
-                @for (star of stars; track star) {
-                <button
-                  type="button"
-                  class="rating-select__star"
-                  [class.is-active]="star <= form.rating"
-                  (click)="setRating(star)"
-                  [attr.aria-label]="star + ' stars'"
-                >
-                  ★
-                </button>
-                }
-              </div>
-  
-              @if (ratingInvalid) {
-              <div class="form-error">
-                {{ 'reviewsForm.form.ratingError' | translate }}
-              </div>
-              }
+
+            @if (showRatingError) {
+            <div class="form-error">
+              {{ 'reviewsForm.form.ratingError' | translate }}
             </div>
-  
-            <div class="form-field form-field--full">
-              <label for="reviewText">{{ 'reviewsForm.form.reviewLabel' | translate }}</label>
-              <textarea
-                id="reviewText"
-                name="reviewText"
-                rows="6"
-                [(ngModel)]="form.reviewText"
-                #reviewText="ngModel"
-                required
-                minlength="5"
-                [placeholder]="'reviewsForm.form.reviewPlaceholder' | translate"
-              ></textarea>
-              @if (reviewText.invalid && reviewText.touched) {
-              <div class="form-error">
-                {{ 'reviewsForm.form.reviewError' | translate }}
-              </div>
-              }
+            }
+          </div>
+
+          <div class="form-field form-field--full">
+            <label for="reviewText">{{ 'reviewsForm.form.reviewLabel' | translate }}</label>
+            <textarea
+              id="reviewText"
+              name="reviewText"
+              rows="6"
+              [(ngModel)]="form.reviewText"
+              #reviewText="ngModel"
+              required
+              minlength="5"
+              [placeholder]="'reviewsForm.form.reviewPlaceholder' | translate"
+            ></textarea>
+            @if (reviewText.invalid && reviewText.touched) {
+            <div class="form-error">
+              {{ 'reviewsForm.form.reviewError' | translate }}
             </div>
+            }
           </div>
-  
-          <div class="reviews-form__actions">
-            <button class="btn btn--primary" type="submit" [disabled]="isSubmitting()">
-              {{
-                (isSubmitting()
-                  ? 'reviewsForm.form.submitting'
-                  : 'reviewsForm.form.submit') | translate
-              }}
-            </button>
-          </div>
-  
-          @if (submitError()) {
-          <div class="form-error form-error--submit">
-            {{ submitError() }}
-          </div>
-          }
-  
-          @if (submitted) {
-          <div class="form-success">
-            {{ 'reviewsForm.form.success' | translate }}
-          </div>
-          }
-        </form>
-      </div>
+        </div>
+
+        <div class="reviews-form__actions">
+          <button class="btn btn--primary" type="submit" [disabled]="isSubmitting()">
+            {{
+              (isSubmitting()
+                ? 'reviewsForm.form.submitting'
+                : 'reviewsForm.form.submit') | translate
+            }}
+          </button>
+        </div>
+
+        @if (submitError()) {
+        <div class="form-error form-error--submit">
+          {{ submitError() }}
+        </div>
+        }
+
+        @if (submitted) {
+        <div class="form-success">
+          {{ 'reviewsForm.form.success' | translate }}
+        </div>
+        }
+      </form>
     </div>
-  </section>
+  </div>
+</section>

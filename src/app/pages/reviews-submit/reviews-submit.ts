@@ -14,6 +14,7 @@ export class ReviewsSubmitComponent {
   stars = [1, 2, 3, 4, 5];
 
   submitted = false;
+  ratingTouched = false;
   isSubmitting = signal(false);
   submitError = signal<string | null>(null);
 
@@ -29,13 +30,19 @@ export class ReviewsSubmitComponent {
     return this.form.rating < 1;
   }
 
+  get showRatingError(): boolean {
+    return this.ratingInvalid && this.ratingTouched;
+  }
+
   setRating(value: number): void {
     this.form.rating = value;
+    this.ratingTouched = true;
   }
 
   async submitReview(formRef: NgForm): Promise<void> {
     this.submitted = false;
     this.submitError.set(null);
+    this.ratingTouched = true;
 
     if (formRef.invalid || this.ratingInvalid) {
       formRef.control.markAllAsTouched();
@@ -53,6 +60,7 @@ export class ReviewsSubmitComponent {
 
       if (response.ok) {
         this.submitted = true;
+        this.ratingTouched = false;
 
         this.form = {
           clientName: '',
