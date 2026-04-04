@@ -1,306 +1,539 @@
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
-  }
-
-  .hero {
-    padding: 64px 0;
-    background: radial-gradient(
-      1200px 520px at 20% 0%,
-      rgba(0, 0, 0, 0.06),
-      transparent 70%
-    );
-  }
-
-  .hero__grid {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 28px;
-  }
-
-  /* LEFT */
-  .hero__badge {
-    display: block;
-    font-size: 12px;
-    font-weight: 950;
-    letter-spacing: 0.7px;
-    text-transform: uppercase;
-    color: rgba(22, 20, 20, 0.55);
-    margin-bottom: 10px;
-  }
-
-  .hero__title {
-    font-size: 42px;
-    font-weight: 900;
-    margin: 14px 0;
-  }
-
-  .hero__subtitle {
-    max-width: 520px;
-    line-height: 1.7;
-    color: rgba(0, 0, 0, 0.7);
-  }
-
-  /* CARD */
-  .card {
-    background: #fff;
-    border-radius: 22px;
-    padding: 24px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
-  }
-
-  /* FORM */
-  .form {
-    display: grid;
-    gap: 16px;
-  }
-
-  .form-section {
-    padding-bottom: 18px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-
-    &:last-of-type {
-      border-bottom: none;
-    }
-
-    h4 {
-      font-size: 14px;
-      font-weight: 900;
-      margin-bottom: 12px;
-    }
-  }
-
-  .row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .field span {
-    font-size: 12px;
-    font-weight: 800;
-    margin-bottom: 6px;
-  }
-
-  .field__input {
-    height: 44px;
-    padding: 0 14px;
-    border-radius: 14px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    font-size: 14px;
-  }
-
-  .field__error {
-    font-size: 12px;
-    color: #b00000;
-    margin-top: 4px;
-  }
-
-  /* RADIO */
-  .radio-group {
-    display: grid;
-    gap: 10px;
-  }
-
-  .radio {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 600;
-  }
-
-  .radio input {
-    accent-color: #111;
-  }
-
-  /* DATE */
-  .material-field {
-    width: 100%;
-  }
-
-  /* DATE PICKER — MATCH INPUT STYLE */
-.material-field {
-  width: 100%;
-  display: block;
+:host {
+  --elev-1: 0 10px 26px rgba(22, 20, 20, 0.07);
+  --elev-2: 0 14px 34px rgba(22, 20, 20, 0.1);
+  --stroke: 1px solid rgba(231, 224, 216, 0.95);
+  --shine: inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 
-.material-field ::ng-deep .mat-mdc-form-field-flex {
+/* ─── Page Head ──────────────────────────────────────────── */
+.page-head {
+  padding: 110px 0 52px;
+  background: #fff;
+  border-bottom: var(--stroke);
+}
+
+.page-head__inner {
+  max-width: 860px;
+}
+
+.eyebrow {
+  font-weight: 950;
+  font-size: 12px;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: rgba(22, 20, 20, 0.55);
+  margin-bottom: 10px;
+}
+
+.page-head__title {
+  margin: 0 0 14px;
+  font-size: clamp(28px, 4.5vw, 48px);
+  font-weight: 950;
+  letter-spacing: -0.8px;
+  color: var(--text);
+  line-height: 1.08;
+}
+
+.page-head__subtitle {
+  margin: 0 0 24px;
+  max-width: 560px;
+  color: var(--text-2);
+  line-height: 1.9;
+  font-weight: 650;
+}
+
+/* Trust pills */
+.trust-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.trust-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: var(--stroke);
+  background: rgba(215, 198, 178, 0.12);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-2);
+}
+
+/* ─── Section ────────────────────────────────────────────── */
+.section {
+  padding: 56px 0 80px;
+}
+
+.section--alt {
+  background: rgba(248, 246, 242, 0.75);
+}
+
+/* ─── Form Wrap ──────────────────────────────────────────── */
+.form-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.form-card {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 20px;
+  border: var(--stroke);
+  box-shadow: var(--shine), var(--elev-1);
+  padding: 32px;
+}
+
+/* ─── Form ───────────────────────────────────────────────── */
+.form {
+  display: grid;
+  gap: 0;
+}
+
+/* ─── Step ───────────────────────────────────────────────── */
+.step {
+  padding: 28px 0;
+  border-bottom: var(--stroke);
+}
+
+.step:last-of-type {
+  border-bottom: none;
+}
+
+.step__head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.step__num {
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.5px;
+  color: rgba(22, 20, 20, 0.35);
+  flex-shrink: 0;
+}
+
+.step__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 950;
+  letter-spacing: -0.1px;
+  color: var(--text);
+}
+
+/* ─── Row ────────────────────────────────────────────────── */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+/* ─── Field ──────────────────────────────────────────────── */
+.field {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.field__label {
+  font-weight: 950;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  color: rgba(22, 20, 20, 0.6);
+}
+
+.field__input {
+  min-height: 46px;
+  border-radius: 12px;
+  padding: 11px 14px;
+  border: var(--stroke);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shine), 0 4px 10px rgba(22, 20, 20, 0.05);
+  outline: none;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+  width: 100%;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.field__input:focus {
+  border-color: rgba(215, 198, 178, 0.65);
+  box-shadow: var(--shine), 0 0 0 4px rgba(215, 198, 178, 0.14);
+}
+
+.field__input.is-invalid {
+  border-color: rgba(200, 0, 0, 0.28);
+  background: rgba(200, 0, 0, 0.03);
+  box-shadow: var(--shine), 0 0 0 3px rgba(200, 0, 0, 0.05);
+}
+
+.field__input::placeholder {
+  color: rgba(22, 20, 20, 0.32);
+  font-weight: 650;
+}
+
+.field__error {
+  display: block;
+  min-height: 18px;
+  margin-top: 2px;
+  color: rgba(140, 0, 0, 0.9);
+  font-weight: 850;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Specify input (Other condition) */
+.specify-input {
+  margin-top: 10px;
+}
+
+/* ─── Pill Options (radio) ───────────────────────────────── */
+.pill-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill-group--col {
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pill-group--col .pill-opt {
+  border-radius: 12px;
+  height: auto;
+  padding: 12px 16px;
+  justify-content: flex-start;
+}
+
+.pill-opt {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: var(--stroke);
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-2);
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+  user-select: none;
+}
+
+.pill-opt:hover {
+  border-color: rgba(215, 198, 178, 0.55);
+  color: var(--text);
+}
+
+.pill-opt.is-active {
+  background: rgba(215, 198, 178, 0.22);
+  border-color: rgba(215, 198, 178, 0.6);
+  color: var(--text);
+  font-weight: 950;
+}
+
+.pill-opt__radio {
+  display: none;
+}
+
+/* ─── Date Field ─────────────────────────────────────────── */
+.date-field {
+  width: 100%;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.date-field ::ng-deep .mat-mdc-text-field-wrapper {
+  border-radius: 12px !important;
+  border: var(--stroke) !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  box-shadow: var(--shine), 0 4px 10px rgba(22, 20, 20, 0.05) !important;
+  padding: 0 14px !important;
+  height: 44px;
+}
+
+.date-field ::ng-deep .mdc-line-ripple,
+.date-field ::ng-deep .mat-mdc-line-ripple {
+  display: none;
+}
+
+.date-field ::ng-deep .mat-mdc-form-field-flex {
   height: 44px;
   align-items: center;
 }
 
-.material-field ::ng-deep .mat-mdc-text-field-wrapper {
-  height: 44px;
-  border-radius: 14px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  background: #fff;
-  padding: 0 14px;
-  box-shadow: none;
-}
-
-/* remove material underline */
-.material-field ::ng-deep .mdc-line-ripple,
-.material-field ::ng-deep .mat-mdc-line-ripple {
-  display: none;
-}
-
-/* input text alignment */
-.material-field ::ng-deep input.mat-mdc-input-element {
+.date-field ::ng-deep input.mat-mdc-input-element {
   height: 44px;
   padding: 0;
   margin: 0;
   font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
 }
 
-/* calendar icon alignment */
-.material-field ::ng-deep .mat-mdc-form-field-icon-suffix {
+.date-field ::ng-deep .mat-mdc-form-field-icon-suffix {
   height: 44px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-.material-field ::ng-deep button.mat-mdc-icon-button {
+.date-field ::ng-deep .mat-mdc-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 36px;
   height: 36px;
   padding: 0;
-  margin-right: -6px;
+  border-radius: 50%;
 }
 
+.date-field ::ng-deep mat-icon {
+  display: block;
+  line-height: 1;
+  font-size: 20px;
+}
 
-  .hint {
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.6);
-    margin-top: 6px;
-  }
+.date-field ::ng-deep .mat-mdc-button-ripple,
+.date-field ::ng-deep .mat-ripple-element {
+  border-radius: 50%;
+}
 
-  /* TIME */
-  .time-slots {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
+/* ─── Hint ───────────────────────────────────────────────── */
+.hint {
+  display: block;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--text-2);
+  margin-bottom: 14px;
+}
 
-  .time-slot {
-    padding: 10px 14px;
-    border-radius: 14px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    background: #fff;
-    font-weight: 800;
-    cursor: pointer;
+.checking {
+  color: rgba(22, 20, 20, 0.45);
+  font-style: italic;
+}
 
-    &.active {
-      background: #111;
-      color: #fff;
-    }
-  }
+/* ─── Time Label ─────────────────────────────────────────── */
+.time-label {
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.3px;
+  color: rgba(22, 20, 20, 0.6);
+  margin-bottom: 10px;
+}
 
-  /* SUBMIT */
-  .submit {
-    height: 46px;
-    border-radius: 14px;
-    background: #111;
-    color: #fff;
-    font-weight: 900;
-    border: none;
-  }
+/* ─── Time Slots ─────────────────────────────────────────── */
+.time-slots {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 
-  /* SUBMIT — disabled state */
-.submit:disabled {
-  background: #d6d6d6;        /* soft grey */
-  color: #8a8a8a;
+.time-slot {
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: var(--stroke);
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-2);
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+}
+
+.time-slot:hover:not(:disabled) {
+  border-color: rgba(215, 198, 178, 0.55);
+  color: var(--text);
+}
+
+.time-slot.is-active {
+  background: rgba(22, 20, 20, 0.92);
+  border-color: transparent;
+  color: #f5f0ea;
+  font-weight: 950;
+}
+
+.time-slot:disabled {
+  opacity: 0.35;
   cursor: not-allowed;
+}
+
+/* ─── No Slots ───────────────────────────────────────────── */
+.no-slots {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(200, 0, 0, 0.07);
+  border: 1px solid rgba(200, 0, 0, 0.14);
+  color: rgba(120, 0, 0, 0.92);
+  font-weight: 850;
+  font-size: 13px;
+}
+
+/* ─── Alert ──────────────────────────────────────────────── */
+.alert {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-weight: 850;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.alert--error {
+  background: rgba(200, 0, 0, 0.07);
+  border-color: rgba(200, 0, 0, 0.14);
+  color: rgba(120, 0, 0, 0.92);
+}
+
+/* ─── Submit Button ──────────────────────────────────────── */
+.submit-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin-top: 24px;
+  font-weight: 950;
+  font-size: 15px;
+  cursor: pointer;
+  background: var(--text);
+  color: #f5f0ea;
+  box-shadow: 0 14px 36px rgba(22, 20, 20, 0.16);
+  transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
+  will-change: transform;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 48px rgba(22, 20, 20, 0.22);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.submit-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
   box-shadow: none;
 }
 
-/* prevent hover effects when disabled */
-.submit:disabled:hover {
-  background: #d6d6d6;
+.submit-btn__arrow {
+  display: inline-block;
+  transition: transform 140ms ease;
 }
 
-
-  .privacy {
-    text-align: center;
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.6);
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 980px) {
-    .hero__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .row {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* BUILDING CONDITION — spacing for "Other" field */
-.form-section .radio-group + .field {
-  margin-top: 14px; /* visual breathing room */
+.submit-btn:hover:not(:disabled) .submit-btn__arrow {
+  transform: translateX(3px);
 }
 
+:host-context(html[dir='rtl']) .submit-btn__arrow {
+  transform: scaleX(-1);
+}
 
-/* =========================================
-   DATEPICKER ICON — PERFECT CENTERING
-   ========================================= */
+:host-context(html[dir='rtl']) .submit-btn:hover:not(:disabled) .submit-btn__arrow {
+  transform: scaleX(-1) translateX(3px);
+}
 
-   .material-field {
+/* ─── Privacy ────────────────────────────────────────────── */
+.privacy {
+  margin: 12px 0 0;
+  text-align: center;
+  color: var(--text-2);
+  font-size: 12px;
+  line-height: 1.7;
+  font-weight: 650;
+}
 
-    /* suffix container (circle wrapper) */
-    ::ng-deep .mat-mdc-form-field-icon-suffix {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 44px;
-    }
-  
-    /* icon button itself */
-    ::ng-deep .mat-mdc-icon-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  
-      width: 36px;
-      height: 36px;
-      padding: 0;              /* 🔑 removes offset */
-      border-radius: 50%;
-    }
-  
-    /* the calendar icon */
-    ::ng-deep mat-icon {
-      display: block;
-      line-height: 1;          /* 🔑 removes font centering bug */
-      font-size: 20px;
-    }
-  
-    /* ripple perfectly centered */
-    ::ng-deep .mat-mdc-button-ripple,
-    ::ng-deep .mat-ripple-element {
-      border-radius: 50%;
-    }
+/* ─── Direction Fixes ────────────────────────────────────── */
+:host-context(html[dir='rtl']) .field__input {
+  direction: rtl;
+  text-align: right;
+}
+
+:host-context(html[dir='ltr']) .field__input {
+  direction: ltr;
+  text-align: left;
+}
+
+:host-context(html[dir='rtl']) .field__input[dir='ltr'] {
+  direction: ltr;
+  text-align: left;
+}
+
+:host-context(html[dir='ltr']) .field__input[dir='rtl'] {
+  direction: rtl;
+  text-align: right;
+}
+
+:host-context(html[dir='rtl']) .field__input::placeholder {
+  direction: rtl;
+  text-align: right;
+}
+
+:host-context(html[dir='ltr']) .field__input::placeholder {
+  direction: ltr;
+  text-align: left;
+}
+
+.field__input[dir='ltr']::placeholder {
+  direction: ltr;
+  text-align: left;
+}
+
+.field__input[dir='rtl']::placeholder {
+  direction: rtl;
+  text-align: right;
+}
+
+:host-context(html[dir='rtl']) textarea.field__input::placeholder,
+:host-context(html[dir='rtl']) .specify-input::placeholder {
+  direction: rtl;
+  text-align: right;
+}
+
+:host-context(html[dir='ltr']) textarea.field__input::placeholder,
+:host-context(html[dir='ltr']) .specify-input::placeholder {
+  direction: ltr;
+  text-align: left;
+}
+
+:host-context(html[dir='rtl']) .date-field ::ng-deep input.mat-mdc-input-element {
+  direction: rtl;
+  text-align: right;
+}
+
+:host-context(html[dir='ltr']) .date-field ::ng-deep input.mat-mdc-input-element {
+  direction: ltr;
+  text-align: left;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .row {
+    grid-template-columns: 1fr;
   }
 
-  .time-slot:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    background: #f3f3f3;
+  .pill-group--col .pill-opt {
+    padding: 10px 14px;
   }
-  
-  .no-slots {
-    margin-top: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #9a2c2c;
-    background: #fff2f2;
-    border: 1px solid #f3caca;
-    padding: 10px 12px;
-    border-radius: 12px;
-  }
-  
+}

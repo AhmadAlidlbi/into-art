@@ -1,120 +1,177 @@
-<!-- Page Head -->
+<!-- ─── Page Head ──────────────────────────────────────────── -->
 <section class="page-head">
   <div class="container page-head__inner">
+    <div class="eyebrow">{{ 'contact.hero.badge' | translate }}</div>
     <h1 class="page-head__title">
       {{ 'contact.hero.title_1' | translate }}
-      <span class="page-head__accent"> {{ 'contact.hero.title_accent' | translate }}</span>
+      {{ 'contact.hero.title_accent' | translate }}
     </h1>
     <p class="page-head__subtitle">{{ 'contact.hero.subtitle' | translate }}</p>
   </div>
-  <div class="page-head__decor" aria-hidden="true"></div>
 </section>
 
-<!-- Form -->
-<section class="section">
-  <div class="container form-wrap">
-    <div class="card">
-      <div class="card__top">
-        <div>
-          <div class="card__title">{{ 'contact.form.title' | translate }}</div>
-          <div class="card__sub">{{ 'contact.form.requiredNote' | translate }}</div>
-        </div>
-        @if (submittedOk()) {
-          <div class="card__badge">{{ 'contact.form.received' | translate }}</div>
-        }
-      </div>
+<!-- ─── Contact Body ──────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="contact-layout">
+      <!-- ─── Left: Info Panel ────────────────────── -->
+      <aside class="info-panel">
+        <div class="eyebrow">{{ 'contact.channels.aria' | translate }}</div>
 
-      <form class="form" [formGroup]="form" (ngSubmit)="submit()">
-        <!-- Name + Phone -->
-        <div class="row">
-          <label class="field">
-            <span class="field__label">{{ 'contact.form.fullName' | translate }}</span>
-            <input
-              class="field__input"
-              type="text"
-              formControlName="fullName"
-              [placeholder]="'contact.form.fullNamePlaceholder' | translate"
-              [class.is-invalid]="isInvalid('fullName')"
-            />
-            @if (isInvalid('fullName')) {
-              <span class="field__error">{{ 'contact.form.fullNameError' | translate }}</span>
-            }
-          </label>
+        <div class="channel-list">
+          <a class="channel" [href]="whatsAppHref" target="_blank" rel="noopener noreferrer">
+            <div class="channel__badge">WA</div>
+            <div class="channel__body">
+              <div class="channel__title">{{ 'contact.channels.whatsapp.title' | translate }}</div>
+              <div class="channel__desc" dir="ltr">{{ whatsappDisplay }}</div>
+            </div>
+            <span class="channel__arrow" aria-hidden="true">→</span>
+          </a>
 
-          <label class="field">
-            <span class="field__label">{{ 'contact.form.phone' | translate }}</span>
-            <input
-              class="field__input"
-              type="tel"
-              formControlName="phone"
-              [placeholder]="'contact.form.phonePlaceholder' | translate"
-              [class.is-invalid]="isInvalid('phone')"
-            />
-            @if (isInvalid('phone')) {
-              <span class="field__error">{{ 'contact.form.phoneError' | translate }}</span>
-            }
-          </label>
+          <a class="channel" [href]="telHref">
+            <div class="channel__badge">☎</div>
+            <div class="channel__body">
+              <div class="channel__title">{{ 'contact.channels.call.title' | translate }}</div>
+              <div class="channel__desc" dir="ltr">{{ phoneDisplay }}</div>
+            </div>
+            <span class="channel__arrow" aria-hidden="true">→</span>
+          </a>
+
+          <a class="channel" [href]="mailtoHref">
+            <div class="channel__badge">@</div>
+            <div class="channel__body">
+              <div class="channel__title">{{ 'contact.channels.email.title' | translate }}</div>
+              <div class="channel__desc" dir="ltr">{{ emailAddress }}</div>
+            </div>
+            <span class="channel__arrow" aria-hidden="true">→</span>
+          </a>
         </div>
 
-        <!-- Email + Subject -->
-        <div class="row">
-          <label class="field">
-            <span class="field__label">{{ 'contact.form.email' | translate }}</span>
-            <input
-              class="field__input"
-              type="email"
-              formControlName="email"
-              [placeholder]="'contact.form.emailPlaceholder' | translate"
-              [class.is-invalid]="isInvalid('email')"
-            />
-            @if (isInvalid('email')) {
-              <span class="field__error">{{ 'contact.form.emailError' | translate }}</span>
-            }
-          </label>
-
-          <label class="field">
-            <span class="field__label">{{ 'contact.form.subject' | translate }}</span>
-            <input
-              class="field__input"
-              type="text"
-              formControlName="subject"
-              [placeholder]="'contact.form.subjectPlaceholder' | translate"
-            />
-          </label>
+        <div class="info-rows">
+          <div class="info-row">
+            <span class="info-row__key">{{ 'contact.info.hours.k' | translate }}</span>
+            <span class="info-row__val">{{ 'contact.info.hours.v' | translate }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-row__key">{{ 'contact.info.location.k' | translate }}</span>
+            <span class="info-row__val">{{ 'contact.info.location.v' | translate }}</span>
+          </div>
         </div>
+      </aside>
 
-        <!-- Message -->
-        <label class="field">
-          <span class="field__label">{{ 'contact.form.message' | translate }}</span>
-          <textarea
-            class="field__input field__textarea"
-            rows="5"
-            formControlName="message"
-            [placeholder]="'contact.form.messagePlaceholder' | translate"
-            [class.is-invalid]="isInvalid('message')"
-          ></textarea>
-          <div class="hint">{{ 'contact.form.messageHint' | translate }}</div>
-          @if (isInvalid('message')) {
-            <span class="field__error">{{ 'contact.form.messageError' | translate }}</span>
+      <!-- ─── Right: Form Panel ───────────────────── -->
+      <div class="form-panel">
+        <div class="form-header">
+          <h2 class="form-title">{{ 'contact.form.title' | translate }}</h2>
+          <p class="form-sub">{{ 'contact.form.requiredNote' | translate }}</p>
+          @if (submittedOk()) {
+          <span class="form-badge">{{ 'contact.form.received' | translate }}</span>
           }
-        </label>
+        </div>
 
-        <div class="alerts">
+        <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+          <!-- Name + Phone -->
+          <div class="row">
+            <label class="field">
+              <span class="field__label">{{ 'contact.form.fullName' | translate }}</span>
+              <input
+                class="field__input"
+                type="text"
+                formControlName="fullName"
+                [attr.placeholder]="'contact.form.fullNamePlaceholder' | translate"
+                [class.is-invalid]="isInvalid('fullName')"
+              />
+              <span class="field__error">
+                @if (isInvalid('fullName')) {
+                {{ 'contact.form.fullNameError' | translate }}
+                }
+              </span>
+            </label>
+
+            <label class="field">
+              <span class="field__label">{{ 'contact.form.phone' | translate }}</span>
+              <input
+                class="field__input"
+                type="tel"
+                formControlName="phone"
+                dir="ltr"
+                [attr.placeholder]="'contact.form.phonePlaceholder' | translate"
+                [class.is-invalid]="isInvalid('phone')"
+              />
+              <span class="field__error">
+                @if (isInvalid('phone')) {
+                {{ 'contact.form.phoneError' | translate }}
+                }
+              </span>
+            </label>
+          </div>
+
+          <!-- Email + Subject -->
+          <div class="row">
+            <label class="field">
+              <span class="field__label">{{ 'contact.form.email' | translate }}</span>
+              <input
+                class="field__input"
+                type="email"
+                formControlName="email"
+                dir="ltr"
+                [attr.placeholder]="'contact.form.emailPlaceholder' | translate"
+                [class.is-invalid]="isInvalid('email')"
+              />
+              <span class="field__error">
+                @if (isInvalid('email')) {
+                {{ 'contact.form.emailError' | translate }}
+                }
+              </span>
+            </label>
+
+            <label class="field">
+              <span class="field__label">{{ 'contact.form.subject' | translate }}</span>
+              <input
+                class="field__input"
+                type="text"
+                formControlName="subject"
+                [attr.placeholder]="'contact.form.subjectPlaceholder' | translate"
+              />
+              <span class="field__error"></span>
+            </label>
+          </div>
+
+          <!-- Message -->
+          <label class="field">
+            <span class="field__label">{{ 'contact.form.message' | translate }}</span>
+            <textarea
+              class="field__input field__textarea"
+              rows="5"
+              formControlName="message"
+              [attr.placeholder]="'contact.form.messagePlaceholder' | translate"
+              [class.is-invalid]="isInvalid('message')"
+            ></textarea>
+            <span class="hint">{{ 'contact.form.messageHint' | translate }}</span>
+            <span class="field__error">
+              @if (isInvalid('message')) {
+              {{ 'contact.form.messageError' | translate }}
+              }
+            </span>
+          </label>
+
+          <!-- Alerts -->
           @if (submitError()) {
-            <div class="alert alert--error">{{ submitError() | translate }}</div>
+          <div class="alert alert--error">{{ submitError() | translate }}</div>
           }
           @if (submittedOk()) {
-            <div class="alert alert--ok">{{ 'contact.form.successMsg' | translate }}</div>
+          <div class="alert alert--ok">{{ 'contact.form.successMsg' | translate }}</div>
           }
-        </div>
 
-        <button class="submit" type="submit" [disabled]="isSubmitting()">
-          {{ (isSubmitting() ? 'contact.form.submitting' : 'contact.form.submit') | translate }}
-          <span class="submit__arrow" aria-hidden="true">→</span>
-        </button>
+          <!-- Submit -->
+          <button class="submit-btn" type="submit" [disabled]="isSubmitting()">
+            {{ (isSubmitting() ? 'contact.form.submitting' : 'contact.form.submit') | translate }}
+            <span class="submit-btn__arrow" aria-hidden="true">→</span>
+          </button>
 
-        <div class="privacy">{{ 'contact.form.privacy' | translate }}</div>
-      </form>
+          <p class="privacy">{{ 'contact.form.privacy' | translate }}</p>
+        </form>
+      </div>
     </div>
   </div>
 </section>

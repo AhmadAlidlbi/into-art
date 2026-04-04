@@ -1,182 +1,267 @@
-<section class="hero">
-  <div class="container hero__grid">
-    <!-- LEFT -->
-    <div class="hero__content">
-      <span class="hero__badge">{{ 'booking.hero.badge' | translate }}</span>
+<!-- ─── Page Head ──────────────────────────────────────────── -->
+<section class="page-head">
+  <div class="container page-head__inner">
+    <div class="eyebrow">{{ 'booking.hero.badge' | translate }}</div>
+    <h1 class="page-head__title">{{ 'booking.hero.title' | translate }}</h1>
+    <p class="page-head__subtitle">{{ 'booking.hero.subtitle' | translate }}</p>
 
-      <h1 class="hero__title">{{ 'booking.hero.title' | translate }}</h1>
-
-      <p class="hero__subtitle">{{ 'booking.hero.subtitle' | translate }}</p>
-
-      <ul class="trust">
-        <li>✓ {{ 'booking.hero.trust.1' | translate }}</li>
-        <li>✓ {{ 'booking.hero.trust.2' | translate }}</li>
-        <li>✓ {{ 'booking.hero.trust.3' | translate }}</li>
-      </ul>
+    <div class="trust-row">
+      <span class="trust-pill">✓ {{ 'booking.hero.trust.1' | translate }}</span>
+      <span class="trust-pill">✓ {{ 'booking.hero.trust.2' | translate }}</span>
+      <span class="trust-pill">✓ {{ 'booking.hero.trust.3' | translate }}</span>
     </div>
+  </div>
+</section>
 
-    <!-- RIGHT -->
-    <div class="card form-card">
-      <header class="card__header">
-        <h3>{{ 'booking.form.header' | translate }}</h3>
-        <p>{{ 'booking.form.requiredNote' | translate }}</p>
-      </header>
+<!-- ─── Form Section ────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="form-wrap">
+      <div class="form-card">
+        <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+          <!-- ─── Step 1: Details ──────────────────────── -->
+          <div class="step">
+            <div class="step__head">
+              <span class="step__num">01</span>
+              <h2 class="step__title">{{ 'booking.form.step1.title' | translate }}</h2>
+            </div>
 
-      <form class="form" [formGroup]="form" (ngSubmit)="submit()">
-        <!-- STEP 1 -->
-        <section class="form-section">
-          <h4>{{ 'booking.form.step1.title' | translate }}</h4>
+            <div class="row">
+              <label class="field">
+                <span class="field__label">{{ 'booking.form.step1.fullName' | translate }}</span>
+                <input
+                  class="field__input"
+                  type="text"
+                  formControlName="fullName"
+                  [attr.placeholder]="'booking.form.step1.fullName' | translate"
+                  [class.is-invalid]="
+                    form.controls.fullName.touched && form.controls.fullName.invalid
+                  "
+                />
+                @if (form.controls.fullName.touched && form.controls.fullName.invalid) {
+                <span class="field__error">
+                  {{ 'booking.form.step1.fullNameError' | translate }}
+                </span>
+                }
+              </label>
 
-          <div class="row">
-            <label class="field">
-              <span>{{ 'booking.form.step1.fullName' | translate }}</span>
-              <input class="field__input" type="text" formControlName="fullName" />
-              <small
-                class="field__error"
-                *ngIf="form.controls.fullName.touched && form.controls.fullName.invalid"
-              >
-                {{ 'booking.form.step1.fullNameError' | translate }}
-              </small>
-            </label>
-
-            <label class="field">
-              <span>{{ 'booking.form.step1.phone' | translate }}</span>
-              <input class="field__input" type="tel" formControlName="phone" />
-              <small
-                class="field__error"
-                *ngIf="form.controls.phone.touched && form.controls.phone.invalid"
-              >
-                {{ 'booking.form.step1.phoneError' | translate }}
-              </small>
-            </label>
-          </div>
-        </section>
-
-        <!-- STEP 2 -->
-        <section class="form-section">
-          <h4>{{ 'booking.form.step2.title' | translate }}</h4>
-
-          <div class="radio-group">
-            <label class="radio">
-              <input type="radio" value="New building" formControlName="buildingCondition" />
-              <span>{{ 'booking.form.step2.new' | translate }}</span>
-            </label>
-
-            <label class="radio">
-              <input type="radio" value="Restoration" formControlName="buildingCondition" />
-              <span>{{ 'booking.form.step2.restoration' | translate }}</span>
-            </label>
-
-            <label class="radio">
-              <input type="radio" value="Other" formControlName="buildingCondition" />
-              <span>{{ 'booking.form.step2.other' | translate }}</span>
-            </label>
+              <label class="field">
+                <span class="field__label">{{ 'booking.form.step1.phone' | translate }}</span>
+                <input
+                  class="field__input"
+                  type="tel"
+                  formControlName="phone"
+                  dir="ltr"
+                  [attr.placeholder]="'booking.form.step1.phone' | translate"
+                  [class.is-invalid]="form.controls.phone.touched && form.controls.phone.invalid"
+                />
+                @if (form.controls.phone.touched && form.controls.phone.invalid) {
+                <span class="field__error">
+                  {{ 'booking.form.step1.phoneError' | translate }}
+                </span>
+                }
+              </label>
+            </div>
           </div>
 
-          <label class="field" *ngIf="form.value.buildingCondition === 'Other'">
+          <!-- ─── Step 2: Building Condition ──────────── -->
+          <div class="step">
+            <div class="step__head">
+              <span class="step__num">02</span>
+              <h2 class="step__title">{{ 'booking.form.step2.title' | translate }}</h2>
+            </div>
+
+            <div class="pill-group">
+              <label
+                class="pill-opt"
+                [class.is-active]="form.controls.buildingCondition.value === 'New building'"
+              >
+                <input
+                  class="pill-opt__radio"
+                  type="radio"
+                  value="New building"
+                  formControlName="buildingCondition"
+                />
+                {{ 'booking.form.step2.new' | translate }}
+              </label>
+
+              <label
+                class="pill-opt"
+                [class.is-active]="form.controls.buildingCondition.value === 'Restoration'"
+              >
+                <input
+                  class="pill-opt__radio"
+                  type="radio"
+                  value="Restoration"
+                  formControlName="buildingCondition"
+                />
+                {{ 'booking.form.step2.restoration' | translate }}
+              </label>
+
+              <label
+                class="pill-opt"
+                [class.is-active]="form.controls.buildingCondition.value === 'Other'"
+              >
+                <input
+                  class="pill-opt__radio"
+                  type="radio"
+                  value="Other"
+                  formControlName="buildingCondition"
+                />
+                {{ 'booking.form.step2.other' | translate }}
+              </label>
+            </div>
+
+            @if (form.value.buildingCondition === 'Other') {
             <input
-              class="field__input"
+              class="field__input specify-input"
               type="text"
-              [placeholder]="'booking.form.step2.specify' | translate"
+              [attr.placeholder]="'booking.form.step2.specify' | translate"
               formControlName="buildingConditionOther"
             />
-          </label>
-        </section>
-
-        <!-- STEP 3 -->
-        <section class="form-section">
-          <h4>{{ 'booking.form.step3.title' | translate }}</h4>
-
-          <div class="radio-group">
-            <label class="radio">
-              <input type="radio" value="Two-space design package" formControlName="designPackage" />
-              <span>{{ 'booking.form.step3.twoSpace' | translate }}</span>
-            </label>
-
-            <label class="radio">
-              <input type="radio" value="4-space design package" formControlName="designPackage" />
-              <span>{{ 'booking.form.step3.fourSpace' | translate }}</span>
-            </label>
-
-            <label class="radio">
-              <input type="radio" value="5-space design package" formControlName="designPackage" />
-              <span>{{ 'booking.form.step3.fiveSpace' | translate }}</span>
-            </label>
-
-            <label class="radio">
-              <input type="radio" value="Floor Design Package" formControlName="designPackage" />
-              <span>{{ 'booking.form.step3.floor' | translate }}</span>
-            </label>
-
-            <label class="radio">
-              <input type="radio" value="Complete coupon design package" formControlName="designPackage" />
-              <span>{{ 'booking.form.step3.complete' | translate }}</span>
-            </label>
+            }
           </div>
-        </section>
 
-        <!-- STEP 4 -->
-        <section class="form-section">
-          <h4>{{ 'booking.form.step4.title' | translate }}</h4>
+          <!-- ─── Step 3: Design Package ───────────────── -->
+          <div class="step">
+            <div class="step__head">
+              <span class="step__num">03</span>
+              <h2 class="step__title">{{ 'booking.form.step3.title' | translate }}</h2>
+            </div>
 
-          <mat-form-field class="material-field">
-            <input
-              matInput
-              [matDatepicker]="picker"
-              formControlName="preferredDate"
-              [min]="today"
-              [matDatepickerFilter]="dateFilter"
-              (dateChange)="onDateSelected($event.value)"
-              readonly
-              (click)="picker.open()"
-            />
+            <div class="pill-group pill-group--col">
+              <label
+                class="pill-opt"
+                [class.is-active]="form.controls.designPackage.value === 'Two-space design package'"
+              >
+                <input
+                  class="pill-opt__radio"
+                  type="radio"
+                  value="Two-space design package"
+                  formControlName="designPackage"
+                />
+                {{ 'booking.form.step3.twoSpace' | translate }}
+              </label>
 
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+              <label
+                class="pill-opt"
+                [class.is-active]="form.controls.designPackage.value === '4-space design package'"
+              >
+                <input
+                  class="pill-opt__radio"
+                  type="radio"
+                  value="4-space design package"
+                  formControlName="designPackage"
+                />
+                {{ 'booking.form.step3.fourSpace' | translate }}
+              </label>
 
-          <small class="hint">{{ 'booking.form.step4.hint' | translate }}</small>
+              <label
+                class="pill-opt"
+                [class.is-active]="form.controls.designPackage.value === '5-space design package'"
+              >
+                <input
+                  class="pill-opt__radio"
+                  type="radio"
+                  value="5-space design package"
+                  formControlName="designPackage"
+                />
+                {{ 'booking.form.step3.fiveSpace' | translate }}
+              </label>
 
-          <div class="field">
-            <span>{{ 'booking.form.step4.timeLabel' | translate }}</span>
+              <label
+                class="pill-opt"
+                [class.is-active]="form.controls.designPackage.value === 'Floor Design Package'"
+              >
+                <input
+                  class="pill-opt__radio"
+                  type="radio"
+                  value="Floor Design Package"
+                  formControlName="designPackage"
+                />
+                {{ 'booking.form.step3.floor' | translate }}
+              </label>
 
-            <!-- LOADING -->
-            <p class="hint" *ngIf="loadingSlots()">
-              {{ 'booking.form.step4.checking' | translate }}
-            </p>
+              <label
+                class="pill-opt"
+                [class.is-active]="
+                  form.controls.designPackage.value === 'Complete coupon design package'
+                "
+              >
+                <input
+                  class="pill-opt__radio"
+                  type="radio"
+                  value="Complete coupon design package"
+                  formControlName="designPackage"
+                />
+                {{ 'booking.form.step3.complete' | translate }}
+              </label>
+            </div>
+          </div>
 
-            <!-- AVAILABLE SLOTS -->
-            <div class="time-slots" *ngIf="!loadingSlots() && availableHours().length > 0">
+          <!-- ─── Step 4: Date & Time ───────────────────── -->
+          <div class="step">
+            <div class="step__head">
+              <span class="step__num">04</span>
+              <h2 class="step__title">{{ 'booking.form.step4.title' | translate }}</h2>
+            </div>
+
+            <mat-form-field class="date-field">
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="preferredDate"
+                [min]="today"
+                [matDatepickerFilter]="dateFilter"
+                (dateChange)="onDateSelected($event.value)"
+                readonly
+                (click)="picker.open()"
+              />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <span class="hint">{{ 'booking.form.step4.hint' | translate }}</span>
+
+            @if (loadingSlots()) {
+            <p class="hint checking">{{ 'booking.form.step4.checking' | translate }}</p>
+            }
+
+            @if (!loadingSlots() && availableHours().length > 0) {
+            <div class="time-label">{{ 'booking.form.step4.timeLabel' | translate }}</div>
+            <div class="time-slots">
+              @for (h of HOURS; track h) {
               <button
                 type="button"
                 class="time-slot"
-                *ngFor="let h of HOURS"
                 [disabled]="!availableHours().includes(h)"
-                [class.active]="form.controls.preferredHour.value === h"
+                [class.is-active]="form.controls.preferredHour.value === h"
                 (click)="selectHour(h)"
               >
                 {{ h }}
               </button>
+              }
             </div>
+            }
 
-            <!-- NO SLOTS -->
-            <p
-              class="no-slots"
-              *ngIf="!loadingSlots() && hasSelectedDate() && availableHours().length === 0"
-            >
-              {{ 'booking.form.step4.noSlots' | translate }}
-            </p>
+            @if (!loadingSlots() && hasSelectedDate() && availableHours().length === 0) {
+            <div class="no-slots">{{ 'booking.form.step4.noSlots' | translate }}</div>
+            }
           </div>
-        </section>
 
-        <p class="field__error submit-error" *ngIf="submitError()">{{ submitError() | translate }}</p>
+          <!-- ─── Submit ─────────────────────────────────── -->
+          @if (submitError()) {
+          <div class="alert alert--error">{{ submitError() | translate }}</div>
+          }
 
-        <button class="submit" type="submit" [disabled]="form.invalid || isSubmitting()">
-          {{ (isSubmitting() ? 'booking.form.submitting' : 'booking.form.submit') | translate }}
-        </button>
+          <button class="submit-btn" type="submit" [disabled]="form.invalid || isSubmitting()">
+            {{ (isSubmitting() ? 'booking.form.submitting' : 'booking.form.submit') | translate }}
+            <span class="submit-btn__arrow" aria-hidden="true">→</span>
+          </button>
 
-        <p class="privacy">{{ 'booking.form.privacy' | translate }}</p>
-      </form>
+          <p class="privacy">{{ 'booking.form.privacy' | translate }}</p>
+        </form>
+      </div>
     </div>
   </div>
 </section>

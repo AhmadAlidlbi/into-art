@@ -1,16 +1,17 @@
-<section class="wrap">
+<section class="page">
   <div class="container">
     <div class="card">
-      <div class="badge">{{ 'booking.success.badge' | translate }}</div>
+      <div class="check-icon" aria-hidden="true">✓</div>
+      <div class="eyebrow">{{ 'booking.success.badge' | translate }}</div>
       <h1 class="title">{{ 'booking.success.title' | translate }}</h1>
       <p class="subtitle">{{ 'booking.success.subtitle' | translate }}</p>
 
       <div class="actions">
         <a class="btn btn--primary" routerLink="/">{{ 'booking.success.backHome' | translate }}</a>
-        <a class="btn btn--ghost" routerLink="/under-construction">{{ 'booking.success.viewProjects' | translate }}</a>
+        <a class="btn btn--ghost" routerLink="/projects">{{ 'booking.success.viewProjects' | translate }}</a>
       </div>
 
-      <div class="note">{{ 'booking.success.note' | translate }}</div>
+      <p class="note">{{ 'booking.success.note' | translate }}</p>
     </div>
   </div>
 </section>

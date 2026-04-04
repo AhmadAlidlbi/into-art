@@ -750,7 +750,8 @@
   },
   "faq": {
     "hero": {
-      "title_1": "Frequently Asked Questions,",
+      "eyebrow": "FAQ",
+      "title_1": "Frequently Asked Questions",
       "title_accent": "Clear Answers",
       "subtitle": "Clear answers about process, timeline, pricing, and execution — so you know exactly what to expect."
     },
@@ -1130,7 +1131,22 @@
     "noResultsDesc": "Try a different category or adjust your search.",
     "resetFilters": "Reset Filters",
     "ctaTitle": "Want a Similar Result for Your Home?",
-    "ctaDesc": "Book a consultation and we’ll recommend the right approach based on your space and scope."
+    "ctaDesc": "Book a consultation and we’ll recommend the right approach based on your space and scope.",
+    "details": {
+      "backToAll": "Back to Projects",
+      "scope": "Project Scope",
+      "gallery": "Gallery",
+      "moreProjects": "More Projects",
+      "nextStepDesc": "Book a consultation and we’ll find the right direction for your space, scope, and timeline.",
+      "notFound": "Project Not Found",
+      "notFoundDesc": "The project you’re looking for doesn’t exist or may have been moved.",
+      "stat": {
+        "area": "Area",
+        "category": "Category",
+        "year": "Year",
+        "location": "Location"
+      }
+    }
   },
   "reviewsForm": {
     "hero": {

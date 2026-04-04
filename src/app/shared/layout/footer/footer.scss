@@ -206,6 +206,16 @@
   }
 }
 
+/* RTL */
+:host-context(html[dir='rtl']) .contact__row {
+  text-align: right;
+}
+
+:host-context(html[dir='rtl']) a.contact__value {
+  direction: ltr;
+  text-align: right;
+}
+
 /* Responsive */
 @media (max-width: 980px) {
   .grid {

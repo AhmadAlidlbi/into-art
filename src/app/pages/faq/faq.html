@@ -1,95 +1,98 @@
-<!-- Page Head -->
+<!-- ─── Page Head ──────────────────────────────────────────── -->
 <section class="page-head">
   <div class="container page-head__inner">
-    <h1 class="page-head__title">
-      {{ 'faq.hero.title_1' | translate }}
-      <span class="page-head__accent"> {{ 'faq.hero.title_accent' | translate }}</span>
-    </h1>
+    <div class="eyebrow">{{ 'faq.hero.eyebrow' | translate }}</div>
+    <h1 class="page-head__title">{{ 'faq.hero.title_1' | translate }}</h1>
     <p class="page-head__subtitle">{{ 'faq.hero.subtitle' | translate }}</p>
+  </div>
+</section>
 
-    <div class="controls">
-      <div class="chips" role="tablist" [attr.aria-label]="'faq.categoriesAria' | translate">
-        @for (c of categories; track c) {
+<!-- ─── FAQ Body ──────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="faq-layout">
+
+      <!-- ─── Sidebar ───────────────────────────────── -->
+      <aside class="sidebar">
+        <div class="eyebrow sidebar__label">{{ 'faq.categoriesAria' | translate }}</div>
+        <nav class="category-nav" role="tablist" [attr.aria-label]="'faq.categoriesAria' | translate">
+          @for (c of categories; track c) {
           <button
-            class="chip"
+            class="category-btn"
             type="button"
-            [class.is-active]="selectedCategory() === c"
-            (click)="setCategory(c)"
             role="tab"
+            [class.is-active]="selectedCategory() === c"
             [attr.aria-selected]="selectedCategory() === c"
+            (click)="setCategory(c)"
           >
             {{ 'faq.categories.' + c | translate }}
           </button>
-        }
-      </div>
+          }
+        </nav>
+      </aside>
 
-      <div class="search">
-        <span class="search__icon" aria-hidden="true">⌕</span>
-        <input
-          class="search__input"
-          type="text"
-          [placeholder]="'faq.search.placeholder' | translate"
-          [value]="search()"
-          (input)="setSearch($any($event.target).value)"
-          [attr.aria-label]="'faq.search.aria' | translate"
-        />
-        @if (search().trim().length) {
+      <!-- ─── Content ───────────────────────────────── -->
+      <div class="faq-content">
+
+        <!-- Search -->
+        <div class="search">
+          <span class="search__icon" aria-hidden="true">⌕</span>
+          <input
+            class="search__input"
+            type="text"
+            [placeholder]="'faq.search.placeholder' | translate"
+            [value]="search()"
+            (input)="setSearch($any($event.target).value)"
+            [attr.aria-label]="'faq.search.aria' | translate"
+          />
+          @if (search().trim().length) {
           <button
             class="search__clear"
             type="button"
             (click)="setSearch('')"
             [attr.aria-label]="'faq.search.clearAria' | translate"
-          >
-            ×
-          </button>
-        }
-      </div>
-    </div>
-  </div>
-  <div class="page-head__decor" aria-hidden="true"></div>
-</section>
+          >×</button>
+          }
+        </div>
 
-<!-- Accordion -->
-<section class="section">
-  <div class="container">
-    <div class="accordion" [attr.aria-label]="'faq.accordionAria' | translate">
-      @for (f of filtered(); track f.q; let i = $index) {
-        <div class="item">
-          <button
-            class="item__head"
-            type="button"
-            (click)="toggle(i)"
-            [attr.aria-expanded]="openIndex() === i"
-          >
-            <div class="item__q">{{ f.q | translate }}</div>
-            <div class="item__icon" [class.is-open]="openIndex() === i" aria-hidden="true">
-              <span class="plus"></span>
-              <span class="plus plus--v"></span>
-            </div>
-          </button>
-
-          <div class="item__wrap" [class.is-open]="openIndex() === i">
-            <div class="item__body">
-              <div class="item__a">{{ f.a | translate }}</div>
+        <!-- Accordion -->
+        @if (filtered().length > 0) {
+        <div class="accordion" [attr.aria-label]="'faq.accordionAria' | translate">
+          @for (f of filtered(); track f.q; let i = $index) {
+          <div class="faq-item">
+            <button
+              class="faq-item__q"
+              type="button"
+              (click)="toggle(i)"
+              [attr.aria-expanded]="openIndex() === i"
+            >
+              <span>{{ f.q | translate }}</span>
+              <span class="faq-item__icon" [class.is-open]="openIndex() === i" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-item__wrap" [class.is-open]="openIndex() === i">
+              <div class="faq-item__body">
+                <p class="faq-item__a">{{ f.a | translate }}</p>
+              </div>
             </div>
           </div>
+          }
         </div>
-      }
-
-      @if (filtered().length === 0) {
+        } @else {
         <div class="empty" role="status" aria-live="polite">
-          <div class="empty__title">{{ 'faq.empty.title' | translate }}</div>
-          <div class="empty__desc">{{ 'faq.empty.desc' | translate }}</div>
-          <button class="empty__btn" type="button" (click)="resetFilters()">
+          <p class="empty__title">{{ 'faq.empty.title' | translate }}</p>
+          <p class="empty__desc">{{ 'faq.empty.desc' | translate }}</p>
+          <button class="btn btn--ghost" type="button" (click)="resetFilters()">
             {{ 'faq.empty.reset' | translate }}
           </button>
         </div>
-      }
+        }
+
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
+<!-- ─── CTA ───────────────────────────────────────────────── -->
 <section class="cta" #ctaSection>
   @if (ctaEnter()) {
   <div class="container cta__grid enter-animation">

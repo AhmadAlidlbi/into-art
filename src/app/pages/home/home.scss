@@ -687,6 +687,10 @@
   text-align: right;
 }
 
+:host-context(html[dir='rtl']) .procedure-item {
+  text-align: right;
+}
+
 /* ─── REVIEWS ────────────────────────────────────────────── */
 .section--reviews {
   overflow: visible;
@@ -957,6 +961,7 @@
   .procedure-item__body {
     flex-direction: column;
     gap: 6px;
+    align-items: stretch;
   }
 
   .procedure-item__title {
