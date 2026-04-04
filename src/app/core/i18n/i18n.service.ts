@@ -10,7 +10,6 @@ export class I18nService {
   lang = signal<AppLang>(this.readInitialLang());
 
   constructor(private translate: TranslateService) {
-    // Apply immediately + whenever it changes
     effect(() => {
       const l = this.lang();
       this.translate.use(l);

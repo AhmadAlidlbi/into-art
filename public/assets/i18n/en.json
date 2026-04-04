@@ -167,8 +167,6 @@
       "desc": "Every service we offer follows an organized workflow — from the first consultation to final handover. We make decisions easier, timelines clearer, and finishing standards consistent."
     },
     "procedure": {
-      "kicker": "How We Work",
-      "title": "A Simple Process That Saves Time and Ensures Quality",
       "1": {
         "title": "Consultation and Requirement Definition",
         "desc": "We define your goals, style, budget, and practical requirements before starting."
@@ -180,7 +178,9 @@
       "3": {
         "title": "Execution and Handover",
         "desc": "We follow up on execution and finishes on-site and deliver a result that is ready for handover."
-      }
+      },
+      "kicker": "How We Work",
+      "title": "A Simple Process That Saves Time and Ensures Quality"
     },
     "testimonial": {
       "kicker": "Client Feedback",
@@ -657,7 +657,8 @@
         "renovation": "Renovation",
         "fitout": "Fit-Out"
       }
-    }
+    },
+    "viewService": "View Service"
   },
   "servicesDetails": {
     "fallbackAbout": "This service is delivered through clear steps and luxurious finishing standards — aligned with your space, goals, and timeline.",
@@ -903,6 +904,102 @@
       "desc": "Book a consultation and we’ll guide you through the next steps based on your taste, scope, and timeline.",
       "book": "Book Consultation",
       "whatsapp": "WhatsApp"
+    },
+    "story": {
+      "eyebrow": "Our Story",
+      "title": "Built Around a Simple Belief",
+      "body1": "Into Art was founded with one clear conviction: that residential spaces deserve the same level of precision, detail, and intentionality given to luxury commercial projects. We started as a small team in Kuwait focused entirely on residential work — and that focus has never changed.",
+      "body2": "Over the years, we built a model that combines creative direction with disciplined execution — one that scales across villas, apartments, and private spaces without losing the personal touch our clients expect.",
+      "quote": "Design is not what it looks like. Design is how it works — and how it feels to live in.",
+      "quoteAttr": "IntoArt Design Principle"
+    },
+    "mv": {
+      "eyebrow": "Direction",
+      "title": "Mission & Vision",
+      "mission": {
+        "label": "Mission",
+        "title": "Spaces That Work and Last",
+        "desc": "To deliver residential interiors that combine precise design thinking with reliable execution — creating environments that serve their occupants long after handover."
+      },
+      "vision": {
+        "label": "Vision",
+        "title": "The Standard for Residential Interior in Kuwait",
+        "desc": "To become the most trusted residential interior design firm in Kuwait — known for organized delivery, refined aesthetics, and the confidence we give every client throughout their project."
+      }
+    },
+    "philosophy": {
+      "eyebrow": "How We Think",
+      "title": "Design Philosophy",
+      "desc": "The principles that guide every decision we make — from first sketch to final handover.",
+      "items": {
+        "1": {
+          "title": "Function Before Form",
+          "desc": "Every layout decision starts with how the space will be lived in. Aesthetics follow a plan that works."
+        },
+        "2": {
+          "title": "Materials With Meaning",
+          "desc": "We specify materials based on longevity, tactile quality, and how they age — not just visual impact."
+        },
+        "3": {
+          "title": "Detail at Every Scale",
+          "desc": "From ceiling heights to hardware finishes, we control quality at every level of resolution."
+        }
+      }
+    },
+    "different": {
+      "eyebrow": "What Sets Us Apart",
+      "title": "What Makes Us Different",
+      "desc": "The qualities that define how we work — and why clients come back.",
+      "items": {
+        "1": {
+          "title": "Residential-Only Focus",
+          "desc": "We don't split attention between commercial and residential. Every decision is calibrated for how people live."
+        },
+        "2": {
+          "title": "Design + Execution Under One Team",
+          "desc": "No handoff gaps. The team that designs is the team that supervises — keeping intent and output aligned."
+        },
+        "3": {
+          "title": "Structured Client Process",
+          "desc": "Every client gets a defined timeline, clear checkpoints, and consistent communication — from first meeting to handover."
+        },
+        "4": {
+          "title": "Kuwait-Based, Project-Ready",
+          "desc": "We operate locally, know the market, and maintain a production network that supports fast, reliable execution."
+        },
+        "5": {
+          "title": "Post-Delivery Support",
+          "desc": "We don't disappear after handover. We stay reachable and available for questions, adjustments, and follow-ups."
+        },
+        "6": {
+          "title": "Honest Scope Management",
+          "desc": "We set realistic budgets and timelines upfront — no hidden surprises mid-project."
+        }
+      }
+    },
+    "trust": {
+      "eyebrow": "Trust & Track Record",
+      "title": "Numbers That Reflect Our Work",
+      "stats": {
+        "1": {
+          "label": "Years of Experience"
+        },
+        "2": {
+          "label": "Design Projects"
+        },
+        "3": {
+          "label": "Execution Projects"
+        },
+        "4": {
+          "label": "Kuwait-Based Team"
+        }
+      },
+      "badges": {
+        "1": "Specialized in Residential Interiors",
+        "2": "Design + Execution, End-to-End",
+        "3": "Structured Delivery Process",
+        "4": "Post-Handover Support Included"
+      }
     }
   },
   "booking": {
@@ -998,7 +1095,8 @@
       "faq": "FAQ",
       "book": "Book Consultation",
       "projects": "Projects",
-      "contact": "Contact Us"
+      "contact": "Contact Us",
+      "bookConsultation": "Consultation"
     },
     "servicesLinks": {
       "residentialInterior": "Residential Interior Design",

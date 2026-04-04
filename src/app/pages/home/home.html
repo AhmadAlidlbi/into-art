@@ -1,0 +1,241 @@
+<!-- ─── HERO ────────────────────────────────────────────────── -->
+<section class="hero hero--image">
+  <div class="hero__bg" aria-hidden="true"></div>
+
+  <div class="container hero__overlay">
+    <div class="hero__content">
+      <div class="hero__brand">{{ 'home.hero.brand' | translate }}</div>
+
+      @if (heroEnter()) {
+      <h1 class="hero__title enter-delay-0" animate.enter="enter-animation">
+        {{ 'home.hero.title_1' | translate }}
+        <span class="hero__title--accent">{{ 'home.hero.title_2' | translate }}</span>
+      </h1>
+
+      <p class="hero__subtitle enter-delay-1" animate.enter="enter-animation">
+        {{ 'home.hero.subtitle' | translate }}
+      </p>
+
+      <div class="hero__actions enter-delay-2" animate.enter="enter-animation">
+        <button class="btn btn--secondary" type="button" (click)="goBook()">
+          {{ 'actions.book' | translate }}
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICE BAR ────────────────────────────────────────── -->
+<div class="service-bar-wrap">
+  <div class="container">
+    <div class="service-bar">
+      @for (c of serviceCards; track c.path; let last = $last) {
+      <a class="service-bar__item" [routerLink]="c.path">
+        <div class="service-bar__item-content">
+          <div class="service-bar__title">{{ c.titleKey | translate }}</div>
+          <div class="service-bar__desc">{{ c.descKey | translate }}</div>
+        </div>
+        <span class="service-bar__arrow" aria-hidden="true">→</span>
+      </a>
+      @if (!last) {
+      <div class="service-bar__sep" aria-hidden="true"></div>
+      }
+      }
+    </div>
+  </div>
+</div>
+
+<!-- ─── WHO WE ARE ─────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container who">
+    <div class="who__media" aria-hidden="true"></div>
+
+    <div class="who__content">
+      <div class="eyebrow">{{ 'home.who.eyebrow' | translate }}</div>
+
+      <h2 class="section__title">
+        {{ 'home.who.title_1' | translate }}
+        {{ 'home.who.title_2' | translate }}
+      </h2>
+
+      <p class="section__desc">{{ 'home.who.desc' | translate }}</p>
+
+      <div class="who__metrics" #whoMetrics>
+        <div class="who__metric">
+          <div class="who__metric-value">{{ yearsDisplay }}+</div>
+          <div class="who__metric-label">{{ 'home.who.metrics.years' | translate }}</div>
+        </div>
+        <div class="who__metric-sep" aria-hidden="true"></div>
+        <div class="who__metric">
+          <div class="who__metric-value">{{ designProjectsDisplay }}+</div>
+          <div class="who__metric-label">{{ 'home.who.metrics.designProjects' | translate }}</div>
+        </div>
+        <div class="who__metric-sep" aria-hidden="true"></div>
+        <div class="who__metric">
+          <div class="who__metric-value">{{ executionProjectsDisplay }}+</div>
+          <div class="who__metric-label">{{ 'home.who.metrics.executionProjects' | translate }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY CLIENTS CHOOSE US ─────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="why-header">
+      <div class="why-header__left">
+        <div class="eyebrow">{{ 'home.why.eyebrow' | translate }}</div>
+        <h2 class="why-header__title">{{ 'home.why.title' | translate }}</h2>
+      </div>
+    </div>
+    <ol class="why-list">
+      @for (f of features; track f.titleKey; let i = $index) {
+      <li class="why-item">
+        <span class="why-item__num" aria-hidden="true">0{{ i + 1 }}</span>
+        <div class="why-item__body">
+          <h3 class="why-item__title">{{ f.titleKey | translate }}</h3>
+          <p class="why-item__desc">{{ f.descKey | translate }}</p>
+        </div>
+        <div class="why-item__symbol" aria-hidden="true">✦</div>
+      </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<!-- ─── FEATURED PROJECTS ──────────────────────────────────── -->
+<section class="section section--projects">
+  <div class="container">
+    <div class="section__head">
+      <div class="eyebrow">{{ 'home.featured.eyebrow' | translate }}</div>
+      <h2 class="section__title">{{ 'home.featured.title' | translate }}</h2>
+    </div>
+
+    <div
+      class="slider"
+      (pointerdown)="projectsPointerDown($event)"
+      (pointermove)="projectsPointerMove($event)"
+      (pointerup)="projectsPointerUp($event)"
+      (pointercancel)="projectsPointerUp($event)"
+      (pointerleave)="projectsPointerUp($event)"
+    >
+      <div
+        class="slider__track"
+        [class.is-dragging]="projectsDragging"
+        [style.transform]="
+          'translateX(calc(' + -projectIndex * 100 + '% + ' + projectsDragPx + 'px))'
+        "
+      >
+        @for (p of featuredProjects; track p.titleKey; let i = $index) {
+        <a class="slide" [routerLink]="'/under-construction'">
+          <div class="slide__img" [style.backgroundImage]="'url(' + p.image + ')'">
+            <div class="slide__meta">
+              <div class="slide__meta-left">
+                <div class="slide__cat">{{ p.categoryKey | translate }}</div>
+                <div class="slide__title">{{ p.titleKey | translate }}</div>
+              </div>
+              <div class="slide__dots-inline">
+                @for (q of featuredProjects; track q.titleKey; let j = $index) {
+                <span
+                  class="slide__dot"
+                  [class.is-active]="j === projectIndex"
+                  aria-hidden="true"
+                ></span>
+                }
+              </div>
+            </div>
+          </div>
+        </a>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCEDURE ──────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="procedure-header">
+      <div class="procedure-header__left">
+        <div class="eyebrow">{{ 'home.procedure.eyebrow' | translate }}</div>
+        <h2 class="procedure-header__title">{{ 'home.procedure.title' | translate }}</h2>
+      </div>
+      <p class="procedure-header__desc">{{ 'home.procedure.desc' | translate }}</p>
+    </div>
+    <ol class="procedure-list">
+      @for (s of procedureSteps; track s.titleKey; let i = $index) {
+      <li class="procedure-item">
+        <span class="procedure-item__num" aria-hidden="true">0{{ i + 1 }}</span>
+        <div class="procedure-item__body">
+          <h3 class="procedure-item__title">{{ s.titleKey | translate }}</h3>
+          <p class="procedure-item__desc">{{ s.descKey | translate }}</p>
+        </div>
+      </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<!-- ─── REVIEWS ────────────────────────────────────────────── -->
+<section class="section section--reviews">
+  <div class="container">
+    <div class="section__head">
+      <div class="eyebrow">{{ 'home.reviews.eyebrow' | translate }}</div>
+      <h2 class="section__title">{{ 'home.reviews.title' | translate }}</h2>
+      <p class="section__desc">{{ 'home.reviews.desc' | translate }}</p>
+    </div>
+
+    <div class="reviews-marquee" [attr.aria-label]="'home.reviews.aria' | translate">
+      <div class="reviews-marquee__track">
+        @for (r of reviews; track r.nameKey) {
+        <article class="review-card">
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"{{ r.textKey | translate }}"</p>
+          <div class="review-card__person">
+            <div class="review-card__avatar"></div>
+            <div>
+              <div class="review-card__name">{{ r.nameKey | translate }}</div>
+              <div class="review-card__role">{{ r.roleKey | translate }}</div>
+            </div>
+          </div>
+        </article>
+        }
+        @for (r of reviews; track r.nameKey) {
+        <article class="review-card" aria-hidden="true">
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"{{ r.textKey | translate }}"</p>
+          <div class="review-card__person">
+            <div class="review-card__avatar"></div>
+            <div>
+              <div class="review-card__name">{{ r.nameKey | translate }}</div>
+              <div class="review-card__role">{{ r.roleKey | translate }}</div>
+            </div>
+          </div>
+        </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ────────────────────────────────────────────────── -->
+<section class="cta" #ctaSection>
+  @if (ctaEnter()) {
+  <div class="container cta__grid enter-animation">
+    <div>
+      <h2 class="cta__title">{{ 'home.cta.title' | translate }}</h2>
+      <p class="cta__desc">{{ 'home.cta.desc' | translate }}</p>
+    </div>
+
+    <div class="cta__actions">
+      <button class="btn btn--primary" type="button" (click)="goBook()">
+        {{ 'home.cta.button' | translate }}
+      </button>
+    </div>
+  </div>
+  } @else {
+  <div class="container cta__grid cta__grid--placeholder" aria-hidden="true"></div>
+  }
+</section>

@@ -25,7 +25,7 @@
       </button>
 
       <button class="lang" type="button" (click)="toggleLang()" aria-label="Toggle language">
-        <span class="lang__pill">{{ currentLang() === 'ar' ? 'EN' : 'AR' }}</span>
+        <span class="lang__pill">{{ currentLang() === 'ar' ? 'En' : 'Ar' }}</span>
       </button>
     </div>
 
@@ -71,8 +71,13 @@
         {{ 'actions.book' | translate }}
       </button>
 
-      <button class="lang lang--bottom" type="button" (click)="toggleLang()" aria-label="Toggle language">
-        <span class="lang__pill">{{ currentLang() === 'ar' ? 'EN' : 'AR' }}</span>
+      <button
+        class="lang lang--bottom"
+        type="button"
+        (click)="toggleLang()"
+        aria-label="Toggle language"
+      >
+        <span class="lang__pill">{{ currentLang() === 'ar' ? 'En' : 'Ar' }}</span>
       </button>
     </div>
   </aside>

@@ -1,0 +1,129 @@
+<!-- ─── Hero ────────────────────────────────────────────────── -->
+<section class="page-head">
+  <div class="container page-head__inner">
+    <h1 class="page-head__title">{{ 'services.pageTitle' | translate }}</h1>
+    <p class="page-head__subtitle">{{ 'services.pageSubtitle' | translate }}</p>
+  </div>
+  <div class="page-head__decor" aria-hidden="true"></div>
+</section>
+
+<!-- ─── Service Blocks ────────────────────────────────────── -->
+<section class="section section--alt section--blocks">
+  <div class="container">
+    <div class="blocks-header">
+      <div class="eyebrow">{{ 'services.grid.kicker' | translate }}</div>
+      <h2 class="blocks-header__title">{{ 'services.grid.title' | translate }}</h2>
+    </div>
+    <div class="blocks-grid">
+      @for (s of topSix(); track s.slug) {
+      <a class="svc-block" [routerLink]="['/services', s.slug]">
+        <div class="svc-block__img" [style.backgroundImage]="'url(' + s.heroImage + ')'">
+          <div class="svc-block__cat">
+            {{ 'services.catalog.filters.' + s.category | translate }}
+          </div>
+        </div>
+        <div class="svc-block__body">
+          <h3 class="svc-block__title">{{ s.titleKey | translate }}</h3>
+          <p class="svc-block__desc">{{ s.shortKey | translate }}</p>
+          <ul class="svc-block__bullets">
+            <li class="svc-block__bullet">{{ s.bulletsKeys[0] | translate }}</li>
+            <li class="svc-block__bullet">{{ s.bulletsKeys[1] | translate }}</li>
+          </ul>
+          <span class="svc-block__link">
+            {{ 'services.viewService' | translate }}
+            <span class="svc-block__arrow" aria-hidden="true">→</span>
+          </span>
+        </div>
+      </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ─── All Services ──────────────────────────────────────── -->
+<section class="section section--catalog">
+  <div class="container">
+    <div class="catalog-head">
+      <div class="eyebrow">{{ 'services.catalog.kicker' | translate }}</div>
+      <h2 class="catalog-head__title">{{ 'services.catalog.title' | translate }}</h2>
+      <p class="catalog-head__desc">{{ 'services.catalog.desc' | translate }}</p>
+    </div>
+
+    <div class="catalog-controls" role="region" [attr.aria-label]="'services.catalog.aria' | translate">
+      <div class="catalog-search">
+        <span class="catalog-search__icon" aria-hidden="true">⌕</span>
+        <input
+          class="catalog-search__input"
+          type="text"
+          [value]="searchQuery()"
+          (input)="onSearchInput($any($event.target).value)"
+          [attr.placeholder]="'services.catalog.searchPlaceholder' | translate"
+          [attr.aria-label]="'services.catalog.searchAria' | translate"
+        />
+        <button
+          class="catalog-search__clear"
+          type="button"
+          (click)="clearSearch()"
+          [class.is-visible]="(searchQuery() || '').length > 0"
+          [attr.aria-label]="'services.catalog.clearSearch' | translate"
+        >×</button>
+      </div>
+
+      <div class="catalog-chips" role="tablist" [attr.aria-label]="'services.catalog.filtersAria' | translate">
+        @for (c of categoryFilters; track c.value) {
+        <button
+          class="chip"
+          type="button"
+          (click)="setCategory(c.value)"
+          [class.is-active]="selectedCategory() === c.value"
+          role="tab"
+          [attr.aria-selected]="selectedCategory() === c.value"
+        >{{ c.labelKey | translate }}</button>
+        }
+      </div>
+    </div>
+
+    @if (filteredServices().length > 0) {
+    <div class="catalog-list">
+      @for (s of filteredServices(); track s.slug) {
+      <a class="catalog-row" [routerLink]="['/services', s.slug]">
+        <div class="catalog-row__content">
+          <div class="catalog-row__title">{{ s.titleKey | translate }}</div>
+          <p class="catalog-row__desc">{{ s.shortKey | translate }}</p>
+        </div>
+        <span class="catalog-row__arrow" aria-hidden="true">→</span>
+      </a>
+      }
+    </div>
+    } @else {
+    <div class="catalog-empty" role="status" aria-live="polite">
+      <div class="catalog-empty__title">{{ 'services.catalog.emptyTitle' | translate }}</div>
+      <div class="catalog-empty__desc">{{ 'services.catalog.emptyDesc' | translate }}</div>
+      <div class="catalog-empty__actions">
+        <button class="btn btn--ghost" type="button" (click)="setCategory('all'); clearSearch()">
+          {{ 'services.catalog.reset' | translate }}
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+</section>
+
+<!-- ─── CTA ────────────────────────────────────────────────── -->
+<section class="cta" #ctaSection>
+  @if (ctaEnter()) {
+  <div class="container cta__grid enter-animation">
+    <div>
+      <h2 class="cta__title">{{ 'home.cta.title' | translate }}</h2>
+      <p class="cta__desc">{{ 'home.cta.desc' | translate }}</p>
+    </div>
+    <div class="cta__actions">
+      <button class="btn btn--primary" type="button" (click)="goBook()">
+        {{ 'home.cta.button' | translate }}
+      </button>
+    </div>
+  </div>
+  } @else {
+  <div class="container cta__grid cta__grid--placeholder" aria-hidden="true"></div>
+  }
+</section>

@@ -9,7 +9,7 @@ import { AfterViewInit, Component, OnDestroy, signal } from '@angular/core';
   styleUrls: ['./legal.scss'],
 })
 export class LegalPage implements AfterViewInit, OnDestroy {
-  brandName = 'Into Art';
+  brandName = 'INTO ART';
   website = 'intoartkw.com';
   contactEmail = 'info@intoartkw.com';
 

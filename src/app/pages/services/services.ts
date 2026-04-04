@@ -19,7 +19,7 @@ type CategoryFilter = 'all' | ServiceCategory;
   styleUrls: ['./services.scss'],
 })
 export class ServicesPage implements AfterViewInit, OnDestroy {
-  @Input() brandName = 'IntoArt';
+  @Input() brandName = 'INTO ART';
 
   private readonly staticServices: Service[] = SERVICES;
 

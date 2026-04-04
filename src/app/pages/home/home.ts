@@ -63,12 +63,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     },
   ];
 
-  metricsTarget = { years: 6, designProjects: 200, executionProjects: 50 };
-
-  yearsDisplay = 0;
-  designProjectsDisplay = 0;
-  executionProjectsDisplay = 0;
-
   procedureSteps: Step[] = [
     { titleKey: 'home.procedure.steps.1.title', descKey: 'home.procedure.steps.1.desc' },
     { titleKey: 'home.procedure.steps.2.title', descKey: 'home.procedure.steps.2.desc' },
@@ -76,6 +70,12 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     { titleKey: 'home.procedure.steps.4.title', descKey: 'home.procedure.steps.4.desc' },
     { titleKey: 'home.procedure.steps.5.title', descKey: 'home.procedure.steps.5.desc' },
   ];
+
+  metricsTarget = { years: 6, designProjects: 200, executionProjects: 50 };
+
+  yearsDisplay = 0;
+  designProjectsDisplay = 0;
+  executionProjectsDisplay = 0;
 
   features: Feature[] = [
     { titleKey: 'home.why.items.1.title', descKey: 'home.why.items.1.desc' },

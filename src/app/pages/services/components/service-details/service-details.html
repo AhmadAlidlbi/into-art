@@ -1,0 +1,154 @@
+@if (service(); as s) {
+
+<!-- ─── Hero ─────────────────────────────────────────────── -->
+<section class="page-head">
+  <div class="container">
+    <a class="breadcrumb" routerLink="/services">
+      <span class="breadcrumb__arrow" aria-hidden="true">←</span>
+      {{ 'services.details.backToAll' | translate }}
+    </a>
+
+    <div class="head-grid">
+      <div class="head-content">
+        <div class="eyebrow">{{ 'services.catalog.filters.' + s.category | translate }}</div>
+        <h1 class="head__title">{{ s.titleKey | translate }}</h1>
+        <p class="head__desc">
+          {{ aboutKey() ? (aboutKey() | translate) : (s.shortKey | translate) }}
+        </p>
+        <div class="head__actions">
+          <a class="btn btn--primary" routerLink="/book-consultation">
+            {{ 'actions.book' | translate }}
+          </a>
+          <a class="btn btn--ghost" routerLink="/services">
+            {{ 'services.details.backToAll' | translate }}
+          </a>
+        </div>
+      </div>
+
+      <div class="head__media" [style.backgroundImage]="'url(' + s.heroImage + ')'"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── What's Included ───────────────────────────────────── -->
+<section class="section section--alt section--included">
+  <div class="container">
+    <div class="included-layout">
+      <div class="included-head">
+        <div class="eyebrow">{{ 'services.details.eyebrow' | translate }}</div>
+        <h2 class="included__title">{{ 'services.details.benefitsTitle' | translate }}</h2>
+        <p class="included__desc">{{ 'services.details.benefitsDesc' | translate }}</p>
+      </div>
+
+      <ol class="included-list">
+        @for (b of benefits(); track $index; let i = $index) {
+        <li class="included-item">
+          <span class="included-item__num" aria-hidden="true">0{{ i + 1 }}</span>
+          <span class="included-item__text">{{ b | translate }}</span>
+        </li>
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Gallery ──────────────────────────────────────────── -->
+@if (loopedTrackImages().length > 0) {
+<section class="section section--gallery">
+  <div class="container">
+    <div class="gallery">
+      <button
+        class="gallery__nav gallery__nav--prev"
+        type="button"
+        (click)="scrollGallery('prev')"
+        aria-label="Previous images"
+      ></button>
+
+      <div class="gallery__viewport" role="region" aria-label="Service images">
+        <div class="gallery__track" #galleryTrack>
+          @for (img of loopedTrackImages(); track $index) {
+          <div class="gallery__item">
+            <img class="gallery__img" [src]="img" alt="" loading="lazy" />
+          </div>
+          }
+        </div>
+      </div>
+
+      <button
+        class="gallery__nav gallery__nav--next"
+        type="button"
+        (click)="scrollGallery('next')"
+        aria-label="Next images"
+      ></button>
+    </div>
+  </div>
+</section>
+}
+
+<!-- ─── FAQ ──────────────────────────────────────────────── -->
+<section class="section section--faq" [class.section--alt]="loopedTrackImages().length > 0">
+  <div class="container">
+    <div class="faq-head">
+      <div>
+        <div class="eyebrow">{{ 'services.details.faqTitle' | translate }}</div>
+        <h2 class="faq__title">{{ 'services.details.faqDesc' | translate }}</h2>
+      </div>
+      <a class="more-link" [routerLink]="faqLink()">
+        {{ 'services.details.viewAllFaq' | translate }}
+        <span class="more-link__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    @if (faqsPreview().length > 0) {
+    <div class="faq-list">
+      @for (f of faqsPreview(); track f.qKey) {
+      <details class="faq-item">
+        <summary class="faq-item__q">
+          <span>{{ f.qKey | translate }}</span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="faq-item__a">{{ f.aKey | translate }}</div>
+      </details>
+      }
+    </div>
+    } @else {
+    <div class="faq-empty">
+      <p class="faq-empty__title">{{ 'services.details.faqEmptyTitle' | translate }}</p>
+      <p class="faq-empty__desc">{{ 'services.details.faqEmptyDesc' | translate }}</p>
+      <a class="btn btn--ghost" [routerLink]="faqLink()">
+        {{ 'services.details.viewAllFaq' | translate }}
+      </a>
+    </div>
+    }
+  </div>
+</section>
+
+<!-- ─── CTA ───────────────────────────────────────────────── -->
+<section class="cta">
+  <div class="container cta__grid">
+    <div>
+      <h2 class="cta__title">{{ 'services.cta.title' | translate }}</h2>
+      <p class="cta__desc">{{ 'services.cta.desc' | translate }}</p>
+    </div>
+    <div class="cta__actions">
+      <a class="btn btn--primary" routerLink="/book-consultation">
+        {{ 'actions.book' | translate }}
+      </a>
+    </div>
+  </div>
+</section>
+
+} @else {
+
+<!-- ─── Not Found ─────────────────────────────────────────── -->
+<section class="notfound">
+  <div class="container">
+    <h1 class="notfound__title">{{ 'services.details.notFoundTitle' | translate }}</h1>
+    <p class="notfound__desc">{{ 'services.details.notFoundDesc' | translate }}</p>
+    <a class="btn btn--primary" routerLink="/services">
+      {{ 'services.details.backToAll' | translate }}
+    </a>
+  </div>
+</section>
+
+}

@@ -7,7 +7,7 @@ type FooterLink = { labelKey: string; path: string };
 type SocialLink = {
   labelKey: string;
   href: string;
-  icon: 'instagram' | 'tiktok' | 'youtube' | 'linkedin';
+  icon: 'instagram' | 'linkedin';
 };
 
 @Component({
@@ -20,22 +20,19 @@ type SocialLink = {
 export class FooterComponent {
   year = new Date().getFullYear();
 
-  // ✅ Replace later with your real URLs
   socialLinks: SocialLink[] = [
     { labelKey: 'footer.social.instagram', href: '#', icon: 'instagram' },
-    { labelKey: 'footer.social.tiktok', href: '#', icon: 'tiktok' },
-    { labelKey: 'footer.social.youtube', href: '#', icon: 'youtube' },
     { labelKey: 'footer.social.linkedin', href: '#', icon: 'linkedin' },
   ];
 
-  // ✅ Paths unchanged — labels are translation keys
   quickLinks: FooterLink[] = [
     { labelKey: 'footer.links.home', path: '/' },
-    { labelKey: 'footer.links.services', path: '/services' },
     { labelKey: 'footer.links.about', path: '/about' },
-    { labelKey: 'footer.links.faq', path: '/faq' },
-    { labelKey: 'footer.links.contact', path: '/contact' },
+    { labelKey: 'footer.links.services', path: '/services' },
     { labelKey: 'footer.links.projects', path: '/projects' },
+    { labelKey: 'footer.links.contact', path: '/contact' },
+    { labelKey: 'footer.links.faq', path: '/faq' },
+    { labelKey: 'footer.links.bookConsultation', path: '/book-consultation' },
   ];
 
   serviceLinks: FooterLink[] = [

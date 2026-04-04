@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Input, signal } from '@angular/core';
+import { Component, HostListener, Input, signal, EventEmitter, Output } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { EventEmitter, Output } from '@angular/core';
 
 type HeaderLink = {
   labelKey: string;
@@ -20,34 +19,25 @@ type HeaderLink = {
 })
 export class HeaderComponent {
   @Output() mobileOpenChange = new EventEmitter<boolean>();
-  /** Branding */
   @Input() logoSrc = 'assets/images/branding/logo.svg';
-  @Input() brandName = 'IntoArt';
-
-  /** Business CTAs */
+  @Input() brandName = 'INTO ART';
   @Input() consultationPath = '/book-consultation';
 
-  /** Navigation */
   links: HeaderLink[] = [
     { labelKey: 'nav.home', path: '/', exact: true },
     { labelKey: 'nav.about', path: '/about' },
     { labelKey: 'nav.services', path: '/services' },
     { labelKey: 'nav.projects', path: '/projects' },
+    { labelKey: 'nav.faq', path: '/faq' },
     { labelKey: 'nav.contact', path: '/contact' },
   ];
 
-  // UI state
   mobileOpen = signal(false);
   scrolled = signal(false);
 
-  // Lang state
-  currentLang = signal<'en' | 'ar'>('ar'); // ✅ default signal
+  currentLang = signal<'en' | 'ar'>('ar');
 
-  constructor(
-    private router: Router,
-    private translate: TranslateService,
-  ) {
-    // Close drawer on navigation
+  constructor(private router: Router, private translate: TranslateService) {
     this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
       .subscribe(() => {
@@ -55,8 +45,7 @@ export class HeaderComponent {
         this.mobileOpenChange.emit(false);
       });
 
-    // Init language from storage
-    const saved = (localStorage.getItem('lang') as 'en' | 'ar' | null) ?? 'ar'; // ✅ fallback
+    const saved = (localStorage.getItem('lang') as 'en' | 'ar' | null) ?? 'ar';
     this.applyLang(saved, false);
   }
 
@@ -77,17 +66,14 @@ export class HeaderComponent {
   }
 
   toggleLang(): void {
-    // Close drawer first to avoid mid-transition swap
     if (this.mobileOpen()) this.closeMobile();
 
     const next = this.currentLang() === 'ar' ? 'en' : 'ar';
 
-    // Lock transitions during direction flip
     document.documentElement.classList.add('dir-switching');
 
     this.applyLang(next, true);
 
-    // Unlock after layout applied
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         document.documentElement.classList.remove('dir-switching');

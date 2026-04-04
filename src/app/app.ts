@@ -5,7 +5,7 @@ import { HeaderComponent } from './shared/layout/header/header';
 import { FooterComponent } from './shared/layout/footer/footer';
 import { CookieConsentComponent } from './shared/cookie-consent/cookie-consent';
 import { WhatsappFloatComponent } from './shared/ui/whatsapp-float/whatsapp-float';
-import { ScrollTopComponent } from "./shared/ui/scroll-top/scroll-top";
+import { ScrollTopComponent } from './shared/ui/scroll-top/scroll-top';
 
 const SCROLL_KEY = 'app_scroll_y';
 
@@ -24,7 +24,6 @@ const SCROLL_KEY = 'app_scroll_y';
   styleUrls: ['./app.scss'],
 })
 export class App implements OnInit {
-  protected readonly title = signal('into-art');
   isDrawerOpen = signal(false);
 
   private isFirstNav = true;
@@ -35,7 +34,6 @@ export class App implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // Save scroll position before the page unloads (refresh / close)
     window.addEventListener('beforeunload', () => {
       sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
     });
@@ -46,7 +44,6 @@ export class App implements OnInit {
         if (this.isFirstNav) {
           this.isFirstNav = false;
           if (this.isReload) {
-            // Restore saved scroll position after layout settles
             const saved = Number(sessionStorage.getItem(SCROLL_KEY) ?? 0);
             if (saved > 0) {
               requestAnimationFrame(() => window.scrollTo({ top: saved, behavior: 'instant' }));
@@ -54,7 +51,6 @@ export class App implements OnInit {
             return;
           }
         }
-        // New route navigation → always scroll to top
         window.scrollTo({ top: 0, behavior: 'instant' });
       });
   }

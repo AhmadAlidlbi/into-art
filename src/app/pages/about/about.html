@@ -1,0 +1,88 @@
+<section class="page-head">
+  <div class="container page-head__inner">
+    <h1 class="page-head__title">{{ 'about.hero.badge' | translate }}</h1>
+    <p class="page-head__subtitle">{{ 'about.hero.subtitle' | translate }}</p>
+  </div>
+  <div class="page-head__decor" aria-hidden="true"></div>
+</section>
+
+<section class="section section--story">
+  <div class="container">
+    <div class="story-layout">
+      <div class="story-text">
+        <div class="eyebrow">{{ 'about.story.eyebrow' | translate }}</div>
+        <h2 class="story-text__title">{{ 'about.story.title' | translate }}</h2>
+        <p class="story__body">{{ 'about.story.body1' | translate }}</p>
+        <p class="story__body">{{ 'about.story.body2' | translate }}</p>
+      </div>
+
+      <blockquote class="story-quote">
+        <div class="story-quote__mark" aria-hidden="true">"</div>
+        <p class="story-quote__text">{{ 'about.story.quote' | translate }}</p>
+        <footer class="story-quote__attr">
+          {{ 'about.story.quoteAttr' | translate }}
+        </footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="section section--different">
+  <div class="container">
+    <div class="different-header">
+      <div class="eyebrow">{{ 'about.different.eyebrow' | translate }}</div>
+      <h2 class="different-header__title">{{ 'about.different.title' | translate }}</h2>
+    </div>
+
+    <ul class="different-list">
+      @for (d of differentiators; track d.titleKey) {
+      <li class="different-item">
+        <div class="different-item__icon" aria-hidden="true">{{ d.icon }}</div>
+        <div class="different-item__content">
+          <div class="different-item__title">{{ d.titleKey | translate }}</div>
+          <p class="different-item__desc">{{ d.descKey | translate }}</p>
+        </div>
+      </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="section section--alt section--trust">
+  <div class="container">
+    <div class="trust-header">
+      <div class="eyebrow">{{ 'about.trust.eyebrow' | translate }}</div>
+      <h2 class="trust-header__title">{{ 'about.trust.title' | translate }}</h2>
+    </div>
+
+    <div class="trust-stats">
+      @for (s of trustStats; track s.labelKey; let last = $last) {
+      <div class="trust-stat">
+        <div class="trust-stat__value">{{ s.value }}</div>
+        <div class="trust-stat__label">{{ s.labelKey | translate }}</div>
+      </div>
+      @if (!last) {
+      <div class="trust-stat-div" aria-hidden="true"></div>
+      }
+      }
+    </div>
+  </div>
+</section>
+
+<section class="cta" #ctaSection>
+  @if (ctaEnter()) {
+  <div class="container cta__grid enter-animation">
+    <div>
+      <h2 class="cta__title">{{ 'home.cta.title' | translate }}</h2>
+      <p class="cta__desc">{{ 'home.cta.desc' | translate }}</p>
+    </div>
+    <div class="cta__actions">
+      <button class="btn btn--primary" type="button" (click)="goBook()">
+        {{ 'home.cta.button' | translate }}
+      </button>
+    </div>
+  </div>
+  } @else {
+  <div class="container cta__grid cta__grid--placeholder" aria-hidden="true"></div>
+  }
+</section>
