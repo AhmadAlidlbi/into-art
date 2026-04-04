@@ -4,12 +4,6 @@
     <div class="eyebrow">{{ 'booking.hero.badge' | translate }}</div>
     <h1 class="page-head__title">{{ 'booking.hero.title' | translate }}</h1>
     <p class="page-head__subtitle">{{ 'booking.hero.subtitle' | translate }}</p>
-
-    <div class="trust-row">
-      <span class="trust-pill">✓ {{ 'booking.hero.trust.1' | translate }}</span>
-      <span class="trust-pill">✓ {{ 'booking.hero.trust.2' | translate }}</span>
-      <span class="trust-pill">✓ {{ 'booking.hero.trust.3' | translate }}</span>
-    </div>
   </div>
 </section>
 
@@ -225,9 +219,7 @@
 
             @if (loadingSlots()) {
             <p class="hint checking">{{ 'booking.form.step4.checking' | translate }}</p>
-            }
-
-            @if (!loadingSlots() && availableHours().length > 0) {
+            } @if (!loadingSlots() && availableHours().length > 0) {
             <div class="time-label">{{ 'booking.form.step4.timeLabel' | translate }}</div>
             <div class="time-slots">
               @for (h of HOURS; track h) {
@@ -242,9 +234,7 @@
               </button>
               }
             </div>
-            }
-
-            @if (!loadingSlots() && hasSelectedDate() && availableHours().length === 0) {
+            } @if (!loadingSlots() && hasSelectedDate() && availableHours().length === 0) {
             <div class="no-slots">{{ 'booking.form.step4.noSlots' | translate }}</div>
             }
           </div>

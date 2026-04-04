@@ -1,5 +1,17 @@
 <section class="reviews-submit-hero">
   <div class="container">
+    <div class="reviews-submit-hero__topbar">
+      <button
+        class="lang"
+        [class.lang--rtl]="currentLang() === 'ar'"
+        type="button"
+        (click)="toggleLanguage()"
+        [attr.aria-label]="currentLang() === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'"
+      >
+        <span class="lang__pill">{{ currentLang() === 'ar' ? 'En' : 'Ar' }}</span>
+      </button>
+    </div>
+
     <div class="reviews-submit-hero__content">
       <div class="eyebrow">{{ 'reviewsForm.hero.eyebrow' | translate }}</div>
       <h1 class="reviews-submit-hero__title">
