@@ -266,6 +266,12 @@
   height: 44px;
 }
 
+.date-field.is-invalid ::ng-deep .mat-mdc-text-field-wrapper {
+  border-color: rgba(200, 0, 0, 0.28) !important;
+  background: rgba(200, 0, 0, 0.03) !important;
+  box-shadow: var(--shine), 0 0 0 3px rgba(200, 0, 0, 0.05) !important;
+}
+
 .date-field ::ng-deep .mdc-line-ripple,
 .date-field ::ng-deep .mat-mdc-line-ripple {
   display: none;

@@ -1160,7 +1160,9 @@
         "hint": "Saturday to Thursday only. Friday is unavailable.",
         "timeLabel": "Preferred Time *",
         "checking": "Checking availability…",
-        "noSlots": "All time slots on this date are booked."
+        "noSlots": "All time slots on this date are booked.",
+        "dateError": "Please select a date.",
+        "hourError": "Please select a time slot."
       },
       "submit": "Request Consultation",
       "submitting": "Sending…",
