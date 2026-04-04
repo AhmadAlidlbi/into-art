@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnDestroy, signal } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-legal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [TranslateModule],
   templateUrl: './legal.html',
   styleUrls: ['./legal.scss'],
 })
@@ -22,14 +22,14 @@ export class LegalPage implements AfterViewInit, OnDestroy {
   private obs?: IntersectionObserver;
   private toastTimer?: number;
 
+  constructor(private translate: TranslateService) {}
+
   ngAfterViewInit(): void {
-    // Observe sections to highlight the TOC link as user scrolls
     const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-observe]'));
     if (!sections.length) return;
 
     this.obs = new IntersectionObserver(
       (entries) => {
-        // Choose the most visible intersecting section
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0))[0];
@@ -39,7 +39,6 @@ export class LegalPage implements AfterViewInit, OnDestroy {
       },
       {
         root: null,
-        // make the active section switch when it reaches near top
         rootMargin: '-20% 0px -70% 0px',
         threshold: [0, 0.1, 0.25, 0.5, 0.75],
       }
@@ -62,9 +61,7 @@ export class LegalPage implements AfterViewInit, OnDestroy {
     const el = document.getElementById(id);
     if (!el) return;
     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    // Update active state immediately for responsiveness
     this.activeId.set(id as any);
-    // Update the hash without jumping
     history.replaceState(null, '', `#${id}`);
   }
 
@@ -79,13 +76,13 @@ export class LegalPage implements AfterViewInit, OnDestroy {
 
   async copyEmail(): Promise<void> {
     await this.copyToClipboard(this.contactEmail);
-    this.showToast('Email copied.');
+    this.showToast(this.translate.instant('legal.toast.emailCopied'));
   }
 
   async copyLink(id: string): Promise<void> {
     const url = `${location.origin}${location.pathname}#${id}`;
     await this.copyToClipboard(url);
-    this.showToast('Section link copied.');
+    this.showToast(this.translate.instant('legal.toast.linkCopied'));
   }
 
   private async copyToClipboard(text: string): Promise<void> {

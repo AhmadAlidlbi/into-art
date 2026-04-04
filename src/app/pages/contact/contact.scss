@@ -168,6 +168,19 @@
   font-weight: 650;
   color: var(--text-2);
   line-height: 1.55;
+  white-space: pre-line;
+}
+
+.channel__icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.channel__badge--whatsapp,
+.channel__badge--call,
+.channel__badge--email {
+  color: #111111;
 }
 
 /* ─── Form Panel ─────────────────────────────────────────── */
@@ -273,6 +286,7 @@
 .field__input::placeholder {
   color: rgba(22, 20, 20, 0.32);
   font-weight: 650;
+  text-align: start;
 }
 
 .field__textarea {
@@ -380,40 +394,45 @@
 }
 
 /* ─── Direction Fixes ────────────────────────────────────── */
-:host-context(html[dir='rtl']) .field__input {
+:host-context(html[dir='rtl']) .field {
   direction: rtl;
-  text-align: right;
 }
 
-:host-context(html[dir='ltr']) .field__input {
+:host-context(html[dir='ltr']) .field {
   direction: ltr;
-  text-align: left;
 }
 
-:host-context(html[dir='rtl']) .field__input[dir='ltr'] {
-  direction: ltr;
-  text-align: left;
-}
-
-:host-context(html[dir='ltr']) .field__input[dir='rtl'] {
+:host-context(html[dir='rtl']) .field__input,
+:host-context(html[dir='rtl']) .field__textarea {
   direction: rtl;
   text-align: right;
 }
 
 :host-context(html[dir='rtl']) .field__input::placeholder,
 :host-context(html[dir='rtl']) .field__textarea::placeholder {
-  direction: rtl;
   text-align: right;
 }
 
-:host-context(html[dir='ltr']) .field__input::placeholder,
-:host-context(html[dir='ltr']) .field__textarea::placeholder {
+/* Phone: typed text always LTR (numbers), placeholder right-aligned in Arabic */
+:host-context(html[dir='rtl']) .field__input--phone {
+  direction: ltr;
+  text-align: right;
+}
+
+:host-context(html[dir='rtl']) .field__input--phone::placeholder {
+  direction: ltr;
+  text-align: right;
+  unicode-bidi: bidi-override;
+}
+
+:host-context(html[dir='ltr']) .field__input,
+:host-context(html[dir='ltr']) .field__textarea {
   direction: ltr;
   text-align: left;
 }
 
-.field__input[dir='ltr']::placeholder {
-  direction: ltr;
+:host-context(html[dir='ltr']) .field__input::placeholder,
+:host-context(html[dir='ltr']) .field__textarea::placeholder {
   text-align: left;
 }
 

@@ -1,21 +1,48 @@
 import { Injectable } from '@angular/core';
 
-export type ContactPayload = {
+export interface ContactPayload {
   fullName: string;
-  phone?: string | null;
-  email?: string | null;
-  subject?: string | null;
+  phone: string;
+  email: string;
+  subject: string | null;
   message: string;
-  contactPreference: 'WhatsApp' | 'Call' | 'Email';
-};
+}
 
-@Injectable({ providedIn: 'root' })
+interface Web3FormsResponse {
+  success: boolean;
+  message: string;
+}
+
+@Injectable({
+  providedIn: 'root',
+})
 export class ContactService {
-  async submit(payload: ContactPayload): Promise<{ ok: boolean; id?: string }> {
-    console.log('[Contact Submission]', payload);
+  private readonly endpoint = 'https://api.web3forms.com/submit';
+  private readonly accessKey = '4e41aef6-d3d3-4866-aef1-3db8ce543b6b';
 
-    await new Promise((r) => setTimeout(r, 650));
+  async submit(payload: ContactPayload): Promise<{ ok: boolean; message?: string }> {
+    const formData = new FormData();
 
-    return { ok: true, id: crypto?.randomUUID?.() ?? `${Date.now()}` };
+    formData.append('access_key', this.accessKey);
+    formData.append('name', payload.fullName);
+    formData.append('email', payload.email.trim());
+    formData.append('phone', payload.phone.trim());
+    formData.append('subject', payload.subject?.trim() || 'New Contact Form Submission');
+    formData.append('message', payload.message);
+
+    const response = await fetch(this.endpoint, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
+      body: formData,
+    });
+
+    const data = (await response.json()) as Web3FormsResponse;
+
+    return {
+      ok: !!data.success,
+      message: data.message,
+    };
   }
 }

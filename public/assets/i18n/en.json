@@ -1,4 +1,106 @@
 {
+  "legal": {
+    "eyebrow": "Legal",
+    "title": "Privacy & Legal",
+    "subtitle": "This page outlines our privacy practices, cookie usage, and terms of service. Questions? Reach us at",
+    "meta": {
+      "effectiveDate": "Effective date",
+      "lastUpdated": "Last updated",
+      "print": "Print",
+      "startReading": "Start reading"
+    },
+    "toc": {
+      "label": "Contents",
+      "privacy": "Privacy Policy",
+      "cookies": "Cookie Policy",
+      "terms": "Terms of Service",
+      "disclaimer": "Disclaimer",
+      "contact": "Contact",
+      "copyEmail": "Copy email",
+      "backToTop": "Back to top"
+    },
+    "copyLink": "Copy link",
+    "toast": {
+      "emailCopied": "Email copied.",
+      "linkCopied": "Section link copied."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "intro": "<strong>{{brandName}}</strong> respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you use <strong>{{website}}</strong>.",
+      "summary": {
+        "title": "Summary",
+        "text": "We collect the minimum needed to respond to you and improve the site. We do not sell personal data."
+      },
+      "collect": {
+        "title": "Information we collect",
+        "item1": "<strong>Contact details</strong> you submit through forms (name, phone number, email, message).",
+        "item2": "<strong>Consultation booking details</strong> such as preferred date/time and project notes.",
+        "item3": "<strong>Basic analytics data</strong> (page views, device/browser type) used to improve the website."
+      },
+      "use": {
+        "title": "How we use your information",
+        "item1": "To respond to inquiries and confirm consultations.",
+        "item2": "To improve our services, content, and website experience.",
+        "item3": "To prevent abuse, ensure security, and maintain website integrity."
+      },
+      "sharing": {
+        "title": "Sharing of information",
+        "text": "We do not sell your personal data. We may share information with trusted service providers (hosting, analytics) only to operate our website. These providers are expected to protect your data."
+      },
+      "retention": {
+        "title": "Data retention",
+        "text": "We retain submitted information only as long as needed to fulfill the purpose (follow-up and consultation coordination), unless a longer period is required for legal or operational reasons."
+      },
+      "rights": {
+        "title": "Your rights",
+        "text": "You may request access, correction, or deletion of your submitted information by contacting us at"
+      }
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "intro": "Cookies are small files stored on your device that help websites function and improve user experience.",
+      "use": {
+        "title": "How we use cookies",
+        "item1": "<strong>Essential cookies</strong> needed for core website functionality (where applicable).",
+        "item2": "<strong>Analytics cookies</strong> to understand website performance and improve content."
+      },
+      "manage": {
+        "title": "Managing cookies",
+        "text": "You can control cookies through your browser settings. Disabling cookies may impact certain website features."
+      }
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "intro": "By using this website, you agree to these Terms of Service. If you do not agree, please discontinue use.",
+      "content": {
+        "title": "Use of website content",
+        "item1": "Our portfolio, images, and text content are provided for informational purposes and brand presentation.",
+        "item2": "You may not copy, reproduce, or distribute website content without written permission."
+      },
+      "consultation": {
+        "title": "Consultation requests",
+        "text": "Submitting a consultation request does not guarantee availability. We will confirm your appointment via your preferred contact method."
+      },
+      "links": {
+        "title": "External links",
+        "text": "Our website may include links to third-party websites (e.g., WhatsApp). We are not responsible for third-party content or policies."
+      }
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "text1": "Website content is provided \"as is\" and may be updated at any time. While we aim for accuracy, we do not guarantee that all information is complete or current at all times.",
+      "text2": "Project visuals, renders, or examples are illustrative. Final results may vary based on site conditions, material availability, and client approvals."
+    },
+    "contactSection": {
+      "title": "Contact",
+      "text": "If you have questions about these policies, contact us at",
+      "card": {
+        "label": "Email",
+        "copy": "Copy",
+        "emailUs": "Email us"
+      }
+    }
+  },
   "notFound": {
     "eyebrow": "Error 404",
     "title": "Page Not Found",
@@ -715,11 +817,11 @@
       "aria": "Service information",
       "hours": {
         "k": "Working Hours",
-        "v": "Saturday – Thursday, 10:00 AM – 8:00 PM"
+        "v": "Saturday – Wednesday: 10:00 AM – 6:00 PM\nThursday: 10:00 AM – 2:00 PM"
       },
       "location": {
         "k": "Location",
-        "v": "Kuwait • Residential Specialty"
+        "v": "Silk Tower, 23rd Floor, Office 66, Jaber Street, Kuwait City"
       },
       "response": {
         "k": "Response Time",
