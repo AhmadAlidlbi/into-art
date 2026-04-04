@@ -11,7 +11,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class LegalPage implements AfterViewInit, OnDestroy {
   brandName = 'INTO ART';
   website = 'intoartkw.com';
-  contactEmail = 'info@intoartkw.com';
+  contactEmail = 'info@intoakwt.com';
 
   effectiveDate = 'December 26, 2025';
   lastUpdated = 'December 26, 2025';
