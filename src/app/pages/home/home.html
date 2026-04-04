@@ -40,8 +40,7 @@
       </a>
       @if (!last) {
       <div class="service-bar__sep" aria-hidden="true"></div>
-      }
-      }
+      } }
     </div>
   </div>
 </div>
@@ -74,7 +73,9 @@
         <div class="who__metric-sep" aria-hidden="true"></div>
         <div class="who__metric">
           <div class="who__metric-value">{{ executionProjectsDisplay }}+</div>
-          <div class="who__metric-label">{{ 'home.who.metrics.executionProjects' | translate }}</div>
+          <div class="who__metric-label">
+            {{ 'home.who.metrics.executionProjects' | translate }}
+          </div>
         </div>
       </div>
     </div>
@@ -162,7 +163,6 @@
         <div class="eyebrow">{{ 'home.procedure.eyebrow' | translate }}</div>
         <h2 class="procedure-header__title">{{ 'home.procedure.title' | translate }}</h2>
       </div>
-      <p class="procedure-header__desc">{{ 'home.procedure.desc' | translate }}</p>
     </div>
     <ol class="procedure-list">
       @for (s of procedureSteps; track s.titleKey; let i = $index) {
@@ -195,20 +195,19 @@
           <p class="review-card__text">"{{ r.textKey | translate }}"</p>
           <div class="review-card__person">
             <div class="review-card__avatar"></div>
-            <div>
+            <div class="review-card__meta">
               <div class="review-card__name">{{ r.nameKey | translate }}</div>
               <div class="review-card__role">{{ r.roleKey | translate }}</div>
             </div>
           </div>
         </article>
-        }
-        @for (r of reviews; track r.nameKey) {
+        } @for (r of reviews; track r.nameKey) {
         <article class="review-card" aria-hidden="true">
           <div class="review-card__stars">★★★★★</div>
           <p class="review-card__text">"{{ r.textKey | translate }}"</p>
           <div class="review-card__person">
             <div class="review-card__avatar"></div>
-            <div>
+            <div class="review-card__meta">
               <div class="review-card__name">{{ r.nameKey | translate }}</div>
               <div class="review-card__role">{{ r.roleKey | translate }}</div>
             </div>

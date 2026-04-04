@@ -69,6 +69,8 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     { titleKey: 'home.procedure.steps.3.title', descKey: 'home.procedure.steps.3.desc' },
     { titleKey: 'home.procedure.steps.4.title', descKey: 'home.procedure.steps.4.desc' },
     { titleKey: 'home.procedure.steps.5.title', descKey: 'home.procedure.steps.5.desc' },
+    { titleKey: 'home.procedure.steps.6.title', descKey: 'home.procedure.steps.6.desc' },
+    { titleKey: 'home.procedure.steps.7.title', descKey: 'home.procedure.steps.7.desc' },
   ];
 
   metricsTarget = { years: 6, designProjects: 200, executionProjects: 50 };
