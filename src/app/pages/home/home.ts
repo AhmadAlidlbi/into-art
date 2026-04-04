@@ -282,10 +282,10 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
     const isRtl = document.documentElement.dir === 'rtl';
     if (isRtl) {
-      this.reviewsAutoSpeed = 1.5;
+      this.reviewsAutoSpeed = 0.8;
       this.reviewsX = -this.reviewsHalfW;
     } else {
-      this.reviewsAutoSpeed = -1.5;
+      this.reviewsAutoSpeed = -0.8;
       this.reviewsX = 0;
     }
 
@@ -431,10 +431,16 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     const dx = this.projectsDragPx;
     this.projectsDragPx = 0;
 
-    if (!this.projectsMoved) return;
+    if (this.projectsMoved) {
+      const threshold = 60;
+      if (dx <= -threshold) this.nextProjects();
+      else if (dx >= threshold) this.prevProjects();
+    }
 
-    const threshold = 60;
-    if (dx <= -threshold) this.nextProjects();
-    else if (dx >= threshold) this.prevProjects();
+    // Reset timer so the next auto-flip is a full interval away
+    if (this.projectTimer) window.clearInterval(this.projectTimer);
+    this.projectTimer = window.setInterval(() => {
+      if (!this.projectsDragging) this.nextProjects();
+    }, 3000);
   }
 }
