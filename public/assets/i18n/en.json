@@ -14,15 +14,15 @@
   "cards": {
     "card_1": {
       "title": "Free Consultation",
-      "description": "Visit our office and discuss your needs with our engineers as a clear first step for your project."
+      "description": "Visit our office and discuss your needs with our engineers as a clear first step toward your project."
     },
     "card_2": {
       "title": "Design",
-      "description": "We develop a complete plan that connects space layout, details, and the overall character of the project."
+      "description": "We develop a complete plan that connects space distribution, details, and the overall character of the project."
     },
     "card_3": {
       "title": "Execution",
-      "description": "We turn the design into reality with precise supervision and high quality until the project is complete."
+      "description": "We turn the design into reality with precise supervision and high quality until the project is completed."
     },
     "card_4": {
       "title": "Furnishing",
@@ -32,15 +32,15 @@
   "home": {
     "hero": {
       "brand": "Into Art",
-      "title_1": "Elevate Your Home",
-      "title_2": "with Design That Reflects Your Taste",
-      "subtitle": "From concept to execution, Into Art delivers interior design solutions that reflect your lifestyle, with a touch that blends luxury, practicality, and precision in every detail."
+      "title_1": "FEEL THE PLACE",
+      "title_2": "With a Design That Reflects Your Taste",
+      "subtitle": "From concept to execution, Into Art delivers interior design solutions that reflect your lifestyle, with a touch that combines luxury, practicality, and attention to detail."
     },
     "who": {
-      "eyebrow": "Who We Are",
+      "eyebrow": "About Us",
       "title_1": "A Specialized Team of",
       "title_2": "Engineers and Designers",
-      "desc": "Into Art is a company specialized in interior design services and decorative installation works. We create exclusive and distinctive designs through a carefully studied engineering approach to space planning, serving our clients and giving them a sense of comfort and belonging in their homes or workplaces.",
+      "desc": "Into Art is an interior design and décor installation company. We create exclusive, distinctive designs through a well-studied engineering approach to space planning that serves our clients and gives them a sense of comfort and belonging in their homes or workplaces.",
       "metrics": {
         "years": "Years of Experience",
         "designProjects": "Design Projects",
@@ -49,35 +49,43 @@
     },
     "procedure": {
       "eyebrow": "How We Work",
-      "title": "Work Process",
-      "desc": "Clear and well-studied stages that ensure an organized experience from the beginning to delivery.",
+      "title": "Our Process",
+      "desc": "Clear, well-planned steps that give you an organized and reassuring experience from start to project completion.",
       "steps": {
         "1": {
-          "title": "Consultation and Design Contract",
-          "desc": "A meeting at the company headquarters with our engineers to understand the client's needs, study the project, and then sign the design contract."
+          "title": "Consultation",
+          "desc": "We begin with a consultation session to understand your needs, style, and the nature of the space, with the goal of building a clear vision that matches your aspirations from the start."
         },
         "2": {
-          "title": "Site Measurement",
-          "desc": "A site visit to take accurate measurements and ensure the project starts on the right foundation."
+          "title": "Design Contract",
+          "desc": "After defining the scope of work and agreeing on the requirements, the design contract is signed so the project can begin within a clear and organized framework."
         },
         "3": {
-          "title": "Design Development",
-          "desc": "Preparing drawings and concepts in line with the nature of the project and the client's needs."
+          "title": "Site Measurements",
+          "desc": "We visit the site and take precise measurements to ensure that every stage of the work is based on accurate and approved data."
         },
         "4": {
-          "title": "Pricing and Execution",
-          "desc": "Preparing quantity estimates, pricing the execution, signing the execution contract, and then starting the work according to the approved drawings."
+          "title": "Design",
+          "desc": "We prepare plans, concepts, and suitable details to arrive at a balanced design that combines beauty and function."
         },
         "5": {
+          "title": "Pricing and Quantity Survey",
+          "desc": "We prepare the quotation, quantities, and required materials with accuracy, giving you a clearer picture of the cost and helping organize execution efficiently."
+        },
+        "6": {
+          "title": "Execution",
+          "desc": "Execution begins according to the approved plans, with close attention to detail to ensure finishing quality and precision at every stage."
+        },
+        "7": {
           "title": "Project Handover",
-          "desc": "Completing the work and delivering the project in its final form according to the required quality standards."
+          "desc": "Once the work is complete, the project is handed over in a refined final form, meeting the required quality and the result worthy of your expectations."
         }
       }
     },
     "featured": {
-      "eyebrow": "Featured",
-      "title": "Featured Projects",
-      "desc": "A selected collection of our latest residential projects.",
+      "eyebrow": "Selections",
+      "title": "Featured Works",
+      "desc": "A selected collection of our latest residential works.",
       "prev": "Previous",
       "next": "Next",
       "goTo": "Go to slide",
@@ -99,165 +107,164 @@
     "why": {
       "eyebrow": "Why Us",
       "title": "Why Clients Choose Us",
-      "desc": "Because we offer an integrated experience that combines clear vision, refined execution, and the result you deserve.",
       "items": {
         "1": {
-          "title": "Integrated Design Vision",
-          "desc": "We turn your needs into a clear concept and a space that reflects your taste and supports your daily use."
+          "title": "Design That Reflects Your Lifestyle",
+          "desc": "We transform your needs and ideas into a well-considered space that combines luxury, comfort, and functionality, serving you every day and clearly expressing your personality."
         },
         "2": {
-          "title": "Organization That Makes the Journey Easier",
-          "desc": "We work through carefully planned steps and clear stages to give you a more comfortable and confident project experience."
+          "title": "An Organized and Clear Journey",
+          "desc": "We follow a structured process and communicate clearly at every stage, so the picture stays clear and the project experience feels smoother and more reassuring."
         },
         "3": {
-          "title": "Precision in Execution",
-          "desc": "We pay close attention to quality, details, and finishes to deliver a balanced and elegant final result."
+          "title": "Execution Worthy of the Details",
+          "desc": "We give great care to finishing and execution because we believe the quality of the final result is reflected in the precision and harmony of the details."
         }
       }
     },
     "reviews": {
-      "eyebrow": "Client Feedback",
-      "title": "Client Reviews",
+      "eyebrow": "Client Reviews",
+      "title": "Client Testimonials",
       "desc": "Real words from homeowners we have worked with.",
-      "aria": "Client reviews auto slider",
+      "aria": "Auto-scrolling client reviews",
       "items": {
         "1": {
           "name": "Client A",
           "role": "Kuwait",
-          "text": "The work was very well organized. Clear steps, excellent finishing, and fast response."
+          "text": "The work was very organized. Clear steps, excellent finishing, and quick response."
         },
         "2": {
           "name": "Client B",
           "role": "Apartment Renovation",
-          "text": "They understood our taste quickly and delivered exactly what we wanted."
+          "text": "They understood our taste quickly and executed exactly what we wanted."
         },
         "3": {
           "name": "Client C",
           "role": "Villa Design",
-          "text": "A professional team, clear timeline, and excellent material recommendations."
+          "text": "A professional team, a clear schedule, and excellent material recommendations."
         },
         "4": {
           "name": "Client D",
           "role": "Majlis Design",
-          "text": "Great attention to detail and smooth communication throughout every stage."
+          "text": "High attention to detail and smooth communication throughout all stages."
         },
         "5": {
           "name": "Client E",
           "role": "Full Renovation",
-          "text": "The schedule was clear, the material selection was luxurious, and the final result was perfect."
+          "text": "The timing was clear, the material selection was luxurious, and the final result was perfect."
         }
       }
     },
     "cta": {
       "title": "Ready to Start Your Consultation?",
-      "desc": "Tell us what you need and we’ll guide you through the next steps.",
+      "desc": "Tell us what you need and we will guide you through the next steps.",
       "button": "Book Now"
     }
   },
   "services": {
     "pageTitle": "Services",
-    "pageSubtitle": "Premium interior design services in Kuwait — with clear steps, luxurious results, and high-quality finishes.",
+    "pageSubtitle": "Premium interior design services in Kuwait — with clear steps, luxurious results, and high-quality finishing.",
     "grid": {
       "kicker": "What We Offer",
-      "title": "Services Designed for Premium Residential Spaces"
+      "title": "Services Designed for Luxury Residential Spaces"
     },
     "note": {
       "kicker": "Our Approach",
       "title": "Clarity in Process, Quality in Execution",
-      "desc": "Every service we offer follows an organized workflow — from the first consultation to final handover. We make decisions easier, timelines clearer, and finishing standards consistent."
+      "desc": "Every service we offer follows an organized process — from the first consultation to final handover. We make decisions easier, timelines clearer, and finishing standards consistent."
     },
     "procedure": {
       "1": {
-        "title": "Consultation and Requirement Definition",
-        "desc": "We define your goals, style, budget, and practical requirements before starting."
+        "title": "Consultation and Needs Assessment",
+        "desc": "We define your goals, taste, budget, and practical requirements before we begin."
       },
       "2": {
         "title": "Concept and Planning",
-        "desc": "We develop the layout, design direction, and scope of work so the full picture is clear from the beginning."
+        "desc": "We develop the layout, design direction, and scope of work so the vision is clear from the start."
       },
       "3": {
         "title": "Execution and Handover",
-        "desc": "We follow up on execution and finishes on-site and deliver a result that is ready for handover."
+        "desc": "We oversee execution and finishing on site and deliver a result ready for handover."
       },
       "kicker": "How We Work",
       "title": "A Simple Process That Saves Time and Ensures Quality"
     },
     "testimonial": {
-      "kicker": "Client Feedback",
-      "title": "Trusted by Homeowners Who Value Details",
-      "note": "Clear steps, luxurious finishes, and steady communication — that’s what our clients mention most.",
-      "quote": "Very refined service and excellent organization. The result was exactly what we wanted, with high finishing quality and clear communication.",
+      "kicker": "Client Reviews",
+      "title": "Trusted by Homeowners Who Value Detail",
+      "note": "Clear steps, luxurious finishing, and consistent communication — these are the things our clients mention most.",
+      "quote": "A refined experience and excellent organization. The result matched exactly what we wanted, with high-quality finishing and clear communication.",
       "name": "Client Review",
       "role": "Residential Project — Kuwait"
     },
     "ctaStrip": {
       "title": "Ready to Start Your Consultation?",
-      "desc": "Tell us what you need and we’ll guide you through the next steps."
+      "desc": "Tell us what you need and we will guide you through the next steps."
     },
     "cta": {
       "title": "Ready to Start Your Consultation?",
-      "desc": "Share your project details and we’ll guide you through the next steps."
+      "desc": "Share your project details with us and we will guide you through the next steps."
     },
     "details": {
       "back": "Back to Services",
       "backToAll": "All Services",
       "eyebrow": "Service Details",
       "aboutTitle": "About This Service",
-      "benefitsTitle": "What You’ll Get",
-      "benefitsDesc": "Clear deliverables, professional coordination, and execution-ready results tailored to your space.",
+      "benefitsTitle": "What You Will Get",
+      "benefitsDesc": "Clear deliverables, professional coordination, and results ready for execution according to your space.",
       "faqTitle": "Frequently Asked Questions",
-      "faqDesc": "Common questions about scope, workflow, and delivery timeline.",
+      "faqDesc": "Common questions about scope, execution process, and delivery timeline.",
       "viewAllFaq": "View All Questions",
-      "faqEmptyTitle": "No FAQs Available Yet",
-      "faqEmptyDesc": "This service does not currently include FAQs. You can visit the general FAQ page for more information.",
+      "faqEmptyTitle": "No FAQs Available Right Now",
+      "faqEmptyDesc": "This service currently has no FAQs. You can visit the general FAQ page for more information.",
       "notFoundTitle": "Service Not Found",
-      "notFoundDesc": "The service may have been moved or is no longer available."
+      "notFoundDesc": "This service may have been moved or is no longer available."
     },
     "items": {
       "residential": {
         "title": "Residential Interior Design",
-        "short": "Complete interior design for villas and apartments with a clear process and luxurious finishes.",
+        "short": "Integrated design for villas and apartments with a clear plan and refined finishing.",
         "bullets": {
           "1": "Define the design style and visual identity of the space",
-          "2": "Practical furniture planning, circulation, and function",
-          "3": "Material, color, and lighting selections suited to your lifestyle",
-          "4": "Execution-ready deliverables with support during implementation"
+          "2": "Practical distribution of furniture, movement paths, and functions",
+          "3": "Select materials, colors, and lighting to suit your lifestyle",
+          "4": "Execution-ready deliverables with support during execution"
         },
         "highlights": {
           "1": "Luxury design with clear decisions",
-          "2": "Materials and finish plan that suits the budget",
+          "2": "Materials and finishing plan suited to the budget",
           "3": "A consistent experience from concept to handover"
         },
         "deliverables": {
           "1": "Space planning + furniture layouts",
           "2": "Mood and materials boards",
-          "3": "Lighting selections and suggested pieces",
-          "4": "Drawing file and execution guidance"
+          "3": "Lighting selections and piece recommendations",
+          "4": "Drawing set and execution guidelines"
         },
         "timeline": {
           "value": "Depending on project size — usually 3 to 8 weeks for the design phase"
         },
         "scope": {
-          "value": "Villas and apartments — full design or selected areas as requested"
+          "value": "Villas and apartments — full design or selected areas on request"
         },
         "process": {
           "1": {
             "title": "Consultation and Requirement Definition",
-            "desc": "We gather your needs, taste, and priorities and define the project scope."
+            "desc": "We gather your needs, taste, and priorities and define the scope of work."
           },
           "2": {
             "title": "Concept and Planning",
-            "desc": "We propose the space layout, design direction, and material options."
+            "desc": "We propose space distribution, design direction, and material options."
           },
           "3": {
             "title": "Detailing and Delivery",
-            "desc": "We prepare execution deliverables and review the details until everything is ready for site implementation."
+            "desc": "We prepare execution deliverables and review the details until they are ready for site use."
           }
         },
         "faq": {
           "1": {
             "q": "Do you provide site supervision?",
-            "a": "Yes, we offer supervision options depending on the project package and client needs."
+            "a": "Yes, we offer supervision options depending on the project package and the client's needs."
           },
           "2": {
             "q": "Can you design a single room?",
@@ -267,66 +274,66 @@
       },
       "renovation": {
         "title": "Apartment Renovation",
-        "short": "A practical renovation plan with luxurious finishes and a clear execution timeline.",
+        "short": "Practical renovation planning with refined finishing and a clear execution schedule.",
         "bullets": {
-          "1": "Improve layout and functionality based on your needs",
-          "2": "Finishing solutions that suit your budget without compromising quality",
+          "1": "Improve space distribution and functions according to your needs",
+          "2": "Finishing solutions that fit your budget without compromising quality",
           "3": "Organized selection of materials, flooring, and lighting",
-          "4": "Execution follow-up to ensure a handover-ready result"
+          "4": "Execution follow-up to ensure a result ready for handover"
         },
         "highlights": {
           "1": "A clear plan that reduces changes during execution",
-          "2": "Material selections coordinated for daily use",
+          "2": "Consistent material selection suitable for daily use",
           "3": "Better control over cost and quality"
         },
         "deliverables": {
-          "1": "New space planning and layout",
-          "2": "Finish, material, and color plan",
+          "1": "New planning and space distribution",
+          "2": "Finishing, materials, and color plan",
           "3": "Priority list and execution schedules"
         },
         "timeline": {
-          "value": "Usually 2 to 6 weeks depending on the scale of change"
+          "value": "Usually 2 to 6 weeks depending on the scale of the change"
         },
         "scope": {
-          "value": "Partial or full apartment renovation (finishes / layout / updating elements)"
+          "value": "Partial or full apartment renovation (finishing / distribution / element updates)"
         },
         "process": {
           "1": {
             "title": "Site Evaluation",
-            "desc": "We visit the site and identify constraints and improvement opportunities."
+            "desc": "We visit the site and identify constraints and areas for improvement."
           },
           "2": {
             "title": "Planning and Options",
-            "desc": "We present layout alternatives and material options with a scope estimate."
+            "desc": "We provide layout alternatives and materials with an estimate of the work scope."
           },
           "3": {
             "title": "Execution and Handover",
-            "desc": "We follow up on finishes and coordination until final delivery."
+            "desc": "We follow up on finishing and coordination through to final handover."
           }
         },
         "faq": {
           "1": {
-            "q": "Can you renovate while keeping some existing furniture?",
-            "a": "Yes, we can keep existing pieces in mind and build the design around them when required."
+            "q": "Can renovation be done while keeping some existing furniture?",
+            "a": "Yes, we take existing pieces into account and build the design around them when requested."
           }
         }
       },
       "fitout": {
-        "title": "Turnkey Fit-Out",
-        "short": "From design to execution: coordination, supervision, and final delivery with luxurious quality.",
+        "title": "Integrated Fit-out",
+        "short": "From design to execution: coordination, supervision, and final handover with premium quality.",
         "bullets": {
           "1": "Project management and coordination between all parties",
-          "2": "High-quality finishes based on clear standards",
-          "3": "Organized timeline and progress reports",
+          "2": "High-quality finishing according to clear standards",
+          "3": "An organized timeline and progress reports",
           "4": "Final handover after inspection and review"
         },
         "highlights": {
           "1": "One point of contact for everything",
-          "2": "Controlled finishes and quality supervision",
+          "2": "Well-controlled finishing and quality monitoring",
           "3": "Clear final handover and pre-handover inspections"
         },
         "deliverables": {
-          "1": "Execution coordination and contracting",
+          "1": "Execution coordination and contracts",
           "2": "Site supervision and quality follow-up",
           "3": "Final handover with a snag list"
         },
@@ -334,12 +341,12 @@
           "value": "Depending on project size — from 6 weeks to several months"
         },
         "scope": {
-          "value": "Full residential fit-out including coordination, supervision, and handover"
+          "value": "Integrated residential execution including coordination, supervision, and handover"
         },
         "process": {
           "1": {
-            "title": "Prepare the Execution Scope",
-            "desc": "We confirm the scope of work, materials, and execution plan."
+            "title": "Execution Scope Preparation",
+            "desc": "We confirm the work scope, materials, and execution plan."
           },
           "2": {
             "title": "Coordination and Supervision",
@@ -347,74 +354,74 @@
           },
           "3": {
             "title": "Inspection and Handover",
-            "desc": "We review details and close observations before final handover."
+            "desc": "We review the details and close remarks before final handover."
           }
         },
         "faq": {
           "1": {
-            "q": "Does this service include procurement?",
-            "a": "Procurement can be included depending on the package and project needs."
+            "q": "Does the service include supply?",
+            "a": "Supply can be included depending on the package and project requirements."
           }
         }
       },
       "kitchen": {
         "title": "Kitchen Design",
-        "short": "Practical kitchen planning with cabinetry and materials suitable for daily use, with a refined finish.",
+        "short": "Practical kitchen planning with cabinetry and materials suited for daily use and refined finishing.",
         "bullets": {
-          "1": "Functional layout based on workflow and movement",
-          "2": "Selection of cabinetry, ceiling, and countertop materials that are durable and practical",
-          "3": "Accurate electrical, plumbing, and lighting details",
-          "4": "Execution-ready outputs and dimensions"
+          "1": "Functional layout based on work and movement flow",
+          "2": "Selection of practical, durable cabinet, ceiling, and countertop materials",
+          "3": "Precise electrical, plumbing, and lighting details",
+          "4": "Execution-ready deliverables and measurements"
         },
         "highlights": {
           "1": "Smart storage solutions",
-          "2": "Durable materials that are easy to maintain",
-          "3": "A design balanced between beauty and practicality"
+          "2": "Durable, easy-maintenance materials",
+          "3": "A balanced design between beauty and practicality"
         },
         "deliverables": {
           "1": "Layout plan + work zones",
-          "2": "Cabinet details and dimensions",
+          "2": "Cabinet details and measurements",
           "3": "Materials, colors, and accessory suggestions"
         },
         "timeline": {
           "value": "Usually 2 to 4 weeks depending on kitchen size"
         },
         "scope": {
-          "value": "Apartment and villa kitchens — new or full renovation"
+          "value": "Kitchens for apartments and villas — new or fully updated"
         },
         "process": {
           "1": {
             "title": "Measurement and Needs Analysis",
-            "desc": "We define the usage style, number of users, and appliances."
+            "desc": "We define the style of use, number of users, and appliances."
           },
           "2": {
             "title": "Layout and Material Options",
-            "desc": "We propose the layout and suitable materials based on the budget."
+            "desc": "We propose the layout and materials suited to the budget."
           },
           "3": {
             "title": "Execution Details",
-            "desc": "We finalize the dimensions and details so they are ready for the carpenter or supplier."
+            "desc": "We finalize the measurements and details so they are ready for the carpenter or supplier."
           }
         },
         "faq": {
           "1": {
             "q": "Do you help with appliance selection?",
-            "a": "Yes, we suggest suitable appliance sizes and positions based on the layout."
+            "a": "Yes, we suggest appliance sizes and locations based on the layout."
           }
         }
       },
       "bathroom": {
         "title": "Bathroom Design",
-        "short": "Elegant bathrooms with practical layouts, moisture-resistant materials, and precise execution details.",
+        "short": "Refined bathrooms with practical layouts, moisture-resistant materials, and precise execution details.",
         "bullets": {
-          "1": "Healthy and practical sanitary layout planning",
+          "1": "Healthy and practical layout for sanitary fixtures",
           "2": "Tile boards and water-resistant materials",
-          "3": "Appropriate lighting plus mirror and accessory details",
-          "4": "Detailed drawings for execution"
+          "3": "Suitable lighting + mirror and accessory details",
+          "4": "Detailed execution drawings"
         },
         "highlights": {
           "1": "Practical solutions for both small and large spaces",
-          "2": "Materials suitable for moisture and easy cleaning",
+          "2": "Moisture-suitable, easy-to-clean materials",
           "3": "Luxurious details without complexity"
         },
         "deliverables": {
@@ -426,210 +433,210 @@
           "value": "Usually 1 to 3 weeks per bathroom"
         },
         "scope": {
-          "value": "Guest / master / kids bathrooms — design or renovation"
+          "value": "Guest / master / kids' bathrooms — design or renovation"
         },
         "process": {
           "1": {
-            "title": "Review Measurements and Plumbing",
-            "desc": "We identify constraints and choose the most suitable layout."
+            "title": "Measurement and Plumbing Review",
+            "desc": "We define constraints and choose the most suitable layout."
           },
           "2": {
             "title": "Materials and Colors",
-            "desc": "We prepare a material board and suggest suitable alternatives."
+            "desc": "We prepare a materials board and propose suitable alternatives."
           },
           "3": {
             "title": "Execution-Ready Details",
-            "desc": "We confirm dimensions, heights, and accessory positions."
+            "desc": "We finalize measurements, heights, and accessory locations."
           }
         },
         "faq": {
           "1": {
-            "q": "Do you provide alternatives based on budget?",
-            "a": "Yes, we offer multiple material options while keeping the same overall design direction."
+            "q": "Do you provide budget-based alternatives?",
+            "a": "Yes, we provide multiple material options with the same overall character."
           }
         }
       },
       "flooring": {
         "title": "Flooring and Material Selection",
-        "short": "A flooring and material strategy coordinated with the home’s style, budget, and quality of use.",
+        "short": "A material and flooring strategy aligned with the home's style, budget, and quality of use.",
         "bullets": {
           "1": "Select flooring suitable for daily use and maintenance",
-          "2": "Coordinate materials and colors throughout the home",
+          "2": "Unify materials and colors throughout the home consistently",
           "3": "Samples and material boards before purchase",
           "4": "Clear specifications for supply and execution"
         },
         "highlights": {
           "1": "Faster decisions through sample boards",
-          "2": "Full coordination between flooring, walls, and lighting",
-          "3": "Reduced costly mistakes during execution"
+          "2": "Complete harmony between flooring, walls, and lighting",
+          "3": "Reduced costly errors during execution"
         },
         "deliverables": {
           "1": "Material and color boards",
-          "2": "Flooring list with alternatives",
+          "2": "Flooring list + alternatives",
           "3": "Supply and execution specifications"
         },
         "timeline": {
-          "value": "Usually 1 to 2 weeks to finalize materials and alternatives"
+          "value": "Usually 1 to 2 weeks to prepare materials and alternatives"
         },
         "scope": {
-          "value": "Flooring, material, and finish selection for different areas of the home"
+          "value": "Selection of flooring, materials, and finishing according to home zones"
         },
         "process": {
           "1": {
-            "title": "Understand the Requirement",
-            "desc": "We define lifestyle needs, children/pets considerations, and durability requirements."
+            "title": "Understanding the Need",
+            "desc": "We define lifestyle, children/pets, and the required level of durability."
           },
           "2": {
-            "title": "Material Proposal",
-            "desc": "We present a coordinated set of materials with price-based alternatives."
+            "title": "Material Proposals",
+            "desc": "We provide a coordinated set of materials with price alternatives."
           },
           "3": {
-            "title": "Finalize Specifications",
+            "title": "Specification Finalization",
             "desc": "We prepare clear specifications for purchase and execution."
           }
         },
         "faq": {
           "1": {
-            "q": "Do you provide actual samples?",
-            "a": "We help source sample options from the market and support you in selecting the most suitable ones."
+            "q": "Do you provide real samples?",
+            "a": "We provide sample options from the market and help you choose the most suitable one."
           }
         }
       },
       "lighting": {
         "title": "Lighting Design",
-        "short": "Calculated lighting for mood and function: layout, scenes, and suitable fixture selection.",
+        "short": "Calculated lighting for mood and function: distribution, scenes, and suitable fixture selection.",
         "bullets": {
-          "1": "Functional and ambient lighting distribution for each space",
-          "2": "Fixture suggestions coordinated with the design",
-          "3": "Scene planning for key areas",
-          "4": "Execution guidance and dimmer/control coordination"
+          "1": "Functional + atmospheric lighting distribution for every space",
+          "2": "Propose lighting fixtures aligned with the design",
+          "3": "Scenes for the main spaces",
+          "4": "Execution guidance and dimmer/control recommendations"
         },
         "highlights": {
-          "1": "A luxurious result without excess",
-          "2": "Better control over mood and atmosphere",
-          "3": "Clear coordination with gypsum and furniture"
+          "1": "A luxurious result without exaggeration",
+          "2": "Better control over mood and ambience",
+          "3": "Clear coordination with gypsum work and furniture"
         },
         "deliverables": {
-          "1": "Lighting layout drawings",
-          "2": "Fixture and accessory recommendations",
-          "3": "Scene and control suggestions"
+          "1": "Lighting distribution plans",
+          "2": "Suggested fixtures and accessories",
+          "3": "Scene and control recommendations"
         },
         "timeline": {
           "value": "Usually 1 to 3 weeks depending on the number of spaces"
         },
         "scope": {
-          "value": "Residential lighting — apartments and villas (specific areas or full project)"
+          "value": "Residential lighting — apartments and villas (areas or full project)"
         },
         "process": {
           "1": {
             "title": "Needs Analysis",
-            "desc": "We define work zones, seating areas, and required lighting levels."
+            "desc": "We define work and seating zones and the required lighting levels."
           },
           "2": {
-            "title": "Layout and Scenes",
-            "desc": "We design lighting layers and suggest suitable scenes."
+            "title": "Distribution and Scenes",
+            "desc": "We set lighting layers and propose suitable scenes."
           },
           "3": {
             "title": "Fixture Selection",
-            "desc": "We propose fixtures and prepare clear execution notes."
+            "desc": "We suggest fixtures and prepare clear execution notes."
           }
         },
         "faq": {
           "1": {
-            "q": "Does the service include selecting lighting fixtures from the market?",
-            "a": "Yes, we provide recommendations and selections within the desired style and budget."
+            "q": "Does the service include choosing lights from the market?",
+            "a": "Yes, we provide recommendations and selections within the style and budget."
           }
         }
       },
       "spacePlanning": {
         "title": "Space Planning",
-        "short": "Ideal furniture distribution and movement planning that improve function and make daily living easier.",
+        "short": "An ideal furniture and circulation layout that improves function and makes daily use easier.",
         "bullets": {
-          "1": "Improve movement flow and functional zoning",
-          "2": "Realistic furniture layouts based on dimensions",
-          "3": "Storage solutions and clear usage zones",
-          "4": "Multiple options before approving the final solution"
+          "1": "Improve movement paths and function distribution",
+          "2": "Realistic furniture layout based on measurements",
+          "3": "Storage solutions and definition of usage zones",
+          "4": "Multiple proposals before final approval"
         },
         "highlights": {
-          "1": "Better use of available space",
-          "2": "Faster furniture decisions",
+          "1": "Better use of space",
+          "2": "Faster furniture-buying decisions",
           "3": "More comfortable and organized spaces"
         },
         "deliverables": {
-          "1": "Furniture layout drawings",
-          "2": "Alternative layout options",
-          "3": "Recommended size list"
+          "1": "Furniture layout plans",
+          "2": "Layout options",
+          "3": "Measurement recommendation list"
         },
         "timeline": {
           "value": "Usually 1 to 2 weeks depending on the number of spaces"
         },
         "scope": {
-          "value": "Living rooms / majlis / bedrooms / multiple spaces"
+          "value": "Living / majlis / bedrooms / multiple spaces"
         },
         "process": {
           "1": {
-            "title": "Understand Lifestyle",
-            "desc": "We define your daily habits and preferences."
+            "title": "Understanding Lifestyle",
+            "desc": "We define your daily use patterns and preferences."
           },
           "2": {
             "title": "Layout Options",
-            "desc": "We propose alternatives and balance movement with visual appeal."
+            "desc": "We propose alternatives and balance movement with visual form."
           },
           "3": {
             "title": "Approval and Detailing",
-            "desc": "We approve the best option and finalize sizes and recommendations."
+            "desc": "We approve the best option and finalize measurements and recommendations."
           }
         },
         "faq": {
           "1": {
-            "q": "Do I need furniture dimensions?",
-            "a": "Preferably yes, but we can start with general recommended sizes and confirm them later."
+            "q": "Do I need furniture measurements?",
+            "a": "Preferably yes, but we can work with general size recommendations and finalize them later."
           }
         }
       },
       "joinery": {
-        "title": "Custom Joinery Design",
-        "short": "Custom cabinetry and built-in units with production-ready details and a luxurious finish.",
+        "title": "Custom Joinery and Carpentry Design",
+        "short": "Design of built-in cabinets and units with production-ready details and premium quality.",
         "bullets": {
-          "1": "Design for wardrobes, TV walls, and storage units",
-          "2": "Production details (joinery, thicknesses, and internal divisions)",
-          "3": "Material, color, and accessory selection",
-          "4": "Execution-ready outputs for the carpenter or factory"
+          "1": "Design built-in wardrobes, TV walls, and storage units",
+          "2": "Production details (detailing, thicknesses, divisions)",
+          "3": "Select colors, materials, and accessories",
+          "4": "Deliverables ready for the carpenter/factory"
         },
         "highlights": {
           "1": "Smart use of spaces",
-          "2": "Accurate details that reduce mistakes",
-          "3": "A luxurious and coordinated final appearance"
+          "2": "Precise details that reduce errors",
+          "3": "A luxurious and harmonious final look"
         },
         "deliverables": {
-          "1": "Elevations and detailed dimensions",
-          "2": "Internal divisions and accessory notes",
+          "1": "Detailed elevations and measurements",
+          "2": "Internal divisions and accessories",
           "3": "Materials, colors, and execution notes"
         },
         "timeline": {
-          "value": "Usually 2 to 4 weeks depending on the number of items"
+          "value": "Usually 2 to 4 weeks depending on the number of pieces"
         },
         "scope": {
-          "value": "Built-in units (wardrobes / TV walls / storage / custom joinery)"
+          "value": "Built-in units (Wardrobes / TV / Storage / Built-ins)"
         },
         "process": {
           "1": {
             "title": "Requirements and Planning",
-            "desc": "We define storage needs, functions, and the desired visual style."
+            "desc": "We define the storage, functions, and look you need."
           },
           "2": {
-            "title": "Design and Detailing",
-            "desc": "We prepare elevations, internal divisions, and dimensions."
+            "title": "Design and Details",
+            "desc": "We prepare elevations, divisions, and measurements."
           },
           "3": {
             "title": "Finalization and Execution Coordination",
-            "desc": "We review the final details and provide support during production."
+            "desc": "We review final details and provide support during production."
           }
         },
         "faq": {
           "1": {
-            "q": "Can this be executed by more than one carpenter?",
-            "a": "Yes, as long as the contractor follows the approved specifications and details."
+            "q": "Can the execution be done with more than one carpenter?",
+            "a": "Yes, as long as the approved specifications and details are followed."
           }
         }
       }
@@ -637,8 +644,8 @@
     "catalog": {
       "kicker": "All Services",
       "title": "Choose the Right Service Quickly",
-      "desc": "Search by service type or enter a keyword to find what you need.",
-      "aria": "Services search and filter section",
+      "desc": "Search by service type or type a keyword to find what you need.",
+      "aria": "Service search and filtering section",
       "searchPlaceholder": "Search for a service…",
       "searchAria": "Service search field",
       "clearSearch": "Clear Search",
@@ -650,18 +657,18 @@
         "all": "All",
         "residential": "Residential",
         "renovation": "Renovation",
-        "fitout": "Fit-Out"
+        "fitout": "Fit-out"
       },
       "badges": {
         "residential": "Residential",
         "renovation": "Renovation",
-        "fitout": "Fit-Out"
+        "fitout": "Fit-out"
       }
     },
     "viewService": "View Service"
   },
   "servicesDetails": {
-    "fallbackAbout": "This service is delivered through clear steps and luxurious finishing standards — aligned with your space, goals, and timeline.",
+    "fallbackAbout": "This service is delivered through clear steps and premium finishing standards — aligned with your space, goals, and timeline.",
     "benefitDot": "Included"
   },
   "servicesCta": {
@@ -671,19 +678,19 @@
   "contact": {
     "hero": {
       "badge": "Contact Us",
-      "title_1": "Let’s Talk About Your Space,",
-      "title_accent": "the Right Way",
-      "subtitle": "Tell us about your project and we’ll get back to you with the best next step.",
+      "title_1": "Let's Talk About Your Space,",
+      "title_accent": "The Right Way",
+      "subtitle": "Tell us about your project and we will get back to you with the best next step.",
       "bullet1": "We respond to all inquiries within the same business day",
       "bullet2": "WhatsApp and calls are welcome — Saturday to Thursday, 10 AM to 8 PM",
-      "bullet3": "Based in Kuwait, specialized exclusively in residential interior design",
-      "bullet4": "From first contact to handover, communication remains clear and direct"
+      "bullet3": "Based in Kuwait, specializing exclusively in residential interior design",
+      "bullet4": "From first contact to handover, communication stays clear and direct"
     },
     "channels": {
-      "aria": "Contact Channels",
+      "aria": "Contact channels",
       "whatsapp": {
         "title": "WhatsApp",
-        "desc": "Fast confirmations and short questions",
+        "desc": "Quick confirmations and short questions",
         "action": "Message"
       },
       "call": {
@@ -694,18 +701,18 @@
       "email": {
         "title": "Email",
         "desc": "For formal inquiries and documents",
-        "action": "Email"
+        "action": "Message"
       }
     },
     "info": {
-      "aria": "Service Information",
+      "aria": "Service information",
       "hours": {
         "k": "Working Hours",
         "v": "Saturday – Thursday, 10:00 AM – 8:00 PM"
       },
       "location": {
         "k": "Location",
-        "v": "Kuwait • Residential Focus"
+        "v": "Kuwait • Residential Specialty"
       },
       "response": {
         "k": "Response Time",
@@ -730,19 +737,19 @@
       "emailPlaceholder": "you@email.com",
       "emailError": "Please enter a valid email address.",
       "subject": "Subject (optional)",
-      "subjectPlaceholder": "e.g., Apartment renovation",
+      "subjectPlaceholder": "e.g. Apartment renovation",
       "preference": "Preferred Contact Method *",
       "prefWhatsapp": "WhatsApp",
       "prefCall": "Call",
       "prefEmail": "Email",
       "message": "Message *",
-      "messagePlaceholder": "Tell us what you need (space type, style, timeline) and we’ll respond with the best next step…",
-      "messageHint": "Tip: mention villa/apartment, the area in Kuwait, and your timeline.",
+      "messagePlaceholder": "Tell us what you need (space type, style, timeline) and we will reply with the best next step…",
+      "messageHint": "Tip: Mention the space type (villa/apartment), the area in Kuwait, and the timeline.",
       "messageError": "Please write a message (at least 10 characters).",
       "submit": "Send Message",
       "submitting": "Sending…",
-      "privacy": "By submitting the form, you agree that we may contact you regarding your request.",
-      "successMsg": "Your message has been received. We’ll contact you shortly.",
+      "privacy": "By submitting the form, you agree that we may contact you about your request.",
+      "successMsg": "Your message has been received. We will get in touch with you soon.",
       "errorReview": "Please review the required fields and try again.",
       "errorRetry": "Submission failed. Please try again.",
       "errorGeneric": "Something went wrong. Please try again."
@@ -751,12 +758,12 @@
   "faq": {
     "hero": {
       "eyebrow": "FAQ",
-      "title_1": "Frequently Asked Questions",
+      "title_1": "Frequently Asked Questions and Clear Answers",
       "title_accent": "Clear Answers",
       "subtitle": "Clear answers about process, timeline, pricing, and execution — so you know exactly what to expect."
     },
-    "categoriesAria": "FAQ Categories",
-    "accordionAria": "Frequently Asked Questions",
+    "categoriesAria": "FAQ categories",
+    "accordionAria": "Frequently asked questions",
     "categories": {
       "all": "All",
       "process": "Process",
@@ -766,47 +773,47 @@
       "design": "Design"
     },
     "search": {
-      "placeholder": "Search questions…",
-      "aria": "Search FAQs",
+      "placeholder": "Search the questions…",
+      "aria": "Search frequently asked questions",
       "clearAria": "Clear search"
     },
     "empty": {
       "title": "No Results",
-      "desc": "Try a different category or keyword.",
+      "desc": "Try a different category or another keyword.",
       "reset": "Reset Filters"
     },
     "items": {
       "1": {
         "q": "How do I book a consultation?",
-        "a": "You can book directly through the consultation page on the website. Once submitted, our team will contact you to confirm the appointment and guide you through the next steps."
+        "a": "You can book directly through the consultation page on the website. After submission, our team will contact you to confirm the appointment and guide you through the next steps."
       },
       "2": {
         "q": "What happens after the consultation?",
-        "a": "After the consultation, we review your requirements and prepare the design direction and proposal. Once approved, we move to contract and execution planning."
+        "a": "After the consultation, we review your requirements and prepare the design direction and proposal. Once approved, we move to the contract and execution planning stage."
       },
       "3": {
         "q": "Do you provide a quotation or bill of quantities?",
-        "a": "Yes. Depending on the scope of the project, we provide an organized quotation that includes clear items for materials and execution scope."
+        "a": "Yes. Depending on the project scope, we provide an organized quotation with clear material items and execution scope."
       },
       "4": {
         "q": "Can I choose materials according to my budget?",
-        "a": "Yes. We usually provide options at different levels and recommend the best balance between quality and cost for residential projects."
+        "a": "Yes. We usually offer options at different levels and recommend the best balance between quality and cost for residential projects."
       },
       "5": {
         "q": "Do you handle execution or design only?",
-        "a": "We can provide both. Many residential clients prefer a complete delivery model (design + execution) with supervision to ensure quality and finishing."
+        "a": "We can offer both. Many residential clients prefer a full delivery model (design + execution) with supervision to ensure quality and finishing."
       },
       "6": {
         "q": "Who supervises the site work?",
-        "a": "A specialized engineer supervises the execution, follows up on progress, and ensures the finishing quality matches the approved design."
+        "a": "A specialized engineer supervises execution, follows progress, and ensures that finishing quality matches the approved design."
       },
       "7": {
         "q": "How long does a residential project take?",
-        "a": "It depends on the size and scope. After the consultation and scope confirmation, we provide an estimated timeline with key stages."
+        "a": "That depends on the size and scope. After consultation and scope confirmation, we provide an estimated timeline with the main phases."
       },
       "8": {
-        "q": "Can you execute a style I found online?",
-        "a": "Yes. Share your references and we will adapt the style to suit your space, lighting, and practical needs."
+        "q": "Can you execute a style I saw online?",
+        "a": "Yes. Share your references with us and we will adapt the style to suit your space, lighting, and practical needs."
       }
     }
   },
@@ -815,7 +822,7 @@
       "badge": "About Us",
       "title_1": "A Residential Interior Design Team Built on",
       "title_accent": "Design, Quality, and Delivery",
-      "subtitle": "We help homeowners in Kuwait transform their spaces through an organized design process and professional execution.",
+      "subtitle": "We offer a complete interior design experience that begins with a clear vision and ends with professional execution that translates the concept into reality.",
       "proof": {
         "residential": {
           "k": "Residential",
@@ -830,12 +837,12 @@
           "v": "Details, Finishing, Supervision"
         }
       },
-      "chip": "Based in Kuwait • Premium Residential"
+      "chip": "Based in Kuwait • Luxury Residential"
     },
     "whoWeAre": {
-      "title": "Who We Are",
-      "text1": "Into Art is a Kuwaiti company specialized in residential interior design and execution. We aim to create elegant and practical spaces that align with your lifestyle.",
-      "text2": "Our delivery model combines local presence in Kuwait with extended production and support capabilities through a partner team in Egypt — enabling efficient planning and consistent design output."
+      "title": "About Us",
+      "text1": "Into Art is a Kuwaiti company specializing in residential interior design and execution. We strive to create refined and practical spaces that align with your lifestyle.",
+      "text2": "Our delivery model combines local presence in Kuwait with expanded production and support capabilities through a partner team in Egypt — enabling efficient planning and consistent design output."
     },
     "whatWeFocus": {
       "eyebrow": "What We Focus On",
@@ -844,29 +851,29 @@
         "1": "Residential interior design: villas, apartments, and private spaces",
         "2": "Concept design, space planning, and material selection",
         "3": "Execution supervision and premium finishing quality",
-        "4": "Organized handover and post-delivery support"
+        "4": "Organized delivery and post-handover support"
       },
       "note": {
         "title": "Best Fit for Us",
-        "text": "Clients who value precise planning, refined finishes, and a calm end-to-end experience."
+        "text": "Clients who value precise planning, refined finishing, and a calm experience from start to finish."
       }
     },
     "values": {
       "eyebrow": "Our Values",
       "title": "Our Values",
-      "desc": "The internal standards we apply to every project — from the first meeting to final handover.",
+      "desc": "The internal standards we apply in every project — from the first meeting to final handover.",
       "items": {
         "1": {
           "title": "Design with Purpose",
-          "desc": "We prioritize comfort, flow, and long-term usability — not just aesthetics."
+          "desc": "We prioritize comfort, flow, and long-term durability — not just aesthetics."
         },
         "2": {
           "title": "Execution That Matches the Design",
-          "desc": "We focus on details, finishes, and site supervision to achieve the final look."
+          "desc": "We focus on details, finishing, and on-site supervision to achieve the final look."
         },
         "3": {
           "title": "Clear Communication",
-          "desc": "Structured steps, timely updates, and transparent decisions."
+          "desc": "Organized steps, timely updates, and transparent decisions."
         }
       }
     },
@@ -901,85 +908,85 @@
       }
     },
     "cta": {
-      "title": "Let’s Design Your Space the Right Way",
-      "desc": "Book a consultation and we’ll guide you through the next steps based on your taste, scope, and timeline.",
+      "title": "Let's Design Your Space the Right Way",
+      "desc": "Book a consultation and we will guide you through the next steps based on your taste, project scope, and timeline.",
       "book": "Book Consultation",
       "whatsapp": "WhatsApp"
     },
     "story": {
       "eyebrow": "Our Story",
-      "title": "Built Around a Simple Belief",
-      "body1": "Into Art was founded with one clear conviction: that residential spaces deserve the same level of precision, detail, and intentionality given to luxury commercial projects. We started as a small team in Kuwait focused entirely on residential work — and that focus has never changed.",
-      "body2": "Over the years, we built a model that combines creative direction with disciplined execution — one that scales across villas, apartments, and private spaces without losing the personal touch our clients expect.",
-      "quote": "Design is not what it looks like. Design is how it works — and how it feels to live in.",
-      "quoteAttr": "IntoArt Design Principle"
+      "title": "It Began with the Belief That Details Make the Difference",
+      "body1": "Into Art was founded with a vision built on the belief that the quality of any space begins with the quality of thinking behind it, and that details are what make the real difference in the quality of the place and the feeling it creates within. From the start, our direction was to offer a complete design experience that pays attention to detail and balances practical beauty with organized execution, reaching a result with real value and a cohesive identity. This direction remains at the core of who we are today.",
+      "body2": "Over the years, we have developed a working style that combines clear design vision with organized execution, delivering a more balanced and transparent experience at every stage, while always preserving the personal character and attention to detail that give each project its own distinction.",
+      "quote": "A place is not measured only by what you see, but by what you feel inside it.",
+      "quoteAttr": "Our Design Philosophy"
     },
     "mv": {
       "eyebrow": "Direction",
-      "title": "Mission & Vision",
+      "title": "Mission and Vision",
       "mission": {
         "label": "Mission",
         "title": "Spaces That Work and Last",
-        "desc": "To deliver residential interiors that combine precise design thinking with reliable execution — creating environments that serve their occupants long after handover."
+        "desc": "To deliver residential interior designs that combine precise design thinking with reliable execution — creating environments that continue serving their users long after handover."
       },
       "vision": {
         "label": "Vision",
-        "title": "The Standard for Residential Interior in Kuwait",
-        "desc": "To become the most trusted residential interior design firm in Kuwait — known for organized delivery, refined aesthetics, and the confidence we give every client throughout their project."
+        "title": "The Standard in Residential Interior Design in Kuwait",
+        "desc": "To become the most trusted residential interior design company in Kuwait — known for organized delivery, refined aesthetics, and the confidence we give every client throughout their project."
       }
     },
     "philosophy": {
       "eyebrow": "How We Think",
       "title": "Design Philosophy",
-      "desc": "The principles that guide every decision we make — from first sketch to final handover.",
+      "desc": "The principles that guide every decision we make — from the first sketch to final handover.",
       "items": {
         "1": {
           "title": "Function Before Form",
-          "desc": "Every layout decision starts with how the space will be lived in. Aesthetics follow a plan that works."
+          "desc": "Every planning decision starts with how the space will be used. Aesthetics come after a layout that truly works."
         },
         "2": {
-          "title": "Materials With Meaning",
-          "desc": "We specify materials based on longevity, tactile quality, and how they age — not just visual impact."
+          "title": "Materials with Meaning",
+          "desc": "We choose materials based on durability, tactile quality, and how they age — not just visual impact."
         },
         "3": {
-          "title": "Detail at Every Scale",
-          "desc": "From ceiling heights to hardware finishes, we control quality at every level of resolution."
+          "title": "Detail at Every Level",
+          "desc": "From ceiling heights to hardware finishes, we control quality at every level of execution."
         }
       }
     },
     "different": {
       "eyebrow": "What Sets Us Apart",
       "title": "What Makes Us Different",
-      "desc": "The qualities that define how we work — and why clients come back.",
+      "desc": "The qualities that define how we work — and why clients return to us.",
       "items": {
         "1": {
-          "title": "Residential-Only Focus",
-          "desc": "We don't split attention between commercial and residential. Every decision is calibrated for how people live."
+          "title": "Exclusive Focus on Residential",
+          "desc": "We do not divide our attention between commercial and residential work. Every decision is calibrated around how people live."
         },
         "2": {
-          "title": "Design + Execution Under One Team",
-          "desc": "No handoff gaps. The team that designs is the team that supervises — keeping intent and output aligned."
+          "title": "Design and Execution Under One Team",
+          "desc": "No delivery gaps. The team that designs is the team that supervises — keeping the intent and the outcome aligned."
         },
         "3": {
-          "title": "Structured Client Process",
-          "desc": "Every client gets a defined timeline, clear checkpoints, and consistent communication — from first meeting to handover."
+          "title": "An Organized Client Process",
+          "desc": "Every client gets a defined timeline, clear checkpoints, and consistent communication — from the first meeting to handover."
         },
         "4": {
-          "title": "Kuwait-Based, Project-Ready",
-          "desc": "We operate locally, know the market, and maintain a production network that supports fast, reliable execution."
+          "title": "Based in Kuwait, Ready for Projects",
+          "desc": "We work locally, know the market, and maintain a production network that supports fast and reliable execution."
         },
         "5": {
-          "title": "Post-Delivery Support",
-          "desc": "We don't disappear after handover. We stay reachable and available for questions, adjustments, and follow-ups."
+          "title": "Post-Handover Support",
+          "desc": "We do not disappear after handover. We remain available for questions, adjustments, and follow-up."
         },
         "6": {
           "title": "Honest Scope Management",
-          "desc": "We set realistic budgets and timelines upfront — no hidden surprises mid-project."
+          "desc": "We set realistic budgets and timelines upfront — no hidden surprises in the middle of the project."
         }
       }
     },
     "trust": {
-      "eyebrow": "Trust & Track Record",
+      "eyebrow": "Trust and Track Record",
       "title": "Numbers That Reflect Our Work",
       "stats": {
         "1": {
@@ -996,22 +1003,22 @@
         }
       },
       "badges": {
-        "1": "Specialized in Residential Interiors",
-        "2": "Design + Execution, End-to-End",
-        "3": "Structured Delivery Process",
-        "4": "Post-Handover Support Included"
+        "1": "Specialists in Residential Interior Design",
+        "2": "Integrated Design and Execution",
+        "3": "Organized Delivery Process",
+        "4": "Post-Handover Support"
       }
     }
   },
   "booking": {
     "hero": {
       "badge": "Book Consultation",
-      "title": "Let’s Plan Your Interior Project the Right Way",
-      "subtitle": "Share a few details with us and we’ll confirm your consultation with the right specialist. This is the fastest way to get clear direction for your space.",
+      "title": "Let's Plan Your Interior Project the Right Way",
+      "subtitle": "Share a few details with us and we will confirm your consultation with the right specialist. This is the fastest way to get clear guidance for your space.",
       "trust": {
-        "1": "Kuwait-based team",
-        "2": "Residential focus",
-        "3": "Organized workflow"
+        "1": "Kuwait-Based Team",
+        "2": "Residential Specialty",
+        "3": "Organized Process"
       }
     },
     "form": {
@@ -1036,7 +1043,7 @@
         "twoSpace": "Two-Space Design Package",
         "fourSpace": "4-Space Design Package",
         "fiveSpace": "5-Space Design Package",
-        "floor": "Full Floor Design Package",
+        "floor": "Floor Design Package",
         "complete": "Complete Package"
       },
       "step4": {
@@ -1044,18 +1051,18 @@
         "hint": "Saturday to Thursday only. Friday is unavailable.",
         "timeLabel": "Preferred Time *",
         "checking": "Checking availability…",
-        "noSlots": "All appointments on this date are fully booked."
+        "noSlots": "All time slots on this date are booked."
       },
       "submit": "Request Consultation",
-      "submitting": "Submitting…",
-      "privacy": "We will contact you only to confirm the appointment.",
+      "submitting": "Sending…",
+      "privacy": "We will only contact you to confirm the appointment.",
       "errorRetry": "Submission failed. Please try again.",
       "errorGeneric": "Something went wrong. Please try again."
     },
     "success": {
-      "badge": "Submitted",
+      "badge": "Sent",
       "title": "Your Consultation Request Has Been Received",
-      "subtitle": "We’ll contact you shortly to confirm the appointment and next steps.",
+      "subtitle": "We will contact you soon to confirm the appointment and the next steps.",
       "backHome": "Back to Home",
       "viewProjects": "View Projects",
       "note": "If you need faster confirmation, contact us via WhatsApp from the consultation page."
@@ -1064,7 +1071,7 @@
   "footer": {
     "brandName": "Into Art",
     "brandAlt": "Into Art Logo",
-    "description": "We provide residential interior design solutions and turnkey execution in Kuwait. We focus on quality, detail, and delivering refined spaces that reflect your lifestyle.",
+    "description": "We provide residential interior design solutions and integrated execution in Kuwait. We focus on quality, detail, and delivering refined spaces that reflect your lifestyle.",
     "address": "Silk Tower, Floor 23, Office 66, Jaber Street, Kuwait City",
     "phone": "Phone:",
     "email": "Email:",
@@ -1073,11 +1080,11 @@
     "services": "Services",
     "quickLinks": "Quick Links",
     "rights": "All rights reserved.",
-    "homeAria": "Go to Home Page",
-    "socialAria": "Social Media Links",
-    "quickLinksAria": "Quick Links",
-    "servicesAria": "Service Links",
-    "mapTitle": "Office Location Map",
+    "homeAria": "Go to homepage",
+    "socialAria": "Social media links",
+    "quickLinksAria": "Quick links",
+    "servicesAria": "Service links",
+    "mapTitle": "Office location map",
     "sections": {
       "quickLinks": "Quick Links",
       "services": "Services",
@@ -1085,8 +1092,6 @@
     },
     "social": {
       "instagram": "Instagram",
-      "tiktok": "TikTok",
-      "youtube": "YouTube",
       "linkedin": "LinkedIn"
     },
     "links": {
@@ -1097,12 +1102,12 @@
       "book": "Book Consultation",
       "projects": "Projects",
       "contact": "Contact Us",
-      "bookConsultation": "Consultation"
+      "bookConsultation": "Book Consultation"
     },
     "servicesLinks": {
       "residentialInterior": "Residential Interior Design",
       "apartmentRenovation": "Apartment Renovation",
-      "turnkeyFitOut": "Turnkey Fit-Out"
+      "turnkeyFitOut": "Integrated Fit-out"
     },
     "labels": {
       "phone": "Phone",
@@ -1115,31 +1120,31 @@
   "projects": {
     "kicker": "Our Work",
     "heroTitle": "Projects",
-    "heroSubtitle": "A selected collection of interior designs delivered with great attention to every detail.",
+    "heroSubtitle": "A curated selection of interior designs executed with great attention to every detail.",
     "introKicker": "Your Ideal Partner",
     "introTitle": "We Design Spaces That Reflect Your Personality",
-    "introDesc": "From concept to handover, we approach every project with precision, warmth, and attention to detail that transforms your space into something unique that expresses who you are.",
+    "introDesc": "From concept to handover, we approach every project with precision, warmth, and attention to detail, turning your space into something unique that expresses who you are.",
     "grid": {
-      "kicker": "Browse Projects",
+      "kicker": "Browse the Work",
       "title": "Find Your Project",
       "desc": "Browse by category or search by title and area to find the right inspiration for your space."
     },
     "viewProject": "View Project",
     "searchPlaceholder": "Search by title, category, or area…",
-    "categoriesAria": "Project Categories",
-    "noResults": "No Projects Found",
+    "categoriesAria": "Project categories",
+    "noResults": "No Projects",
     "noResultsDesc": "Try a different category or adjust your search.",
     "resetFilters": "Reset Filters",
     "ctaTitle": "Want a Similar Result for Your Home?",
-    "ctaDesc": "Book a consultation and we’ll recommend the right approach based on your space and scope.",
+    "ctaDesc": "Book a consultation and we will recommend the right approach based on your space and project scope.",
     "details": {
       "backToAll": "Back to Projects",
       "scope": "Project Scope",
       "gallery": "Gallery",
       "moreProjects": "More Projects",
-      "nextStepDesc": "Book a consultation and we’ll find the right direction for your space, scope, and timeline.",
+      "nextStepDesc": "Book a consultation and we will help define the right direction for your space and project scope.",
       "notFound": "Project Not Found",
-      "notFoundDesc": "The project you’re looking for doesn’t exist or may have been moved.",
+      "notFoundDesc": "The project you are looking for does not exist or may have been moved.",
       "stat": {
         "area": "Area",
         "category": "Category",
@@ -1150,20 +1155,20 @@
   },
   "reviewsForm": {
     "hero": {
-      "eyebrow": "Share your feedback",
-      "title": "Leave your review and experience",
-      "desc": "We would love to hear about your experience with Into Art. Your feedback helps us improve and gives future clients a clearer view of our work."
+      "eyebrow": "Share Your Opinion",
+      "title": "Add Your Rating and Experience With Us",
+      "desc": "We are pleased to hear your feedback about your experience with Into Art. Your input helps us improve and gives new clients a clearer picture of our quality."
     },
     "form": {
-      "nameLabel": "Client name",
-      "namePlaceholder": "Enter your name",
+      "nameLabel": "Name",
+      "namePlaceholder": "Write your name",
       "nameError": "Please enter your name.",
       "ratingLabel": "Rating",
-      "ratingError": "Please select a rating.",
-      "reviewLabel": "Written review",
-      "reviewPlaceholder": "Write your experience with us...",
-      "reviewError": "Please enter a review with at least 10 characters.",
-      "submit": "Submit review",
+      "ratingError": "Please choose a rating.",
+      "reviewLabel": "Describe Your Experience",
+      "reviewPlaceholder": "Describe your experience with us…",
+      "reviewError": "Please write a review of at least 5 characters.",
+      "submit": "Submit Review",
       "success": "Your review has been submitted successfully.",
       "submitting": "Submitting..."
     }
