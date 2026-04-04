@@ -1,6 +1,27 @@
 <!-- ─── HERO ────────────────────────────────────────────────── -->
 <section class="hero hero--image">
-  <div class="hero__bg" aria-hidden="true"></div>
+  <div
+    class="hero__slider"
+    aria-hidden="true"
+    (pointerdown)="heroPointerDown($event)"
+    (pointermove)="heroPointerMove($event)"
+    (pointerup)="heroPointerUp($event)"
+    (pointercancel)="heroPointerUp($event)"
+    (pointerleave)="heroPointerUp($event)"
+  >
+    <div
+      class="hero__slider-track"
+      [class.is-dragging]="heroDragging"
+      [style.transform]="'translateX(calc(' + -heroIndex * 100 + '% + ' + heroDragPx + 'px))'"
+    >
+      @for (img of heroImages; track img) {
+      <div
+        class="hero__bg"
+        [style.backgroundImage]="'linear-gradient(180deg,rgba(0,0,0,0.26) 0%,rgba(0,0,0,0.46) 100%),url(' + img + ')'"
+      ></div>
+      }
+    </div>
+  </div>
 
   <div class="container hero__overlay">
     <div class="hero__content">

@@ -85,6 +85,19 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     { titleKey: 'home.why.items.3.title', descKey: 'home.why.items.3.desc' },
   ];
 
+  heroImages: string[] = [
+    'assets/images/portfolio/projects/living.jpg',
+    'assets/images/portfolio/projects/room.jpg',
+  ];
+
+  heroIndex = 0;
+  heroDragging = false;
+  heroDragPx = 0;
+  private heroStartX = 0;
+  private heroActivePointerId: number | null = null;
+  private heroMoved = false;
+  private heroTimer: number | null = null;
+
   featuredProjects: ProjectCard[] = [
     {
       titleKey: 'home.featured.items.1.title',
@@ -147,6 +160,10 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    this.heroTimer = window.setInterval(() => {
+      if (!this.heroDragging) this.nextHero();
+    }, 4000);
+
     this.projectTimer = window.setInterval(() => {
       if (!this.projectsDragging) this.nextProjects();
     }, 3000);
@@ -198,6 +215,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (this.heroTimer) window.clearInterval(this.heroTimer);
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     this.ctaIO?.disconnect();
     this.whoIO?.disconnect();
@@ -236,6 +254,45 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   goBook(): void {
     this.router.navigateByUrl(this.consultationPath);
+  }
+
+  nextHero(): void {
+    this.heroIndex = (this.heroIndex + 1) % this.heroImages.length;
+  }
+
+  prevHero(): void {
+    this.heroIndex = (this.heroIndex - 1 + this.heroImages.length) % this.heroImages.length;
+  }
+
+  heroPointerDown(e: PointerEvent) {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    this.heroDragging = true;
+    this.heroMoved = false;
+    this.heroDragPx = 0;
+    this.heroStartX = e.clientX;
+    this.heroActivePointerId = e.pointerId;
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  }
+
+  heroPointerMove(e: PointerEvent) {
+    if (!this.heroDragging || this.heroActivePointerId !== e.pointerId) return;
+    const dx = e.clientX - this.heroStartX;
+    if (Math.abs(dx) > 6) this.heroMoved = true;
+    this.heroDragPx = dx;
+  }
+
+  heroPointerUp(e: PointerEvent) {
+    if (!this.heroDragging || this.heroActivePointerId !== e.pointerId) return;
+    this.heroDragging = false;
+    this.heroActivePointerId = null;
+    const dx = this.heroDragPx;
+    this.heroDragPx = 0;
+    if (!this.heroMoved) return;
+    const isRtl = document.documentElement.dir === 'rtl';
+    const threshold = 60;
+    const effectiveDx = isRtl ? -dx : dx;
+    if (effectiveDx <= -threshold) this.nextHero();
+    else if (effectiveDx >= threshold) this.prevHero();
   }
 
   nextProjects(): void {
