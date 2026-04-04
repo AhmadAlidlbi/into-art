@@ -1,18 +1,9 @@
 <!-- ─── HERO ────────────────────────────────────────────────── -->
 <section class="hero hero--image">
-  <div
-    class="hero__slider"
-    aria-hidden="true"
-    (pointerdown)="heroPointerDown($event)"
-    (pointermove)="heroPointerMove($event)"
-    (pointerup)="heroPointerUp($event)"
-    (pointercancel)="heroPointerUp($event)"
-    (pointerleave)="heroPointerUp($event)"
-  >
+  <div class="hero__slider" aria-hidden="true">
     <div
       class="hero__slider-track"
-      [class.is-dragging]="heroDragging"
-      [style.transform]="'translateX(calc(' + -heroIndex * 100 + '% + ' + heroDragPx + 'px))'"
+      [style.transform]="'translateX(' + -heroIndex * 100 + '%)'"
     >
       @for (img of heroImages; track img) {
       <div

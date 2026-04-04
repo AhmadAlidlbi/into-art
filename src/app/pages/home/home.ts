@@ -104,11 +104,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   heroIndex = 0;
-  heroDragging = false;
-  heroDragPx = 0;
-  private heroStartX = 0;
-  private heroActivePointerId: number | null = null;
-  private heroMoved = false;
   private heroTimer: number | null = null;
 
   featuredProjects: ProjectCard[] = [
@@ -174,7 +169,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.heroTimer = window.setInterval(() => {
-      if (!this.heroDragging) this.nextHero();
+      this.nextHero();
     }, 4000);
 
     this.projectTimer = window.setInterval(() => {
@@ -282,10 +277,10 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
     const isRtl = document.documentElement.dir === 'rtl';
     if (isRtl) {
-      this.reviewsAutoSpeed = 0.8;
+      this.reviewsAutoSpeed = 0.5;
       this.reviewsX = -this.reviewsHalfW;
     } else {
-      this.reviewsAutoSpeed = -0.8;
+      this.reviewsAutoSpeed = -0.5;
       this.reviewsX = 0;
     }
 
@@ -356,42 +351,8 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     this.heroIndex = (this.heroIndex + 1) % this.heroImages.length;
   }
 
-  prevHero(): void {
-    this.heroIndex = (this.heroIndex - 1 + this.heroImages.length) % this.heroImages.length;
-  }
 
-  heroPointerDown(e: PointerEvent) {
-    if (e.pointerType === 'mouse' && e.button !== 0) return;
-    this.heroDragging = true;
-    this.heroMoved = false;
-    this.heroDragPx = 0;
-    this.heroStartX = e.clientX;
-    this.heroActivePointerId = e.pointerId;
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-  }
-
-  heroPointerMove(e: PointerEvent) {
-    if (!this.heroDragging || this.heroActivePointerId !== e.pointerId) return;
-    const dx = e.clientX - this.heroStartX;
-    if (Math.abs(dx) > 6) this.heroMoved = true;
-    this.heroDragPx = dx;
-  }
-
-  heroPointerUp(e: PointerEvent) {
-    if (!this.heroDragging || this.heroActivePointerId !== e.pointerId) return;
-    this.heroDragging = false;
-    this.heroActivePointerId = null;
-    const dx = this.heroDragPx;
-    this.heroDragPx = 0;
-    if (!this.heroMoved) return;
-    const isRtl = document.documentElement.dir === 'rtl';
-    const threshold = 60;
-    const effectiveDx = isRtl ? -dx : dx;
-    if (effectiveDx <= -threshold) this.nextHero();
-    else if (effectiveDx >= threshold) this.prevHero();
-  }
-
-  nextProjects(): void {
+nextProjects(): void {
     this.projectIndex = (this.projectIndex + 1) % this.featuredProjects.length;
   }
 
@@ -402,6 +363,12 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   projectsPointerDown(e: PointerEvent) {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+    // Stop auto-advance immediately while user is touching
+    if (this.projectTimer) {
+      window.clearInterval(this.projectTimer);
+      this.projectTimer = null;
+    }
 
     this.projectsDragging = true;
     this.projectsMoved = false;
