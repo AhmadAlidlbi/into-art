@@ -29,13 +29,11 @@ export const routes: Routes = [
       },
       {
         path: 'book-consultation',
-        loadChildren: () =>
-          import('./pages/booking/booking.routes').then((m) => m.BOOKING_ROUTES),
+        loadChildren: () => import('./pages/booking/booking.routes').then((m) => m.BOOKING_ROUTES),
       },
       {
         path: 'contact',
-        loadChildren: () =>
-          import('./pages/contact/contact.routes').then((m) => m.CONTACT_ROUTES),
+        loadChildren: () => import('./pages/contact/contact.routes').then((m) => m.CONTACT_ROUTES),
       },
       {
         path: 'privacy-policy',

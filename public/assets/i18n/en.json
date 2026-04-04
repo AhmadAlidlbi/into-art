@@ -1131,5 +1131,25 @@
     "resetFilters": "Reset Filters",
     "ctaTitle": "Want a Similar Result for Your Home?",
     "ctaDesc": "Book a consultation and we’ll recommend the right approach based on your space and scope."
+  },
+  "reviewsForm": {
+    "hero": {
+      "eyebrow": "Share your feedback",
+      "title": "Leave your review and experience",
+      "desc": "We would love to hear about your experience with Into Art. Your feedback helps us improve and gives future clients a clearer view of our work."
+    },
+    "form": {
+      "nameLabel": "Client name",
+      "namePlaceholder": "Enter your name",
+      "nameError": "Please enter your name.",
+      "ratingLabel": "Rating",
+      "ratingError": "Please select a rating.",
+      "reviewLabel": "Written review",
+      "reviewPlaceholder": "Write your experience with us...",
+      "reviewError": "Please enter a review with at least 10 characters.",
+      "submit": "Submit review",
+      "success": "Your review has been submitted successfully.",
+      "submitting": "Submitting..."
+    }
   }
 }
