@@ -21,7 +21,7 @@ export class FooterComponent {
   year = new Date().getFullYear();
 
   socialLinks: SocialLink[] = [
-    { labelKey: 'footer.social.instagram', href: '#', icon: 'instagram' },
+    { labelKey: 'footer.social.instagram', href: 'https://www.instagram.com/intoart_kwt/', icon: 'instagram' },
     { labelKey: 'footer.social.linkedin', href: '#', icon: 'linkedin' },
   ];
 
