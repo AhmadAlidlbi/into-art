@@ -720,6 +720,13 @@
   margin-top: 14px;
   overflow: hidden;
   border-radius: 18px;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.reviews-marquee:active {
+  cursor: grabbing;
 }
 
 .reviews-marquee__track {
@@ -728,12 +735,7 @@
   width: max-content;
   will-change: transform;
   transform: translate3d(0, 0, 0);
-  animation: reviewsMarquee 100s cubic-bezier(0.25, 0.15, 0.75, 0.85) infinite;
   padding: 4px 0 8px;
-}
-
-.reviews-marquee:hover .reviews-marquee__track {
-  animation-play-state: paused;
 }
 
 .review-card {
@@ -804,14 +806,6 @@
   line-height: 1.4;
 }
 
-@keyframes reviewsMarquee {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(calc(-50% - 7px), 0, 0);
-  }
-}
 
 :host-context(html[dir='rtl']) .reviews-marquee {
   direction: ltr;
@@ -825,12 +819,6 @@
   text-align: left;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .reviews-marquee__track {
-    animation: none !important;
-    transform: none !important;
-  }
-}
 
 /* ─── CTA ────────────────────────────────────────────────── */
 .cta {

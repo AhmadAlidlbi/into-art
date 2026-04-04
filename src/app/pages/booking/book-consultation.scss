@@ -464,6 +464,22 @@
   font-weight: 650;
 }
 
+/* ─── Phone: always LTR text, placeholder right-aligned in Arabic ── */
+.field__input--phone {
+  direction: ltr;
+}
+
+:host-context(html[dir='rtl']) .field__input--phone {
+  direction: ltr;
+  text-align: right;
+}
+
+:host-context(html[dir='rtl']) .field__input--phone::placeholder {
+  direction: ltr;
+  text-align: right;
+  unicode-bidi: bidi-override;
+}
+
 /* ─── Direction Fixes ────────────────────────────────────── */
 :host-context(html[dir='rtl']) .field__input {
   direction: rtl;
@@ -475,15 +491,6 @@
   text-align: left;
 }
 
-:host-context(html[dir='rtl']) .field__input[dir='ltr'] {
-  direction: ltr;
-  text-align: left;
-}
-
-:host-context(html[dir='ltr']) .field__input[dir='rtl'] {
-  direction: rtl;
-  text-align: right;
-}
 
 :host-context(html[dir='rtl']) .field__input::placeholder {
   direction: rtl;
@@ -525,6 +532,78 @@
 :host-context(html[dir='ltr']) .date-field ::ng-deep input.mat-mdc-input-element {
   direction: ltr;
   text-align: left;
+}
+
+/* ─── Desktop: horizontal two-column layout ─────────────── */
+@media (min-width: 981px) {
+  .form-wrap {
+    max-width: none;
+  }
+
+  .form-card {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .form-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-col + .form-col {
+    border-left: var(--stroke);
+  }
+
+  :host-context(html[dir='rtl']) .form-col + .form-col {
+    border-left: none;
+    border-right: var(--stroke);
+  }
+
+  .step {
+    padding: 32px;
+    flex: 1;
+  }
+
+  /* keep divider between the two steps within each column */
+  .form-col .step:first-child {
+    border-bottom: var(--stroke);
+  }
+
+  .form-col .step:last-child {
+    border-bottom: none;
+  }
+
+  /* submit footer */
+  .alert,
+  .submit-btn,
+  .privacy {
+    margin-left: 32px;
+    margin-right: 32px;
+  }
+
+  .submit-btn {
+    width: calc(100% - 64px);
+    margin-top: 24px;
+  }
+
+  .privacy {
+    margin-bottom: 28px;
+  }
+
+  .alert {
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
+
+  /* top border separating cols from footer */
+  .submit-btn {
+    border-top: none;
+  }
 }
 
 /* ─── Responsive ─────────────────────────────────────────── */

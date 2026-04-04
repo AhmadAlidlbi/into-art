@@ -40,6 +40,19 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private whoIO?: IntersectionObserver;
   private metricsAnimated = false;
 
+  @ViewChild('reviewsTrack', { read: ElementRef })
+  reviewsTrackRef?: ElementRef<HTMLElement>;
+  private reviewsX = 0;
+  private reviewsVel = 0;
+  private reviewsDragging = false;
+  private reviewsHalfW = 0;
+  private reviewsAutoSpeed = -1.5;
+  private reviewsRafId = 0;
+  private reviewsDragStartX = 0;
+  private reviewsDragBaseX = 0;
+  private reviewsDragSamples: { x: number; t: number }[] = [];
+  private reviewsActivePtr: number | null = null;
+
   serviceCards: Card[] = [
     {
       titleKey: 'cards.card_1.title',
@@ -170,7 +183,10 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    requestAnimationFrame(() => this.heroEnter.set(true));
+    requestAnimationFrame(() => {
+      this.heroEnter.set(true);
+      this.initReviewsMarquee();
+    });
 
     const ctaEl = this.ctaSection?.nativeElement;
     if (ctaEl) {
@@ -217,6 +233,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.heroTimer) window.clearInterval(this.heroTimer);
     if (this.projectTimer) window.clearInterval(this.projectTimer);
+    if (this.reviewsRafId) cancelAnimationFrame(this.reviewsRafId);
     this.ctaIO?.disconnect();
     this.whoIO?.disconnect();
   }
@@ -254,6 +271,85 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   goBook(): void {
     this.router.navigateByUrl(this.consultationPath);
+  }
+
+  private initReviewsMarquee(): void {
+    const el = this.reviewsTrackRef?.nativeElement;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    this.reviewsHalfW = el.scrollWidth / 2 + 7;
+
+    const isRtl = document.documentElement.dir === 'rtl';
+    if (isRtl) {
+      this.reviewsAutoSpeed = 1.5;
+      this.reviewsX = -this.reviewsHalfW;
+    } else {
+      this.reviewsAutoSpeed = -1.5;
+      this.reviewsX = 0;
+    }
+
+    this.reviewsLoop();
+  }
+
+  private reviewsLoop(): void {
+    this.reviewsRafId = requestAnimationFrame(() => this.reviewsLoop());
+
+    const el = this.reviewsTrackRef?.nativeElement;
+    if (!el || this.reviewsHalfW === 0) return;
+
+    if (!this.reviewsDragging) {
+      if (Math.abs(this.reviewsVel) > 0.2) {
+        this.reviewsX += this.reviewsVel;
+        this.reviewsVel *= 0.94;
+        if (Math.abs(this.reviewsVel) < 0.2) this.reviewsVel = 0;
+      } else {
+        this.reviewsVel = 0;
+        this.reviewsX += this.reviewsAutoSpeed;
+      }
+    }
+
+    // Seamless wrap
+    const hw = this.reviewsHalfW;
+    if (this.reviewsX <= -hw) this.reviewsX += hw;
+    if (this.reviewsX > 0) this.reviewsX -= hw;
+
+    el.style.transform = `translate3d(${this.reviewsX}px, 0, 0)`;
+  }
+
+  reviewsPointerDown(e: PointerEvent): void {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    this.reviewsDragging = true;
+    this.reviewsVel = 0;
+    this.reviewsDragStartX = e.clientX;
+    this.reviewsDragBaseX = this.reviewsX;
+    this.reviewsDragSamples = [{ x: e.clientX, t: Date.now() }];
+    this.reviewsActivePtr = e.pointerId;
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  }
+
+  reviewsPointerMove(e: PointerEvent): void {
+    if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
+    const dx = e.clientX - this.reviewsDragStartX;
+    this.reviewsX = this.reviewsDragBaseX + dx;
+    this.reviewsDragSamples.push({ x: e.clientX, t: Date.now() });
+    if (this.reviewsDragSamples.length > 6) this.reviewsDragSamples.shift();
+  }
+
+  reviewsPointerUp(e: PointerEvent): void {
+    if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
+    this.reviewsDragging = false;
+    this.reviewsActivePtr = null;
+
+    const s = this.reviewsDragSamples;
+    if (s.length >= 2) {
+      const dt = s[s.length - 1].t - s[0].t;
+      const dx = s[s.length - 1].x - s[0].x;
+      if (dt > 0 && dt < 200) {
+        this.reviewsVel = Math.max(-28, Math.min(28, (dx / dt) * 16));
+      }
+    }
+    this.reviewsDragSamples = [];
   }
 
   nextHero(): void {

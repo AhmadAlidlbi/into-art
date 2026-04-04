@@ -206,8 +206,16 @@
       <p class="section__desc">{{ 'home.reviews.desc' | translate }}</p>
     </div>
 
-    <div class="reviews-marquee" [attr.aria-label]="'home.reviews.aria' | translate">
-      <div class="reviews-marquee__track">
+    <div
+      class="reviews-marquee"
+      [attr.aria-label]="'home.reviews.aria' | translate"
+      (pointerdown)="reviewsPointerDown($event)"
+      (pointermove)="reviewsPointerMove($event)"
+      (pointerup)="reviewsPointerUp($event)"
+      (pointercancel)="reviewsPointerUp($event)"
+      (pointerleave)="reviewsPointerUp($event)"
+    >
+      <div class="reviews-marquee__track" #reviewsTrack>
         @for (r of reviews; track r.nameKey) {
         <article class="review-card">
           <div class="review-card__stars">★★★★★</div>

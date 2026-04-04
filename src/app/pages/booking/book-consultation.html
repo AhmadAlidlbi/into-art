@@ -13,7 +13,9 @@
     <div class="form-wrap">
       <div class="form-card">
         <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+          <div class="form-cols">
           <!-- ─── Step 1: Details ──────────────────────── -->
+          <div class="form-col">
           <div class="step">
             <div class="step__head">
               <span class="step__num">01</span>
@@ -42,10 +44,9 @@
               <label class="field">
                 <span class="field__label">{{ 'booking.form.step1.phone' | translate }}</span>
                 <input
-                  class="field__input"
+                  class="field__input field__input--phone"
                   type="tel"
                   formControlName="phone"
-                  dir="ltr"
                   [attr.placeholder]="'booking.form.step1.phone' | translate"
                   [class.is-invalid]="form.controls.phone.touched && form.controls.phone.invalid"
                 />
@@ -116,6 +117,8 @@
             }
           </div>
 
+          </div><!-- /form-col -->
+          <div class="form-col">
           <!-- ─── Step 3: Design Package ───────────────── -->
           <div class="step">
             <div class="step__head">
@@ -238,6 +241,9 @@
             <div class="no-slots">{{ 'booking.form.step4.noSlots' | translate }}</div>
             }
           </div>
+
+          </div><!-- /form-col -->
+          </div><!-- /form-cols -->
 
           <!-- ─── Submit ─────────────────────────────────── -->
           @if (submitError()) {
