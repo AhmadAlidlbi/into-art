@@ -68,7 +68,7 @@
                 [(ngModel)]="form.reviewText"
                 #reviewText="ngModel"
                 required
-                minlength="10"
+                minlength="5"
                 [placeholder]="'reviewsForm.form.reviewPlaceholder' | translate"
               ></textarea>
               @if (reviewText.invalid && reviewText.touched) {

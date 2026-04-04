@@ -1146,7 +1146,7 @@
     "form": {
       "nameLabel": "الاسم",
       "namePlaceholder": "اكتب اسمك",
-      "nameError": "يرجى إدخال اسم العميل.",
+      "nameError": "يرجى إدخال الاسم.",
       "ratingLabel": "التقييم",
       "ratingError": "يرجى اختيار التقييم.",
       "reviewLabel": "اوصف تجربتك",
