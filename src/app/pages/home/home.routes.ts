@@ -5,9 +5,4 @@ export const HOME_ROUTES: Routes = [
     path: '',
     loadComponent: () => import('./home').then((m) => m.HomePage),
   },
-  {
-    path: 'review-submit',
-    loadComponent: () =>
-      import('./reviews-submit/reviews-submit').then((m) => m.ReviewsSubmitComponent),
-  },
 ];

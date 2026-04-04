@@ -1,15 +1,19 @@
-<app-header (mobileOpenChange)="isDrawerOpen.set($event)"></app-header>
-
-<div class="main-content">
-  <router-outlet> </router-outlet>
-</div>
-
-<app-whatsapp-float
-  [enabled]="!isDrawerOpen()"
-  [number]="'96566576673'"
-  [message]="'Hello IntoArt, I need a consultation.'"
-></app-whatsapp-float>
-
-<app-scroll-top [enabled]="!isDrawerOpen()" [bottomOffsetPx]="800"></app-scroll-top>
-
-<app-footer></app-footer>
+@if (!hideLayout()) {
+  <app-header (mobileOpenChange)="isDrawerOpen.set($event)"></app-header>
+  }
+  
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+  
+  @if (!hideLayout()) {
+  <app-whatsapp-float
+    [enabled]="!isDrawerOpen()"
+    [number]="'96566576673'"
+    [message]="'Hello IntoArt, I need a consultation.'"
+  ></app-whatsapp-float>
+  
+  <app-scroll-top [enabled]="!isDrawerOpen()" [bottomOffsetPx]="800"></app-scroll-top>
+  
+  <app-footer></app-footer>
+  }

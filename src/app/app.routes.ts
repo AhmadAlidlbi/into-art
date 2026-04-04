@@ -5,6 +5,11 @@ export const routes: Routes = [
     path: '',
     children: [
       {
+        path: 'review-submit',
+        loadComponent: () =>
+          import('./pages/reviews-submit/reviews-submit').then((m) => m.ReviewsSubmitComponent),
+      },
+      {
         path: '',
         loadChildren: () => import('./pages/home/home.routes').then((m) => m.HOME_ROUTES),
       },

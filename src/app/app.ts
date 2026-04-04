@@ -3,7 +3,6 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { HeaderComponent } from './shared/layout/header/header';
 import { FooterComponent } from './shared/layout/footer/footer';
-import { CookieConsentComponent } from './shared/cookie-consent/cookie-consent';
 import { WhatsappFloatComponent } from './shared/ui/whatsapp-float/whatsapp-float';
 import { ScrollTopComponent } from './shared/ui/scroll-top/scroll-top';
 
@@ -16,7 +15,6 @@ const SCROLL_KEY = 'app_scroll_y';
     RouterOutlet,
     HeaderComponent,
     FooterComponent,
-    CookieConsentComponent,
     WhatsappFloatComponent,
     ScrollTopComponent,
   ],
@@ -53,5 +51,9 @@ export class App implements OnInit {
         }
         window.scrollTo({ top: 0, behavior: 'instant' });
       });
+  }
+
+  hideLayout(): boolean {
+    return this.router.url.startsWith('/review-submit');
   }
 }
