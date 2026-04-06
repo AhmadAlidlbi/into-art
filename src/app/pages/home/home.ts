@@ -99,8 +99,8 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   heroImages: string[] = [
-    'assets/images/portfolio/projects/living.jpg',
-    'assets/images/portfolio/projects/room.jpg',
+    'assets/images/portfolio/projects/Entrance-Foyer.jpg',
+    'assets/images/portfolio/projects/Reception-Zoon-In-Shot.jpg',
   ];
 
   heroIndex = 0;

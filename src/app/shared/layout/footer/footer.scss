@@ -31,7 +31,7 @@
   border-radius: 16px;
   padding: 3px;
   background: rgb(255, 255, 255);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .brand__name {
@@ -75,7 +75,9 @@
   text-decoration: none;
   font-weight: 750;
   font-size: 14px;
-  transition: color 160ms ease, transform 120ms ease;
+  transition:
+    color 160ms ease,
+    transform 120ms ease;
 
   &:hover {
     color: rgba(247, 244, 239, 0.96);
@@ -98,10 +100,12 @@
   display: grid;
   place-items: center;
   text-decoration: none;
-
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition:
+    transform 120ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
 
   svg {
     width: 18px;
@@ -127,14 +131,14 @@
 /* Contact */
 .contact {
   display: grid;
-  gap: 10px;
+  gap: 16px;
 }
 
 .contact__row {
-  display: grid;
-  grid-template-columns: 74px 1fr;
-  gap: 12px;
-  align-items: baseline;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
 }
 
 .contact__label {
@@ -143,16 +147,33 @@
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.6px;
+  line-height: 1.4;
 }
 
 .contact__value {
   color: rgba(247, 244, 239, 0.86);
   text-decoration: none;
   font-weight: 750;
+  line-height: 1.8;
+  display: inline-block;
 
   &:hover {
     color: rgba(247, 244, 239, 0.98);
   }
+}
+
+.contact__value--ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.contact__value--email {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.contact__value--address {
+  max-width: 100%;
 }
 
 /* Mini map */
@@ -166,7 +187,9 @@
     0 0 0 1px rgba(215, 198, 178, 0.08),
     0 8px 24px rgba(0, 0, 0, 0.28);
   position: relative;
-  transition: box-shadow 200ms ease, border-color 200ms ease;
+  transition:
+    box-shadow 200ms ease,
+    border-color 200ms ease;
 
   &::after {
     content: '';
@@ -202,7 +225,7 @@
 .bottom {
   margin-top: 34px;
   padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -234,13 +257,36 @@
 }
 
 /* RTL */
-:host-context(html[dir='rtl']) .contact__row {
+:host-context(html[dir='rtl']) .contact {
   text-align: right;
 }
 
-:host-context(html[dir='rtl']) a.contact__value {
-  direction: ltr;
+:host-context(html[dir='rtl']) .contact__row {
+  align-items: flex-end;
+  width: 100%;
+}
+
+:host-context(html[dir='rtl']) .contact__label {
   text-align: right;
+  width: 100%;
+}
+
+:host-context(html[dir='rtl']) .contact__value {
+  text-align: right;
+  width: 100%;
+}
+
+:host-context(html[dir='rtl']) .contact__value--ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: right;
+  width: 100%;
+  display: block;
+}
+
+:host-context(html[dir='rtl']) .contact__value--address {
+  text-align: right;
+  width: 100%;
 }
 
 /* Responsive */
@@ -252,10 +298,6 @@
 
 @media (max-width: 560px) {
   .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .contact__row {
     grid-template-columns: 1fr;
   }
 

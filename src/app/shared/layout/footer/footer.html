@@ -21,7 +21,6 @@
           {{ 'footer.description' | translate }}
         </p>
 
-        <!-- Social icons -->
         <div class="social" [attr.aria-label]="'footer.socialAria' | translate">
           <a
             *ngFor="let s of socialLinks"
@@ -33,7 +32,6 @@
             (click)="s.href === '#' ? $event.preventDefault() : null"
           >
             <ng-container [ngSwitch]="s.icon">
-              <!-- Instagram -->
               <svg *ngSwitchCase="'instagram'" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   fill="currentColor"
@@ -41,7 +39,6 @@
                 />
               </svg>
 
-              <!-- LinkedIn -->
               <svg *ngSwitchCase="'linkedin'" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   fill="currentColor"
@@ -80,17 +77,22 @@
         <div class="contact">
           <div class="contact__row">
             <span class="contact__label">{{ 'footer.phone' | translate }}</span>
-            <a class="contact__value" href="tel:+96566576673" dir="ltr">+965 6657 6673</a>
+            <a class="contact__value contact__value--ltr" href="tel:+96566576673">+965 6657 6673</a>
           </div>
 
           <div class="contact__row">
             <span class="contact__label">{{ 'footer.email' | translate }}</span>
-            <a class="contact__value" href="mailto:info@intoakwt.com">info@intoakwt.com</a>
+            <a
+              class="contact__value contact__value--ltr contact__value--email"
+              href="mailto:info@intoakwt.com"
+            >
+              info@intoakwt.com
+            </a>
           </div>
 
           <div class="contact__row">
             <span class="contact__label">{{ 'footer.location' | translate }}</span>
-            <span class="contact__value">
+            <span class="contact__value contact__value--address">
               {{ 'footer.address' | translate }}
             </span>
           </div>

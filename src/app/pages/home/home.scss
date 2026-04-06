@@ -132,7 +132,9 @@
 
 .hero__actions .btn,
 .cta__actions .btn {
-  transition: transform 140ms ease, box-shadow 140ms ease;
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease;
   box-shadow: 0 18px 44px rgba(22, 20, 20, 0.1);
   will-change: transform;
 }
@@ -159,7 +161,9 @@
   border-radius: 20px;
   border: var(--stroke);
   background: rgba(255, 255, 255, 0.92);
-  box-shadow: var(--shine), 0 20px 50px rgba(22, 20, 20, 0.11);
+  box-shadow:
+    var(--shine),
+    0 20px 50px rgba(22, 20, 20, 0.11);
   overflow: hidden;
 }
 
@@ -216,7 +220,9 @@
   font-size: 14px;
   font-weight: 950;
   color: rgba(22, 20, 20, 0.35);
-  transition: transform 150ms ease, color 150ms ease;
+  transition:
+    transform 150ms ease,
+    color 150ms ease;
   flex-shrink: 0;
 }
 
@@ -301,7 +307,7 @@
   min-height: 380px;
   background:
     linear-gradient(180deg, rgba(22, 20, 20, 0.05) 0%, rgba(22, 20, 20, 0.22) 100%),
-    url('/assets/images/portfolio/projects/living.jpg');
+    url('/assets/images/portfolio/projects/Reception-Top-View.jpg');
   background-size: cover;
   background-position: center;
   box-shadow: 0 24px 56px rgba(22, 20, 20, 0.13);
@@ -479,8 +485,13 @@
   padding: 0;
   appearance: none;
   -webkit-appearance: none;
-  box-shadow: var(--shine), 0 10px 22px rgba(22, 20, 20, 0.08);
-  transition: transform 120ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  box-shadow:
+    var(--shine),
+    0 10px 22px rgba(22, 20, 20, 0.08);
+  transition:
+    transform 120ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
   font-size: 0;
 }
 
@@ -605,7 +616,9 @@
   height: 6px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.35);
-  transition: width 260ms ease, background 260ms ease;
+  transition:
+    width 260ms ease,
+    background 260ms ease;
 }
 
 .slide__dot.is-active {
@@ -626,10 +639,10 @@
 /* ─── PROCEDURE ──────────────────────────────────────────── */
 .procedure-header {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1fr;
+  gap: 12px;
   align-items: end;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 
 .procedure-header__title {
@@ -658,12 +671,11 @@
 
 .procedure-item {
   display: grid;
-  grid-template-columns: 64px 1fr;
+  grid-template-columns: 64px minmax(180px, 230px) minmax(0, 1fr);
   gap: 28px;
-  align-items: center;
-  padding: 24px 0;
+  align-items: start;
+  padding: 26px 0;
   border-bottom: 1px solid rgba(231, 224, 216, 0.95);
-  cursor: default;
 }
 
 .procedure-item:hover .procedure-item__num {
@@ -677,30 +689,25 @@
   color: rgba(22, 20, 20, 0.14);
   transition: color 160ms ease;
   font-variant-numeric: tabular-nums;
+  line-height: 1.6;
+  padding-top: 2px;
 }
-
-.procedure-item__body {
-  display: flex;
-  gap: 24px;
-  align-items: baseline;
-}
-
 .procedure-item__title {
   margin: 0;
   font-size: 16px;
   font-weight: 950;
   letter-spacing: -0.2px;
   color: var(--text);
-  min-width: 160px;
-  flex-shrink: 0;
+  line-height: 1.6;
 }
 
 .procedure-item__desc {
   margin: 0;
   color: var(--text-2);
-  line-height: 1.8;
+  line-height: 1.9;
   font-size: 14px;
   font-weight: 650;
+  max-width: none;
 }
 
 :host-context(html[dir='rtl']) .procedure-header {
@@ -708,7 +715,24 @@
 }
 
 :host-context(html[dir='rtl']) .procedure-item {
+  grid-template-columns: 64px minmax(180px, 230px) minmax(0, 1fr);
   text-align: right;
+}
+
+@media (max-width: 980px) {
+  .procedure-item {
+    grid-template-columns: 48px 1fr;
+    gap: 14px 18px;
+  }
+
+  .procedure-item__title {
+    grid-column: 2;
+    margin-bottom: 4px;
+  }
+
+  .procedure-item__desc {
+    grid-column: 2;
+  }
 }
 
 /* ─── REVIEWS ────────────────────────────────────────────── */
@@ -745,7 +769,9 @@
   background: rgba(255, 255, 255, 0.88);
   padding: 20px;
   box-shadow: var(--shine), var(--elev-1);
-  transition: transform 140ms ease, box-shadow 160ms ease;
+  transition:
+    transform 140ms ease,
+    box-shadow 160ms ease;
   display: flex;
   flex-direction: column;
 }
@@ -806,7 +832,6 @@
   line-height: 1.4;
 }
 
-
 :host-context(html[dir='rtl']) .reviews-marquee {
   direction: ltr;
 }
@@ -818,7 +843,6 @@
   direction: ltr;
   text-align: left;
 }
-
 
 /* ─── CTA ────────────────────────────────────────────────── */
 .cta {
