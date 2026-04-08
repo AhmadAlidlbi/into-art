@@ -11,9 +11,9 @@ import {
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { PROJECTS } from '../projects/services/projects.data';
 
 type Feature = { titleKey: string; descKey: string };
-type ProjectCard = { titleKey: string; categoryKey: string; image: string; slug?: string };
 type Review = { nameKey: string; roleKey: string; textKey: string };
 type Card = { titleKey: string; descKey: string; path: string };
 type Step = { titleKey: string; descKey: string };
@@ -27,6 +27,8 @@ type Step = { titleKey: string; descKey: string };
 })
 export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   @Input() consultationPath = '/book-consultation';
+
+  whoMediaImage = 'assets/images/portfolio/projects/Reception-Top-View.jpg';
 
   heroEnter = signal(false);
   ctaEnter = signal(false);
@@ -62,17 +64,17 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     {
       titleKey: 'cards.card_2.title',
       descKey: 'cards.card_2.description',
-      path: '/under-construction',
+      path: '/',
     },
     {
       titleKey: 'cards.card_3.title',
       descKey: 'cards.card_3.description',
-      path: '/under-construction',
+      path: '/',
     },
     {
       titleKey: 'cards.card_4.title',
       descKey: 'cards.card_4.description',
-      path: '/under-construction',
+      path: '/',
     },
   ];
 
@@ -106,26 +108,12 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   heroIndex = 0;
   private heroTimer: number | null = null;
 
-  featuredProjects: ProjectCard[] = [
-    {
-      titleKey: 'home.featured.items.1.title',
-      categoryKey: 'home.featured.items.1.category',
-      image: 'assets/images/portfolio/projects/living.jpg',
-      slug: 'modern-apartment-living-room',
-    },
-    {
-      titleKey: 'home.featured.items.2.title',
-      categoryKey: 'home.featured.items.2.category',
-      image: 'assets/images/portfolio/projects/room.jpg',
-      slug: 'warm-minimal-bedroom',
-    },
-    {
-      titleKey: 'home.featured.items.3.title',
-      categoryKey: 'home.featured.items.3.category',
-      image: 'assets/images/portfolio/projects/living.jpg',
-      slug: 'contemporary-villa-majlis',
-    },
-  ];
+  // ─── Featured projects: pulled live from projects.data.ts via featured flag
+  // Falls back to first 3 projects if none are flagged featured
+  featuredProjects = (() => {
+    const featured = PROJECTS.filter((p) => p.featured === true);
+    return featured.length > 0 ? featured.slice(0, 5) : PROJECTS.slice(0, 3);
+  })();
 
   projectIndex = 0;
   private projectTimer: number | null = null;
@@ -189,14 +177,12 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         (entries) => {
           const entry = entries[0];
           if (!entry?.isIntersecting) return;
-
           this.ctaEnter.set(true);
           this.ctaIO?.disconnect();
           this.ctaIO = undefined;
         },
         { threshold: 0.25, rootMargin: '0px 0px -10% 0px' }
       );
-
       this.ctaIO.observe(ctaEl);
     }
 
@@ -208,19 +194,13 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
           if (!entry || this.metricsAnimated) return;
           if (!entry.isIntersecting) return;
           if (entry.intersectionRatio < 0.75) return;
-
           this.metricsAnimated = true;
           this.animateWhoMetrics();
-
           this.whoIO?.disconnect();
           this.whoIO = undefined;
         },
-        {
-          threshold: 0.75,
-          rootMargin: '-8% 0px 0px 0px',
-        }
+        { threshold: 0.75, rootMargin: '-8% 0px 0px 0px' }
       );
-
       this.whoIO.observe(target);
     }
   }
@@ -236,22 +216,18 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private animateWhoMetrics(): void {
     const start = performance.now();
     const duration = 1400;
-
     const yTarget = this.metricsTarget.years;
     const dTarget = this.metricsTarget.designProjects;
     const eTarget = this.metricsTarget.executionProjects;
-
     const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
     const tick = (now: number) => {
       const elapsed = now - start;
       const p = Math.min(1, elapsed / duration);
       const eased = easeOutCubic(p);
-
       this.yearsDisplay = Math.round(yTarget * eased);
       this.designProjectsDisplay = Math.round(dTarget * eased);
       this.executionProjectsDisplay = Math.round(eTarget * eased);
-
       if (p < 1) {
         requestAnimationFrame(tick);
       } else {
@@ -260,7 +236,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         this.executionProjectsDisplay = eTarget;
       }
     };
-
     requestAnimationFrame(tick);
   }
 
@@ -272,9 +247,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     const el = this.reviewsTrackRef?.nativeElement;
     if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
     this.reviewsHalfW = el.scrollWidth / 2 + 7;
-
     const isRtl = document.documentElement.dir === 'rtl';
     if (isRtl) {
       this.reviewsAutoSpeed = 0.5;
@@ -283,16 +256,13 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       this.reviewsAutoSpeed = -0.5;
       this.reviewsX = 0;
     }
-
     this.reviewsLoop();
   }
 
   private reviewsLoop(): void {
     this.reviewsRafId = requestAnimationFrame(() => this.reviewsLoop());
-
     const el = this.reviewsTrackRef?.nativeElement;
     if (!el || this.reviewsHalfW === 0) return;
-
     if (!this.reviewsDragging) {
       if (Math.abs(this.reviewsVel) > 0.2) {
         this.reviewsX += this.reviewsVel;
@@ -303,12 +273,9 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         this.reviewsX += this.reviewsAutoSpeed;
       }
     }
-
-    // Seamless wrap
     const hw = this.reviewsHalfW;
     if (this.reviewsX <= -hw) this.reviewsX += hw;
     if (this.reviewsX > 0) this.reviewsX -= hw;
-
     el.style.transform = `translate3d(${this.reviewsX}px, 0, 0)`;
   }
 
@@ -335,7 +302,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
     this.reviewsDragging = false;
     this.reviewsActivePtr = null;
-
     const s = this.reviewsDragSamples;
     if (s.length >= 2) {
       const dt = s[s.length - 1].t - s[0].t;
@@ -351,8 +317,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     this.heroIndex = (this.heroIndex + 1) % this.heroImages.length;
   }
 
-
-nextProjects(): void {
+  nextProjects(): void {
     this.projectIndex = (this.projectIndex + 1) % this.featuredProjects.length;
   }
 
@@ -363,48 +328,36 @@ nextProjects(): void {
 
   projectsPointerDown(e: PointerEvent) {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
-
-    // Stop auto-advance immediately while user is touching
     if (this.projectTimer) {
       window.clearInterval(this.projectTimer);
       this.projectTimer = null;
     }
-
     this.projectsDragging = true;
     this.projectsMoved = false;
     this.projectsDragPx = 0;
-
     this.projectsStartX = e.clientX;
     this.projectsActivePointerId = e.pointerId;
-
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   }
 
   projectsPointerMove(e: PointerEvent) {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
-
     const dx = e.clientX - this.projectsStartX;
     if (Math.abs(dx) > 6) this.projectsMoved = true;
-
     this.projectsDragPx = dx;
   }
 
   projectsPointerUp(e: PointerEvent) {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
-
     this.projectsDragging = false;
     this.projectsActivePointerId = null;
-
     const dx = this.projectsDragPx;
     this.projectsDragPx = 0;
-
     if (this.projectsMoved) {
       const threshold = 60;
       if (dx <= -threshold) this.nextProjects();
       else if (dx >= threshold) this.prevProjects();
     }
-
-    // Reset timer so the next auto-flip is a full interval away
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     this.projectTimer = window.setInterval(() => {
       if (!this.projectsDragging) this.nextProjects();
