@@ -1,10 +1,13 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 import { HeaderComponent } from './shared/layout/header/header';
 import { FooterComponent } from './shared/layout/footer/footer';
 import { WhatsappFloatComponent } from './shared/ui/whatsapp-float/whatsapp-float';
 import { ScrollTopComponent } from './shared/ui/scroll-top/scroll-top';
+import { WHATSAPP_NUMBER, WHATSAPP_MESSAGE_KEY } from './shared/constants/whatsapp.constants';
 
 const SCROLL_KEY = 'app_scroll_y';
 
@@ -22,14 +25,25 @@ const SCROLL_KEY = 'app_scroll_y';
   styleUrls: ['./app.scss'],
 })
 export class App implements OnInit {
+  private readonly translate = inject(TranslateService);
+  private readonly router = inject(Router);
+
   isDrawerOpen = signal(false);
+
+  readonly whatsappNumber = WHATSAPP_NUMBER;
+
+  /** Reactively re-translates whenever the language changes. */
+  readonly whatsappMessage = toSignal(
+    this.translate.stream(WHATSAPP_MESSAGE_KEY),
+    { initialValue: this.translate.instant(WHATSAPP_MESSAGE_KEY) }
+  );
 
   private isFirstNav = true;
   private readonly isReload =
     (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined)
       ?.type === 'reload';
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {
     window.addEventListener('beforeunload', () => {

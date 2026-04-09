@@ -928,5 +928,8 @@
       "success": "Your review was submitted successfully.",
       "submitting": "Submitting..."
     }
+  },
+  "whatsapp": {
+    "message": "Hello, I would like to inquire about your interior design services."
   }
 }

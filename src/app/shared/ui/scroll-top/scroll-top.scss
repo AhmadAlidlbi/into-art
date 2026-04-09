@@ -35,11 +35,9 @@
   }
   
   .to-top__icon {
-    font-size: 20px;
-    font-weight: 950;
-    /* ✅ dark icon on white bg */
+    display: block;
+    flex-shrink: 0;
     color: rgba(22, 20, 20, 0.88);
-    line-height: 1;
   }
   
   /* RTL => move to right */
