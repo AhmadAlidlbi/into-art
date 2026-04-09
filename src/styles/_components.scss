@@ -41,6 +41,7 @@
     cursor: pointer;
     font-weight: 800;
     font-size: 14px;
+    font-family: inherit;
     transition: transform 120ms ease, opacity 120ms ease, background 120ms ease;
 
     &:active { transform: translateY(1px); }
