@@ -3,10 +3,10 @@ import { TranslateService } from '@ngx-translate/core';
 
 export type AppLang = 'en' | 'ar';
 
+export const LANG_STORAGE_KEY = 'intoart_lang';
+
 @Injectable({ providedIn: 'root' })
 export class I18nService {
-  private readonly storageKey = 'intoart_lang';
-
   lang = signal<AppLang>(this.readInitialLang());
 
   constructor(private translate: TranslateService) {
@@ -27,12 +27,12 @@ export class I18nService {
   }
 
   private readInitialLang(): AppLang {
-    const saved = (localStorage.getItem(this.storageKey) as AppLang | null);
-    return saved === 'ar' || saved === 'en' ? saved : 'en';
+    const saved = localStorage.getItem(LANG_STORAGE_KEY) as AppLang | null;
+    return saved === 'ar' || saved === 'en' ? saved : 'ar';
   }
 
   private persist(l: AppLang): void {
-    localStorage.setItem(this.storageKey, l);
+    localStorage.setItem(LANG_STORAGE_KEY, l);
   }
 
   private applyDocumentDirection(l: AppLang): void {

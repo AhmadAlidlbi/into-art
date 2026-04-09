@@ -8,7 +8,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "src/app/shared/constants/company.constants.ts"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

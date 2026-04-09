@@ -6,7 +6,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-ar);
+  /* Font applied in styles.scss via html[dir] — not hardcoded here */
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -55,7 +55,7 @@ a {
   font-weight: 500;
 }
 
-/* English text helper */
+/* Force Inter on LTR inline elements within AR pages */
 .lang-en {
   font-family: var(--font-en);
   direction: ltr;

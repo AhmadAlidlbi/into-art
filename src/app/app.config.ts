@@ -11,6 +11,8 @@ import { routes } from './app.routes';
 
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
+const LANG_KEY = 'intoart_lang';
+
 export function translateLoaderFactory(http: HttpClient): TranslateLoader {
   return {
     getTranslation: (lang: string) => http.get<Record<string, any>>(`/assets/i18n/${lang}.json`),
@@ -19,7 +21,7 @@ export function translateLoaderFactory(http: HttpClient): TranslateLoader {
 
 export function i18nInitFactory(translate: TranslateService) {
   return async () => {
-    const saved = (localStorage.getItem('lang') as 'en' | 'ar' | null) ?? 'ar';
+    const saved = (localStorage.getItem(LANG_KEY) as 'en' | 'ar' | null) ?? 'ar';
 
     translate.setDefaultLang('ar');
 

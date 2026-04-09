@@ -1,97 +1,92 @@
 export type Project = {
-    slug: string;
-    title: string;
-    category: string;
-    location?: string;
-    area?: string;
-    year?: string;
-    cover: string;
-    gallery: string[];
-    summary: string;
-    scope: string[];
-    featured?: boolean; // ✅ add
-  };
-  
-  
-  export const PROJECT_CATEGORIES = [
-    'All',
-    'Villa',
-    'Apartment',
-    'Living Room',
-    'Bedroom',
-    'Majlis',
-    'Kitchen',
-  ] as const;
-  
-  export const PROJECTS: Project[] = [
-    {
-      slug: 'modern-apartment-living-room',
-      title: 'Modern Apartment Living Room',
-      category: 'Living Room',
-      featured: true,
-      location: 'Kuwait',
-      area: 'Salmiya',
-      year: '2025',
-      cover: 'assets/images/portfolio/projects/p1.webp',
-      gallery: [
-        'assets/images/portfolio/projects/p1.webp',
-        'assets/images/portfolio/projects/p1-2.webp',
-        'assets/images/portfolio/projects/p1-3.webp',
-      ],
-      summary:
-        'A modern living room concept focused on clean lines, warm textures, and practical circulation for daily use.',
-      scope: [
-        'Space planning & layout',
-        'Material & color selection',
-        'Lighting guidance',
-        'Execution supervision',
-      ],
-    },
-    {
-      slug: 'warm-minimal-bedroom',
-      title: 'Warm Minimal Bedroom',
-      category: 'Bedroom',
-      featured: true,
-      location: 'Kuwait',
-      area: 'Hawally',
-      year: '2025',
-      cover: 'assets/images/portfolio/projects/p2.webp',
-      gallery: [
-        'assets/images/portfolio/projects/p2.webp',
-        'assets/images/portfolio/projects/p2-2.webp',
-        'assets/images/portfolio/projects/p2-3.webp',
-      ],
-      summary:
-        'A calm, minimal bedroom with warm finishes and integrated storage for a refined everyday experience.',
-      scope: [
-        'Concept design',
-        'Furniture & storage planning',
-        'Finishes and detailing',
-        'Handover-ready delivery',
-      ],
-    },
-    {
-      slug: 'contemporary-villa-majlis',
-      title: 'Contemporary Villa Majlis',
-      category: 'Majlis',
-      featured: true,
-      location: 'Kuwait',
-      area: 'Al-Zahra',
-      year: '2024',
-      cover: 'assets/images/portfolio/projects/p3.webp',
-      gallery: [
-        'assets/images/portfolio/projects/p3.webp',
-        'assets/images/portfolio/projects/p3-2.webp',
-        'assets/images/portfolio/projects/p3-3.webp',
-      ],
-      summary:
-        'A villa majlis designed with contemporary elegance, layered lighting, and premium finishes.',
-      scope: [
-        'Space planning',
-        'Lighting and ceiling details',
-        'Finishing package selection',
-        'Site supervision',
-      ],
-    },
-  ];
-  
+  slug: string;
+  titleKey: string;
+  categoryKey: string;
+  location?: string;
+  area?: string;
+  year?: string;
+  cover: string;
+  gallery: string[];
+  summaryKey: string;
+  scopeKeys: string[];
+  featured?: boolean;
+};
+
+export const PROJECT_CATEGORIES = [
+  { value: 'All', labelKey: 'projects.filters.all' },
+  { value: 'Villa', labelKey: 'projectsData.categories.villa' },
+  { value: 'Apartment', labelKey: 'projectsData.categories.apartment' },
+  { value: 'Living Room', labelKey: 'projectsData.categories.livingRoom' },
+  { value: 'Bedroom', labelKey: 'projectsData.categories.bedroom' },
+  { value: 'Majlis', labelKey: 'projectsData.categories.majlis' },
+  { value: 'Kitchen', labelKey: 'projectsData.categories.kitchen' },
+] as const;
+
+export const PROJECTS: Project[] = [
+  {
+    slug: 'modern-apartment-living-room',
+    titleKey: 'projectsData.items.modernApartmentLivingRoom.title',
+    categoryKey: 'projectsData.categories.livingRoom',
+    featured: true,
+    location: 'Kuwait',
+    area: 'Salmiya',
+    year: '2025',
+    cover: 'assets/images/portfolio/projects/p1.webp',
+    gallery: [
+      'assets/images/portfolio/projects/p1.webp',
+      'assets/images/portfolio/projects/p1-2.webp',
+      'assets/images/portfolio/projects/p1-3.webp',
+    ],
+    summaryKey: 'projectsData.items.modernApartmentLivingRoom.summary',
+    scopeKeys: [
+      'projectsData.items.modernApartmentLivingRoom.scope.1',
+      'projectsData.items.modernApartmentLivingRoom.scope.2',
+      'projectsData.items.modernApartmentLivingRoom.scope.3',
+      'projectsData.items.modernApartmentLivingRoom.scope.4',
+    ],
+  },
+  {
+    slug: 'warm-minimal-bedroom',
+    titleKey: 'projectsData.items.warmMinimalBedroom.title',
+    categoryKey: 'projectsData.categories.bedroom',
+    featured: true,
+    location: 'Kuwait',
+    area: 'Hawally',
+    year: '2025',
+    cover: 'assets/images/portfolio/projects/p2.webp',
+    gallery: [
+      'assets/images/portfolio/projects/p2.webp',
+      'assets/images/portfolio/projects/p2-2.webp',
+      'assets/images/portfolio/projects/p2-3.webp',
+    ],
+    summaryKey: 'projectsData.items.warmMinimalBedroom.summary',
+    scopeKeys: [
+      'projectsData.items.warmMinimalBedroom.scope.1',
+      'projectsData.items.warmMinimalBedroom.scope.2',
+      'projectsData.items.warmMinimalBedroom.scope.3',
+      'projectsData.items.warmMinimalBedroom.scope.4',
+    ],
+  },
+  {
+    slug: 'contemporary-villa-majlis',
+    titleKey: 'projectsData.items.contemporaryVillaMajlis.title',
+    categoryKey: 'projectsData.categories.majlis',
+    featured: true,
+    location: 'Kuwait',
+    area: 'Al-Zahra',
+    year: '2024',
+    cover: 'assets/images/portfolio/projects/p3.webp',
+    gallery: [
+      'assets/images/portfolio/projects/p3.webp',
+      'assets/images/portfolio/projects/p3-2.webp',
+      'assets/images/portfolio/projects/p3-3.webp',
+    ],
+    summaryKey: 'projectsData.items.contemporaryVillaMajlis.summary',
+    scopeKeys: [
+      'projectsData.items.contemporaryVillaMajlis.scope.1',
+      'projectsData.items.contemporaryVillaMajlis.scope.2',
+      'projectsData.items.contemporaryVillaMajlis.scope.3',
+      'projectsData.items.contemporaryVillaMajlis.scope.4',
+    ],
+  },
+];

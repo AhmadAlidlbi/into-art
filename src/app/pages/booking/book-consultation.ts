@@ -5,22 +5,10 @@ import { Router } from '@angular/router';
 import { BookingService, ConsultationPayload } from './services/booking.service';
 
 import { TranslateModule } from '@ngx-translate/core';
-
-/* Angular Material */
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
-/* NEW TYPES */
-type BuildingCondition = 'New building' | 'Restoration' | 'Other';
-
-type DesignPackage =
-  | 'Two-space design package'
-  | '4-space design package'
-  | '5-space design package'
-  | 'Floor Design Package'
-  | 'Complete coupon design package';
 
 @Component({
   selector: 'app-book-consultation',
@@ -45,15 +33,15 @@ export class BookConsultationPage {
   submitError = signal<string | null>(null);
   availableHours = signal<string[]>([]);
 
-  today = new Date();
+  readonly today = new Date();
+
   private readonly BLOCKED_DAY = 5; // Friday
   public readonly HOURS = ['09:00', '10:30', '12:00', '14:00', '16:00', '18:00'];
   private slotsCache = new Map<string, string[]>();
 
-  form; // ← declare only
+  form;
 
   constructor(private fb: FormBuilder, private booking: BookingService, private router: Router) {
-    // ✅ initialize AFTER fb exists
     this.form = this.fb.nonNullable.group({
       /* REQUIRED */
       fullName: ['', [Validators.required, Validators.minLength(2)]],
@@ -98,20 +86,16 @@ export class BookConsultationPage {
 
     const iso = this.formatLocalDate(date);
 
-    // ✅ use cache if available
     if (this.slotsCache.has(iso)) {
       this.availableHours.set(this.slotsCache.get(iso)!);
       return;
     }
 
-    // ⏳ show loading instantly
     this.loadingSlots.set(true);
 
     try {
       const res = await this.booking.getBookedSlots(iso);
       const free = this.HOURS.filter((h) => !res.bookedSlots.includes(h));
-
-      // ✅ cache result
       this.slotsCache.set(iso, free);
       this.availableHours.set(free);
     } finally {
@@ -122,14 +106,6 @@ export class BookConsultationPage {
   selectHour(hour: string): void {
     this.timeTaken.set(false);
     this.form.controls.preferredHour.setValue(hour);
-  }
-
-  openWhatsApp(): void {
-    window.open('https://wa.me/96550000000', '_blank', 'noopener');
-  }
-
-  callNow(): void {
-    window.open('tel:+96550000000');
   }
 
   private toPayload(): ConsultationPayload {
@@ -160,6 +136,16 @@ export class BookConsultationPage {
   async submit(): Promise<void> {
     this.submitError.set(null);
     this.timeTaken.set(false);
+
+    if (
+      this.form.controls.buildingCondition.value === 'Other' &&
+      !this.form.controls.buildingConditionOther.value?.trim()
+    ) {
+      this.form.controls.buildingConditionOther.setErrors({ required: true });
+      this.form.controls.buildingConditionOther.markAsTouched();
+      this.form.markAllAsTouched();
+      return;
+    }
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();

@@ -14,254 +14,293 @@
       <div class="form-card">
         <form class="form" [formGroup]="form" (ngSubmit)="submit()">
           <div class="form-cols">
-          <!-- ─── Step 1: Details ──────────────────────── -->
-          <div class="form-col">
-          <div class="step">
-            <div class="step__head">
-              <span class="step__num">01</span>
-              <h2 class="step__title">{{ 'booking.form.step1.title' | translate }}</h2>
-            </div>
 
-            <div class="row">
-              <label class="field">
-                <span class="field__label">{{ 'booking.form.step1.fullName' | translate }}</span>
-                <input
-                  class="field__input"
-                  type="text"
-                  formControlName="fullName"
-                  [attr.placeholder]="'booking.form.step1.fullName' | translate"
+            <!-- ─── Column 1 ──────────────────────────────── -->
+            <div class="form-col">
+
+              <!-- Step 1: Details -->
+              <div class="step">
+                <div class="step__head">
+                  <span class="step__num">01</span>
+                  <h2 class="step__title">{{ 'booking.form.step1.title' | translate }}</h2>
+                </div>
+
+                <div class="row">
+                  <label class="field">
+                    <span class="field__label">{{ 'booking.form.step1.fullName' | translate }}</span>
+                    <input
+                      class="field__input"
+                      type="text"
+                      formControlName="fullName"
+                      [attr.placeholder]="'booking.form.step1.fullName' | translate"
+                      [class.is-invalid]="
+                        form.controls.fullName.touched && form.controls.fullName.invalid
+                      "
+                    />
+                    @if (form.controls.fullName.touched && form.controls.fullName.invalid) {
+                      <span class="field__error">
+                        {{ 'booking.form.step1.fullNameError' | translate }}
+                      </span>
+                    }
+                  </label>
+
+                  <label class="field">
+                    <span class="field__label">{{ 'booking.form.step1.phone' | translate }}</span>
+                    <input
+                      class="field__input field__input--phone"
+                      type="tel"
+                      formControlName="phone"
+                      [attr.placeholder]="'booking.form.step1.phone' | translate"
+                      [class.is-invalid]="form.controls.phone.touched && form.controls.phone.invalid"
+                    />
+                    @if (form.controls.phone.touched && form.controls.phone.invalid) {
+                      <span class="field__error">
+                        {{ 'booking.form.step1.phoneError' | translate }}
+                      </span>
+                    }
+                  </label>
+                </div>
+              </div>
+
+              <!-- Step 2: Building Condition -->
+              <div class="step">
+                <div class="step__head">
+                  <span class="step__num">02</span>
+                  <h2 class="step__title">{{ 'booking.form.step2.title' | translate }}</h2>
+                </div>
+
+                <div class="pill-group">
+                  <label
+                    class="pill-opt"
+                    [class.is-active]="form.controls.buildingCondition.value === 'New building'"
+                  >
+                    <input
+                      class="pill-opt__radio"
+                      type="radio"
+                      value="New building"
+                      formControlName="buildingCondition"
+                    />
+                    {{ 'booking.form.step2.new' | translate }}
+                  </label>
+
+                  <label
+                    class="pill-opt"
+                    [class.is-active]="form.controls.buildingCondition.value === 'Restoration'"
+                  >
+                    <input
+                      class="pill-opt__radio"
+                      type="radio"
+                      value="Restoration"
+                      formControlName="buildingCondition"
+                    />
+                    {{ 'booking.form.step2.restoration' | translate }}
+                  </label>
+
+                  <label
+                    class="pill-opt"
+                    [class.is-active]="form.controls.buildingCondition.value === 'Other'"
+                  >
+                    <input
+                      class="pill-opt__radio"
+                      type="radio"
+                      value="Other"
+                      formControlName="buildingCondition"
+                    />
+                    {{ 'booking.form.step2.other' | translate }}
+                  </label>
+                </div>
+
+                @if (form.value.buildingCondition === 'Other') {
+                  <input
+                    class="field__input specify-input"
+                    type="text"
+                    [attr.placeholder]="'booking.form.step2.specify' | translate"
+                    formControlName="buildingConditionOther"
+                    [class.is-invalid]="
+                      form.controls.buildingConditionOther.touched &&
+                      form.controls.buildingConditionOther.invalid
+                    "
+                  />
+                  @if (
+                    form.controls.buildingConditionOther.touched &&
+                    form.controls.buildingConditionOther.invalid
+                  ) {
+                    <span class="field__error">
+                      {{ 'booking.form.step2.specifyError' | translate }}
+                    </span>
+                  }
+                }
+              </div>
+
+            </div><!-- /form-col -->
+
+            <!-- ─── Column 2 ──────────────────────────────── -->
+            <div class="form-col">
+
+              <!-- Step 3: Design Package -->
+              <div class="step">
+                <div class="step__head">
+                  <span class="step__num">03</span>
+                  <h2 class="step__title">{{ 'booking.form.step3.title' | translate }}</h2>
+                </div>
+
+                <div class="pill-group pill-group--col">
+                  <label
+                    class="pill-opt"
+                    [class.is-active]="form.controls.designPackage.value === 'Two-space design package'"
+                  >
+                    <input
+                      class="pill-opt__radio"
+                      type="radio"
+                      value="Two-space design package"
+                      formControlName="designPackage"
+                    />
+                    {{ 'booking.form.step3.twoSpace' | translate }}
+                  </label>
+
+                  <label
+                    class="pill-opt"
+                    [class.is-active]="form.controls.designPackage.value === '4-space design package'"
+                  >
+                    <input
+                      class="pill-opt__radio"
+                      type="radio"
+                      value="4-space design package"
+                      formControlName="designPackage"
+                    />
+                    {{ 'booking.form.step3.fourSpace' | translate }}
+                  </label>
+
+                  <label
+                    class="pill-opt"
+                    [class.is-active]="form.controls.designPackage.value === '5-space design package'"
+                  >
+                    <input
+                      class="pill-opt__radio"
+                      type="radio"
+                      value="5-space design package"
+                      formControlName="designPackage"
+                    />
+                    {{ 'booking.form.step3.fiveSpace' | translate }}
+                  </label>
+
+                  <label
+                    class="pill-opt"
+                    [class.is-active]="form.controls.designPackage.value === 'Floor Design Package'"
+                  >
+                    <input
+                      class="pill-opt__radio"
+                      type="radio"
+                      value="Floor Design Package"
+                      formControlName="designPackage"
+                    />
+                    {{ 'booking.form.step3.floor' | translate }}
+                  </label>
+
+                  <label
+                    class="pill-opt"
+                    [class.is-active]="
+                      form.controls.designPackage.value === 'Complete coupon design package'
+                    "
+                  >
+                    <input
+                      class="pill-opt__radio"
+                      type="radio"
+                      value="Complete coupon design package"
+                      formControlName="designPackage"
+                    />
+                    {{ 'booking.form.step3.complete' | translate }}
+                  </label>
+                </div>
+              </div>
+
+              <!-- Step 4: Date & Time -->
+              <div class="step">
+                <div class="step__head">
+                  <span class="step__num">04</span>
+                  <h2 class="step__title">{{ 'booking.form.step4.title' | translate }}</h2>
+                </div>
+
+                <mat-form-field
+                  class="date-field"
                   [class.is-invalid]="
-                    form.controls.fullName.touched && form.controls.fullName.invalid
+                    form.controls.preferredDate.touched && form.controls.preferredDate.invalid
                   "
-                />
-                @if (form.controls.fullName.touched && form.controls.fullName.invalid) {
-                <span class="field__error">
-                  {{ 'booking.form.step1.fullNameError' | translate }}
-                </span>
+                >
+                  <input
+                    matInput
+                    [matDatepicker]="picker"
+                    formControlName="preferredDate"
+                    [min]="today"
+                    [matDatepickerFilter]="dateFilter"
+                    (dateChange)="onDateSelected($event.value)"
+                    readonly
+                    (click)="picker.open()"
+                  />
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <span class="hint">{{ 'booking.form.step4.hint' | translate }}</span>
+
+                @if (form.controls.preferredDate.touched && form.controls.preferredDate.invalid) {
+                  <span class="field__error">{{ 'booking.form.step4.dateError' | translate }}</span>
                 }
-              </label>
 
-              <label class="field">
-                <span class="field__label">{{ 'booking.form.step1.phone' | translate }}</span>
-                <input
-                  class="field__input field__input--phone"
-                  type="tel"
-                  formControlName="phone"
-                  [attr.placeholder]="'booking.form.step1.phone' | translate"
-                  [class.is-invalid]="form.controls.phone.touched && form.controls.phone.invalid"
-                />
-                @if (form.controls.phone.touched && form.controls.phone.invalid) {
-                <span class="field__error">
-                  {{ 'booking.form.step1.phoneError' | translate }}
-                </span>
+                @if (loadingSlots()) {
+                  <p class="hint checking">{{ 'booking.form.step4.checking' | translate }}</p>
                 }
-              </label>
-            </div>
-          </div>
 
-          <!-- ─── Step 2: Building Condition ──────────── -->
-          <div class="step">
-            <div class="step__head">
-              <span class="step__num">02</span>
-              <h2 class="step__title">{{ 'booking.form.step2.title' | translate }}</h2>
-            </div>
+                @if (!loadingSlots() && availableHours().length > 0) {
+                  <div class="time-label">{{ 'booking.form.step4.timeLabel' | translate }}</div>
+                  <div class="time-slots">
+                    @for (h of HOURS; track h) {
+                      <button
+                        type="button"
+                        class="time-slot"
+                        [disabled]="!availableHours().includes(h)"
+                        [class.is-active]="form.controls.preferredHour.value === h"
+                        (click)="selectHour(h)"
+                        [attr.title]="
+                          !availableHours().includes(h)
+                            ? ('booking.form.step4.slotTaken' | translate)
+                            : null
+                        "
+                        [attr.aria-label]="
+                          !availableHours().includes(h)
+                            ? ('booking.form.step4.slotTaken' | translate)
+                            : h
+                        "
+                      >
+                        {{ h }}
+                      </button>
+                    }
+                  </div>
+                }
 
-            <div class="pill-group">
-              <label
-                class="pill-opt"
-                [class.is-active]="form.controls.buildingCondition.value === 'New building'"
-              >
-                <input
-                  class="pill-opt__radio"
-                  type="radio"
-                  value="New building"
-                  formControlName="buildingCondition"
-                />
-                {{ 'booking.form.step2.new' | translate }}
-              </label>
+                @if (!loadingSlots() && hasSelectedDate() && availableHours().length === 0) {
+                  <div class="no-slots">{{ 'booking.form.step4.noSlots' | translate }}</div>
+                }
 
-              <label
-                class="pill-opt"
-                [class.is-active]="form.controls.buildingCondition.value === 'Restoration'"
-              >
-                <input
-                  class="pill-opt__radio"
-                  type="radio"
-                  value="Restoration"
-                  formControlName="buildingCondition"
-                />
-                {{ 'booking.form.step2.restoration' | translate }}
-              </label>
+                @if (form.controls.preferredHour.touched && form.controls.preferredHour.invalid) {
+                  <span class="field__error">{{ 'booking.form.step4.hourError' | translate }}</span>
+                }
+              </div>
 
-              <label
-                class="pill-opt"
-                [class.is-active]="form.controls.buildingCondition.value === 'Other'"
-              >
-                <input
-                  class="pill-opt__radio"
-                  type="radio"
-                  value="Other"
-                  formControlName="buildingCondition"
-                />
-                {{ 'booking.form.step2.other' | translate }}
-              </label>
-            </div>
-
-            @if (form.value.buildingCondition === 'Other') {
-            <input
-              class="field__input specify-input"
-              type="text"
-              [attr.placeholder]="'booking.form.step2.specify' | translate"
-              formControlName="buildingConditionOther"
-            />
-            }
-          </div>
-
-          </div><!-- /form-col -->
-          <div class="form-col">
-          <!-- ─── Step 3: Design Package ───────────────── -->
-          <div class="step">
-            <div class="step__head">
-              <span class="step__num">03</span>
-              <h2 class="step__title">{{ 'booking.form.step3.title' | translate }}</h2>
-            </div>
-
-            <div class="pill-group pill-group--col">
-              <label
-                class="pill-opt"
-                [class.is-active]="form.controls.designPackage.value === 'Two-space design package'"
-              >
-                <input
-                  class="pill-opt__radio"
-                  type="radio"
-                  value="Two-space design package"
-                  formControlName="designPackage"
-                />
-                {{ 'booking.form.step3.twoSpace' | translate }}
-              </label>
-
-              <label
-                class="pill-opt"
-                [class.is-active]="form.controls.designPackage.value === '4-space design package'"
-              >
-                <input
-                  class="pill-opt__radio"
-                  type="radio"
-                  value="4-space design package"
-                  formControlName="designPackage"
-                />
-                {{ 'booking.form.step3.fourSpace' | translate }}
-              </label>
-
-              <label
-                class="pill-opt"
-                [class.is-active]="form.controls.designPackage.value === '5-space design package'"
-              >
-                <input
-                  class="pill-opt__radio"
-                  type="radio"
-                  value="5-space design package"
-                  formControlName="designPackage"
-                />
-                {{ 'booking.form.step3.fiveSpace' | translate }}
-              </label>
-
-              <label
-                class="pill-opt"
-                [class.is-active]="form.controls.designPackage.value === 'Floor Design Package'"
-              >
-                <input
-                  class="pill-opt__radio"
-                  type="radio"
-                  value="Floor Design Package"
-                  formControlName="designPackage"
-                />
-                {{ 'booking.form.step3.floor' | translate }}
-              </label>
-
-              <label
-                class="pill-opt"
-                [class.is-active]="
-                  form.controls.designPackage.value === 'Complete coupon design package'
-                "
-              >
-                <input
-                  class="pill-opt__radio"
-                  type="radio"
-                  value="Complete coupon design package"
-                  formControlName="designPackage"
-                />
-                {{ 'booking.form.step3.complete' | translate }}
-              </label>
-            </div>
-          </div>
-
-          <!-- ─── Step 4: Date & Time ───────────────────── -->
-          <div class="step">
-            <div class="step__head">
-              <span class="step__num">04</span>
-              <h2 class="step__title">{{ 'booking.form.step4.title' | translate }}</h2>
-            </div>
-
-            <mat-form-field
-              class="date-field"
-              [class.is-invalid]="form.controls.preferredDate.touched && form.controls.preferredDate.invalid"
-            >
-              <input
-                matInput
-                [matDatepicker]="picker"
-                formControlName="preferredDate"
-                [min]="today"
-                [matDatepickerFilter]="dateFilter"
-                (dateChange)="onDateSelected($event.value)"
-                readonly
-                (click)="picker.open()"
-              />
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-
-            <span class="hint">{{ 'booking.form.step4.hint' | translate }}</span>
-
-            @if (form.controls.preferredDate.touched && form.controls.preferredDate.invalid) {
-            <span class="field__error">{{ 'booking.form.step4.dateError' | translate }}</span>
-            }
-
-            @if (loadingSlots()) {
-            <p class="hint checking">{{ 'booking.form.step4.checking' | translate }}</p>
-            } @if (!loadingSlots() && availableHours().length > 0) {
-            <div class="time-label">{{ 'booking.form.step4.timeLabel' | translate }}</div>
-            <div class="time-slots">
-              @for (h of HOURS; track h) {
-              <button
-                type="button"
-                class="time-slot"
-                [disabled]="!availableHours().includes(h)"
-                [class.is-active]="form.controls.preferredHour.value === h"
-                (click)="selectHour(h)"
-              >
-                {{ h }}
-              </button>
-              }
-            </div>
-            } @if (!loadingSlots() && hasSelectedDate() && availableHours().length === 0) {
-            <div class="no-slots">{{ 'booking.form.step4.noSlots' | translate }}</div>
-            }
-
-            @if (form.controls.preferredHour.touched && form.controls.preferredHour.invalid) {
-            <span class="field__error">{{ 'booking.form.step4.hourError' | translate }}</span>
-            }
-          </div>
-
-          </div><!-- /form-col -->
+            </div><!-- /form-col -->
           </div><!-- /form-cols -->
 
           <!-- ─── Submit ─────────────────────────────────── -->
           @if (submitError()) {
-          <div class="alert alert--error">{{ submitError() | translate }}</div>
+            <div class="alert alert--error">{{ submitError() | translate }}</div>
           }
 
-          <button class="submit-btn" type="submit" [disabled]="isSubmitting()">
+          <button
+            class="submit-btn"
+            type="submit"
+            [disabled]="isSubmitting()"
+            [attr.aria-busy]="isSubmitting()"
+          >
             {{ (isSubmitting() ? 'booking.form.submitting' : 'booking.form.submit') | translate }}
             <span class="submit-btn__arrow" aria-hidden="true">→</span>
           </button>

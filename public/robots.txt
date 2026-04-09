@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block utility/internal routes from indexing
+Disallow: /not-found
+Disallow: /book-consultation
+Disallow: /book-consultation/success
+Disallow: /contact
+Disallow: /review-submit
+
+# Sitemap location
+Sitemap: https://intoartkw.com/sitemap.xml

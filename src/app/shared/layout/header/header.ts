@@ -8,6 +8,7 @@ type HeaderLink = {
   labelKey: string;
   path: string;
   exact?: boolean;
+  disabled?: boolean;
 };
 
 @Component({
@@ -25,10 +26,10 @@ export class HeaderComponent {
 
   links: HeaderLink[] = [
     { labelKey: 'nav.home', path: '/', exact: true },
-    { labelKey: 'nav.about', path: '/about' },
-    { labelKey: 'nav.services', path: '/services' },
-    { labelKey: 'nav.projects', path: '/projects' },
-    { labelKey: 'nav.faq', path: '/faq' },
+    { labelKey: 'nav.about', path: '/about', disabled: true },
+    { labelKey: 'nav.services', path: '/services', disabled: true },
+    { labelKey: 'nav.projects', path: '/projects', disabled: true },
+    { labelKey: 'nav.faq', path: '/faq', disabled: true },
     { labelKey: 'nav.contact', path: '/contact' },
   ];
 
@@ -36,6 +37,8 @@ export class HeaderComponent {
   scrolled = signal(false);
 
   currentLang = signal<'en' | 'ar'>('ar');
+
+  private readonly LANG_KEY = 'intoart_lang';
 
   constructor(private router: Router, private translate: TranslateService) {
     this.router.events
@@ -45,7 +48,7 @@ export class HeaderComponent {
         this.mobileOpenChange.emit(false);
       });
 
-    const saved = (localStorage.getItem('lang') as 'en' | 'ar' | null) ?? 'ar';
+    const saved = (localStorage.getItem(this.LANG_KEY) as 'en' | 'ar' | null) ?? 'ar';
     this.applyLang(saved, false);
   }
 
@@ -83,7 +86,7 @@ export class HeaderComponent {
 
   private applyLang(lang: 'en' | 'ar', persist: boolean): void {
     this.currentLang.set(lang);
-    if (persist) localStorage.setItem('lang', lang);
+    if (persist) localStorage.setItem(this.LANG_KEY, lang);
 
     this.translate.use(lang);
 
@@ -93,7 +96,10 @@ export class HeaderComponent {
 
   @HostListener('window:scroll')
   onScroll(): void {
-    this.scrolled.set(window.scrollY > 8);
+    const isScrolled = window.scrollY > 8;
+    if (this.scrolled() !== isScrolled) {
+      this.scrolled.set(isScrolled);
+    }
   }
 
   @HostListener('window:keydown.escape')

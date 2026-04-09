@@ -11,10 +11,11 @@ import {
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { PROJECTS } from '../projects/services/projects.data';
+import { FEATURED_PROJECTS } from './featured-projects.data';
+import { REVIEWS, ReviewItem } from './reviews.data';
+import { COMPANY_METRICS } from '../../shared/constants/company.constants';
 
 type Feature = { titleKey: string; descKey: string };
-type Review = { nameKey: string; roleKey: string; textKey: string };
 type Card = { titleKey: string; descKey: string; path: string };
 type Step = { titleKey: string; descKey: string };
 
@@ -28,7 +29,7 @@ type Step = { titleKey: string; descKey: string };
 export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   @Input() consultationPath = '/book-consultation';
 
-  whoMediaImage = 'assets/images/portfolio/projects/Reception-Top-View.jpg';
+  whoMediaImage = 'assets/images/HomePage/WhoAreWe/Reception-Top-View.jpg';
 
   heroEnter = signal(false);
   ctaEnter = signal(false);
@@ -88,7 +89,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     { titleKey: 'home.procedure.steps.7.title', descKey: 'home.procedure.steps.7.desc' },
   ];
 
-  metricsTarget = { years: 6, designProjects: 200, executionProjects: 50 };
+  metricsTarget = COMPANY_METRICS;
 
   yearsDisplay = 0;
   designProjectsDisplay = 0;
@@ -101,19 +102,14 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   heroImages: string[] = [
-    'assets/images/portfolio/projects/Entrance-Foyer.jpg',
-    'assets/images/portfolio/projects/Reception-Zoon-In-Shot.jpg',
+    'assets/images/HomePage/Hero/Entrance-Foyer.png',
+    'assets/images/HomePage/Hero/Reception-Zoon-In-Shot.png',
   ];
 
   heroIndex = 0;
   private heroTimer: number | null = null;
 
-  // ─── Featured projects: pulled live from projects.data.ts via featured flag
-  // Falls back to first 3 projects if none are flagged featured
-  featuredProjects = (() => {
-    const featured = PROJECTS.filter((p) => p.featured === true);
-    return featured.length > 0 ? featured.slice(0, 5) : PROJECTS.slice(0, 3);
-  })();
+  featuredProjects = FEATURED_PROJECTS;
 
   projectIndex = 0;
   private projectTimer: number | null = null;
@@ -125,34 +121,8 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private projectsActivePointerId: number | null = null;
   private projectsMoved = false;
 
-  reviews: Review[] = [
-    {
-      nameKey: 'home.reviews.items.1.name',
-      roleKey: 'home.reviews.items.1.role',
-      textKey: 'home.reviews.items.1.text',
-    },
-    {
-      nameKey: 'home.reviews.items.2.name',
-      roleKey: 'home.reviews.items.2.role',
-      textKey: 'home.reviews.items.2.text',
-    },
-    {
-      nameKey: 'home.reviews.items.3.name',
-      roleKey: 'home.reviews.items.3.role',
-      textKey: 'home.reviews.items.3.text',
-    },
-    {
-      nameKey: 'home.reviews.items.4.name',
-      roleKey: 'home.reviews.items.4.role',
-      textKey: 'home.reviews.items.4.text',
-    },
-    {
-      nameKey: 'home.reviews.items.5.name',
-      roleKey: 'home.reviews.items.5.role',
-      textKey: 'home.reviews.items.5.text',
-    },
-  ];
-
+  reviews: ReviewItem[] = REVIEWS;
+  
   constructor(private router: Router) {}
 
   ngOnInit(): void {
@@ -318,10 +288,12 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   nextProjects(): void {
+    if (!this.featuredProjects.length) return;
     this.projectIndex = (this.projectIndex + 1) % this.featuredProjects.length;
   }
 
   prevProjects(): void {
+    if (!this.featuredProjects.length) return;
     this.projectIndex =
       (this.projectIndex - 1 + this.featuredProjects.length) % this.featuredProjects.length;
   }

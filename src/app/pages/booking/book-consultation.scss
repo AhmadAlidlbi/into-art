@@ -42,26 +42,6 @@
   font-weight: 650;
 }
 
-/* Trust pills */
-.trust-row {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.trust-pill {
-  display: inline-flex;
-  align-items: center;
-  height: 30px;
-  padding: 0 12px;
-  border-radius: 999px;
-  border: var(--stroke);
-  background: rgba(215, 198, 178, 0.12);
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--text-2);
-}
-
 /* ─── Section ────────────────────────────────────────────── */
 .section {
   padding: 56px 0 80px;
@@ -470,7 +450,7 @@
   font-weight: 650;
 }
 
-/* ─── Phone: always LTR text, placeholder right-aligned in Arabic ── */
+/* ─── Phone: always LTR ──────────────────────────────────── */
 .field__input--phone {
   direction: ltr;
 }
@@ -497,7 +477,6 @@
   text-align: left;
 }
 
-
 :host-context(html[dir='rtl']) .field__input::placeholder {
   direction: rtl;
   text-align: right;
@@ -506,16 +485,6 @@
 :host-context(html[dir='ltr']) .field__input::placeholder {
   direction: ltr;
   text-align: left;
-}
-
-.field__input[dir='ltr']::placeholder {
-  direction: ltr;
-  text-align: left;
-}
-
-.field__input[dir='rtl']::placeholder {
-  direction: rtl;
-  text-align: right;
 }
 
 :host-context(html[dir='rtl']) textarea.field__input::placeholder,
@@ -540,10 +509,12 @@
   text-align: left;
 }
 
-/* ─── Desktop: horizontal two-column layout ─────────────── */
+/* ─── Desktop: two-column layout ────────────────────────── */
 @media (min-width: 981px) {
+  /* ✅ Cap desktop form width so columns don't stretch too wide */
   .form-wrap {
-    max-width: none;
+    max-width: 900px;
+    margin: 0 auto;
   }
 
   .form-card {
@@ -575,7 +546,6 @@
     flex: 1;
   }
 
-  /* keep divider between the two steps within each column */
   .form-col .step:first-child {
     border-bottom: var(--stroke);
   }
@@ -584,7 +554,6 @@
     border-bottom: none;
   }
 
-  /* submit footer */
   .alert,
   .submit-btn,
   .privacy {
@@ -604,11 +573,6 @@
   .alert {
     margin-top: 24px;
     margin-bottom: 0;
-  }
-
-  /* top border separating cols from footer */
-  .submit-btn {
-    border-top: none;
   }
 }
 

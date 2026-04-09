@@ -20,7 +20,7 @@
        density: 0,
      ));
    
-     /* 🔑 BRIDGE MATERIAL → YOUR TOKENS */
+     /* Bridge Material tokens to our design tokens */
      --mat-sys-surface: var(--bg);
      --mat-sys-background: var(--bg);
      --mat-sys-on-surface: var(--text);
@@ -37,22 +37,29 @@
      margin: 0;
      background: var(--bg);
      color: var(--text);
-     font-family: var(--font-ar);
-     line-height: 1.8;
+     line-height: 1.75;
      -webkit-font-smoothing: antialiased;
      text-rendering: optimizeLegibility;
    }
    
    /* =========================
-      RTL Support
+      Font switching by direction
+      Arabic (RTL) → Tajawal
+      English (LTR) → Inter
       ========================= */
    html[dir="rtl"] body {
+     font-family: var(--font-ar);
      direction: rtl;
    }
    
+   html[dir="ltr"] body {
+     font-family: var(--font-en);
+     direction: ltr;
+   }
+   
+   /* RTL layout helpers */
    html[dir="rtl"] .hero,
    html[dir="rtl"] .card,
    html[dir="rtl"] .channel {
      text-align: right;
    }
-   

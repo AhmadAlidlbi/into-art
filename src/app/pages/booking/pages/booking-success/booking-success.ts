@@ -10,4 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './booking-success.html',
   styleUrls: ['./booking-success.scss'],
 })
-export class BookingSuccessPage {}
+export class BookingSuccessPage {
+  viewProjectsLink = {
+    path: '/',
+    disabled: true,
+  };
+}

@@ -54,7 +54,7 @@
       </div>
 
       <div class="chips" role="tablist">
-        <button
+        <!-- <button
           class="chip"
           *ngFor="let c of categories"
           type="button"
@@ -62,7 +62,7 @@
           (click)="setCategory(c)"
         >
           {{ c }}
-        </button>
+        </button> -->
       </div>
     </div>
 
@@ -73,13 +73,13 @@
         <div class="card__img" [style.backgroundImage]="'url(' + p.cover + ')'">
           <div class="card__overlay"></div>
           <div class="card__badge">
-            <span class="pill">{{ p.category }}</span>
+            <span class="pill">{{ p.categoryKey | translate }}</span>
           </div>
         </div>
 
         <!-- Content -->
         <div class="card__body">
-          <div class="card__title">{{ p.title }}</div>
+          <div class="card__title">{{ p.titleKey | translate }}</div>
 
           <div class="card__meta">
             <span class="muted" *ngIf="p.area">{{ p.area }}</span>
@@ -89,7 +89,7 @@
             <span class="muted" *ngIf="p.location">{{ p.location }}</span>
           </div>
 
-          <p class="card__desc">{{ p.summary }}</p>
+          <p class="card__desc">{{ p.summaryKey | translate }}</p>
 
           <div class="card__cta">
             {{ 'projects.viewProject' | translate }}

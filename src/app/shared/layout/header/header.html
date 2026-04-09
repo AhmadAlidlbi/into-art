@@ -1,21 +1,28 @@
 <header class="site-header" [class.is-scrolled]="scrolled()">
   <div class="container header__inner">
-    <!-- Brand -->
-    <a class="brand" routerLink="/" aria-label="Go to homepage">
+    <a class="brand" routerLink="/" [attr.aria-label]="'footer.homeAria' | translate">
       <img class="brand__logo" [src]="logoSrc" [alt]="brandName + ' logo'" />
     </a>
 
     <!-- Desktop nav (hide when drawer open) -->
     <nav class="nav nav--desktop" aria-label="Primary" [class.is-hidden]="mobileOpen()">
-      <a
-        *ngFor="let link of links"
-        class="nav__link"
-        [routerLink]="link.path"
-        routerLinkActive="is-active"
-        [routerLinkActiveOptions]="{ exact: !!link.exact }"
-      >
-        {{ link.labelKey | translate }}
-      </a>
+      <ng-container *ngFor="let link of links">
+        <a
+          *ngIf="!link.disabled; else disabledDesktopLink"
+          class="nav__link"
+          [routerLink]="link.path"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: !!link.exact }"
+        >
+          {{ link.labelKey | translate }}
+        </a>
+
+        <ng-template #disabledDesktopLink>
+          <span class="nav__link nav__link--disabled">
+            {{ link.labelKey | translate }}
+          </span>
+        </ng-template>
+      </ng-container>
     </nav>
 
     <!-- Desktop actions (hide when drawer open) -->
@@ -54,16 +61,24 @@
     </div>
 
     <nav class="nav nav--mobile" aria-label="Primary mobile">
-      <a
-        *ngFor="let link of links"
-        class="nav__link"
-        [routerLink]="link.path"
-        routerLinkActive="is-active"
-        [routerLinkActiveOptions]="{ exact: !!link.exact }"
-        (click)="closeMobile()"
-      >
-        {{ link.labelKey | translate }}
-      </a>
+      <ng-container *ngFor="let link of links">
+        <a
+          *ngIf="!link.disabled; else disabledMobileLink"
+          class="nav__link"
+          [routerLink]="link.path"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: !!link.exact }"
+          (click)="closeMobile()"
+        >
+          {{ link.labelKey | translate }}
+        </a>
+
+        <ng-template #disabledMobileLink>
+          <span class="nav__link nav__link--disabled">
+            {{ link.labelKey | translate }}
+          </span>
+        </ng-template>
+      </ng-container>
     </nav>
 
     <div class="drawer__bottom">

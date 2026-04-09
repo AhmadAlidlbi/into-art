@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Home -->
+  <url>
+    <loc>https://intoartkw.com/</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://intoartkw.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://intoartkw.com/" />
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://intoartkw.com/about</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://intoartkw.com/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://intoartkw.com/about" />
+  </url>
+
+  <!-- Services -->
+  <url>
+    <loc>https://intoartkw.com/services</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://intoartkw.com/services" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://intoartkw.com/services" />
+  </url>
+
+  <!-- Service detail pages -->
+  <url>
+    <loc>https://intoartkw.com/services/residential-interior-design</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://intoartkw.com/services/apartment-renovation</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://intoartkw.com/services/turnkey-fitout</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://intoartkw.com/services/kitchen-design</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://intoartkw.com/services/bathroom-design</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://intoartkw.com/services/flooring-and-materials</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://intoartkw.com/services/lighting-design</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://intoartkw.com/services/space-planning</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://intoartkw.com/services/custom-joinery</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Projects -->
+  <url>
+    <loc>https://intoartkw.com/projects</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://intoartkw.com/projects" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://intoartkw.com/projects" />
+  </url>
+
+  <!-- Project detail pages — update slugs as you add real projects -->
+  <url>
+    <loc>https://intoartkw.com/projects/modern-apartment-living-room</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://intoartkw.com/projects/warm-minimal-bedroom</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://intoartkw.com/projects/contemporary-villa-majlis</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Book Consultation -->
+  <url>
+    <loc>https://intoartkw.com/book-consultation</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://intoartkw.com/book-consultation" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://intoartkw.com/book-consultation" />
+  </url>
+
+  <!-- FAQ -->
+  <url>
+    <loc>https://intoartkw.com/faq</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://intoartkw.com/faq" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://intoartkw.com/faq" />
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://intoartkw.com/contact</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://intoartkw.com/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://intoartkw.com/contact" />
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://intoartkw.com/privacy-policy</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

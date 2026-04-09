@@ -298,6 +298,12 @@
   gap: 10px;
 }
 
+.nav__link--disabled {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
 .nav--mobile .nav__link {
   padding: 14px 12px;
   background: #f4f4f4;

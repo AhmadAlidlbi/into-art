@@ -55,12 +55,12 @@ export class ProjectsPage implements AfterViewInit, OnDestroy {
     const q = this.search().trim().toLowerCase();
   
     return this.allProjects.filter((p) => {
-      const matchCat = cat === 'All' ? true : p.category === cat;
+      const matchCat = cat === 'All' ? true : p.categoryKey  === cat;
       const matchQ =
         !q ||
-        p.title.toLowerCase().includes(q) ||
+        p.titleKey.toLowerCase().includes(q) ||
         (p.area ?? '').toLowerCase().includes(q) ||
-        (p.category ?? '').toLowerCase().includes(q);
+        (p.categoryKey  ?? '').toLowerCase().includes(q);
   
       return matchCat && matchQ;
     });

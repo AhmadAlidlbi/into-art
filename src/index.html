@@ -2,30 +2,42 @@
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="utf-8" />
+
+    <!-- Bilingual title -->
     <title>INTO ART | FEEL THE PLACE</title>
+
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- ─── Primary Meta ──────────────────────────────────── -->
     <meta
       name="description"
-      content="Into Art is an interior design and execution studio in Kuwait creating refined spaces through thoughtful design, detailed planning, and professional execution."
+      content="Into Art is an interior design and execution studio in Kuwait creating refined spaces through thoughtful design, detailed planning, and professional execution. | إنتو آرت لخدمات التصميم الداخلي وتنفيذ الديكورات في الكويت."
     />
+    <meta name="author" content="INTO ART" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="keywords"
+      content="interior design Kuwait, تصميم داخلي الكويت, home renovation Kuwait, شركة تصميم داخلي الكويت, INTO ART, إنتو آرت"
+    />
+    <meta name="theme-color" content="#F5F0EA" />
 
     <link rel="canonical" href="https://intoartkw.com/" />
 
-    <!-- Favicons -->
+    <!-- ─── Favicons ───────────────────────────────────────── -->
     <link rel="icon" type="image/png" sizes="48x48" href="/logo.png" />
     <link rel="apple-touch-icon" href="/logo.png" />
 
-    <!--  Preload first hero image so it paints immediately with no delay -->
+    <!-- ─── Preload critical hero image ───────────────────── -->
     <link
       rel="preload"
       as="image"
       href="assets/images/portfolio/projects/Entrance-Foyer.jpg"
+      fetchpriority="high"
     />
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="INTO ART | FEEL THE PLACE" />
+    <!-- ─── Open Graph ─────────────────────────────────────── -->
+    <meta property="og:title" content="INTO ART | عِش إحساس المكان" />
     <meta
       property="og:description"
       content="Into Art is an interior design and execution studio in Kuwait creating refined spaces through thoughtful design, detailed planning, and professional execution."
@@ -33,48 +45,79 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://intoartkw.com/" />
     <meta property="og:site_name" content="INTO ART" />
-    <meta property="og:image" content="https://intoartkw.com/logo.png" />
-    <meta property="og:image:secure_url" content="https://intoartkw.com/logo.png" />
-    <meta property="og:image:alt" content="INTO ART logo" />
+    <meta property="og:image" content="https://intoartkw.com/og-image.jpg" />
+    <meta property="og:image:secure_url" content="https://intoartkw.com/og-image.jpg" />
+    <meta property="og:image:alt" content="INTO ART — Interior Design Studio Kuwait" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="ar_KW" />
+    <meta property="og:locale:alternate" content="en_US" />
 
-    <!-- Twitter -->
+    <!-- ─── Twitter / X ────────────────────────────────────── -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="INTO ART | FEEL THE PLACE" />
+    <meta name="twitter:title" content="INTO ART | عِش إحساس المكان" />
     <meta
       name="twitter:description"
       content="Into Art is an interior design and execution studio in Kuwait creating refined spaces through thoughtful design, detailed planning, and professional execution."
     />
-    <meta name="twitter:image" content="https://intoartkw.com/logo.png" />
-    <meta name="twitter:image:alt" content="INTO ART logo" />
+    <meta name="twitter:image" content="https://intoartkw.com/og-image.jpg" />
+    <meta name="twitter:image:alt" content="INTO ART — Interior Design Studio Kuwait" />
 
-    <!-- Structured Data -->
+    <!-- ─── Structured Data ────────────────────────────────── -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
+        "@type": "LocalBusiness",
+        "@id": "https://intoartkw.com/#business",
         "name": "INTO ART",
-        "alternateName": "Into Art",
+        "alternateName": "إنتو آرت",
         "url": "https://intoartkw.com/",
         "logo": "https://intoartkw.com/logo.png",
         "image": "https://intoartkw.com/logo.png",
         "description": "Into Art is an interior design and execution studio in Kuwait creating refined spaces through thoughtful design, detailed planning, and professional execution.",
-        "sameAs": [
-          "https://www.instagram.com/intoart_kwt/"
-        ]
+        "telephone": "+96566576673",
+        "email": "info@intoakwt.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Silk Tower, Floor 23, Office 66, Jaber Al-Mubarak Street",
+          "addressLocality": "Kuwait City",
+          "addressCountry": "KW"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"],
+            "opens": "10:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Thursday",
+            "opens": "10:00",
+            "closes": "14:00"
+          }
+        ],
+        "sameAs": ["https://www.instagram.com/intoart_kwt/"]
       }
     </script>
 
+    <!-- ─── Fonts ───────────────────────────────────────────── -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!--
+      Arabic: Tajawal — modern Arabic UI font, clean and highly legible RTL
+      English: Inter — precise, neutral UI font with excellent readability
+      Single merged request — one network round trip for both fonts.
+    -->
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
+
+    <!-- Material Icons — required for datepicker calendar toggle -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   </head>
   <body>

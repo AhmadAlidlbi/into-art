@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { COMPANY_METRICS } from '../../shared/constants/company.constants';
 
 type Differentiator = {
   icon: string;
@@ -42,9 +43,9 @@ export class AboutPage implements AfterViewInit, OnDestroy {
   ];
 
   trustStats: TrustStat[] = [
-    { value: '6+', labelKey: 'about.trust.stats.1.label' },
-    { value: '200+', labelKey: 'about.trust.stats.2.label' },
-    { value: '50+', labelKey: 'about.trust.stats.3.label' },
+    { value: `${COMPANY_METRICS.years}+`, labelKey: 'about.trust.stats.1.label' },
+    { value: `${COMPANY_METRICS.designProjects}+`, labelKey: 'about.trust.stats.2.label' },
+    { value: `${COMPANY_METRICS.executionProjects}+`, labelKey: 'about.trust.stats.3.label' },
   ];
 
   ctaEnter = signal(false);

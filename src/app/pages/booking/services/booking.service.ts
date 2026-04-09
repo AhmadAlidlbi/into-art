@@ -34,7 +34,7 @@ export class BookingService {
     return firstValueFrom(
       this.http.post<{
         ok: boolean;
-        error?: string; // ✅ optional
+        error?: string;
       }>(this.endpoint, formData)
     );
   }

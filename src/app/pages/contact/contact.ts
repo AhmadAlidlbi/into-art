@@ -28,11 +28,15 @@ type ContactForm = FormGroup<{
 export class ContactPage {
   whatsappNumber = '96566576673';
   whatsappDisplay = '+965 6657 6673';
-
-  phoneDisplay = '+965 6657 6673';
-  phoneDial = '+96566576673';
-
   emailAddress = 'info@intoakwt.com';
+
+  get whatsAppHref(): string {
+    return `https://wa.me/${this.whatsappNumber}`;
+  }
+
+  get mailtoHref(): string {
+    return `mailto:${this.emailAddress}`;
+  }
 
   isSubmitting = signal(false);
   submitError = signal<string | null>(null);
@@ -40,41 +44,17 @@ export class ContactPage {
 
   form!: ContactForm;
 
-  constructor(
-    private fb: FormBuilder,
-    private contact: ContactService
-  ) {
+  constructor(private fb: FormBuilder, private contact: ContactService) {
     this.form = this.fb.nonNullable.group({
-      fullName: this.fb.nonNullable.control('', [
-        Validators.required,
-        Validators.minLength(2),
-      ]),
+      fullName: this.fb.nonNullable.control('', [Validators.required, Validators.minLength(2)]),
       phone: this.fb.nonNullable.control('', [
         Validators.required,
         Validators.pattern(/^[0-9+\-\s]{6,20}$/),
       ]),
-      email: this.fb.nonNullable.control('', [
-        Validators.email,
-      ]),
+      email: this.fb.nonNullable.control('', [Validators.email]),
       subject: this.fb.nonNullable.control(''),
-      message: this.fb.nonNullable.control('', [
-        Validators.required,
-        Validators.minLength(5),
-      ]),
+      message: this.fb.nonNullable.control('', [Validators.required, Validators.minLength(5)]),
     }) as ContactForm;
-  }
-
-  get whatsAppHref(): string {
-    return `https://wa.me/${this.whatsappNumber}`;
-  }
-
-  get telHref(): string {
-    const cleaned = this.phoneDial.replace(/[^\d+]/g, '');
-    return `tel:${cleaned}`;
-  }
-
-  get mailtoHref(): string {
-    return `mailto:${this.emailAddress}`;
   }
 
   isInvalid(name: keyof ContactForm['controls']): boolean {

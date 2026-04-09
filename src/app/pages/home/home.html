@@ -147,8 +147,8 @@
           <div class="slide__img" [style.backgroundImage]="'url(' + p.cover + ')'">
             <div class="slide__meta">
               <div class="slide__meta-left">
-                <div class="slide__cat">{{ p.category }}</div>
-                <div class="slide__title">{{ p.title }}</div>
+                <div class="slide__cat">{{ p.categoryKey | translate }}</div>
+                <div class="slide__title">{{ p.titleKey | translate }}</div>
               </div>
               <div class="slide__dots-inline">
                 @for (q of featuredProjects; track q.slug; let j = $index) {
@@ -209,24 +209,22 @@
       (pointerleave)="reviewsPointerUp($event)"
     >
       <div class="reviews-marquee__track" #reviewsTrack>
-        @for (r of reviews; track r.nameKey) {
+        @for (r of reviews; track r.nameKey + '-a') {
         <article class="review-card">
           <div class="review-card__stars">★★★★★</div>
           <p class="review-card__text">"{{ r.textKey | translate }}"</p>
           <div class="review-card__person">
-            <div class="review-card__avatar"></div>
             <div class="review-card__meta">
               <div class="review-card__name">{{ r.nameKey | translate }}</div>
               <div class="review-card__role">{{ r.roleKey | translate }}</div>
             </div>
           </div>
         </article>
-        } @for (r of reviews; track r.nameKey) {
+        } @for (r of reviews; track r.nameKey + '-b') {
         <article class="review-card" aria-hidden="true">
           <div class="review-card__stars">★★★★★</div>
           <p class="review-card__text">"{{ r.textKey | translate }}"</p>
           <div class="review-card__person">
-            <div class="review-card__avatar"></div>
             <div class="review-card__meta">
               <div class="review-card__name">{{ r.nameKey | translate }}</div>
               <div class="review-card__role">{{ r.roleKey | translate }}</div>
