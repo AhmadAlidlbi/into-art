@@ -11,11 +11,10 @@ import {
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { FEATURED_PROJECTS } from './featured-projects.data';
-import { REVIEWS, ReviewItem } from './reviews.data';
-import { COMPANY_METRICS } from '../../shared/constants/company.constants';
 
 type Feature = { titleKey: string; descKey: string };
+type ProjectCard = { titleKey: string; categoryKey: string; image: string; slug?: string };
+type Review = { nameKey: string; roleKey: string; textKey: string };
 type Card = { titleKey: string; descKey: string; path: string };
 type Step = { titleKey: string; descKey: string };
 
@@ -29,8 +28,6 @@ type Step = { titleKey: string; descKey: string };
 export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   @Input() consultationPath = '/book-consultation';
 
-  whoMediaImage = 'assets/images/HomePage/WhoAreWe/Reception-Top-View.webp';
-
   heroEnter = signal(false);
   ctaEnter = signal(false);
 
@@ -43,27 +40,18 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private whoIO?: IntersectionObserver;
   private metricsAnimated = false;
 
-  @ViewChild('reviewsSection', { read: ElementRef })
-  reviewsSectionRef?: ElementRef<HTMLElement>;
-
   @ViewChild('reviewsTrack', { read: ElementRef })
   reviewsTrackRef?: ElementRef<HTMLElement>;
-
-  @ViewChild('reviewsGroup', { read: ElementRef })
-  reviewsGroupRef?: ElementRef<HTMLElement>;
-
   private reviewsX = 0;
   private reviewsVel = 0;
   private reviewsDragging = false;
   private reviewsHalfW = 0;
-  private reviewsAutoSpeed = -0.5;
+  private reviewsAutoSpeed = -1.5;
   private reviewsRafId = 0;
   private reviewsDragStartX = 0;
   private reviewsDragBaseX = 0;
   private reviewsDragSamples: { x: number; t: number }[] = [];
   private reviewsActivePtr: number | null = null;
-  private reviewsResizeHandler = () => this.initReviewsMarquee();
-  private reviewsIO?: IntersectionObserver;
 
   serviceCards: Card[] = [
     {
@@ -74,17 +62,17 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     {
       titleKey: 'cards.card_2.title',
       descKey: 'cards.card_2.description',
-      path: '/',
+      path: '/under-construction',
     },
     {
       titleKey: 'cards.card_3.title',
       descKey: 'cards.card_3.description',
-      path: '/',
+      path: '/under-construction',
     },
     {
       titleKey: 'cards.card_4.title',
       descKey: 'cards.card_4.description',
-      path: '/',
+      path: '/under-construction',
     },
   ];
 
@@ -98,7 +86,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     { titleKey: 'home.procedure.steps.7.title', descKey: 'home.procedure.steps.7.desc' },
   ];
 
-  metricsTarget = COMPANY_METRICS;
+  metricsTarget = { years: 6, designProjects: 200, executionProjects: 50 };
 
   yearsDisplay = 0;
   designProjectsDisplay = 0;
@@ -111,14 +99,33 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   heroImages: string[] = [
-    'assets/images/HomePage/Hero/Entrance-Foyer.webp',
-    'assets/images/HomePage/Hero/Reception-Zoon-In-Shot.webp',
+    'assets/images/portfolio/projects/Entrance-Foyer.jpg',
+    'assets/images/portfolio/projects/Reception-Zoon-In-Shot.jpg',
   ];
 
   heroIndex = 0;
   private heroTimer: number | null = null;
 
-  featuredProjects = FEATURED_PROJECTS;
+  featuredProjects: ProjectCard[] = [
+    {
+      titleKey: 'home.featured.items.1.title',
+      categoryKey: 'home.featured.items.1.category',
+      image: 'assets/images/portfolio/projects/living.jpg',
+      slug: 'modern-apartment-living-room',
+    },
+    {
+      titleKey: 'home.featured.items.2.title',
+      categoryKey: 'home.featured.items.2.category',
+      image: 'assets/images/portfolio/projects/room.jpg',
+      slug: 'warm-minimal-bedroom',
+    },
+    {
+      titleKey: 'home.featured.items.3.title',
+      categoryKey: 'home.featured.items.3.category',
+      image: 'assets/images/portfolio/projects/living.jpg',
+      slug: 'contemporary-villa-majlis',
+    },
+  ];
 
   projectIndex = 0;
   private projectTimer: number | null = null;
@@ -130,7 +137,33 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private projectsActivePointerId: number | null = null;
   private projectsMoved = false;
 
-  reviews: ReviewItem[] = REVIEWS;
+  reviews: Review[] = [
+    {
+      nameKey: 'home.reviews.items.1.name',
+      roleKey: 'home.reviews.items.1.role',
+      textKey: 'home.reviews.items.1.text',
+    },
+    {
+      nameKey: 'home.reviews.items.2.name',
+      roleKey: 'home.reviews.items.2.role',
+      textKey: 'home.reviews.items.2.text',
+    },
+    {
+      nameKey: 'home.reviews.items.3.name',
+      roleKey: 'home.reviews.items.3.role',
+      textKey: 'home.reviews.items.3.text',
+    },
+    {
+      nameKey: 'home.reviews.items.4.name',
+      roleKey: 'home.reviews.items.4.role',
+      textKey: 'home.reviews.items.4.text',
+    },
+    {
+      nameKey: 'home.reviews.items.5.name',
+      roleKey: 'home.reviews.items.5.role',
+      textKey: 'home.reviews.items.5.text',
+    },
+  ];
 
   constructor(private router: Router) {}
 
@@ -148,35 +181,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     requestAnimationFrame(() => {
       this.heroEnter.set(true);
       this.initReviewsMarquee();
-
-      requestAnimationFrame(() => {
-        this.initReviewsMarquee();
-      });
     });
-
-    window.addEventListener('resize', this.reviewsResizeHandler);
-    window.addEventListener('orientationchange', this.reviewsResizeHandler);
-
-    if ('fonts' in document) {
-      (document as Document & { fonts?: FontFaceSet }).fonts?.ready.then(() => {
-        this.initReviewsMarquee();
-      });
-    }
-
-    setTimeout(() => this.initReviewsMarquee(), 150);
-
-    // Re-init when section scrolls into view — ensures correct measurements
-    // on mobile where the section may not be laid out during AfterViewInit.
-    const reviewsEl = this.reviewsSectionRef?.nativeElement;
-    if (reviewsEl) {
-      this.reviewsIO = new IntersectionObserver(
-        ([entry]) => {
-          if (entry?.isIntersecting) this.initReviewsMarquee();
-        },
-        { threshold: 0 }
-      );
-      this.reviewsIO.observe(reviewsEl);
-    }
 
     const ctaEl = this.ctaSection?.nativeElement;
     if (ctaEl) {
@@ -184,12 +189,14 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         (entries) => {
           const entry = entries[0];
           if (!entry?.isIntersecting) return;
+
           this.ctaEnter.set(true);
           this.ctaIO?.disconnect();
           this.ctaIO = undefined;
         },
         { threshold: 0.25, rootMargin: '0px 0px -10% 0px' }
       );
+
       this.ctaIO.observe(ctaEl);
     }
 
@@ -204,11 +211,16 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
           this.metricsAnimated = true;
           this.animateWhoMetrics();
+
           this.whoIO?.disconnect();
           this.whoIO = undefined;
         },
-        { threshold: 0.75, rootMargin: '-8% 0px 0px 0px' }
+        {
+          threshold: 0.75,
+          rootMargin: '-8% 0px 0px 0px',
+        }
       );
+
       this.whoIO.observe(target);
     }
   }
@@ -217,21 +229,18 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     if (this.heroTimer) window.clearInterval(this.heroTimer);
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     if (this.reviewsRafId) cancelAnimationFrame(this.reviewsRafId);
-
-    window.removeEventListener('resize', this.reviewsResizeHandler);
-    window.removeEventListener('orientationchange', this.reviewsResizeHandler);
-
     this.ctaIO?.disconnect();
     this.whoIO?.disconnect();
-    this.reviewsIO?.disconnect();
   }
 
   private animateWhoMetrics(): void {
     const start = performance.now();
     const duration = 1400;
+
     const yTarget = this.metricsTarget.years;
     const dTarget = this.metricsTarget.designProjects;
     const eTarget = this.metricsTarget.executionProjects;
+
     const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
     const tick = (now: number) => {
@@ -260,35 +269,22 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initReviewsMarquee(): void {
-    const track = this.reviewsTrackRef?.nativeElement;
-    const group = this.reviewsGroupRef?.nativeElement;
-
-    if (!track || !group) return;
+    const el = this.reviewsTrackRef?.nativeElement;
+    if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    // Compute halfW as (totalTrackScrollWidth - oneGroupWidth) / 2.
-    // With 3 equal groups and 2 equal gaps: (3*gW + 2*gap - gW) / 2 = gW + gap.
-    // This avoids CSS gap parsing which is unreliable on some mobile browsers.
-    const groupW = group.offsetWidth;
-    const trackScrollW = track.scrollWidth;
-
-    if (groupW === 0 || trackScrollW === 0) return;
-
-    const halfW = (trackScrollW - groupW) / 2;
-    if (halfW <= 0) return;
-
-    this.reviewsHalfW = halfW;
+    this.reviewsHalfW = el.scrollWidth / 2 + 7;
 
     const isRtl = document.documentElement.dir === 'rtl';
-    this.reviewsAutoSpeed = isRtl ? 0.5 : -0.5;
-
-    // start from the middle copy
-    this.reviewsX = -this.reviewsHalfW;
-    track.style.transform = `translate3d(${this.reviewsX}px, 0, 0)`;
-
-    if (!this.reviewsRafId) {
-      this.reviewsLoop();
+    if (isRtl) {
+      this.reviewsAutoSpeed = 0.5;
+      this.reviewsX = -this.reviewsHalfW;
+    } else {
+      this.reviewsAutoSpeed = -0.5;
+      this.reviewsX = 0;
     }
+
+    this.reviewsLoop();
   }
 
   private reviewsLoop(): void {
@@ -308,46 +304,35 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    const w = this.reviewsHalfW;
-
-    if (this.reviewsX <= -2 * w) {
-      this.reviewsX += w;
-      if (this.reviewsDragging) this.reviewsDragBaseX += w;
-    }
-    if (this.reviewsX >= 0) {
-      this.reviewsX -= w;
-      if (this.reviewsDragging) this.reviewsDragBaseX -= w;
-    }
+    // Seamless wrap
+    const hw = this.reviewsHalfW;
+    if (this.reviewsX <= -hw) this.reviewsX += hw;
+    if (this.reviewsX > 0) this.reviewsX -= hw;
 
     el.style.transform = `translate3d(${this.reviewsX}px, 0, 0)`;
   }
 
   reviewsPointerDown(e: PointerEvent): void {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
-
     this.reviewsDragging = true;
     this.reviewsVel = 0;
     this.reviewsDragStartX = e.clientX;
     this.reviewsDragBaseX = this.reviewsX;
     this.reviewsDragSamples = [{ x: e.clientX, t: Date.now() }];
     this.reviewsActivePtr = e.pointerId;
-
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   }
 
   reviewsPointerMove(e: PointerEvent): void {
     if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
-
     const dx = e.clientX - this.reviewsDragStartX;
     this.reviewsX = this.reviewsDragBaseX + dx;
-
     this.reviewsDragSamples.push({ x: e.clientX, t: Date.now() });
     if (this.reviewsDragSamples.length > 6) this.reviewsDragSamples.shift();
   }
 
   reviewsPointerUp(e: PointerEvent): void {
     if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
-
     this.reviewsDragging = false;
     this.reviewsActivePtr = null;
 
@@ -355,12 +340,10 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     if (s.length >= 2) {
       const dt = s[s.length - 1].t - s[0].t;
       const dx = s[s.length - 1].x - s[0].x;
-
       if (dt > 0 && dt < 200) {
         this.reviewsVel = Math.max(-28, Math.min(28, (dx / dt) * 16));
       }
     }
-
     this.reviewsDragSamples = [];
   }
 
@@ -369,19 +352,18 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   nextProjects(): void {
-    if (!this.featuredProjects.length) return;
     this.projectIndex = (this.projectIndex + 1) % this.featuredProjects.length;
   }
 
   prevProjects(): void {
-    if (!this.featuredProjects.length) return;
     this.projectIndex =
       (this.projectIndex - 1 + this.featuredProjects.length) % this.featuredProjects.length;
   }
 
-  projectsPointerDown(e: PointerEvent): void {
+  projectsPointerDown(e: PointerEvent) {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
 
+    // Stop auto-advance immediately while user is touching
     if (this.projectTimer) {
       window.clearInterval(this.projectTimer);
       this.projectTimer = null;
@@ -390,21 +372,23 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     this.projectsDragging = true;
     this.projectsMoved = false;
     this.projectsDragPx = 0;
+
     this.projectsStartX = e.clientX;
     this.projectsActivePointerId = e.pointerId;
 
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   }
 
-  projectsPointerMove(e: PointerEvent): void {
+  projectsPointerMove(e: PointerEvent) {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
 
     const dx = e.clientX - this.projectsStartX;
     if (Math.abs(dx) > 6) this.projectsMoved = true;
+
     this.projectsDragPx = dx;
   }
 
-  projectsPointerUp(e: PointerEvent): void {
+  projectsPointerUp(e: PointerEvent) {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
 
     this.projectsDragging = false;
@@ -419,6 +403,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       else if (dx >= threshold) this.prevProjects();
     }
 
+    // Reset timer so the next auto-flip is a full interval away
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     this.projectTimer = window.setInterval(() => {
       if (!this.projectsDragging) this.nextProjects();
