@@ -11,10 +11,11 @@ import {
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { FEATURED_PROJECTS } from './featured-projects.data';
+import { REVIEWS, ReviewItem } from './reviews.data';
+import { COMPANY_METRICS } from '../../shared/constants/company.constants';
 
 type Feature = { titleKey: string; descKey: string };
-type ProjectCard = { titleKey: string; categoryKey: string; image: string; slug?: string };
-type Review = { nameKey: string; roleKey: string; textKey: string };
 type Card = { titleKey: string; descKey: string; path: string };
 type Step = { titleKey: string; descKey: string };
 
@@ -27,6 +28,8 @@ type Step = { titleKey: string; descKey: string };
 })
 export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   @Input() consultationPath = '/book-consultation';
+
+  whoMediaImage = 'assets/images/HomePage/WhoAreWe/Reception-Top-View.webp';
 
   heroEnter = signal(false);
   ctaEnter = signal(false);
@@ -46,12 +49,13 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private reviewsVel = 0;
   private reviewsDragging = false;
   private reviewsHalfW = 0;
-  private reviewsAutoSpeed = -1.5;
+  private reviewsAutoSpeed = -0.5;
   private reviewsRafId = 0;
   private reviewsDragStartX = 0;
   private reviewsDragBaseX = 0;
   private reviewsDragSamples: { x: number; t: number }[] = [];
   private reviewsActivePtr: number | null = null;
+  private reviewsInitialised = false;
 
   serviceCards: Card[] = [
     {
@@ -62,17 +66,17 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     {
       titleKey: 'cards.card_2.title',
       descKey: 'cards.card_2.description',
-      path: '/under-construction',
+      path: '/',
     },
     {
       titleKey: 'cards.card_3.title',
       descKey: 'cards.card_3.description',
-      path: '/under-construction',
+      path: '/',
     },
     {
       titleKey: 'cards.card_4.title',
       descKey: 'cards.card_4.description',
-      path: '/under-construction',
+      path: '/',
     },
   ];
 
@@ -86,7 +90,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     { titleKey: 'home.procedure.steps.7.title', descKey: 'home.procedure.steps.7.desc' },
   ];
 
-  metricsTarget = { years: 6, designProjects: 200, executionProjects: 50 };
+  metricsTarget = COMPANY_METRICS;
 
   yearsDisplay = 0;
   designProjectsDisplay = 0;
@@ -99,33 +103,14 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   heroImages: string[] = [
-    'assets/images/portfolio/projects/Entrance-Foyer.jpg',
-    'assets/images/portfolio/projects/Reception-Zoon-In-Shot.jpg',
+    'assets/images/HomePage/Hero/Entrance-Foyer.webp',
+    'assets/images/HomePage/Hero/Reception-Zoon-In-Shot.webp',
   ];
 
   heroIndex = 0;
   private heroTimer: number | null = null;
 
-  featuredProjects: ProjectCard[] = [
-    {
-      titleKey: 'home.featured.items.1.title',
-      categoryKey: 'home.featured.items.1.category',
-      image: 'assets/images/portfolio/projects/living.jpg',
-      slug: 'modern-apartment-living-room',
-    },
-    {
-      titleKey: 'home.featured.items.2.title',
-      categoryKey: 'home.featured.items.2.category',
-      image: 'assets/images/portfolio/projects/room.jpg',
-      slug: 'warm-minimal-bedroom',
-    },
-    {
-      titleKey: 'home.featured.items.3.title',
-      categoryKey: 'home.featured.items.3.category',
-      image: 'assets/images/portfolio/projects/living.jpg',
-      slug: 'contemporary-villa-majlis',
-    },
-  ];
+  featuredProjects = FEATURED_PROJECTS;
 
   projectIndex = 0;
   private projectTimer: number | null = null;
@@ -137,33 +122,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private projectsActivePointerId: number | null = null;
   private projectsMoved = false;
 
-  reviews: Review[] = [
-    {
-      nameKey: 'home.reviews.items.1.name',
-      roleKey: 'home.reviews.items.1.role',
-      textKey: 'home.reviews.items.1.text',
-    },
-    {
-      nameKey: 'home.reviews.items.2.name',
-      roleKey: 'home.reviews.items.2.role',
-      textKey: 'home.reviews.items.2.text',
-    },
-    {
-      nameKey: 'home.reviews.items.3.name',
-      roleKey: 'home.reviews.items.3.role',
-      textKey: 'home.reviews.items.3.text',
-    },
-    {
-      nameKey: 'home.reviews.items.4.name',
-      roleKey: 'home.reviews.items.4.role',
-      textKey: 'home.reviews.items.4.text',
-    },
-    {
-      nameKey: 'home.reviews.items.5.name',
-      roleKey: 'home.reviews.items.5.role',
-      textKey: 'home.reviews.items.5.text',
-    },
-  ];
+  reviews: ReviewItem[] = REVIEWS;
 
   constructor(private router: Router) {}
 
@@ -189,14 +148,12 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         (entries) => {
           const entry = entries[0];
           if (!entry?.isIntersecting) return;
-
           this.ctaEnter.set(true);
           this.ctaIO?.disconnect();
           this.ctaIO = undefined;
         },
         { threshold: 0.25, rootMargin: '0px 0px -10% 0px' }
       );
-
       this.ctaIO.observe(ctaEl);
     }
 
@@ -208,19 +165,13 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
           if (!entry || this.metricsAnimated) return;
           if (!entry.isIntersecting) return;
           if (entry.intersectionRatio < 0.75) return;
-
           this.metricsAnimated = true;
           this.animateWhoMetrics();
-
           this.whoIO?.disconnect();
           this.whoIO = undefined;
         },
-        {
-          threshold: 0.75,
-          rootMargin: '-8% 0px 0px 0px',
-        }
+        { threshold: 0.75, rootMargin: '-8% 0px 0px 0px' }
       );
-
       this.whoIO.observe(target);
     }
   }
@@ -236,22 +187,18 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private animateWhoMetrics(): void {
     const start = performance.now();
     const duration = 1400;
-
     const yTarget = this.metricsTarget.years;
     const dTarget = this.metricsTarget.designProjects;
     const eTarget = this.metricsTarget.executionProjects;
-
     const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
     const tick = (now: number) => {
       const elapsed = now - start;
       const p = Math.min(1, elapsed / duration);
       const eased = easeOutCubic(p);
-
       this.yearsDisplay = Math.round(yTarget * eased);
       this.designProjectsDisplay = Math.round(dTarget * eased);
       this.executionProjectsDisplay = Math.round(eTarget * eased);
-
       if (p < 1) {
         requestAnimationFrame(tick);
       } else {
@@ -260,7 +207,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         this.executionProjectsDisplay = eTarget;
       }
     };
-
     requestAnimationFrame(tick);
   }
 
@@ -268,30 +214,54 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigateByUrl(this.consultationPath);
   }
 
+  // ─── Marquee ─────────────────────────────────────────────
+
   private initReviewsMarquee(): void {
     const el = this.reviewsTrackRef?.nativeElement;
     if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    this.reviewsHalfW = el.scrollWidth / 2 + 7;
-
     const isRtl = document.documentElement.dir === 'rtl';
-    if (isRtl) {
-      this.reviewsAutoSpeed = 0.5;
-      this.reviewsX = -this.reviewsHalfW;
-    } else {
-      this.reviewsAutoSpeed = -0.5;
-      this.reviewsX = 0;
-    }
 
-    this.reviewsLoop();
+    // Measure after a short delay to let content-visibility render the section
+    // and let fonts settle — this is what was working in the original version
+    const doInit = () => {
+      const sw = el.scrollWidth;
+
+      // If scrollWidth is 0 or suspiciously small the section hasn't rendered
+      // yet (content-visibility: auto on mobile). Retry in 100ms.
+      if (sw < 200) {
+        setTimeout(doInit, 100);
+        return;
+      }
+
+      // ✅ The gap between the two copies is 14px (same as the gap between cards).
+      // Half that gap (7px) must be added so the wrap point lands exactly at the
+      // seam — this is the same formula the original working version used.
+      this.reviewsHalfW = sw / 2 + 7;
+
+      if (isRtl) {
+        this.reviewsAutoSpeed = 0.5;
+        this.reviewsX = -this.reviewsHalfW;
+      } else {
+        this.reviewsAutoSpeed = -0.5;
+        this.reviewsX = 0;
+      }
+
+      this.reviewsInitialised = true;
+
+      if (!this.reviewsRafId) {
+        this.reviewsLoop();
+      }
+    };
+
+    doInit();
   }
 
   private reviewsLoop(): void {
     this.reviewsRafId = requestAnimationFrame(() => this.reviewsLoop());
-
     const el = this.reviewsTrackRef?.nativeElement;
-    if (!el || this.reviewsHalfW === 0) return;
+    if (!el || !this.reviewsInitialised || this.reviewsHalfW === 0) return;
 
     if (!this.reviewsDragging) {
       if (Math.abs(this.reviewsVel) > 0.2) {
@@ -304,7 +274,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    // Seamless wrap
     const hw = this.reviewsHalfW;
     if (this.reviewsX <= -hw) this.reviewsX += hw;
     if (this.reviewsX > 0) this.reviewsX -= hw;
@@ -335,7 +304,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
     this.reviewsDragging = false;
     this.reviewsActivePtr = null;
-
     const s = this.reviewsDragSamples;
     if (s.length >= 2) {
       const dt = s[s.length - 1].t - s[0].t;
@@ -352,58 +320,48 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   nextProjects(): void {
+    if (!this.featuredProjects.length) return;
     this.projectIndex = (this.projectIndex + 1) % this.featuredProjects.length;
   }
 
   prevProjects(): void {
+    if (!this.featuredProjects.length) return;
     this.projectIndex =
       (this.projectIndex - 1 + this.featuredProjects.length) % this.featuredProjects.length;
   }
 
   projectsPointerDown(e: PointerEvent) {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
-
-    // Stop auto-advance immediately while user is touching
     if (this.projectTimer) {
       window.clearInterval(this.projectTimer);
       this.projectTimer = null;
     }
-
     this.projectsDragging = true;
     this.projectsMoved = false;
     this.projectsDragPx = 0;
-
     this.projectsStartX = e.clientX;
     this.projectsActivePointerId = e.pointerId;
-
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   }
 
   projectsPointerMove(e: PointerEvent) {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
-
     const dx = e.clientX - this.projectsStartX;
     if (Math.abs(dx) > 6) this.projectsMoved = true;
-
     this.projectsDragPx = dx;
   }
 
   projectsPointerUp(e: PointerEvent) {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
-
     this.projectsDragging = false;
     this.projectsActivePointerId = null;
-
     const dx = this.projectsDragPx;
     this.projectsDragPx = 0;
-
     if (this.projectsMoved) {
       const threshold = 60;
       if (dx <= -threshold) this.nextProjects();
       else if (dx >= threshold) this.prevProjects();
     }
-
-    // Reset timer so the next auto-flip is a full interval away
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     this.projectTimer = window.setInterval(() => {
       if (!this.projectsDragging) this.nextProjects();
