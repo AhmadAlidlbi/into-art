@@ -210,7 +210,7 @@
     >
       <div class="reviews-marquee__track" #reviewsTrack>
         <!-- Copy A — visible to assistive tech -->
-        @for (r of reviews; track r.nameKey + '-a') {
+        @for (r of reviews; track r.nameKey){
         <article class="review-card">
           <div class="review-card__stars">★★★★★</div>
           <p class="review-card__text">"{{ r.textKey | translate }}"</p>
@@ -224,7 +224,7 @@
         </article>
         }
         <!-- Copy B — decorative duplicate for seamless loop -->
-        @for (r of reviews; track r.nameKey + '-b') {
+        @for (r of reviews; track r.nameKey) {
         <article class="review-card" aria-hidden="true">
           <div class="review-card__stars">★★★★★</div>
           <p class="review-card__text">"{{ r.textKey | translate }}"</p>
