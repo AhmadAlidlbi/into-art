@@ -43,6 +43,9 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private whoIO?: IntersectionObserver;
   private metricsAnimated = false;
 
+  @ViewChild('reviewsSection', { read: ElementRef })
+  reviewsSectionRef?: ElementRef<HTMLElement>;
+
   @ViewChild('reviewsTrack', { read: ElementRef })
   reviewsTrackRef?: ElementRef<HTMLElement>;
 
@@ -60,6 +63,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private reviewsDragSamples: { x: number; t: number }[] = [];
   private reviewsActivePtr: number | null = null;
   private reviewsResizeHandler = () => this.initReviewsMarquee();
+  private reviewsIO?: IntersectionObserver;
 
   serviceCards: Card[] = [
     {
@@ -161,6 +165,19 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
     setTimeout(() => this.initReviewsMarquee(), 150);
 
+    // Re-init when section scrolls into view — ensures correct measurements
+    // on mobile where the section may not be laid out during AfterViewInit.
+    const reviewsEl = this.reviewsSectionRef?.nativeElement;
+    if (reviewsEl) {
+      this.reviewsIO = new IntersectionObserver(
+        ([entry]) => {
+          if (entry?.isIntersecting) this.initReviewsMarquee();
+        },
+        { threshold: 0 }
+      );
+      this.reviewsIO.observe(reviewsEl);
+    }
+
     const ctaEl = this.ctaSection?.nativeElement;
     if (ctaEl) {
       this.ctaIO = new IntersectionObserver(
@@ -206,6 +223,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
     this.ctaIO?.disconnect();
     this.whoIO?.disconnect();
+    this.reviewsIO?.disconnect();
   }
 
   private animateWhoMetrics(): void {
@@ -248,10 +266,18 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     if (!track || !group) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const trackStyle = window.getComputedStyle(track);
-    const trackGap = parseFloat(trackStyle.gap || trackStyle.columnGap || '0') || 0;
+    // Compute halfW as (totalTrackScrollWidth - oneGroupWidth) / 2.
+    // With 3 equal groups and 2 equal gaps: (3*gW + 2*gap - gW) / 2 = gW + gap.
+    // This avoids CSS gap parsing which is unreliable on some mobile browsers.
+    const groupW = group.offsetWidth;
+    const trackScrollW = track.scrollWidth;
 
-    this.reviewsHalfW = group.getBoundingClientRect().width + trackGap;
+    if (groupW === 0 || trackScrollW === 0) return;
+
+    const halfW = (trackScrollW - groupW) / 2;
+    if (halfW <= 0) return;
+
+    this.reviewsHalfW = halfW;
 
     const isRtl = document.documentElement.dir === 'rtl';
     this.reviewsAutoSpeed = isRtl ? 0.5 : -0.5;
@@ -284,8 +310,14 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
     const w = this.reviewsHalfW;
 
-    if (this.reviewsX <= -2 * w) this.reviewsX += w;
-    if (this.reviewsX >= 0) this.reviewsX -= w;
+    if (this.reviewsX <= -2 * w) {
+      this.reviewsX += w;
+      if (this.reviewsDragging) this.reviewsDragBaseX += w;
+    }
+    if (this.reviewsX >= 0) {
+      this.reviewsX -= w;
+      if (this.reviewsDragging) this.reviewsDragBaseX -= w;
+    }
 
     el.style.transform = `translate3d(${this.reviewsX}px, 0, 0)`;
   }
