@@ -248,8 +248,6 @@
 
 /*
   content-visibility: auto only on sections that don't need JS measurement.
-  Removed from .section--reviews — it causes scrollWidth to read as 0 on mobile
-  before the section enters the viewport, breaking the marquee initialisation.
 */
 .section--who,
 .section--projects {
@@ -688,112 +686,136 @@
 
 /* ─── REVIEWS ────────────────────────────────────────────── */
 .section--reviews {
-  overflow: visible;
-  /* No content-visibility here — it breaks scrollWidth measurement on mobile */
+  padding-top: 30px;
+  padding-bottom: 20px;
+  overflow: hidden;
 }
 
-.reviews-marquee {
-  margin-top: 14px;
+.reviews-viewport {
+  margin-top: 24px;
   overflow: hidden;
-  border-radius: 18px;
   cursor: grab;
   touch-action: pan-y;
   user-select: none;
+  /* vertical padding so card shadows are not clipped */
+  padding: 6px 0 32px;
+  /* edge fade */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    rgba(0, 0, 0, 1) 72px,
+    rgba(0, 0, 0, 1) calc(100% - 72px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    rgba(0, 0, 0, 1) 72px,
+    rgba(0, 0, 0, 1) calc(100% - 72px),
+    transparent 100%
+  );
 }
 
-.reviews-marquee:active {
+.reviews-viewport:active {
   cursor: grabbing;
 }
 
-.reviews-marquee__track {
+.reviews-track {
   display: flex;
-  gap: 14px;
+  gap: 16px;
   width: max-content;
   will-change: transform;
-  transform: translate3d(0, 0, 0);
-  padding: 4px 0 8px;
+  /* always LTR so card order is correct; inner content restores dir */
+  direction: ltr;
 }
 
 .review-card {
-  flex: 0 0 360px;
-  border-radius: 20px;
+  width: 320px;
+  flex-shrink: 0;
+  border-radius: 18px;
   border: var(--stroke);
   background: rgba(255, 255, 255, 0.88);
-  padding: 20px;
   box-shadow: var(--shine), var(--elev-1);
-  transition:
-    transform 140ms ease,
-    box-shadow 160ms ease;
+  padding: 22px 24px 20px;
   display: flex;
   flex-direction: column;
-}
-
-.review-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shine), var(--elev-2);
+  gap: 14px;
 }
 
 .review-card__stars {
-  font-weight: 950;
-  letter-spacing: 1px;
-  opacity: 0.9;
-  flex-shrink: 0;
+  color: #c4973e;
+  font-size: 15px;
+  letter-spacing: 3px;
+  line-height: 1;
 }
 
 .review-card__text {
-  margin: 10px 0 14px;
-  color: var(--text-2);
-  line-height: 1.9;
-  font-weight: 650;
+  margin: 0;
   font-size: 14px;
-  flex: 1 1 auto;
-}
-
-.review-card__person {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: auto;
-  flex-shrink: 0;
-}
-
-.review-card__avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 14px;
-  background: rgba(215, 198, 178, 0.3);
-  border: 1px solid rgba(215, 198, 178, 0.4);
-  flex-shrink: 0;
-}
-
-.review-card__meta {
-  min-width: 0;
+  line-height: 1.85;
+  font-weight: 650;
+  color: var(--text);
   flex: 1;
 }
 
+.review-card__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(231, 224, 216, 0.95);
+}
+
 .review-card__name {
+  font-size: 14px;
   font-weight: 950;
-  line-height: 1.3;
+  letter-spacing: -0.1px;
+  color: var(--text);
 }
 
 .review-card__role {
-  margin-top: 2px;
   font-size: 12px;
-  color: var(--text-2);
   font-weight: 800;
-  line-height: 1.4;
+  color: var(--text-2);
 }
 
-:host-context(html[dir='rtl']) .reviews-marquee {
+/*
+  Force the viewport into LTR layout so the overflowing track always anchors
+  to the LEFT edge — exactly the same fix used for .hero__slider and .slider.
+  Without this, in RTL the browser anchors the track to the right edge, and
+  the initial translateX(-setWidth) pushes it entirely off screen (blank).
+*/
+:host-context(html[dir='rtl']) .reviews-viewport {
   direction: ltr;
 }
+
 :host-context(html[dir='rtl']) .review-card {
   direction: rtl;
   text-align: right;
 }
-:host-context(html[dir='ltr']) .review-card {
-  direction: ltr;
-  text-align: left;
+
+@media (max-width: 560px) {
+  .review-card {
+    width: 276px;
+    padding: 18px 20px 16px;
+  }
+
+  .reviews-viewport {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      rgba(0, 0, 0, 1) 40px,
+      rgba(0, 0, 0, 1) calc(100% - 40px),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      rgba(0, 0, 0, 1) 40px,
+      rgba(0, 0, 0, 1) calc(100% - 40px),
+      transparent 100%
+    );
+  }
 }
 
 /* ─── CTA ────────────────────────────────────────────────── */
@@ -843,44 +865,104 @@
   animation: slide-fade 900ms cubic-bezier(0.22, 0.7, 0.18, 1) both;
 }
 
-.enter-delay-0 { animation-delay: 0ms; }
-.enter-delay-1 { animation-delay: 140ms; }
-.enter-delay-2 { animation-delay: 280ms; }
+.enter-delay-0 {
+  animation-delay: 0ms;
+}
+.enter-delay-1 {
+  animation-delay: 140ms;
+}
+.enter-delay-2 {
+  animation-delay: 280ms;
+}
 
 @keyframes slide-fade {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .enter-animation { animation: none !important; }
+  .enter-animation {
+    animation: none !important;
+  }
 }
 
 /* ─── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 980px) {
-  .hero__brand { top: -6px; }
+  .hero__brand {
+    top: -6px;
+  }
 
-  :host-context(html[dir='rtl']) .hero__brand { font-size: 18px; }
-  :host-context(html[dir='ltr']) .hero__brand { font-size: 14px; letter-spacing: 0.28em; }
+  :host-context(html[dir='rtl']) .hero__brand {
+    font-size: 18px;
+  }
+  :host-context(html[dir='ltr']) .hero__brand {
+    font-size: 14px;
+    letter-spacing: 0.28em;
+  }
 
-  .service-bar { flex-direction: column; transform: none; }
-  .service-bar-wrap { transform: translateY(-24px); }
-  .service-bar__sep { width: 100%; height: 1px; }
-  .service-bar__item { min-height: auto; padding: 16px 18px; }
+  .service-bar {
+    flex-direction: column;
+    transform: none;
+  }
+  .service-bar-wrap {
+    transform: translateY(-24px);
+  }
+  .service-bar__sep {
+    width: 100%;
+    height: 1px;
+  }
+  .service-bar__item {
+    min-height: auto;
+    padding: 16px 18px;
+  }
 
-  .who { grid-template-columns: 1fr; gap: 24px; }
-  .who__metrics { flex-wrap: wrap; gap: 20px; }
-  .who__metric { padding: 0; }
-  .who__metric-sep { display: none; }
+  .who {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .who__metrics {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .who__metric {
+    padding: 0;
+  }
+  .who__metric-sep {
+    display: none;
+  }
 
-  .why-header { grid-template-columns: 1fr; gap: 12px; }
-  .why-item { grid-template-columns: 48px 1fr; gap: 18px; }
-  .why-item__symbol { display: none; }
+  .why-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .why-item {
+    grid-template-columns: 48px 1fr;
+    gap: 18px;
+  }
+  .why-item__symbol {
+    display: none;
+  }
 
-  .procedure-header { grid-template-columns: 1fr; gap: 12px; }
-  .procedure-item__body { flex-direction: column; gap: 6px; align-items: stretch; }
-  .procedure-item__title { min-width: unset; }
+  .procedure-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .procedure-item__body {
+    flex-direction: column;
+    gap: 6px;
+    align-items: stretch;
+  }
+  .procedure-item__title {
+    min-width: unset;
+  }
 
-  .slide__img { height: 260px; }
-  .review-card { flex-basis: 300px; }
+  .slide__img {
+    height: 260px;
+  }
 }

@@ -147,9 +147,10 @@
           <div class="slide__img" [style.backgroundImage]="'url(' + p.cover + ')'">
             <div class="slide__meta">
               <div class="slide__meta-left">
-                <div class="slide__cat">{{ p.categoryKey }}</div>
-                <div class="slide__title">{{ p.titleKey }}</div>
+                <div class="slide__cat">{{ p.categoryKey | translate }}</div>
+                <div class="slide__title">{{ p.titleKey | translate }}</div>
               </div>
+
               <div class="slide__dots-inline">
                 @for (q of featuredProjects; track q.slug; let j = $index) {
                 <span
@@ -190,7 +191,7 @@
   </div>
 </section>
 
-<!-- ─── REVIEWS ────────────────────────────────────────────── -->
+<!-- ─── REVIEWS ─────────────────────────────────────────────── -->
 <section class="section section--reviews">
   <div class="container">
     <div class="section__head">
@@ -198,46 +199,31 @@
       <h2 class="section__title">{{ 'home.reviews.title' | translate }}</h2>
       <p class="section__desc">{{ 'home.reviews.desc' | translate }}</p>
     </div>
+  </div>
 
-    <div
-      class="reviews-marquee"
-      [attr.aria-label]="'home.reviews.aria' | translate"
-      (pointerdown)="reviewsPointerDown($event)"
-      (pointermove)="reviewsPointerMove($event)"
-      (pointerup)="reviewsPointerUp($event)"
-      (pointercancel)="reviewsPointerUp($event)"
-      (pointerleave)="reviewsPointerUp($event)"
-    >
-      <div class="reviews-marquee__track" #reviewsTrack>
-        <!-- Copy A — visible to assistive tech -->
-        @for (r of reviews; track r.nameKey + '-a') {
-        <article class="review-card">
-          <div class="review-card__stars">★★★★★</div>
-          <p class="review-card__text">"{{ r.textKey | translate }}"</p>
-          <div class="review-card__person">
-            <div class="review-card__avatar" aria-hidden="true"></div>
-            <div class="review-card__meta">
-              <div class="review-card__name">{{ r.nameKey | translate }}</div>
-              <div class="review-card__role">{{ r.roleKey | translate }}</div>
-            </div>
-          </div>
-        </article>
-        }
-        <!-- Copy B — decorative duplicate for seamless loop -->
-        @for (r of reviews; track r.nameKey + '-b') {
-        <article class="review-card" aria-hidden="true">
-          <div class="review-card__stars">★★★★★</div>
-          <p class="review-card__text">"{{ r.textKey | translate }}"</p>
-          <div class="review-card__person">
-            <div class="review-card__avatar" aria-hidden="true"></div>
-            <div class="review-card__meta">
-              <div class="review-card__name">{{ r.nameKey | translate }}</div>
-              <div class="review-card__role">{{ r.roleKey | translate }}</div>
-            </div>
-          </div>
-        </article>
-        }
-      </div>
+  <div
+    class="reviews-viewport"
+    role="region"
+    [attr.aria-label]="'home.reviews.aria' | translate"
+    (pointerdown)="reviewsPointerDown($event)"
+    (pointermove)="reviewsPointerMove($event)"
+    (pointerup)="reviewsPointerUp($event)"
+    (pointercancel)="reviewsPointerUp($event)"
+  >
+    <div class="reviews-track" #reviewsTrack>
+      @for (r of reviewsDoubled; track $index) {
+      <article
+        class="review-card"
+        [attr.aria-hidden]="$index >= reviews.length ? 'true' : null"
+      >
+        <div class="review-card__stars" aria-hidden="true">★★★★★</div>
+        <p class="review-card__text">{{ r.textKey | translate }}</p>
+        <footer class="review-card__footer">
+          <span class="review-card__name">{{ r.nameKey | translate }}</span>
+          <span class="review-card__role">{{ r.roleKey | translate }}</span>
+        </footer>
+      </article>
+      }
     </div>
   </div>
 </section>

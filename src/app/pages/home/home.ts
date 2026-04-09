@@ -12,7 +12,7 @@ import {
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { FEATURED_PROJECTS } from './featured-projects.data';
-import { REVIEWS, ReviewItem } from './reviews.data';
+import { REVIEWS } from './reviews.data';
 import { COMPANY_METRICS } from '../../shared/constants/company.constants';
 
 type Feature = { titleKey: string; descKey: string };
@@ -42,20 +42,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   whoMetrics?: ElementRef<HTMLElement>;
   private whoIO?: IntersectionObserver;
   private metricsAnimated = false;
-
-  @ViewChild('reviewsTrack', { read: ElementRef })
-  reviewsTrackRef?: ElementRef<HTMLElement>;
-  private reviewsX = 0;
-  private reviewsVel = 0;
-  private reviewsDragging = false;
-  private reviewsHalfW = 0;
-  private reviewsAutoSpeed = -0.5;
-  private reviewsRafId = 0;
-  private reviewsDragStartX = 0;
-  private reviewsDragBaseX = 0;
-  private reviewsDragSamples: { x: number; t: number }[] = [];
-  private reviewsActivePtr: number | null = null;
-  private reviewsInitialised = false;
 
   serviceCards: Card[] = [
     {
@@ -122,7 +108,45 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private projectsActivePointerId: number | null = null;
   private projectsMoved = false;
 
-  reviews: ReviewItem[] = REVIEWS;
+  // ─── Reviews marquee ─────────────────────────────────────
+  reviews = REVIEWS;
+  reviewsDoubled = [...REVIEWS, ...REVIEWS];
+
+  @ViewChild('reviewsTrack', { read: ElementRef })
+  private reviewsTrackRef?: ElementRef<HTMLElement>;
+
+  private reviewsRafId = 0;
+  private reviewsOffset = 0;
+  private reviewsSetWidth = 0;
+  private reviewsDragging = false;
+  private reviewsDragStartX = 0;
+  private reviewsDragStartOffset = 0;
+  private reviewsActivePtr: number | null = null;
+
+  /** px moved per animation frame (~27 px/s at 60 fps) */
+  private readonly REVIEWS_SPEED = 0.45;
+
+  private readonly reviewsTick = (): void => {
+    if (!this.reviewsDragging && this.reviewsSetWidth > 0) {
+      const isRTL = document.documentElement.dir === 'rtl';
+      this.reviewsOffset += isRTL ? this.REVIEWS_SPEED : -this.REVIEWS_SPEED;
+
+      // Seamless wrap-around
+      if (!isRTL && this.reviewsOffset <= -this.reviewsSetWidth) {
+        this.reviewsOffset += this.reviewsSetWidth;
+      } else if (isRTL && this.reviewsOffset >= 0) {
+        this.reviewsOffset -= this.reviewsSetWidth;
+      }
+
+      this.applyReviewsTransform();
+    }
+    this.reviewsRafId = requestAnimationFrame(this.reviewsTick);
+  };
+
+  private applyReviewsTransform(): void {
+    const el = this.reviewsTrackRef?.nativeElement;
+    if (el) el.style.transform = `translateX(${this.reviewsOffset}px)`;
+  }
 
   constructor(private router: Router) {}
 
@@ -139,7 +163,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     requestAnimationFrame(() => {
       this.heroEnter.set(true);
-      this.initReviewsMarquee();
     });
 
     const ctaEl = this.ctaSection?.nativeElement;
@@ -174,14 +197,26 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       );
       this.whoIO.observe(target);
     }
+
+    // Init reviews marquee after layout is painted
+    requestAnimationFrame(() => {
+      const trackEl = this.reviewsTrackRef?.nativeElement;
+      if (trackEl) {
+        this.reviewsSetWidth = trackEl.scrollWidth / 2;
+        if (document.documentElement.dir === 'rtl') {
+          this.reviewsOffset = -this.reviewsSetWidth;
+        }
+        this.reviewsRafId = requestAnimationFrame(this.reviewsTick);
+      }
+    });
   }
 
   ngOnDestroy(): void {
     if (this.heroTimer) window.clearInterval(this.heroTimer);
     if (this.projectTimer) window.clearInterval(this.projectTimer);
-    if (this.reviewsRafId) cancelAnimationFrame(this.reviewsRafId);
     this.ctaIO?.disconnect();
     this.whoIO?.disconnect();
+    cancelAnimationFrame(this.reviewsRafId);
   }
 
   private animateWhoMetrics(): void {
@@ -199,6 +234,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       this.yearsDisplay = Math.round(yTarget * eased);
       this.designProjectsDisplay = Math.round(dTarget * eased);
       this.executionProjectsDisplay = Math.round(eTarget * eased);
+
       if (p < 1) {
         requestAnimationFrame(tick);
       } else {
@@ -207,112 +243,12 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         this.executionProjectsDisplay = eTarget;
       }
     };
+
     requestAnimationFrame(tick);
   }
 
   goBook(): void {
     this.router.navigateByUrl(this.consultationPath);
-  }
-
-  // ─── Marquee ─────────────────────────────────────────────
-
-  private initReviewsMarquee(): void {
-    const el = this.reviewsTrackRef?.nativeElement;
-    if (!el) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const isRtl = document.documentElement.dir === 'rtl';
-
-    // Measure after a short delay to let content-visibility render the section
-    // and let fonts settle — this is what was working in the original version
-    const doInit = () => {
-      const sw = el.scrollWidth;
-
-      // If scrollWidth is 0 or suspiciously small the section hasn't rendered
-      // yet (content-visibility: auto on mobile). Retry in 100ms.
-      if (sw < 200) {
-        setTimeout(doInit, 100);
-        return;
-      }
-
-      // ✅ The gap between the two copies is 14px (same as the gap between cards).
-      // Half that gap (7px) must be added so the wrap point lands exactly at the
-      // seam — this is the same formula the original working version used.
-      this.reviewsHalfW = sw / 2 + 7;
-
-      if (isRtl) {
-        this.reviewsAutoSpeed = 0.5;
-        this.reviewsX = -this.reviewsHalfW;
-      } else {
-        this.reviewsAutoSpeed = -0.5;
-        this.reviewsX = 0;
-      }
-
-      this.reviewsInitialised = true;
-
-      if (!this.reviewsRafId) {
-        this.reviewsLoop();
-      }
-    };
-
-    doInit();
-  }
-
-  private reviewsLoop(): void {
-    this.reviewsRafId = requestAnimationFrame(() => this.reviewsLoop());
-    const el = this.reviewsTrackRef?.nativeElement;
-    if (!el || !this.reviewsInitialised || this.reviewsHalfW === 0) return;
-
-    if (!this.reviewsDragging) {
-      if (Math.abs(this.reviewsVel) > 0.2) {
-        this.reviewsX += this.reviewsVel;
-        this.reviewsVel *= 0.94;
-        if (Math.abs(this.reviewsVel) < 0.2) this.reviewsVel = 0;
-      } else {
-        this.reviewsVel = 0;
-        this.reviewsX += this.reviewsAutoSpeed;
-      }
-    }
-
-    const hw = this.reviewsHalfW;
-    if (this.reviewsX <= -hw) this.reviewsX += hw;
-    if (this.reviewsX > 0) this.reviewsX -= hw;
-
-    el.style.transform = `translate3d(${this.reviewsX}px, 0, 0)`;
-  }
-
-  reviewsPointerDown(e: PointerEvent): void {
-    if (e.pointerType === 'mouse' && e.button !== 0) return;
-    this.reviewsDragging = true;
-    this.reviewsVel = 0;
-    this.reviewsDragStartX = e.clientX;
-    this.reviewsDragBaseX = this.reviewsX;
-    this.reviewsDragSamples = [{ x: e.clientX, t: Date.now() }];
-    this.reviewsActivePtr = e.pointerId;
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-  }
-
-  reviewsPointerMove(e: PointerEvent): void {
-    if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
-    const dx = e.clientX - this.reviewsDragStartX;
-    this.reviewsX = this.reviewsDragBaseX + dx;
-    this.reviewsDragSamples.push({ x: e.clientX, t: Date.now() });
-    if (this.reviewsDragSamples.length > 6) this.reviewsDragSamples.shift();
-  }
-
-  reviewsPointerUp(e: PointerEvent): void {
-    if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
-    this.reviewsDragging = false;
-    this.reviewsActivePtr = null;
-    const s = this.reviewsDragSamples;
-    if (s.length >= 2) {
-      const dt = s[s.length - 1].t - s[0].t;
-      const dx = s[s.length - 1].x - s[0].x;
-      if (dt > 0 && dt < 200) {
-        this.reviewsVel = Math.max(-28, Math.min(28, (dx / dt) * 16));
-      }
-    }
-    this.reviewsDragSamples = [];
   }
 
   nextHero(): void {
@@ -330,12 +266,14 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       (this.projectIndex - 1 + this.featuredProjects.length) % this.featuredProjects.length;
   }
 
-  projectsPointerDown(e: PointerEvent) {
+  projectsPointerDown(e: PointerEvent): void {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+
     if (this.projectTimer) {
       window.clearInterval(this.projectTimer);
       this.projectTimer = null;
     }
+
     this.projectsDragging = true;
     this.projectsMoved = false;
     this.projectsDragPx = 0;
@@ -344,27 +282,60 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   }
 
-  projectsPointerMove(e: PointerEvent) {
+  projectsPointerMove(e: PointerEvent): void {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
+
     const dx = e.clientX - this.projectsStartX;
     if (Math.abs(dx) > 6) this.projectsMoved = true;
     this.projectsDragPx = dx;
   }
 
-  projectsPointerUp(e: PointerEvent) {
+  projectsPointerUp(e: PointerEvent): void {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
+
     this.projectsDragging = false;
     this.projectsActivePointerId = null;
+
     const dx = this.projectsDragPx;
     this.projectsDragPx = 0;
+
     if (this.projectsMoved) {
       const threshold = 60;
       if (dx <= -threshold) this.nextProjects();
       else if (dx >= threshold) this.prevProjects();
     }
+
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     this.projectTimer = window.setInterval(() => {
       if (!this.projectsDragging) this.nextProjects();
     }, 3000);
+  }
+
+  // ─── Reviews pointer handlers ─────────────────────────────
+  reviewsPointerDown(e: PointerEvent): void {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    this.reviewsDragging = true;
+    this.reviewsDragStartX = e.clientX;
+    this.reviewsDragStartOffset = this.reviewsOffset;
+    this.reviewsActivePtr = e.pointerId;
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  }
+
+  reviewsPointerMove(e: PointerEvent): void {
+    if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
+    let newOffset = this.reviewsDragStartOffset + (e.clientX - this.reviewsDragStartX);
+    // Keep offset within the valid looping range
+    if (this.reviewsSetWidth > 0) {
+      while (newOffset < -this.reviewsSetWidth) newOffset += this.reviewsSetWidth;
+      while (newOffset > 0) newOffset -= this.reviewsSetWidth;
+    }
+    this.reviewsOffset = newOffset;
+    this.applyReviewsTransform();
+  }
+
+  reviewsPointerUp(e: PointerEvent): void {
+    if (this.reviewsActivePtr !== e.pointerId) return;
+    this.reviewsDragging = false;
+    this.reviewsActivePtr = null;
   }
 }
