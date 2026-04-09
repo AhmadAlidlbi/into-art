@@ -45,30 +45,16 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('reviewsTrack', { read: ElementRef })
   reviewsTrackRef?: ElementRef<HTMLElement>;
-
   private reviewsX = 0;
   private reviewsVel = 0;
   private reviewsDragging = false;
   private reviewsHalfW = 0;
-  private reviewsAutoSpeed = -0.5;
+  private reviewsAutoSpeed = -1.5;
   private reviewsRafId = 0;
   private reviewsDragStartX = 0;
   private reviewsDragBaseX = 0;
   private reviewsDragSamples: { x: number; t: number }[] = [];
   private reviewsActivePtr: number | null = null;
-  private reviewsInitialised = false;
-  private reviewsResizeObserver?: ResizeObserver;
-  private reviewsResetTimeout: number | null = null;
-
-  private readonly handleReviewsResize = () => {
-    this.resetReviewsMarquee();
-  };
-
-  private readonly handleVisibilityChange = () => {
-    if (document.visibilityState === 'visible') {
-      this.resetReviewsMarquee();
-    }
-  };
 
   serviceCards: Card[] = [
     {
@@ -144,11 +130,9 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       this.nextHero();
     }, 4000);
 
-    if (this.featuredProjects.length > 1) {
-      this.projectTimer = window.setInterval(() => {
-        if (!this.projectsDragging) this.nextProjects();
-      }, 3000);
-    }
+    this.projectTimer = window.setInterval(() => {
+      if (!this.projectsDragging) this.nextProjects();
+    }, 3000);
   }
 
   ngAfterViewInit(): void {
@@ -189,31 +173,12 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       );
       this.whoIO.observe(target);
     }
-
-    const reviewsEl = this.reviewsTrackRef?.nativeElement;
-    if (reviewsEl) {
-      this.reviewsResizeObserver = new ResizeObserver(() => {
-        this.resetReviewsMarquee();
-      });
-      this.reviewsResizeObserver.observe(reviewsEl);
-    }
-
-    window.addEventListener('resize', this.handleReviewsResize, { passive: true });
-    window.addEventListener('orientationchange', this.handleReviewsResize, { passive: true });
-    document.addEventListener('visibilitychange', this.handleVisibilityChange);
   }
 
   ngOnDestroy(): void {
     if (this.heroTimer) window.clearInterval(this.heroTimer);
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     if (this.reviewsRafId) cancelAnimationFrame(this.reviewsRafId);
-    if (this.reviewsResetTimeout) window.clearTimeout(this.reviewsResetTimeout);
-
-    this.reviewsResizeObserver?.disconnect();
-    window.removeEventListener('resize', this.handleReviewsResize);
-    window.removeEventListener('orientationchange', this.handleReviewsResize);
-    document.removeEventListener('visibilitychange', this.handleVisibilityChange);
-
     this.ctaIO?.disconnect();
     this.whoIO?.disconnect();
   }
@@ -241,7 +206,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         this.executionProjectsDisplay = eTarget;
       }
     };
-
     requestAnimationFrame(tick);
   }
 
@@ -253,76 +217,22 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     const el = this.reviewsTrackRef?.nativeElement;
     if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
+    this.reviewsHalfW = el.scrollWidth / 2 + 7;
     const isRtl = document.documentElement.dir === 'rtl';
-
-    const doInit = () => {
-      const currentEl = this.reviewsTrackRef?.nativeElement;
-      if (!currentEl) return;
-
-      const sw = currentEl.scrollWidth;
-
-      if (sw < 200) {
-        this.reviewsResetTimeout = window.setTimeout(doInit, 100);
-        return;
-      }
-
-      this.reviewsHalfW = sw / 2 + 7;
-
-      if (isRtl) {
-        this.reviewsAutoSpeed = 0.5;
-        this.reviewsX = -this.reviewsHalfW;
-      } else {
-        this.reviewsAutoSpeed = -0.5;
-        this.reviewsX = 0;
-      }
-
-      this.reviewsVel = 0;
-      this.reviewsInitialised = true;
-      currentEl.style.transform = `translate3d(${this.reviewsX}px, 0, 0)`;
-
-      if (!this.reviewsRafId) {
-        this.reviewsLoop();
-      }
-    };
-
-    doInit();
-  }
-
-  private resetReviewsMarquee(): void {
-    const el = this.reviewsTrackRef?.nativeElement;
-    if (!el) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    this.reviewsInitialised = false;
-    this.reviewsVel = 0;
-    this.reviewsDragging = false;
-
-    if (this.reviewsRafId) {
-      cancelAnimationFrame(this.reviewsRafId);
-      this.reviewsRafId = 0;
+    if (isRtl) {
+      this.reviewsAutoSpeed = 0.5;
+      this.reviewsX = -this.reviewsHalfW;
+    } else {
+      this.reviewsAutoSpeed = -0.5;
+      this.reviewsX = 0;
     }
-
-    if (this.reviewsResetTimeout) {
-      window.clearTimeout(this.reviewsResetTimeout);
-      this.reviewsResetTimeout = null;
-    }
-
-    el.style.transform = 'translate3d(0, 0, 0)';
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        this.initReviewsMarquee();
-      });
-    });
+    this.reviewsLoop();
   }
 
   private reviewsLoop(): void {
     this.reviewsRafId = requestAnimationFrame(() => this.reviewsLoop());
-
     const el = this.reviewsTrackRef?.nativeElement;
-    if (!el || !this.reviewsInitialised || this.reviewsHalfW === 0) return;
-
+    if (!el || this.reviewsHalfW === 0) return;
     if (!this.reviewsDragging) {
       if (Math.abs(this.reviewsVel) > 0.2) {
         this.reviewsX += this.reviewsVel;
@@ -333,19 +243,14 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         this.reviewsX += this.reviewsAutoSpeed;
       }
     }
-
     const hw = this.reviewsHalfW;
-
     if (this.reviewsX <= -hw) this.reviewsX += hw;
     if (this.reviewsX > 0) this.reviewsX -= hw;
-
     el.style.transform = `translate3d(${this.reviewsX}px, 0, 0)`;
   }
 
   reviewsPointerDown(e: PointerEvent): void {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
-    if (!this.reviewsInitialised) return;
-
     this.reviewsDragging = true;
     this.reviewsVel = 0;
     this.reviewsDragStartX = e.clientX;
@@ -357,22 +262,16 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   reviewsPointerMove(e: PointerEvent): void {
     if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
-
     const dx = e.clientX - this.reviewsDragStartX;
     this.reviewsX = this.reviewsDragBaseX + dx;
     this.reviewsDragSamples.push({ x: e.clientX, t: Date.now() });
-
-    if (this.reviewsDragSamples.length > 6) {
-      this.reviewsDragSamples.shift();
-    }
+    if (this.reviewsDragSamples.length > 6) this.reviewsDragSamples.shift();
   }
 
   reviewsPointerUp(e: PointerEvent): void {
     if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
-
     this.reviewsDragging = false;
     this.reviewsActivePtr = null;
-
     const s = this.reviewsDragSamples;
     if (s.length >= 2) {
       const dt = s[s.length - 1].t - s[0].t;
@@ -381,7 +280,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         this.reviewsVel = Math.max(-28, Math.min(28, (dx / dt) * 16));
       }
     }
-
     this.reviewsDragSamples = [];
   }
 
@@ -402,12 +300,10 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   projectsPointerDown(e: PointerEvent): void {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
-
     if (this.projectTimer) {
       window.clearInterval(this.projectTimer);
       this.projectTimer = null;
     }
-
     this.projectsDragging = true;
     this.projectsMoved = false;
     this.projectsDragPx = 0;
@@ -418,7 +314,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   projectsPointerMove(e: PointerEvent): void {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
-
     const dx = e.clientX - this.projectsStartX;
     if (Math.abs(dx) > 6) this.projectsMoved = true;
     this.projectsDragPx = dx;
@@ -426,25 +321,18 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   projectsPointerUp(e: PointerEvent): void {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
-
     this.projectsDragging = false;
     this.projectsActivePointerId = null;
-
     const dx = this.projectsDragPx;
     this.projectsDragPx = 0;
-
     if (this.projectsMoved) {
       const threshold = 60;
       if (dx <= -threshold) this.nextProjects();
       else if (dx >= threshold) this.prevProjects();
     }
-
     if (this.projectTimer) window.clearInterval(this.projectTimer);
-
-    if (this.featuredProjects.length > 1) {
-      this.projectTimer = window.setInterval(() => {
-        if (!this.projectsDragging) this.nextProjects();
-      }, 3000);
-    }
+    this.projectTimer = window.setInterval(() => {
+      if (!this.projectsDragging) this.nextProjects();
+    }, 3000);
   }
 }
