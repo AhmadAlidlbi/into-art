@@ -719,15 +719,6 @@
   cursor: grabbing;
 }
 
-.reviews-marquee__track {
-  display: flex;
-  gap: 14px;
-  width: max-content;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  padding: 4px 0 8px;
-}
-
 .review-card {
   flex: 0 0 360px;
   border-radius: 20px;

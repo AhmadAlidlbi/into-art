@@ -45,19 +45,21 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('reviewsTrack', { read: ElementRef })
   reviewsTrackRef?: ElementRef<HTMLElement>;
+
+  @ViewChild('reviewsGroup', { read: ElementRef })
+  reviewsGroupRef?: ElementRef<HTMLElement>;
+
   private reviewsX = 0;
   private reviewsVel = 0;
   private reviewsDragging = false;
   private reviewsHalfW = 0;
-  private reviewsAutoSpeed = -1.5;
+  private reviewsAutoSpeed = -0.5;
   private reviewsRafId = 0;
   private reviewsDragStartX = 0;
   private reviewsDragBaseX = 0;
   private reviewsDragSamples: { x: number; t: number }[] = [];
   private reviewsActivePtr: number | null = null;
-
-  @ViewChild('reviewsGroup', { read: ElementRef })
-  reviewsGroupRef?: ElementRef<HTMLElement>;
+  private reviewsResizeHandler = () => this.initReviewsMarquee();
 
   serviceCards: Card[] = [
     {
@@ -148,7 +150,16 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       });
     });
 
-    window.addEventListener('resize', this.handleReviewsResize);
+    window.addEventListener('resize', this.reviewsResizeHandler);
+    window.addEventListener('orientationchange', this.reviewsResizeHandler);
+
+    if ('fonts' in document) {
+      (document as Document & { fonts?: FontFaceSet }).fonts?.ready.then(() => {
+        this.initReviewsMarquee();
+      });
+    }
+
+    setTimeout(() => this.initReviewsMarquee(), 150);
 
     const ctaEl = this.ctaSection?.nativeElement;
     if (ctaEl) {
@@ -173,6 +184,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
           if (!entry || this.metricsAnimated) return;
           if (!entry.isIntersecting) return;
           if (entry.intersectionRatio < 0.75) return;
+
           this.metricsAnimated = true;
           this.animateWhoMetrics();
           this.whoIO?.disconnect();
@@ -184,15 +196,14 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  private handleReviewsResize = (): void => {
-    this.initReviewsMarquee();
-  };
-
   ngOnDestroy(): void {
     if (this.heroTimer) window.clearInterval(this.heroTimer);
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     if (this.reviewsRafId) cancelAnimationFrame(this.reviewsRafId);
-    window.removeEventListener('resize', this.handleReviewsResize);
+
+    window.removeEventListener('resize', this.reviewsResizeHandler);
+    window.removeEventListener('orientationchange', this.reviewsResizeHandler);
+
     this.ctaIO?.disconnect();
     this.whoIO?.disconnect();
   }
@@ -209,9 +220,11 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       const elapsed = now - start;
       const p = Math.min(1, elapsed / duration);
       const eased = easeOutCubic(p);
+
       this.yearsDisplay = Math.round(yTarget * eased);
       this.designProjectsDisplay = Math.round(dTarget * eased);
       this.executionProjectsDisplay = Math.round(eTarget * eased);
+
       if (p < 1) {
         requestAnimationFrame(tick);
       } else {
@@ -220,6 +233,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         this.executionProjectsDisplay = eTarget;
       }
     };
+
     requestAnimationFrame(tick);
   }
 
@@ -235,21 +249,28 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const trackStyle = window.getComputedStyle(track);
-    const trackGap = parseFloat(trackStyle.columnGap || trackStyle.gap || '0') || 0;
+    const trackGap = parseFloat(trackStyle.gap || trackStyle.columnGap || '0') || 0;
 
-    this.reviewsHalfW = group.offsetWidth + trackGap;
+    this.reviewsHalfW = group.getBoundingClientRect().width + trackGap;
 
     const isRtl = document.documentElement.dir === 'rtl';
     this.reviewsAutoSpeed = isRtl ? 0.5 : -0.5;
-    this.reviewsX = isRtl ? -this.reviewsHalfW : 0;
 
-    if (!this.reviewsRafId) this.reviewsLoop();
+    // start from the middle copy
+    this.reviewsX = -this.reviewsHalfW;
+    track.style.transform = `translate3d(${this.reviewsX}px, 0, 0)`;
+
+    if (!this.reviewsRafId) {
+      this.reviewsLoop();
+    }
   }
 
   private reviewsLoop(): void {
     this.reviewsRafId = requestAnimationFrame(() => this.reviewsLoop());
+
     const el = this.reviewsTrackRef?.nativeElement;
     if (!el || this.reviewsHalfW === 0) return;
+
     if (!this.reviewsDragging) {
       if (Math.abs(this.reviewsVel) > 0.2) {
         this.reviewsX += this.reviewsVel;
@@ -260,43 +281,54 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         this.reviewsX += this.reviewsAutoSpeed;
       }
     }
-    const hw = this.reviewsHalfW;
-    if (this.reviewsX <= -hw) this.reviewsX += hw;
-    if (this.reviewsX > 0) this.reviewsX -= hw;
+
+    const w = this.reviewsHalfW;
+
+    if (this.reviewsX <= -2 * w) this.reviewsX += w;
+    if (this.reviewsX >= 0) this.reviewsX -= w;
+
     el.style.transform = `translate3d(${this.reviewsX}px, 0, 0)`;
   }
 
   reviewsPointerDown(e: PointerEvent): void {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+
     this.reviewsDragging = true;
     this.reviewsVel = 0;
     this.reviewsDragStartX = e.clientX;
     this.reviewsDragBaseX = this.reviewsX;
     this.reviewsDragSamples = [{ x: e.clientX, t: Date.now() }];
     this.reviewsActivePtr = e.pointerId;
+
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   }
 
   reviewsPointerMove(e: PointerEvent): void {
     if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
+
     const dx = e.clientX - this.reviewsDragStartX;
     this.reviewsX = this.reviewsDragBaseX + dx;
+
     this.reviewsDragSamples.push({ x: e.clientX, t: Date.now() });
     if (this.reviewsDragSamples.length > 6) this.reviewsDragSamples.shift();
   }
 
   reviewsPointerUp(e: PointerEvent): void {
     if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
+
     this.reviewsDragging = false;
     this.reviewsActivePtr = null;
+
     const s = this.reviewsDragSamples;
     if (s.length >= 2) {
       const dt = s[s.length - 1].t - s[0].t;
       const dx = s[s.length - 1].x - s[0].x;
+
       if (dt > 0 && dt < 200) {
         this.reviewsVel = Math.max(-28, Math.min(28, (dx / dt) * 16));
       }
     }
+
     this.reviewsDragSamples = [];
   }
 
@@ -317,20 +349,24 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   projectsPointerDown(e: PointerEvent): void {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+
     if (this.projectTimer) {
       window.clearInterval(this.projectTimer);
       this.projectTimer = null;
     }
+
     this.projectsDragging = true;
     this.projectsMoved = false;
     this.projectsDragPx = 0;
     this.projectsStartX = e.clientX;
     this.projectsActivePointerId = e.pointerId;
+
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   }
 
   projectsPointerMove(e: PointerEvent): void {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
+
     const dx = e.clientX - this.projectsStartX;
     if (Math.abs(dx) > 6) this.projectsMoved = true;
     this.projectsDragPx = dx;
@@ -338,15 +374,19 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   projectsPointerUp(e: PointerEvent): void {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
+
     this.projectsDragging = false;
     this.projectsActivePointerId = null;
+
     const dx = this.projectsDragPx;
     this.projectsDragPx = 0;
+
     if (this.projectsMoved) {
       const threshold = 60;
       if (dx <= -threshold) this.nextProjects();
       else if (dx >= threshold) this.prevProjects();
     }
+
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     this.projectTimer = window.setInterval(() => {
       if (!this.projectsDragging) this.nextProjects();
