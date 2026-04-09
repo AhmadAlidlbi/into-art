@@ -691,6 +691,15 @@
   overflow: visible;
 }
 
+.reviews-marquee__track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  padding: 4px 0 8px;
+}
+
 .reviews-marquee__group {
   display: flex;
   gap: 14px;

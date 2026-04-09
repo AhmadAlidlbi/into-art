@@ -234,21 +234,16 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     if (!track || !group) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    this.reviewsHalfW = group.offsetWidth;
+    const trackStyle = window.getComputedStyle(track);
+    const trackGap = parseFloat(trackStyle.columnGap || trackStyle.gap || '0') || 0;
+
+    this.reviewsHalfW = group.offsetWidth + trackGap;
 
     const isRtl = document.documentElement.dir === 'rtl';
+    this.reviewsAutoSpeed = isRtl ? 0.5 : -0.5;
+    this.reviewsX = isRtl ? -this.reviewsHalfW : 0;
 
-    if (isRtl) {
-      this.reviewsAutoSpeed = 0.5;
-      this.reviewsX = -this.reviewsHalfW;
-    } else {
-      this.reviewsAutoSpeed = -0.5;
-      this.reviewsX = 0;
-    }
-
-    if (!this.reviewsRafId) {
-      this.reviewsLoop();
-    }
+    if (!this.reviewsRafId) this.reviewsLoop();
   }
 
   private reviewsLoop(): void {
