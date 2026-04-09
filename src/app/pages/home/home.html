@@ -201,29 +201,31 @@
     </div>
   </div>
 
-  <div
-    class="reviews-viewport"
-    role="region"
-    [attr.aria-label]="'home.reviews.aria' | translate"
-    (pointerdown)="reviewsPointerDown($event)"
-    (pointermove)="reviewsPointerMove($event)"
-    (pointerup)="reviewsPointerUp($event)"
-    (pointercancel)="reviewsPointerUp($event)"
-  >
-    <div class="reviews-track" #reviewsTrack>
-      @for (r of reviewsDoubled; track $index) {
-      <article
-        class="review-card"
-        [attr.aria-hidden]="$index >= reviews.length ? 'true' : null"
-      >
-        <div class="review-card__stars" aria-hidden="true">★★★★★</div>
-        <p class="review-card__text">{{ r.textKey | translate }}</p>
-        <footer class="review-card__footer">
-          <span class="review-card__name">{{ r.nameKey | translate }}</span>
-          <span class="review-card__role">{{ r.roleKey | translate }}</span>
-        </footer>
-      </article>
-      }
+  <div class="container">
+    <div
+      class="reviews-viewport"
+      role="region"
+      [attr.aria-label]="'home.reviews.aria' | translate"
+      (pointerdown)="reviewsPointerDown($event)"
+      (pointermove)="reviewsPointerMove($event)"
+      (pointerup)="reviewsPointerUp($event)"
+      (pointercancel)="reviewsPointerUp($event)"
+    >
+      <div class="reviews-track" #reviewsTrack>
+        @for (r of reviewsDoubled; track $index) {
+        <article
+          class="review-card"
+          [attr.aria-hidden]="$index >= reviews.length ? 'true' : null"
+        >
+          <div class="review-card__stars" aria-hidden="true">★★★★★</div>
+          <p class="review-card__text">{{ r.textKey | translate }}</p>
+          <footer class="review-card__footer">
+            <span class="review-card__name">{{ r.nameKey | translate }}</span>
+            <span class="review-card__role">{{ r.roleKey | translate }}</span>
+          </footer>
+        </article>
+        }
+      </div>
     </div>
   </div>
 </section>
