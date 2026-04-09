@@ -45,6 +45,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('reviewsTrack', { read: ElementRef })
   reviewsTrackRef?: ElementRef<HTMLElement>;
+
   private reviewsX = 0;
   private reviewsVel = 0;
   private reviewsDragging = false;
@@ -56,6 +57,18 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private reviewsDragSamples: { x: number; t: number }[] = [];
   private reviewsActivePtr: number | null = null;
   private reviewsInitialised = false;
+  private reviewsResizeObserver?: ResizeObserver;
+  private reviewsResetTimeout: number | null = null;
+
+  private readonly handleReviewsResize = () => {
+    this.resetReviewsMarquee();
+  };
+
+  private readonly handleVisibilityChange = () => {
+    if (document.visibilityState === 'visible') {
+      this.resetReviewsMarquee();
+    }
+  };
 
   serviceCards: Card[] = [
     {
@@ -131,9 +144,11 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       this.nextHero();
     }, 4000);
 
-    this.projectTimer = window.setInterval(() => {
-      if (!this.projectsDragging) this.nextProjects();
-    }, 3000);
+    if (this.featuredProjects.length > 1) {
+      this.projectTimer = window.setInterval(() => {
+        if (!this.projectsDragging) this.nextProjects();
+      }, 3000);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -174,12 +189,31 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       );
       this.whoIO.observe(target);
     }
+
+    const reviewsEl = this.reviewsTrackRef?.nativeElement;
+    if (reviewsEl) {
+      this.reviewsResizeObserver = new ResizeObserver(() => {
+        this.resetReviewsMarquee();
+      });
+      this.reviewsResizeObserver.observe(reviewsEl);
+    }
+
+    window.addEventListener('resize', this.handleReviewsResize, { passive: true });
+    window.addEventListener('orientationchange', this.handleReviewsResize, { passive: true });
+    document.addEventListener('visibilitychange', this.handleVisibilityChange);
   }
 
   ngOnDestroy(): void {
     if (this.heroTimer) window.clearInterval(this.heroTimer);
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     if (this.reviewsRafId) cancelAnimationFrame(this.reviewsRafId);
+    if (this.reviewsResetTimeout) window.clearTimeout(this.reviewsResetTimeout);
+
+    this.reviewsResizeObserver?.disconnect();
+    window.removeEventListener('resize', this.handleReviewsResize);
+    window.removeEventListener('orientationchange', this.handleReviewsResize);
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+
     this.ctaIO?.disconnect();
     this.whoIO?.disconnect();
   }
@@ -207,14 +241,13 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         this.executionProjectsDisplay = eTarget;
       }
     };
+
     requestAnimationFrame(tick);
   }
 
   goBook(): void {
     this.router.navigateByUrl(this.consultationPath);
   }
-
-  // ─── Marquee ─────────────────────────────────────────────
 
   private initReviewsMarquee(): void {
     const el = this.reviewsTrackRef?.nativeElement;
@@ -223,21 +256,17 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
     const isRtl = document.documentElement.dir === 'rtl';
 
-    // Measure after a short delay to let content-visibility render the section
-    // and let fonts settle — this is what was working in the original version
     const doInit = () => {
-      const sw = el.scrollWidth;
+      const currentEl = this.reviewsTrackRef?.nativeElement;
+      if (!currentEl) return;
 
-      // If scrollWidth is 0 or suspiciously small the section hasn't rendered
-      // yet (content-visibility: auto on mobile). Retry in 100ms.
+      const sw = currentEl.scrollWidth;
+
       if (sw < 200) {
-        setTimeout(doInit, 100);
+        this.reviewsResetTimeout = window.setTimeout(doInit, 100);
         return;
       }
 
-      // ✅ The gap between the two copies is 14px (same as the gap between cards).
-      // Half that gap (7px) must be added so the wrap point lands exactly at the
-      // seam — this is the same formula the original working version used.
       this.reviewsHalfW = sw / 2 + 7;
 
       if (isRtl) {
@@ -248,7 +277,9 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         this.reviewsX = 0;
       }
 
+      this.reviewsVel = 0;
       this.reviewsInitialised = true;
+      currentEl.style.transform = `translate3d(${this.reviewsX}px, 0, 0)`;
 
       if (!this.reviewsRafId) {
         this.reviewsLoop();
@@ -258,8 +289,37 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     doInit();
   }
 
+  private resetReviewsMarquee(): void {
+    const el = this.reviewsTrackRef?.nativeElement;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    this.reviewsInitialised = false;
+    this.reviewsVel = 0;
+    this.reviewsDragging = false;
+
+    if (this.reviewsRafId) {
+      cancelAnimationFrame(this.reviewsRafId);
+      this.reviewsRafId = 0;
+    }
+
+    if (this.reviewsResetTimeout) {
+      window.clearTimeout(this.reviewsResetTimeout);
+      this.reviewsResetTimeout = null;
+    }
+
+    el.style.transform = 'translate3d(0, 0, 0)';
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        this.initReviewsMarquee();
+      });
+    });
+  }
+
   private reviewsLoop(): void {
     this.reviewsRafId = requestAnimationFrame(() => this.reviewsLoop());
+
     const el = this.reviewsTrackRef?.nativeElement;
     if (!el || !this.reviewsInitialised || this.reviewsHalfW === 0) return;
 
@@ -275,6 +335,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     const hw = this.reviewsHalfW;
+
     if (this.reviewsX <= -hw) this.reviewsX += hw;
     if (this.reviewsX > 0) this.reviewsX -= hw;
 
@@ -283,6 +344,8 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   reviewsPointerDown(e: PointerEvent): void {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+    if (!this.reviewsInitialised) return;
+
     this.reviewsDragging = true;
     this.reviewsVel = 0;
     this.reviewsDragStartX = e.clientX;
@@ -294,16 +357,22 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   reviewsPointerMove(e: PointerEvent): void {
     if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
+
     const dx = e.clientX - this.reviewsDragStartX;
     this.reviewsX = this.reviewsDragBaseX + dx;
     this.reviewsDragSamples.push({ x: e.clientX, t: Date.now() });
-    if (this.reviewsDragSamples.length > 6) this.reviewsDragSamples.shift();
+
+    if (this.reviewsDragSamples.length > 6) {
+      this.reviewsDragSamples.shift();
+    }
   }
 
   reviewsPointerUp(e: PointerEvent): void {
     if (!this.reviewsDragging || this.reviewsActivePtr !== e.pointerId) return;
+
     this.reviewsDragging = false;
     this.reviewsActivePtr = null;
+
     const s = this.reviewsDragSamples;
     if (s.length >= 2) {
       const dt = s[s.length - 1].t - s[0].t;
@@ -312,6 +381,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
         this.reviewsVel = Math.max(-28, Math.min(28, (dx / dt) * 16));
       }
     }
+
     this.reviewsDragSamples = [];
   }
 
@@ -330,12 +400,14 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       (this.projectIndex - 1 + this.featuredProjects.length) % this.featuredProjects.length;
   }
 
-  projectsPointerDown(e: PointerEvent) {
+  projectsPointerDown(e: PointerEvent): void {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+
     if (this.projectTimer) {
       window.clearInterval(this.projectTimer);
       this.projectTimer = null;
     }
+
     this.projectsDragging = true;
     this.projectsMoved = false;
     this.projectsDragPx = 0;
@@ -344,27 +416,35 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   }
 
-  projectsPointerMove(e: PointerEvent) {
+  projectsPointerMove(e: PointerEvent): void {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
+
     const dx = e.clientX - this.projectsStartX;
     if (Math.abs(dx) > 6) this.projectsMoved = true;
     this.projectsDragPx = dx;
   }
 
-  projectsPointerUp(e: PointerEvent) {
+  projectsPointerUp(e: PointerEvent): void {
     if (!this.projectsDragging || this.projectsActivePointerId !== e.pointerId) return;
+
     this.projectsDragging = false;
     this.projectsActivePointerId = null;
+
     const dx = this.projectsDragPx;
     this.projectsDragPx = 0;
+
     if (this.projectsMoved) {
       const threshold = 60;
       if (dx <= -threshold) this.nextProjects();
       else if (dx >= threshold) this.prevProjects();
     }
+
     if (this.projectTimer) window.clearInterval(this.projectTimer);
-    this.projectTimer = window.setInterval(() => {
-      if (!this.projectsDragging) this.nextProjects();
-    }, 3000);
+
+    if (this.featuredProjects.length > 1) {
+      this.projectTimer = window.setInterval(() => {
+        if (!this.projectsDragging) this.nextProjects();
+      }, 3000);
+    }
   }
 }
