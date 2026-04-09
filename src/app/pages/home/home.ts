@@ -29,7 +29,7 @@ type Step = { titleKey: string; descKey: string };
 export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   @Input() consultationPath = '/book-consultation';
 
-  whoMediaImage = 'assets/images/HomePage/WhoAreWe/Reception-Top-View.jpg';
+  whoMediaImage = 'assets/images/HomePage/WhoAreWe/Reception-Top-View.webp';
 
   heroEnter = signal(false);
   ctaEnter = signal(false);
@@ -102,8 +102,8 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   heroImages: string[] = [
-    'assets/images/HomePage/Hero/Entrance-Foyer.png',
-    'assets/images/HomePage/Hero/Reception-Zoon-In-Shot.png',
+    'assets/images/HomePage/Hero/Entrance-Foyer.webp',
+    'assets/images/HomePage/Hero/Reception-Zoon-In-Shot.webp',
   ];
 
   heroIndex = 0;
@@ -122,7 +122,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private projectsMoved = false;
 
   reviews: ReviewItem[] = REVIEWS;
-  
+
   constructor(private router: Router) {}
 
   ngOnInit(): void {
