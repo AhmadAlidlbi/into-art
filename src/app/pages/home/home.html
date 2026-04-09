@@ -209,31 +209,37 @@
       (pointerleave)="reviewsPointerUp($event)"
     >
       <div class="reviews-marquee__track" #reviewsTrack>
-        @for (r of reviews; track r.nameKey) {
-        <article class="review-card">
-          <div class="review-card__stars">★★★★★</div>
-          <p class="review-card__text">"{{ r.textKey | translate }}"</p>
-          <div class="review-card__person">
-            <div class="review-card__avatar"></div>
-            <div class="review-card__meta">
-              <div class="review-card__name">{{ r.nameKey | translate }}</div>
-              <div class="review-card__role">{{ r.roleKey | translate }}</div>
+        <div class="reviews-marquee__group" #reviewsGroup>
+          @for (r of reviews; track r.nameKey) {
+          <article class="review-card">
+            <div class="review-card__stars">★★★★★</div>
+            <p class="review-card__text">"{{ r.textKey | translate }}"</p>
+            <div class="review-card__person">
+              <div class="review-card__avatar"></div>
+              <div class="review-card__meta">
+                <div class="review-card__name">{{ r.nameKey | translate }}</div>
+                <div class="review-card__role">{{ r.roleKey | translate }}</div>
+              </div>
             </div>
-          </div>
-        </article>
-        } @for (r of reviews; track r.nameKey) {
-        <article class="review-card" aria-hidden="true">
-          <div class="review-card__stars">★★★★★</div>
-          <p class="review-card__text">"{{ r.textKey | translate }}"</p>
-          <div class="review-card__person">
-            <div class="review-card__avatar"></div>
-            <div class="review-card__meta">
-              <div class="review-card__name">{{ r.nameKey | translate }}</div>
-              <div class="review-card__role">{{ r.roleKey | translate }}</div>
+          </article>
+          }
+        </div>
+
+        <div class="reviews-marquee__group" aria-hidden="true">
+          @for (r of reviews; track r.nameKey) {
+          <article class="review-card">
+            <div class="review-card__stars">★★★★★</div>
+            <p class="review-card__text">"{{ r.textKey | translate }}"</p>
+            <div class="review-card__person">
+              <div class="review-card__avatar"></div>
+              <div class="review-card__meta">
+                <div class="review-card__name">{{ r.nameKey | translate }}</div>
+                <div class="review-card__role">{{ r.roleKey | translate }}</div>
+              </div>
             </div>
-          </div>
-        </article>
-        }
+          </article>
+          }
+        </div>
       </div>
     </div>
   </div>

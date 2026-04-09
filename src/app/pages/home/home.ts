@@ -56,6 +56,9 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private reviewsDragSamples: { x: number; t: number }[] = [];
   private reviewsActivePtr: number | null = null;
 
+  @ViewChild('reviewsGroup', { read: ElementRef })
+  reviewsGroupRef?: ElementRef<HTMLElement>;
+
   serviceCards: Card[] = [
     {
       titleKey: 'cards.card_1.title',
@@ -139,7 +142,13 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     requestAnimationFrame(() => {
       this.heroEnter.set(true);
       this.initReviewsMarquee();
+
+      requestAnimationFrame(() => {
+        this.initReviewsMarquee();
+      });
     });
+
+    window.addEventListener('resize', this.handleReviewsResize);
 
     const ctaEl = this.ctaSection?.nativeElement;
     if (ctaEl) {
@@ -175,10 +184,15 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  private handleReviewsResize = (): void => {
+    this.initReviewsMarquee();
+  };
+
   ngOnDestroy(): void {
     if (this.heroTimer) window.clearInterval(this.heroTimer);
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     if (this.reviewsRafId) cancelAnimationFrame(this.reviewsRafId);
+    window.removeEventListener('resize', this.handleReviewsResize);
     this.ctaIO?.disconnect();
     this.whoIO?.disconnect();
   }
@@ -214,11 +228,16 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initReviewsMarquee(): void {
-    const el = this.reviewsTrackRef?.nativeElement;
-    if (!el) return;
+    const track = this.reviewsTrackRef?.nativeElement;
+    const group = this.reviewsGroupRef?.nativeElement;
+
+    if (!track || !group) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    this.reviewsHalfW = el.scrollWidth / 2 + 7;
+
+    this.reviewsHalfW = group.offsetWidth;
+
     const isRtl = document.documentElement.dir === 'rtl';
+
     if (isRtl) {
       this.reviewsAutoSpeed = 0.5;
       this.reviewsX = -this.reviewsHalfW;
@@ -226,7 +245,10 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       this.reviewsAutoSpeed = -0.5;
       this.reviewsX = 0;
     }
-    this.reviewsLoop();
+
+    if (!this.reviewsRafId) {
+      this.reviewsLoop();
+    }
   }
 
   private reviewsLoop(): void {

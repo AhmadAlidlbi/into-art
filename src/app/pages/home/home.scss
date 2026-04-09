@@ -691,6 +691,12 @@
   overflow: visible;
 }
 
+.reviews-marquee__group {
+  display: flex;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
 .reviews-marquee {
   margin-top: 14px;
   overflow: hidden;
