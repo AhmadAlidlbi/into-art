@@ -55,10 +55,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private reviewsDragBaseX = 0;
   private reviewsDragSamples: { x: number; t: number }[] = [];
   private reviewsActivePtr: number | null = null;
-
-  // ✅ ResizeObserver watches the track so halfW stays accurate
-  // even after fonts load or layout shifts
-  private reviewsResizeObs?: ResizeObserver;
+  private reviewsInitialised = false;
 
   serviceCards: Card[] = [
     {
@@ -183,7 +180,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     if (this.heroTimer) window.clearInterval(this.heroTimer);
     if (this.projectTimer) window.clearInterval(this.projectTimer);
     if (this.reviewsRafId) cancelAnimationFrame(this.reviewsRafId);
-    this.reviewsResizeObs?.disconnect();
     this.ctaIO?.disconnect();
     this.whoIO?.disconnect();
   }
@@ -220,13 +216,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   // ─── Marquee ─────────────────────────────────────────────
 
-  private measureHalfW(): void {
-    const el = this.reviewsTrackRef?.nativeElement;
-    if (!el) return;
-    // scrollWidth covers both copies; half = one copy
-    this.reviewsHalfW = el.scrollWidth / 2;
-  }
-
   private initReviewsMarquee(): void {
     const el = this.reviewsTrackRef?.nativeElement;
     if (!el) return;
@@ -234,36 +223,45 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
     const isRtl = document.documentElement.dir === 'rtl';
 
-    // ✅ Use ResizeObserver to keep halfW accurate after fonts/images settle
-    this.reviewsResizeObs = new ResizeObserver(() => {
-      const prev = this.reviewsHalfW;
-      this.measureHalfW();
-      // If the width changed significantly, re-anchor the scroll position
-      // so the seam stays invisible
-      if (prev && this.reviewsHalfW && Math.abs(prev - this.reviewsHalfW) > 2) {
-        this.reviewsX = isRtl ? -this.reviewsHalfW : 0;
+    // Measure after a short delay to let content-visibility render the section
+    // and let fonts settle — this is what was working in the original version
+    const doInit = () => {
+      const sw = el.scrollWidth;
+
+      // If scrollWidth is 0 or suspiciously small the section hasn't rendered
+      // yet (content-visibility: auto on mobile). Retry in 100ms.
+      if (sw < 200) {
+        setTimeout(doInit, 100);
+        return;
       }
-    });
-    this.reviewsResizeObs.observe(el);
 
-    // Initial measurement
-    this.measureHalfW();
+      // ✅ The gap between the two copies is 14px (same as the gap between cards).
+      // Half that gap (7px) must be added so the wrap point lands exactly at the
+      // seam — this is the same formula the original working version used.
+      this.reviewsHalfW = sw / 2 + 7;
 
-    if (isRtl) {
-      this.reviewsAutoSpeed = 0.5;
-      this.reviewsX = -this.reviewsHalfW;
-    } else {
-      this.reviewsAutoSpeed = -0.5;
-      this.reviewsX = 0;
-    }
+      if (isRtl) {
+        this.reviewsAutoSpeed = 0.5;
+        this.reviewsX = -this.reviewsHalfW;
+      } else {
+        this.reviewsAutoSpeed = -0.5;
+        this.reviewsX = 0;
+      }
 
-    this.reviewsLoop();
+      this.reviewsInitialised = true;
+
+      if (!this.reviewsRafId) {
+        this.reviewsLoop();
+      }
+    };
+
+    doInit();
   }
 
   private reviewsLoop(): void {
     this.reviewsRafId = requestAnimationFrame(() => this.reviewsLoop());
     const el = this.reviewsTrackRef?.nativeElement;
-    if (!el || this.reviewsHalfW === 0) return;
+    if (!el || !this.reviewsInitialised || this.reviewsHalfW === 0) return;
 
     if (!this.reviewsDragging) {
       if (Math.abs(this.reviewsVel) > 0.2) {
@@ -276,7 +274,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    // ✅ Seamless wrap — using exact half width, no magic offset
     const hw = this.reviewsHalfW;
     if (this.reviewsX <= -hw) this.reviewsX += hw;
     if (this.reviewsX > 0) this.reviewsX -= hw;
