@@ -102,6 +102,11 @@
       text-decoration: underline;
       text-underline-offset: 3px;
     }
+
+    .summary__value--phone {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
   }
 }
 
@@ -159,6 +164,15 @@
   letter-spacing: -0.2px;
 }
 
+.summary__value--phone {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
 .summary__value--address {
   font-weight: 650;
   font-size: 13px;
@@ -210,6 +224,11 @@
   .summary__value--time {
     font-family: "Inter", system-ui, sans-serif;
     direction: ltr;
+    text-align: right;
+    display: block;
+  }
+
+  .summary__value--phone {
     text-align: right;
     display: block;
   }

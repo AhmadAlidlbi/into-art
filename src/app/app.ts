@@ -1,12 +1,20 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { HeaderComponent } from './shared/layout/header/header';
 import { FooterComponent } from './shared/layout/footer/footer';
 import { WhatsappFloatComponent } from './shared/ui/whatsapp-float/whatsapp-float';
 import { ScrollTopComponent } from './shared/ui/scroll-top/scroll-top';
+import { RouteLoaderComponent } from './shared/ui/route-loader/route-loader';
 import { WHATSAPP_NUMBER, WHATSAPP_MESSAGE_KEY } from './shared/constants/whatsapp.constants';
 
 const SCROLL_KEY = 'app_scroll_y';
@@ -20,6 +28,7 @@ const SCROLL_KEY = 'app_scroll_y';
     FooterComponent,
     WhatsappFloatComponent,
     ScrollTopComponent,
+    RouteLoaderComponent,
   ],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
@@ -29,29 +38,57 @@ export class App implements OnInit {
   private readonly router = inject(Router);
 
   isDrawerOpen = signal(false);
+  isRouteLoading = signal(false);
 
   readonly whatsappNumber = WHATSAPP_NUMBER;
 
   /** Reactively re-translates whenever the language changes. */
-  readonly whatsappMessage = toSignal(this.translate.stream(WHATSAPP_MESSAGE_KEY), {
-    initialValue: this.translate.instant(WHATSAPP_MESSAGE_KEY),
-  });
+  readonly whatsappMessage = toSignal(
+    this.translate.stream(WHATSAPP_MESSAGE_KEY),
+    { initialValue: this.translate.instant(WHATSAPP_MESSAGE_KEY) }
+  );
 
   private isFirstNav = true;
   private readonly isReload =
     (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined)
       ?.type === 'reload';
 
+  private loaderTimeout: number | null = null;
+
   constructor() {}
 
   ngOnInit(): void {
-    // ─── Dismiss the app loader ──────────────────────────
+    // ─── Dismiss the initial app loader ──────────────────
     this.dismissLoader();
 
     window.addEventListener('beforeunload', () => {
       sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
     });
 
+    // ─── Route loading state ─────────────────────────────
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        // Small delay so instant navigations (cached chunks) don't flash the loader
+        this.loaderTimeout = window.setTimeout(() => {
+          this.isRouteLoading.set(true);
+        }, 120);
+      }
+
+      if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError
+      ) {
+        // Clear the delayed show if navigation finished before 120ms
+        if (this.loaderTimeout !== null) {
+          window.clearTimeout(this.loaderTimeout);
+          this.loaderTimeout = null;
+        }
+        this.isRouteLoading.set(false);
+      }
+    });
+
+    // ─── Scroll restoration ──────────────────────────────
     this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
       .subscribe(() => {
@@ -75,21 +112,14 @@ export class App implements OnInit {
 
   /**
    * Fade out and remove the static HTML loader placed inside <app-root>
-   * in index.html. Angular replaces the inner content on bootstrap,
-   * but the loader element may still exist briefly in the DOM if Angular
-   * hasn't fully painted yet — this ensures a smooth transition.
+   * in index.html.
    */
   private dismissLoader(): void {
     const loader = document.getElementById('appLoader');
     if (!loader) return;
 
-    // Add the fade-out class
     loader.classList.add('is-hidden');
-
-    // Remove from DOM after the CSS transition completes
     loader.addEventListener('transitionend', () => loader.remove(), { once: true });
-
-    // Safety fallback: remove after 600ms even if transitionend doesn't fire
     setTimeout(() => {
       if (loader.parentNode) loader.remove();
     }, 600);

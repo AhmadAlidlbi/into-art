@@ -298,8 +298,13 @@
             [disabled]="isSubmitting()"
             [attr.aria-busy]="isSubmitting()"
           >
+            @if (isSubmitting()) {
+            <span class="submit-btn__spinner" aria-hidden="true"></span>
+            }
             {{ (isSubmitting() ? 'booking.form.submitting' : 'booking.form.submit') | translate }}
+            @if (!isSubmitting()) {
             <span class="submit-btn__arrow" aria-hidden="true">→</span>
+            }
           </button>
 
           <p class="privacy">{{ 'booking.form.privacy' | translate }}</p>

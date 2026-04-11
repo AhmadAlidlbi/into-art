@@ -467,6 +467,29 @@
   transform: scaleX(-1) translateX(3px);
 }
 
+/* ─── Submit Button Spinner ──────────────────────────────── */
+.submit-btn__spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(245, 240, 234, 0.3);
+  border-top-color: #f5f0ea;
+  animation: submitSpin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes submitSpin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submit-btn__spinner {
+    animation: none !important;
+    border-top-color: rgba(245, 240, 234, 0.6);
+  }
+}
+
 /* ─── Privacy ────────────────────────────────────────────── */
 .privacy {
   margin: 12px 0 0;

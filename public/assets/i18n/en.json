@@ -830,7 +830,9 @@
         "date": "Date",
         "time": "Time",
         "location": "Location",
-        "openMap": "Open in Maps"
+        "openMap": "Open in Maps",
+        "phone": "Phone",
+        "callUs": "Call us"
       }
     }
   },

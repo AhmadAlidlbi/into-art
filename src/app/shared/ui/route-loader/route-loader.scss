@@ -1,0 +1,97 @@
+/* ─── Route Loader Overlay ────────────────────────────────── */
+.route-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: rgba(245, 240, 234, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    /* Hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .route-loader.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  
+  /* ─── Inner container ─────────────────────────────────────── */
+  .route-loader__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+  
+  /* ─── Logo ────────────────────────────────────────────────── */
+  .route-loader__logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(231, 224, 216, 0.95);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      0 10px 28px rgba(22, 20, 20, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: routeLoaderPulse 2s ease-in-out infinite;
+  }
+  
+  .route-loader__logo img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    display: block;
+  }
+  
+  /* ─── Sliding bar ─────────────────────────────────────────── */
+  .route-loader__bar {
+    width: 44px;
+    height: 2px;
+    border-radius: 2px;
+    background: rgba(215, 198, 178, 0.3);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .route-loader__bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 55%;
+    border-radius: 2px;
+    background: rgba(22, 20, 20, 0.4);
+    animation: routeLoaderSlide 1.3s ease-in-out infinite;
+  }
+  
+  /* ─── Keyframes ───────────────────────────────────────────── */
+  @keyframes routeLoaderPulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.04); }
+  }
+  
+  @keyframes routeLoaderSlide {
+    0%   { transform: translateX(-110%); }
+    50%  { transform: translateX(140%); }
+    100% { transform: translateX(-110%); }
+  }
+  
+  /* ─── Reduced motion ──────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .route-loader__logo,
+    .route-loader__bar-fill {
+      animation: none !important;
+    }
+  }
