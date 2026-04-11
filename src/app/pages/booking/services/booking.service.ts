@@ -18,7 +18,7 @@ export interface ConsultationPayload {
 @Injectable({ providedIn: 'root' })
 export class BookingService {
   private endpoint =
-    'https://script.google.com/macros/s/AKfycbzlZNGBkiRpD4-ZiFVJ9jl2jyEOpcG0692NYnhWOkd3y8FxWBnDqL_8TlIUgcTpQgDm/exec';
+    'https://script.google.com/macros/s/AKfycbxzxyl6DVVyLwrMiODH3TlmpPqPYfvclN5SYnsKHrMo-eFKING-dPQ7Y16avO-aNwEr/exec';
 
   constructor(private http: HttpClient) {}
 
