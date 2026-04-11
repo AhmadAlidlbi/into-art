@@ -119,8 +119,177 @@
 
     <!-- Material Icons — required for datepicker calendar toggle -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- ─── App Loader Styles (inline for instant render) ── -->
+    <style>
+      .app-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: #F5F0EA;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 36px;
+        transition: opacity 0.45s ease, visibility 0.45s ease;
+      }
+
+      .app-loader.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      /* ── Radial glow decorations ─────────────────────── */
+      .app-loader::before,
+      .app-loader::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .app-loader::before {
+        width: 520px;
+        height: 520px;
+        top: -140px;
+        right: -100px;
+        background: radial-gradient(circle, rgba(215, 198, 178, 0.18), transparent 65%);
+      }
+
+      .app-loader::after {
+        width: 400px;
+        height: 400px;
+        bottom: -80px;
+        left: -100px;
+        background: radial-gradient(circle, rgba(170, 164, 156, 0.1), transparent 60%);
+      }
+
+      /* ── Logo container ──────────────────────────────── */
+      .app-loader__logo {
+        position: relative;
+        z-index: 1;
+        width: 80px;
+        height: 80px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(231, 224, 216, 0.95);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.6),
+          0 12px 32px rgba(22, 20, 20, 0.07);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: loaderLogoPulse 2.2s ease-in-out infinite;
+      }
+
+      .app-loader__logo img {
+        width: 54px;
+        height: 54px;
+        object-fit: contain;
+        display: block;
+      }
+
+      /* ── Sliding line indicator ──────────────────────── */
+      .app-loader__bar {
+        position: relative;
+        z-index: 1;
+        width: 52px;
+        height: 2px;
+        border-radius: 2px;
+        background: rgba(215, 198, 178, 0.32);
+        overflow: hidden;
+      }
+
+      .app-loader__bar-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 55%;
+        border-radius: 2px;
+        background: rgba(22, 20, 20, 0.4);
+        animation: loaderSlide 1.3s ease-in-out infinite;
+      }
+
+      /* ── Brand text ──────────────────────────────────── */
+      .app-loader__brand {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        animation: loaderFadeUp 0.8s ease 0.15s both;
+      }
+
+      .app-loader__brand-name {
+        font-family: "Tajawal", "Inter", system-ui, sans-serif;
+        font-weight: 900;
+        font-size: 11px;
+        letter-spacing: 3.5px;
+        text-transform: uppercase;
+        color: rgba(22, 20, 20, 0.3);
+        margin: 0;
+        line-height: 1;
+      }
+
+      .app-loader__brand-tagline {
+        font-family: "Inter", "Tajawal", system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 9px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(22, 20, 20, 0.16);
+        margin: 0;
+        line-height: 1;
+      }
+
+      /* ── Keyframes ───────────────────────────────────── */
+      @keyframes loaderLogoPulse {
+        0%, 100% { transform: scale(1); }
+        50%      { transform: scale(1.04); }
+      }
+
+      @keyframes loaderSlide {
+        0%   { transform: translateX(-110%); }
+        50%  { transform: translateX(140%); }
+        100% { transform: translateX(-110%); }
+      }
+
+      @keyframes loaderFadeUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── Reduced motion ──────────────────────────────── */
+      @media (prefers-reduced-motion: reduce) {
+        .app-loader__logo,
+        .app-loader__bar-fill,
+        .app-loader__brand {
+          animation: none !important;
+        }
+      }
+    </style>
   </head>
   <body>
-    <app-root></app-root>
+    <app-root>
+      <!-- ═══ App Loader — visible until Angular bootstraps ═══ -->
+      <div class="app-loader" id="appLoader">
+        <div class="app-loader__logo">
+          <img src="assets/images/branding/logo.svg" alt="INTO ART" />
+        </div>
+
+        <div class="app-loader__bar">
+          <div class="app-loader__bar-fill"></div>
+        </div>
+
+        <div class="app-loader__brand">
+          <p class="app-loader__brand-name">Into Art</p>
+          <p class="app-loader__brand-tagline">Feel the place</p>
+        </div>
+      </div>
+    </app-root>
   </body>
 </html>
