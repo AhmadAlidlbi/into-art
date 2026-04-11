@@ -577,6 +577,10 @@
         "k": "Working Hours",
         "v": "Saturday – Wednesday: 10:00 AM – 6:00 PM\nThursday: 10:00 AM – 2:00 PM"
       },
+      "friday": {
+        "k": "Friday",
+        "v": "Official holiday – Closed"
+      },
       "location": {
         "k": "Address",
         "v": "Silk Tower, Floor 23, Office 66, Jaber Al-Mubarak Street, Kuwait City"

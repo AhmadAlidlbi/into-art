@@ -60,6 +60,16 @@ export class ReviewsSubmitComponent {
     this.document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
   }
 
+  hoveredRating = 0;
+
+  onStarHover(value: number): void {
+    this.hoveredRating = value;
+  }
+
+  onStarLeave(): void {
+    this.hoveredRating = 0;
+  }
+
   setRating(value: number): void {
     this.form.rating = value;
     this.ratingTouched = true;
