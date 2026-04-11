@@ -243,33 +243,34 @@
 
                 @if (form.controls.preferredDate.touched && form.controls.preferredDate.invalid) {
                 <span class="field__error">{{ 'booking.form.step4.dateError' | translate }}</span>
-                } @if (loadingSlots()) {
-                <p class="hint checking">{{ 'booking.form.step4.checking' | translate }}</p>
-                } @if (!loadingSlots() && slotsForDay().length > 0) {
+                } @if (slotsForDay().length > 0) {
                 <!-- ✅ "Appointments for [Day name]" -->
                 <div class="time-label">
                   {{ 'booking.form.step4.timeLabel' | translate }} {{ selectedDayName() }}
+                  @if (loadingSlots()) {
+                  <span class="checking-inline">{{ 'booking.form.step4.checking' | translate }}</span>
+                  }
                 </div>
                 <div class="time-slots">
                   @for (slot of slotsForDay(); track slot.raw) {
                   <button
                     type="button"
                     class="time-slot"
-                    [disabled]="!availableHours().includes(slot.raw)"
+                    [class.is-loading]="loadingSlots()"
+                    [disabled]="!loadingSlots() && !availableHours().includes(slot.raw)"
                     [class.is-active]="form.controls.preferredHour.value === slot.raw"
                     (click)="selectHour(slot.raw)"
                     [attr.title]="
-                      !availableHours().includes(slot.raw)
+                      !loadingSlots() && !availableHours().includes(slot.raw)
                         ? ('booking.form.step4.slotTaken' | translate)
                         : null
                     "
                     [attr.aria-label]="
-                      !availableHours().includes(slot.raw)
+                      !loadingSlots() && !availableHours().includes(slot.raw)
                         ? ('booking.form.step4.slotTaken' | translate)
                         : slot.display
                     "
                   >
-                    <!-- ✅ 12h AM/PM display (e.g. 10:00 AM, 1:00 PM, 4:00 PM) -->
                     {{ slot.display }}
                   </button>
                   }
