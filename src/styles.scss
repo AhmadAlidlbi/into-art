@@ -63,3 +63,188 @@
    html[dir="rtl"] .channel {
      text-align: right;
    }
+   /* ═══════════════════════════════════════════════════════════
+   GLOBAL DATEPICKER OVERRIDES
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Overlay panel ─────────────────────────────────────── */
+.mat-datepicker-content {
+  font-family: "Inter", system-ui, -apple-system, Arial, sans-serif !important;
+  background: #fff !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(231, 224, 216, 0.95) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 20px 56px rgba(22, 20, 20, 0.14) !important;
+  overflow: hidden;
+}
+
+/* ─── Calendar container ────────────────────────────────── */
+.mat-calendar {
+  font-family: "Inter", system-ui, -apple-system, Arial, sans-serif !important;
+  width: 300px !important;
+}
+
+/* ─── Header ────────────────────────────────────────────── */
+.mat-calendar-header {
+  padding: 12px 12px 0 !important;
+  background: transparent !important;
+}
+
+.mat-calendar-controls {
+  margin: 0 0 4px !important;
+}
+
+/* Month/Year button */
+.mat-calendar-period-button {
+  font-family: "Inter", system-ui, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 14px !important;
+  letter-spacing: -0.2px !important;
+  color: #161414 !important;
+}
+
+/* ─── Prev/Next buttons — base styles ───────────────────── */
+.mat-calendar-previous-button,
+.mat-calendar-next-button {
+  color: rgba(22, 20, 20, 0.55) !important;
+  border-radius: 10px !important;
+  transform: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: background 140ms ease, color 140ms ease !important;
+}
+
+.mat-calendar-previous-button:hover,
+.mat-calendar-next-button:hover {
+  background: rgba(215, 198, 178, 0.18) !important;
+  color: #161414 !important;
+}
+
+/* ─── Hide Material's built-in chevron SVG completely ───── */
+.mat-calendar-previous-button svg,
+.mat-calendar-next-button svg,
+.mat-calendar-previous-button .mat-icon,
+.mat-calendar-next-button .mat-icon,
+.mat-calendar-previous-button .mdc-icon-button__icon,
+.mat-calendar-next-button .mdc-icon-button__icon {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* ─── Inject our own chevrons via ::after ────────────────── 
+   Previous = ‹  (single left-pointing angle quotation mark)
+   Next     = ›  (single right-pointing angle quotation mark) */
+.mat-calendar-previous-button::after {
+  content: '‹' !important;
+  font-size: 22px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  color: rgba(22, 20, 20, 0.55) !important;
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: none !important;
+  transition: color 140ms ease !important;
+}
+
+.mat-calendar-next-button::after {
+  content: '›' !important;
+  font-size: 22px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  color: rgba(22, 20, 20, 0.55) !important;
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: none !important;
+  transition: color 140ms ease !important;
+}
+
+.mat-calendar-previous-button:hover::after,
+.mat-calendar-next-button:hover::after {
+  color: #161414 !important;
+}
+
+/* ─── Day-of-week header row ────────────────────────────── */
+.mat-calendar-table-header th,
+.mat-calendar-body-label {
+  font-family: "Inter", system-ui, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.5px !important;
+  color: rgba(22, 20, 20, 0.4) !important;
+  text-transform: uppercase !important;
+}
+
+.mat-calendar-body-label[colspan="7"] {
+  display: none !important;
+}
+
+/* ─── Day cells ─────────────────────────────────────────── */
+.mat-calendar-body-cell-content {
+  font-family: "Inter", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  border-radius: 10px !important;
+  color: #161414 !important;
+  transition: background 120ms ease, color 120ms ease !important;
+}
+
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+  .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  background: rgba(215, 198, 178, 0.22) !important;
+  color: #161414 !important;
+}
+
+/* Today ring */
+.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: rgba(112, 95, 82, 0.5) !important;
+  background: transparent !important;
+}
+
+/* Selected date */
+.mat-calendar-body-selected {
+  background: #161414 !important;
+  color: #f5f0ea !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 12px rgba(22, 20, 20, 0.25) !important;
+}
+
+/* Disabled cells (Friday + past) */
+.mat-calendar-body-disabled .mat-calendar-body-cell-content {
+  color: rgba(22, 20, 20, 0.22) !important;
+  text-decoration: line-through !important;
+  cursor: not-allowed !important;
+}
+
+/* Header separator */
+.mat-calendar-table-header-divider::after {
+  background: rgba(231, 224, 216, 0.95) !important;
+}
+
+/* Year/Month selection view */
+.mat-calendar-body-cell-content.mat-focus-indicator {
+  border-radius: 10px !important;
+}
+
+/* ─── Date input text — always Inter ───────────────────── */
+.mat-mdc-form-field input.mat-mdc-input-element,
+.mat-mdc-input-element {
+  font-family: "Inter", system-ui, -apple-system, Arial, sans-serif !important;
+}
+
+/* ─── Force calendar LTR — Sunday always on the LEFT ──────*/
+.mat-datepicker-content,
+.mat-datepicker-content .mat-calendar,
+.mat-calendar-header,
+.mat-calendar-table,
+.mat-calendar-body,
+.mat-calendar-controls {
+  direction: ltr !important;
+}

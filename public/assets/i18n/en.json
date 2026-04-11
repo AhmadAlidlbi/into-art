@@ -807,7 +807,7 @@
       "step4": {
         "title": "Date",
         "hint": "Saturday to Thursday only. Friday is unavailable.",
-        "timeLabel": "Preferred Time *",
+        "timeLabel": "* Preffred time - Available appointments on",
         "checking": "Checking availability…",
         "noSlots": "All appointments on this date are booked.",
         "dateError": "Please select a date.",
@@ -825,7 +825,13 @@
       "title": "Your Consultation Request Has Been Received",
       "subtitle": "We will contact you soon to confirm the appointment.",
       "backHome": "Back to Home",
-      "viewProjects": "View Projects"
+      "viewProjects": "View Projects",
+      "summary": {
+        "date": "Date",
+        "time": "Time",
+        "location": "Location",
+        "openMap": "Open in Maps"
+      }
     }
   },
   "footer": {

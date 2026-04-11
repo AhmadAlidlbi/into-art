@@ -14,10 +14,8 @@
       <div class="form-card">
         <form class="form" [formGroup]="form" (ngSubmit)="submit()">
           <div class="form-cols">
-
             <!-- ─── Column 1 ──────────────────────────────── -->
             <div class="form-col">
-
               <!-- Step 1: Details -->
               <div class="step">
                 <div class="step__head">
@@ -27,7 +25,9 @@
 
                 <div class="row">
                   <label class="field">
-                    <span class="field__label">{{ 'booking.form.step1.fullName' | translate }}</span>
+                    <span class="field__label">{{
+                      'booking.form.step1.fullName' | translate
+                    }}</span>
                     <input
                       class="field__input"
                       type="text"
@@ -38,9 +38,9 @@
                       "
                     />
                     @if (form.controls.fullName.touched && form.controls.fullName.invalid) {
-                      <span class="field__error">
-                        {{ 'booking.form.step1.fullNameError' | translate }}
-                      </span>
+                    <span class="field__error">{{
+                      'booking.form.step1.fullNameError' | translate
+                    }}</span>
                     }
                   </label>
 
@@ -51,12 +51,14 @@
                       type="tel"
                       formControlName="phone"
                       [attr.placeholder]="'booking.form.step1.phone' | translate"
-                      [class.is-invalid]="form.controls.phone.touched && form.controls.phone.invalid"
+                      [class.is-invalid]="
+                        form.controls.phone.touched && form.controls.phone.invalid
+                      "
                     />
                     @if (form.controls.phone.touched && form.controls.phone.invalid) {
-                      <span class="field__error">
-                        {{ 'booking.form.step1.phoneError' | translate }}
-                      </span>
+                    <span class="field__error">{{
+                      'booking.form.step1.phoneError' | translate
+                    }}</span>
                     }
                   </label>
                 </div>
@@ -82,7 +84,6 @@
                     />
                     {{ 'booking.form.step2.new' | translate }}
                   </label>
-
                   <label
                     class="pill-opt"
                     [class.is-active]="form.controls.buildingCondition.value === 'Restoration'"
@@ -95,7 +96,6 @@
                     />
                     {{ 'booking.form.step2.restoration' | translate }}
                   </label>
-
                   <label
                     class="pill-opt"
                     [class.is-active]="form.controls.buildingCondition.value === 'Other'"
@@ -111,32 +111,28 @@
                 </div>
 
                 @if (form.value.buildingCondition === 'Other') {
-                  <input
-                    class="field__input specify-input"
-                    type="text"
-                    [attr.placeholder]="'booking.form.step2.specify' | translate"
-                    formControlName="buildingConditionOther"
-                    [class.is-invalid]="
-                      form.controls.buildingConditionOther.touched &&
-                      form.controls.buildingConditionOther.invalid
-                    "
-                  />
-                  @if (
+                <input
+                  class="field__input specify-input"
+                  type="text"
+                  [attr.placeholder]="'booking.form.step2.specify' | translate"
+                  formControlName="buildingConditionOther"
+                  [class.is-invalid]="
                     form.controls.buildingConditionOther.touched &&
                     form.controls.buildingConditionOther.invalid
-                  ) {
-                    <span class="field__error">
-                      {{ 'booking.form.step2.specifyError' | translate }}
-                    </span>
-                  }
-                }
+                  "
+                />
+                @if (form.controls.buildingConditionOther.touched &&
+                form.controls.buildingConditionOther.invalid) {
+                <span class="field__error">{{
+                  'booking.form.step2.specifyError' | translate
+                }}</span>
+                } }
               </div>
-
-            </div><!-- /form-col -->
+            </div>
+            <!-- /form-col -->
 
             <!-- ─── Column 2 ──────────────────────────────── -->
             <div class="form-col">
-
               <!-- Step 3: Design Package -->
               <div class="step">
                 <div class="step__head">
@@ -147,7 +143,9 @@
                 <div class="pill-group pill-group--col">
                   <label
                     class="pill-opt"
-                    [class.is-active]="form.controls.designPackage.value === 'Two-space design package'"
+                    [class.is-active]="
+                      form.controls.designPackage.value === 'Two-space design package'
+                    "
                   >
                     <input
                       class="pill-opt__radio"
@@ -157,10 +155,11 @@
                     />
                     {{ 'booking.form.step3.twoSpace' | translate }}
                   </label>
-
                   <label
                     class="pill-opt"
-                    [class.is-active]="form.controls.designPackage.value === '4-space design package'"
+                    [class.is-active]="
+                      form.controls.designPackage.value === '4-space design package'
+                    "
                   >
                     <input
                       class="pill-opt__radio"
@@ -170,10 +169,11 @@
                     />
                     {{ 'booking.form.step3.fourSpace' | translate }}
                   </label>
-
                   <label
                     class="pill-opt"
-                    [class.is-active]="form.controls.designPackage.value === '5-space design package'"
+                    [class.is-active]="
+                      form.controls.designPackage.value === '5-space design package'
+                    "
                   >
                     <input
                       class="pill-opt__radio"
@@ -183,7 +183,6 @@
                     />
                     {{ 'booking.form.step3.fiveSpace' | translate }}
                   </label>
-
                   <label
                     class="pill-opt"
                     [class.is-active]="form.controls.designPackage.value === 'Floor Design Package'"
@@ -196,7 +195,6 @@
                     />
                     {{ 'booking.form.step3.floor' | translate }}
                   </label>
-
                   <label
                     class="pill-opt"
                     [class.is-active]="
@@ -244,55 +242,53 @@
                 <span class="hint">{{ 'booking.form.step4.hint' | translate }}</span>
 
                 @if (form.controls.preferredDate.touched && form.controls.preferredDate.invalid) {
-                  <span class="field__error">{{ 'booking.form.step4.dateError' | translate }}</span>
-                }
-
-                @if (loadingSlots()) {
-                  <p class="hint checking">{{ 'booking.form.step4.checking' | translate }}</p>
-                }
-
-                @if (!loadingSlots() && availableHours().length > 0) {
-                  <div class="time-label">{{ 'booking.form.step4.timeLabel' | translate }}</div>
-                  <div class="time-slots">
-                    @for (h of HOURS; track h) {
-                      <button
-                        type="button"
-                        class="time-slot"
-                        [disabled]="!availableHours().includes(h)"
-                        [class.is-active]="form.controls.preferredHour.value === h"
-                        (click)="selectHour(h)"
-                        [attr.title]="
-                          !availableHours().includes(h)
-                            ? ('booking.form.step4.slotTaken' | translate)
-                            : null
-                        "
-                        [attr.aria-label]="
-                          !availableHours().includes(h)
-                            ? ('booking.form.step4.slotTaken' | translate)
-                            : h
-                        "
-                      >
-                        {{ h }}
-                      </button>
-                    }
-                  </div>
-                }
-
-                @if (!loadingSlots() && hasSelectedDate() && availableHours().length === 0) {
-                  <div class="no-slots">{{ 'booking.form.step4.noSlots' | translate }}</div>
-                }
-
-                @if (form.controls.preferredHour.touched && form.controls.preferredHour.invalid) {
-                  <span class="field__error">{{ 'booking.form.step4.hourError' | translate }}</span>
+                <span class="field__error">{{ 'booking.form.step4.dateError' | translate }}</span>
+                } @if (loadingSlots()) {
+                <p class="hint checking">{{ 'booking.form.step4.checking' | translate }}</p>
+                } @if (!loadingSlots() && slotsForDay().length > 0) {
+                <!-- ✅ "Appointments for [Day name]" -->
+                <div class="time-label">
+                  {{ 'booking.form.step4.timeLabel' | translate }} {{ selectedDayName() }}
+                </div>
+                <div class="time-slots">
+                  @for (slot of slotsForDay(); track slot.raw) {
+                  <button
+                    type="button"
+                    class="time-slot"
+                    [disabled]="!availableHours().includes(slot.raw)"
+                    [class.is-active]="form.controls.preferredHour.value === slot.raw"
+                    (click)="selectHour(slot.raw)"
+                    [attr.title]="
+                      !availableHours().includes(slot.raw)
+                        ? ('booking.form.step4.slotTaken' | translate)
+                        : null
+                    "
+                    [attr.aria-label]="
+                      !availableHours().includes(slot.raw)
+                        ? ('booking.form.step4.slotTaken' | translate)
+                        : slot.display
+                    "
+                  >
+                    <!-- ✅ 12h AM/PM display (e.g. 10:00 AM, 1:00 PM, 4:00 PM) -->
+                    {{ slot.display }}
+                  </button>
+                  }
+                </div>
+                } @if (!loadingSlots() && hasSelectedDate() && availableHours().length === 0 &&
+                slotsForDay().length > 0) {
+                <div class="no-slots">{{ 'booking.form.step4.noSlots' | translate }}</div>
+                } @if (form.controls.preferredHour.touched && form.controls.preferredHour.invalid) {
+                <span class="field__error">{{ 'booking.form.step4.hourError' | translate }}</span>
                 }
               </div>
-
-            </div><!-- /form-col -->
-          </div><!-- /form-cols -->
+            </div>
+            <!-- /form-col -->
+          </div>
+          <!-- /form-cols -->
 
           <!-- ─── Submit ─────────────────────────────────── -->
           @if (submitError()) {
-            <div class="alert alert--error">{{ submitError() | translate }}</div>
+          <div class="alert alert--error">{{ submitError() | translate }}</div>
           }
 
           <button

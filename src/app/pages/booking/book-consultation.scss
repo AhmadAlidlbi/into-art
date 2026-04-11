@@ -174,7 +174,6 @@
   line-height: 1.4;
 }
 
-/* Specify input (Other condition) */
 .specify-input {
   margin-top: 10px;
 }
@@ -269,6 +268,15 @@
   font-size: 14px;
   font-weight: 700;
   color: var(--text);
+  /* ✅ Inter for the date value text (e.g. 4/12/2026) */
+  font-family: "Inter", system-ui, sans-serif !important;
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+:host-context(html[dir='rtl']) .date-field ::ng-deep input.mat-mdc-input-element {
+  text-align: right !important;
+  unicode-bidi: plaintext !important;
 }
 
 .date-field ::ng-deep .mat-mdc-form-field-icon-suffix {
@@ -339,6 +347,8 @@
   font-size: 13px;
   font-weight: 800;
   color: var(--text-2);
+  /* ✅ Inter for time values (10:00 AM, 1:00 PM, 4:00 PM) */
+  font-family: "Inter", system-ui, sans-serif !important;
   transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
 }
 
@@ -499,19 +509,8 @@
   text-align: left;
 }
 
-:host-context(html[dir='rtl']) .date-field ::ng-deep input.mat-mdc-input-element {
-  direction: rtl;
-  text-align: right;
-}
-
-:host-context(html[dir='ltr']) .date-field ::ng-deep input.mat-mdc-input-element {
-  direction: ltr;
-  text-align: left;
-}
-
 /* ─── Desktop: two-column layout ────────────────────────── */
 @media (min-width: 981px) {
-  /* ✅ Cap desktop form width so columns don't stretch too wide */
   .form-wrap {
     max-width: 900px;
     margin: 0 auto;

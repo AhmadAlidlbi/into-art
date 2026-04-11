@@ -1,6 +1,7 @@
 <section class="page">
   <div class="container">
     <div class="card">
+      <!-- ✅ Check mark -->
       <div class="check-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -17,8 +18,108 @@
       <h1 class="title">{{ 'booking.success.title' | translate }}</h1>
       <p class="subtitle">{{ 'booking.success.subtitle' | translate }}</p>
 
+      <!-- ─── Appointment summary card ──────────────────── -->
+      @if (hasData) {
+      <div class="summary">
+        <!-- Date row -->
+        <div class="summary__row">
+          <div class="summary__icon">
+            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect
+                x="2"
+                y="3"
+                width="16"
+                height="15"
+                rx="3"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path d="M2 8h16" stroke="currentColor" stroke-width="1.5" />
+              <path
+                d="M6 1v4M14 1v4"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <div class="summary__content">
+            <span class="summary__label">{{ 'booking.success.summary.date' | translate }}</span>
+            <span class="summary__value">{{ displayDate }}</span>
+          </div>
+        </div>
+
+        <div class="summary__divider"></div>
+
+        <!-- Time row -->
+        <div class="summary__row">
+          <div class="summary__icon">
+            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" />
+              <path
+                d="M10 6v4l2.5 2.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="summary__content">
+            <span class="summary__label">{{ 'booking.success.summary.time' | translate }}</span>
+            <span class="summary__value summary__value--time">{{ displayTime }}</span>
+          </div>
+        </div>
+
+        <div class="summary__divider"></div>
+
+        <!-- Location row — links to Google Maps -->
+        <a
+          class="summary__row summary__row--link"
+          href="https://maps.app.goo.gl/jL3EFWEWzFdUqvTK9"
+          target="_blank"
+          rel="noopener noreferrer"
+          [attr.aria-label]="'booking.success.summary.openMap' | translate"
+        >
+          <div class="summary__icon">
+            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M10 2C7.239 2 5 4.239 5 7c0 4.418 5 11 5 11s5-6.582 5-11c0-2.761-2.239-5-5-5z"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <circle cx="10" cy="7" r="1.75" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+          </div>
+          <div class="summary__content">
+            <span class="summary__label">{{ 'booking.success.summary.location' | translate }}</span>
+            <span class="summary__value summary__value--address">{{ currentAddress }}</span>
+          </div>
+          <!-- External link indicator -->
+          <svg class="summary__external" viewBox="0 0 16 16" fill="none">
+            <path
+              d="M6 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3"
+              stroke="currentColor"
+              stroke-width="1.4"
+              stroke-linecap="round"
+            />
+            <path
+              d="M9 2h5v5M14 2L8 8"
+              stroke="currentColor"
+              stroke-width="1.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
+      }
+
+      <!-- ─── Actions ───────────────────────────────────── -->
       <div class="actions">
-        <a class="btn btn--primary" routerLink="/">{{ 'booking.success.backHome' | translate }}</a>
+        <a class="btn btn--primary" routerLink="/">
+          {{ 'booking.success.backHome' | translate }}
+        </a>
         <a
           class="btn btn--ghost"
           [routerLink]="viewProjectsLink.disabled ? null : viewProjectsLink.path"
