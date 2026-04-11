@@ -65,33 +65,39 @@ export class App implements OnInit {
       sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
     });
 
-    // ─── Route loading state ─────────────────────────────
+    // ─── Router event handling ───────────────────────────
     this.router.events.subscribe((event) => {
+      // ── NavigationStart ────────────────────────────────
       if (event instanceof NavigationStart) {
-        // Small delay so instant navigations (cached chunks) don't flash the loader
+        // Show loader after a small delay (avoids flash on cached chunks)
         this.loaderTimeout = window.setTimeout(() => {
           this.isRouteLoading.set(true);
         }, 120);
+
+        // Scroll to top immediately on navigation start — BEFORE the new
+        // page component renders. This prevents the "footer flash" where
+        // the new page briefly appears at the old scroll position.
+        if (this.isFirstNav) {
+          // Don't touch scroll on the very first navigation (handled below)
+        } else {
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }
       }
 
+      // ── NavigationEnd / Cancel / Error ─────────────────
       if (
         event instanceof NavigationEnd ||
         event instanceof NavigationCancel ||
         event instanceof NavigationError
       ) {
-        // Clear the delayed show if navigation finished before 120ms
+        // Clear the delayed loader show
         if (this.loaderTimeout !== null) {
           window.clearTimeout(this.loaderTimeout);
           this.loaderTimeout = null;
         }
         this.isRouteLoading.set(false);
-      }
-    });
 
-    // ─── Scroll restoration ──────────────────────────────
-    this.router.events
-      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
-      .subscribe(() => {
+        // Handle first navigation (reload scroll restoration)
         if (this.isFirstNav) {
           this.isFirstNav = false;
           if (this.isReload) {
@@ -99,11 +105,10 @@ export class App implements OnInit {
             if (saved > 0) {
               requestAnimationFrame(() => window.scrollTo({ top: saved, behavior: 'instant' }));
             }
-            return;
           }
         }
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      });
+      }
+    });
   }
 
   hideLayout(): boolean {
