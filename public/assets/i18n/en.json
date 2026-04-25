@@ -172,18 +172,22 @@
           "desc": "We visit the site and take precise measurements to ensure that every stage of the work is based on accurate and approved data."
         },
         "4": {
-          "title": "Starting the Design Work",
-          "desc": "We prepare plans, concepts, and select the right details to reach a balanced design that combines beauty and function."
+          "title": "Preparing Designs and Concepts",
+          "desc": "We prepare 3D designs and initial drawings, including ceilings, lighting, walls, flooring, and furniture, to create a complete vision for the space."
         },
         "5": {
-          "title": "Execution Drawings and Quantity Survey",
-          "desc": "We prepare the drawing presentation, quantity survey schedule, and required materials accurately, giving you a clearer picture of the exact dimensions and cost while helping organize execution efficiently."
+          "title": "Design Approval",
+          "desc": "The design is reviewed with the client and approved before moving to the execution drawings stage."
         },
         "6": {
-          "title": "Execution on Site",
-          "desc": "Execution begins according to the approved drawings, with close attention to detail to ensure finishing quality and accurate output at every stage."
+          "title": "Execution Drawings and Quantity Survey",
+          "desc": "We prepare detailed execution drawings, including space layouts, ceilings, walls, lighting, electrical, and plumbing plans, along with the quantity survey and required materials to define the cost accurately and organize execution."
         },
         "7": {
+          "title": "Execution on Site",
+          "desc": "Execution begins according to the approved drawings under the supervision of a specialized engineer, with close follow-up to ensure finishing quality and execution accuracy throughout all stages."
+        },
+        "8": {
           "title": "Project Handover",
           "desc": "Once the work is complete, the project is delivered in a refined final form, meeting the required quality and the result worthy of your expectations."
         }
@@ -618,7 +622,7 @@
       "messageError": "Please write a message (at least 5 characters).",
       "submit": "Send Message",
       "submitting": "Sending…",
-      "privacy": "By submitting the form, you agree that we may contact you بشأن your request.",
+      "privacy": "By submitting the form, you agree that we may contact you regarding your request.",
       "successMsg": "Your message has been received. We will contact you soon.",
       "errorReview": "Please review the required fields and try again.",
       "errorRetry": "Submission failed. Please try again.",
@@ -854,7 +858,7 @@
       "step4": {
         "title": "Date",
         "hint": "Saturday to Thursday only. Friday is unavailable.",
-        "timeLabel": "* Preffred time - Available appointments on",
+        "timeLabel": "* Preferred time - Available appointments on",
         "checking": "Checking availability…",
         "noSlots": "All appointments on this date are booked.",
         "dateError": "Please select a date.",
