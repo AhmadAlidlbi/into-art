@@ -53,6 +53,30 @@
         />
       </div>
 
+      <div class="type-tabs" role="tablist" [attr.aria-label]="'projects.typeTabsAria' | translate">
+        <button
+          class="type-tab"
+          type="button"
+          role="tab"
+          [class.is-active]="selectedType() === 'all'"
+          (click)="setType('all')"
+        >{{ 'projects.filters.all' | translate }}</button>
+        <button
+          class="type-tab"
+          type="button"
+          role="tab"
+          [class.is-active]="selectedType() === 'design'"
+          (click)="setType('design')"
+        >{{ 'projects.filters.design' | translate }}</button>
+        <button
+          class="type-tab"
+          type="button"
+          role="tab"
+          [class.is-active]="selectedType() === 'execution'"
+          (click)="setType('execution')"
+        >{{ 'projects.filters.execution' | translate }}</button>
+      </div>
+
       <div class="chips" role="tablist">
         <!-- <button
           class="chip"
@@ -103,7 +127,7 @@
     <div class="empty" *ngIf="filtered().length === 0">
       <div class="empty__title">{{ 'projects.noResults' | translate }}</div>
       <div class="empty__desc">{{ 'projects.noResultsDesc' | translate }}</div>
-      <button class="empty__btn" type="button" (click)="setCategory('All'); setSearch('')">
+      <button class="empty__btn" type="button" (click)="setCategory('All'); setType('all'); setSearch('')">
         {{ 'projects.resetFilters' | translate }}
       </button>
     </div>

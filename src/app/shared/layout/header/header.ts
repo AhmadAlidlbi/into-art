@@ -26,10 +26,10 @@ export class HeaderComponent {
 
   links: HeaderLink[] = [
     { labelKey: 'nav.home', path: '/', exact: true },
-    { labelKey: 'nav.about', path: '/about', disabled: true },
-    { labelKey: 'nav.services', path: '/services', disabled: true },
-    { labelKey: 'nav.projects', path: '/projects', disabled: true },
-    { labelKey: 'nav.faq', path: '/faq', disabled: true },
+    // { labelKey: 'nav.about', path: '/about', disabled: true },
+    // { labelKey: 'nav.services', path: '/services', disabled: true },
+    // { labelKey: 'nav.projects', path: '/projects', disabled: true },
+    // { labelKey: 'nav.faq', path: '/faq', disabled: true },
     { labelKey: 'nav.contact', path: '/contact' },
   ];
 

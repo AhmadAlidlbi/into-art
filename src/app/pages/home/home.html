@@ -128,43 +128,61 @@
       <h2 class="section__title">{{ 'home.featured.title' | translate }}</h2>
     </div>
 
-    <div
-      class="slider"
-      (pointerdown)="projectsPointerDown($event)"
-      (pointermove)="projectsPointerMove($event)"
-      (pointerup)="projectsPointerUp($event)"
-      (pointercancel)="projectsPointerUp($event)"
-    >
-      <div
-        class="slider__track"
-        [class.is-dragging]="projectsDragging"
-        [style.transform]="
-          'translateX(calc(' + -projectIndex * 100 + '% + ' + projectsDragPx + 'px))'
-        "
-      >
-        @for (p of featuredProjects; track p.slug; let i = $index) {
-        <a class="slide" [routerLink]="['/projects', p.slug]">
-          <div class="slide__img" [style.backgroundImage]="'url(' + p.cover + ')'">
-            <div class="slide__meta">
-              <div class="slide__meta-left">
-                <div class="slide__cat">{{ p.categoryKey | translate }}</div>
-                <div class="slide__title">{{ p.titleKey | translate }}</div>
-              </div>
+    <div class="slider-wrap">
+      <button
+        class="slider__arrow slider__arrow--prev"
+        type="button"
+        (click)="arrowPrev()"
+        [disabled]="projectsArrowBusy"
+        aria-label="Previous project"
+      >&#8249;</button>
 
-              <div class="slide__dots-inline">
-                @for (q of featuredProjects; track q.slug; let j = $index) {
-                <span
-                  class="slide__dot"
-                  [class.is-active]="j === projectIndex"
-                  aria-hidden="true"
-                ></span>
-                }
+      <div
+        class="slider"
+        (pointerdown)="projectsPointerDown($event)"
+        (pointermove)="projectsPointerMove($event)"
+        (pointerup)="projectsPointerUp($event)"
+        (pointercancel)="projectsPointerUp($event)"
+      >
+        <div
+          class="slider__track"
+          [class.is-dragging]="projectsDragging"
+          [style.transform]="
+            'translateX(calc(' + -projectIndex * 100 + '% + ' + projectsDragPx + 'px))'
+          "
+        >
+          @for (p of featuredProjects; track p.slug; let i = $index) {
+          <a class="slide" [routerLink]="['/projects', p.slug]">
+            <div class="slide__img" [style.backgroundImage]="'url(' + p.cover + ')'">
+              <div class="slide__meta">
+                <div class="slide__meta-left">
+                  <div class="slide__cat">{{ p.categoryKey | translate }}</div>
+                  <div class="slide__title">{{ p.titleKey | translate }}</div>
+                </div>
+
+                <div class="slide__dots-inline">
+                  @for (q of featuredProjects; track q.slug; let j = $index) {
+                  <span
+                    class="slide__dot"
+                    [class.is-active]="j === projectIndex"
+                    aria-hidden="true"
+                  ></span>
+                  }
+                </div>
               </div>
             </div>
-          </div>
-        </a>
-        }
+          </a>
+          }
+        </div>
       </div>
+
+      <button
+        class="slider__arrow slider__arrow--next"
+        type="button"
+        (click)="arrowNext()"
+        [disabled]="projectsArrowBusy"
+        aria-label="Next project"
+      >&#8250;</button>
     </div>
   </div>
 </section>

@@ -154,6 +154,45 @@
   background-image: url('/assets/images/portfolio/projects/p3.webp');
 }
 
+/* ─── Type tabs ──────────────────────────────────── */
+.type-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(231, 224, 216, 0.95);
+  box-shadow: 0 4px 14px rgba(22, 20, 20, 0.05);
+  flex-shrink: 0;
+  margin-inline-start: auto;
+}
+
+.type-tab {
+  padding: 9px 20px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease;
+  white-space: nowrap;
+  line-height: 1;
+
+  &:hover {
+    background: rgba(215, 198, 178, 0.14);
+    color: var(--text);
+  }
+
+  &.is-active {
+    background: rgba(22, 20, 20, 0.92);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(22, 20, 20, 0.18);
+  }
+}
+
 /* ─── Filter bar ─────────────────────────────────── */
 .section {
   padding: 64px 0;
@@ -534,6 +573,15 @@
   .filter-bar {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .type-tabs {
+    width: 100%;
+
+    .type-tab {
+      flex: 1;
+      text-align: center;
+    }
   }
 
   .search {

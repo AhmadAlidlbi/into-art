@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, computed, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { PROJECTS, PROJECT_CATEGORIES, Project } from './services/projects.data';
+import { PROJECTS, PROJECT_CATEGORIES, Project, ProjectType } from './services/projects.data';
 
 @Component({
   selector: 'app-projects',
@@ -48,26 +48,33 @@ export class ProjectsPage implements AfterViewInit, OnDestroy {
   allProjects: Project[] = PROJECTS;
 
   selectedCategory = signal<string>('All');
+  selectedType = signal<ProjectType | 'all'>('all');
   search = signal<string>('');
 
   filtered = computed(() => {
     const cat = this.selectedCategory();
+    const type = this.selectedType();
     const q = this.search().trim().toLowerCase();
-  
+
     return this.allProjects.filter((p) => {
-      const matchCat = cat === 'All' ? true : p.categoryKey  === cat;
+      const matchCat = cat === 'All' ? true : p.categoryKey === cat;
+      const matchType = type === 'all' ? true : p.type === type;
       const matchQ =
         !q ||
         p.titleKey.toLowerCase().includes(q) ||
         (p.area ?? '').toLowerCase().includes(q) ||
-        (p.categoryKey  ?? '').toLowerCase().includes(q);
-  
-      return matchCat && matchQ;
+        (p.categoryKey ?? '').toLowerCase().includes(q);
+
+      return matchCat && matchType && matchQ;
     });
-  });  
+  });
 
   setCategory(cat: string): void {
     this.selectedCategory.set(cat);
+  }
+
+  setType(type: ProjectType | 'all'): void {
+    this.selectedType.set(type);
   }
 
   setSearch(v: string): void {

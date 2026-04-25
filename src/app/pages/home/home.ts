@@ -103,10 +103,12 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   projectsDragging = false;
   projectsDragPx = 0;
+  projectsArrowBusy = false;
 
   private projectsStartX = 0;
   private projectsActivePointerId: number | null = null;
   private projectsMoved = false;
+  private projectsArrowTimer: ReturnType<typeof setTimeout> | null = null;
 
   // ─── Reviews marquee ─────────────────────────────────────
   reviews = REVIEWS;
@@ -264,6 +266,31 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     if (!this.featuredProjects.length) return;
     this.projectIndex =
       (this.projectIndex - 1 + this.featuredProjects.length) % this.featuredProjects.length;
+  }
+
+  private resetProjectTimer(): void {
+    if (this.projectTimer) {
+      window.clearInterval(this.projectTimer);
+    }
+    this.projectTimer = window.setInterval(() => {
+      if (!this.projectsDragging) this.nextProjects();
+    }, 3000);
+  }
+
+  arrowNext(): void {
+    if (this.projectsArrowBusy) return;
+    this.nextProjects();
+    this.projectsArrowBusy = true;
+    this.resetProjectTimer();
+    this.projectsArrowTimer = setTimeout(() => (this.projectsArrowBusy = false), 800);
+  }
+
+  arrowPrev(): void {
+    if (this.projectsArrowBusy) return;
+    this.prevProjects();
+    this.projectsArrowBusy = true;
+    this.resetProjectTimer();
+    this.projectsArrowTimer = setTimeout(() => (this.projectsArrowBusy = false), 800);
   }
 
   projectsPointerDown(e: PointerEvent): void {

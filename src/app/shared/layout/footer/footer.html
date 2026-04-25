@@ -94,7 +94,7 @@
 
       <!-- Services -->
       <section class="col">
-        <h3 class="title">{{ 'footer.services' | translate }}</h3>
+        <!-- <h3 class="title">{{ 'footer.services' | translate }}</h3> -->
         <nav class="links" [attr.aria-label]="'footer.servicesAria' | translate">
           <ng-container *ngFor="let l of serviceLinks">
             <a *ngIf="!l.disabled; else disabledServiceLink" class="link" [routerLink]="l.path">

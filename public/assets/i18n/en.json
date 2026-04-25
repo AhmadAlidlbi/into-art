@@ -900,6 +900,12 @@
     "viewProject": "View Project",
     "searchPlaceholder": "Search by title, category, or area…",
     "categoriesAria": "Project categories",
+    "typeTabsAria": "Filter by project type",
+    "filters": {
+      "all": "All",
+      "design": "Design Projects",
+      "execution": "Implementation Projects"
+    },
     "noResults": "No Projects",
     "noResultsDesc": "Try a different category or adjust your search.",
     "resetFilters": "Reset Filters",

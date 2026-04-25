@@ -1,7 +1,10 @@
+export type ProjectType = 'design' | 'execution';
+
 export type Project = {
   slug: string;
   titleKey: string;
   categoryKey: string;
+  type: ProjectType;
   location?: string;
   area?: string;
   year?: string;
@@ -27,6 +30,7 @@ export const PROJECTS: Project[] = [
     slug: 'modern-apartment-living-room',
     titleKey: 'projectsData.items.modernApartmentLivingRoom.title',
     categoryKey: 'projectsData.categories.livingRoom',
+    type: 'design',
     featured: true,
     location: 'Kuwait',
     area: 'Salmiya',
@@ -49,6 +53,7 @@ export const PROJECTS: Project[] = [
     slug: 'warm-minimal-bedroom',
     titleKey: 'projectsData.items.warmMinimalBedroom.title',
     categoryKey: 'projectsData.categories.bedroom',
+    type: 'execution',
     featured: true,
     location: 'Kuwait',
     area: 'Hawally',
@@ -71,6 +76,7 @@ export const PROJECTS: Project[] = [
     slug: 'contemporary-villa-majlis',
     titleKey: 'projectsData.items.contemporaryVillaMajlis.title',
     categoryKey: 'projectsData.categories.majlis',
+    type: 'design',
     featured: true,
     location: 'Kuwait',
     area: 'Al-Zahra',

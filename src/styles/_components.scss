@@ -42,6 +42,9 @@
     font-weight: 800;
     font-size: 14px;
     font-family: inherit;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
     transition: transform 120ms ease, opacity 120ms ease, background 120ms ease;
 
     &:active { transform: translateY(1px); }

@@ -117,6 +117,10 @@
 
 .actions .btn {
   border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 :host-context(html[dir="rtl"]) .actions {
@@ -142,6 +146,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  line-height: 1;
+  text-align: center;
 
   transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
 
@@ -158,6 +164,7 @@
     font-weight: 950;
     font-size: 12px;
     letter-spacing: 0.6px;
+    line-height: 1;
     color: var(--text);
   }
 }
@@ -272,6 +279,9 @@
   cursor: pointer;
   font-size: 18px;
   line-height: 1;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
 
   display: grid;
   place-items: center;
@@ -335,6 +345,10 @@
     width: 100%;
     border-radius: 14px;
     padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
   .lang--bottom {

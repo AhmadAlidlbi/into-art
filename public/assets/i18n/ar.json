@@ -846,6 +846,12 @@
     "viewProject": "عرض المشروع",
     "searchPlaceholder": "ابحث بالعنوان أو الفئة أو المنطقة…",
     "categoriesAria": "فئات المشاريع",
+    "typeTabsAria": "تصفية حسب نوع المشروع",
+    "filters": {
+      "all": "الكل",
+      "design": "مشاريع التصميم",
+      "execution": "مشاريع التنفيذ"
+    },
     "noResults": "لا توجد مشاريع",
     "noResultsDesc": "جرب فئة مختلفة أو عدّل بحثك.",
     "resetFilters": "إعادة تعيين الفلاتر",

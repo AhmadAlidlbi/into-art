@@ -42,30 +42,30 @@ export class FooterComponent {
 
   quickLinks: FooterLink[] = [
     { labelKey: 'footer.links.home', path: '/' },
-    { labelKey: 'footer.links.about', path: '/about', disabled: true },
-    { labelKey: 'footer.links.services', path: '/services', disabled: true },
-    { labelKey: 'footer.links.projects', path: '/projects', disabled: true },
-    { labelKey: 'footer.links.contact', path: '/contact', disabled: true },
-    { labelKey: 'footer.links.faq', path: '/faq', disabled: true },
+    // { labelKey: 'footer.links.about', path: '/about', disabled: true },
+    // { labelKey: 'footer.links.services', path: '/services', disabled: true },
+    // { labelKey: 'footer.links.projects', path: '/projects', disabled: true },
+    // { labelKey: 'footer.links.faq', path: '/faq', disabled: true },
+    { labelKey: 'footer.links.contact', path: '/contact' },
     { labelKey: 'footer.links.bookConsultation', path: '/book-consultation' },
   ];
 
   serviceLinks: FooterLink[] = [
-    {
-      labelKey: 'footer.servicesLinks.residentialInterior',
-      path: '/services',
-      disabled: true,
-    },
-    {
-      labelKey: 'footer.servicesLinks.apartmentRenovation',
-      path: '/services',
-      disabled: true,
-    },
-    {
-      labelKey: 'footer.servicesLinks.turnkeyFitOut',
-      path: '/services',
-      disabled: true,
-    },
+    // {
+    //   labelKey: 'footer.servicesLinks.residentialInterior',
+    //   path: '/services',
+    //   disabled: true,
+    // },
+    // {
+    //   labelKey: 'footer.servicesLinks.apartmentRenovation',
+    //   path: '/services',
+    //   disabled: true,
+    // },
+    // {
+    //   labelKey: 'footer.servicesLinks.turnkeyFitOut',
+    //   path: '/services',
+    //   disabled: true,
+    // },
   ];
 
   privacyPolicyLink = {
