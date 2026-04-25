@@ -152,7 +152,8 @@
           "
         >
           @for (p of featuredProjects; track p.slug; let i = $index) {
-          <a class="slide" [routerLink]="['/projects', p.slug]">
+          <!-- <a class="slide" [routerLink]="['/projects', p.slug]"> -->
+          <div class="slide">
             <div class="slide__img" [style.backgroundImage]="'url(' + p.cover + ')'">
               <div class="slide__meta">
                 <div class="slide__meta-left">
@@ -171,7 +172,8 @@
                 </div>
               </div>
             </div>
-          </a>
+          </div>
+          <!-- </a> -->
           }
         </div>
       </div>

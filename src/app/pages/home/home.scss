@@ -945,6 +945,10 @@
 
 /* ─── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 980px) {
+  .slider__arrow {
+    display: none;
+  }
+
   .hero__brand {
     top: -6px;
   }
