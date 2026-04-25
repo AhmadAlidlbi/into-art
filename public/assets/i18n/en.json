@@ -139,15 +139,15 @@
   },
   "home": {
     "hero": {
-      "brand": "Into Art",
+      "brand": "INTO ART",
       "title_1": "FEEL THE PLACE",
-      "subtitle": "From concept to execution, Into Art delivers interior design solutions that reflect your lifestyle."
+      "subtitle": "From concept to execution, INTO ART delivers interior design solutions that reflect your lifestyle."
     },
     "who": {
       "eyebrow": "About Us",
       "title_1": "A Specialized Team of",
       "title_2": "Engineers and Designers",
-      "desc": "Into Art is a company specializing in interior design services and decorative installation works. We create exclusive and distinctive designs through a well-studied engineering approach to space distribution that serves our clients and gives them a sense of comfort and belonging in their homes or workplaces.",
+      "desc": "INTO ART is a company specializing in interior design services and decorative installation works. We create exclusive and distinctive designs through a well-studied engineering approach to space distribution that serves our clients and gives them a sense of comfort and belonging in their homes or workplaces.",
       "metrics": {
         "years": "Years of Experience",
         "designProjects": "Design Projects",
@@ -763,7 +763,7 @@
     "story": {
       "eyebrow": "Our Story",
       "title": "It Started with the Belief That Details Make the Difference",
-      "body1": "Into Art was founded on the vision that the quality of any space begins with the quality of the thinking behind it, and that details are what make the real difference in the quality of the place and the feeling inside it. From the very beginning, our direction was to offer an integrated design experience that pays attention to detail and balances practical beauty with organized execution, arriving at a result that carries real value and a cohesive identity. This direction remains at the core of our identity today.",
+      "body1": "INTO ART was founded on the vision that the quality of any space begins with the quality of the thinking behind it, and that details are what make the real difference in the quality of the place and the feeling inside it. From the very beginning, our direction was to offer an integrated design experience that pays attention to detail and balances practical beauty with organized execution, arriving at a result that carries real value and a cohesive identity. This direction remains at the core of our identity today.",
       "body2": "Over the years, we have developed a way of working that combines clear design vision with organized execution, giving a more balanced and transparent experience at every stage, while always preserving the personal character and attention to detail that give each project its own distinction.",
       "quote": "A place is not measured only by what you see, but by what you feel inside it.",
       "quoteAttr": "Our Design Philosophy"
@@ -888,8 +888,8 @@
     }
   },
   "footer": {
-    "brandName": "Into Art",
-    "brandAlt": "Into Art Logo",
+    "brandName": "INTO ART",
+    "brandAlt": "INTO ART Logo",
     "description": "We provide an integrated interior design experience that starts with a clear vision and ends with professional execution that turns the concept into reality.",
     "address": "Silk Tower, Floor 23, Office 66, Jaber Al-Mubarak Street, Kuwait City",
     "phone": "Phone:",
@@ -982,7 +982,7 @@
     "hero": {
       "eyebrow": "Share Your Opinion",
       "title": "Rate Your Experience with Us",
-      "desc": "We are happy to hear your feedback about your experience with Into Art. Your comments help us improve our services continuously."
+      "desc": "We are happy to hear your feedback about your experience with INTO ART. Your comments help us improve our services continuously."
     },
     "form": {
       "nameLabel": "Name",
