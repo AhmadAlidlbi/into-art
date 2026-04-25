@@ -359,7 +359,6 @@
 
 .time-slot:hover:not(:disabled) {
   border-color: rgba(215, 198, 178, 0.55);
-  color: var(--text);
 }
 
 .time-slot.is-active {
@@ -615,7 +614,17 @@
     grid-template-columns: 1fr;
   }
 
+  .pill-opt {
+    min-height: 44px;
+  }
+
   .pill-group--col .pill-opt {
-    padding: 10px 14px;
+    padding: 12px 14px;
+  }
+
+  .time-slot {
+    min-height: 44px;
+    height: auto;
+    padding: 10px 16px;
   }
 }

@@ -163,11 +163,14 @@
 
                 <div class="slide__dots-inline">
                   @for (q of featuredProjects; track q.slug; let j = $index) {
-                  <span
+                  <button
                     class="slide__dot"
+                    type="button"
                     [class.is-active]="j === projectIndex"
-                    aria-hidden="true"
-                  ></span>
+                    (click)="goToSlide(j); $event.stopPropagation()"
+                    [attr.aria-label]="'Go to slide ' + (j + 1)"
+                    [attr.aria-current]="j === projectIndex ? 'true' : null"
+                  ></button>
                   }
                 </div>
               </div>

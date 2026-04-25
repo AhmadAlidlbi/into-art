@@ -416,6 +416,29 @@
   }
 }
 
+@media (max-width: 480px) {
+  .lightbox__inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .lightbox__nav {
+    display: none;
+  }
+
+  .lightbox__stage {
+    max-width: 100vw;
+  }
+
+  .lightbox__close {
+    top: auto;
+    bottom: -44px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
 @media (max-width: 560px) {
   .stats-bar {
     flex-wrap: wrap;

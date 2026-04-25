@@ -276,7 +276,8 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   arrowNext(): void {
     if (this.projectsArrowBusy) return;
-    this.nextProjects();
+    const isRTL = document.documentElement.dir === 'rtl';
+    isRTL ? this.prevProjects() : this.nextProjects();
     this.projectsArrowBusy = true;
     this.resetProjectTimer();
     setTimeout(() => (this.projectsArrowBusy = false), 800);
@@ -284,14 +285,22 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
   arrowPrev(): void {
     if (this.projectsArrowBusy) return;
-    this.prevProjects();
+    const isRTL = document.documentElement.dir === 'rtl';
+    isRTL ? this.nextProjects() : this.prevProjects();
     this.projectsArrowBusy = true;
     this.resetProjectTimer();
     setTimeout(() => (this.projectsArrowBusy = false), 800);
   }
 
+  goToSlide(index: number): void {
+    if (this.projectsArrowBusy || index === this.projectIndex) return;
+    this.projectIndex = index;
+    this.resetProjectTimer();
+  }
+
   projectsPointerDown(e: PointerEvent): void {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+    if ((e.target as HTMLElement).classList.contains('slide__dot')) return;
 
     if (this.projectTimer) {
       window.clearInterval(this.projectTimer);
@@ -325,8 +334,9 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.projectsMoved) {
       const threshold = 60;
-      if (dx <= -threshold) this.nextProjects();
-      else if (dx >= threshold) this.prevProjects();
+      const isRTL = document.documentElement.dir === 'rtl';
+      if (dx <= -threshold) isRTL ? this.prevProjects() : this.nextProjects();
+      else if (dx >= threshold) isRTL ? this.nextProjects() : this.prevProjects();
     }
 
     if (this.projectTimer) window.clearInterval(this.projectTimer);
