@@ -2,6 +2,14 @@
 
 button, input, select, textarea { font-family: inherit; }
 
+button {
+  line-height: 1;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 html, body { height: 100%; }
 
 body {

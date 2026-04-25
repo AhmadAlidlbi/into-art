@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, computed, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { PROJECTS, PROJECT_CATEGORIES, Project, ProjectType } from './services/projects.data';
+import { PROJECTS, Project, ProjectType } from './services/projects.data';
 
 @Component({
   selector: 'app-projects',
@@ -44,7 +44,6 @@ export class ProjectsPage implements AfterViewInit, OnDestroy {
     this.router.navigateByUrl('/book-consultation');
   }
 
-  categories = PROJECT_CATEGORIES;
   allProjects: Project[] = PROJECTS;
 
   selectedCategory = signal<string>('All');

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild, computed, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, computed, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SERVICES, Service, ServiceCategory } from './services/services.data';
@@ -19,8 +19,6 @@ type CategoryFilter = 'all' | ServiceCategory;
   styleUrls: ['./services.scss'],
 })
 export class ServicesPage implements AfterViewInit, OnDestroy {
-  @Input() brandName = 'INTO ART';
-
   private readonly staticServices: Service[] = SERVICES;
 
   services = computed(() =>

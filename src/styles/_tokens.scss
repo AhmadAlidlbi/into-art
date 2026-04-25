@@ -37,6 +37,12 @@
   --shadow-sm: 0 8px 18px rgba(0,0,0,0.06);
   --shadow-md: 0 14px 34px rgba(0,0,0,0.10);
 
+  /* ─── Elevation system (warm) ────────────────────────── */
+  --elev-1: 0 10px 26px rgba(22, 20, 20, 0.07);
+  --elev-2: 0 14px 34px rgba(22, 20, 20, 0.10);
+  --stroke: 1px solid rgba(231, 224, 216, 0.95);
+  --shine:  inset 0 1px 0 rgba(255, 255, 255, 0.55);
+
   /* ─── Section rhythm ─────────────────────────────────── */
   --section-y: 72px;
   --section-y-sm: 52px;

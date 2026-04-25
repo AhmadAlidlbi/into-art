@@ -6,7 +6,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContactPayload, ContactService } from './services/contact.service';
 
@@ -21,7 +20,7 @@ type ContactForm = FormGroup<{
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, TranslateModule],
+  imports: [ReactiveFormsModule, TranslateModule],
   templateUrl: './contact.html',
   styleUrls: ['./contact.scss'],
 })

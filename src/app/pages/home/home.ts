@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
-  Input,
   OnDestroy,
   OnInit,
   AfterViewInit,
@@ -27,8 +26,6 @@ type Step = { titleKey: string; descKey: string };
   styleUrls: ['./home.scss'],
 })
 export class HomePage implements OnInit, AfterViewInit, OnDestroy {
-  @Input() consultationPath = '/book-consultation';
-
   whoMediaImage = 'assets/images/HomePage/WhoAreWe/Reception-Top-View.webp';
 
   heroEnter = signal(false);
@@ -109,7 +106,6 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private projectsStartX = 0;
   private projectsActivePointerId: number | null = null;
   private projectsMoved = false;
-  private projectsArrowTimer: ReturnType<typeof setTimeout> | null = null;
 
   // ─── Reviews marquee ─────────────────────────────────────
   reviews = REVIEWS;
@@ -251,7 +247,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   goBook(): void {
-    this.router.navigateByUrl(this.consultationPath);
+    this.router.navigateByUrl('/book-consultation');
   }
 
   nextHero(): void {
@@ -283,7 +279,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     this.nextProjects();
     this.projectsArrowBusy = true;
     this.resetProjectTimer();
-    this.projectsArrowTimer = setTimeout(() => (this.projectsArrowBusy = false), 800);
+    setTimeout(() => (this.projectsArrowBusy = false), 800);
   }
 
   arrowPrev(): void {
@@ -291,7 +287,7 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
     this.prevProjects();
     this.projectsArrowBusy = true;
     this.resetProjectTimer();
-    this.projectsArrowTimer = setTimeout(() => (this.projectsArrowBusy = false), 800);
+    setTimeout(() => (this.projectsArrowBusy = false), 800);
   }
 
   projectsPointerDown(e: PointerEvent): void {
