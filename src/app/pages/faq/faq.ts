@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, computed, signal } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FAQS, FAQ_CATEGORIES, FaqItem } from './services/faq.data';
 
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [RouterModule, TranslateModule],
+  imports: [TranslateModule],
   templateUrl: './faq.html',
   styleUrls: ['./faq.scss'],
 })
@@ -26,8 +26,8 @@ export class FaqPage implements AfterViewInit, OnDestroy {
       const matchCat = cat === 'all' ? true : x.category === cat;
       const matchQ =
         !q ||
-        x.q.toLowerCase().includes(q) ||
-        x.a.toLowerCase().includes(q) ||
+        this.translate.instant(x.q).toLowerCase().includes(q) ||
+        this.translate.instant(x.a).toLowerCase().includes(q) ||
         x.category.toLowerCase().includes(q);
 
       return matchCat && matchQ;
@@ -40,7 +40,7 @@ export class FaqPage implements AfterViewInit, OnDestroy {
   ctaSection?: ElementRef<HTMLElement>;
   private ctaIO?: IntersectionObserver;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private translate: TranslateService) {}
 
   ngAfterViewInit(): void {
     const ctaEl = this.ctaSection?.nativeElement;
@@ -84,9 +84,5 @@ export class FaqPage implements AfterViewInit, OnDestroy {
 
   goBook(): void {
     this.router.navigateByUrl('/book-consultation');
-  }
-
-  openWhatsApp(): void {
-    window.open(`https://wa.me/96550000000`, '_blank', 'noopener,noreferrer');
   }
 }

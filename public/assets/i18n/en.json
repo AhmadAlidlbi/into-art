@@ -628,62 +628,109 @@
   "faq": {
     "hero": {
       "eyebrow": "FAQ",
-      "title_1": "Frequently Asked Questions and Clear Answers",
+      "title_1": "Frequently Asked Questions & Clear Answers",
       "title_accent": "Clear Answers",
-      "subtitle": "Clear answers about approach, timeline, pricing, and execution — so you know exactly what to expect."
+      "subtitle": "Clear answers about our process, timeline, pricing, and execution — so you know exactly what to expect."
     },
-    "categoriesAria": "FAQ categories",
-    "accordionAria": "Frequently asked questions",
+    "categoriesAria": "FAQ Categories",
+    "accordionAria": "Frequently Asked Questions",
     "categories": {
       "all": "All",
-      "process": "Approach",
+      "process": "Process",
       "pricing": "Pricing",
       "execution": "Execution",
-      "timeline": "Timeline",
       "design": "Design"
     },
     "search": {
-      "placeholder": "Search the questions…",
+      "placeholder": "Search questions…",
       "aria": "Search FAQs",
       "clearAria": "Clear search"
     },
     "empty": {
-      "title": "No Results",
-      "desc": "Try a different category or another keyword.",
-      "reset": "Reset Filters"
+      "title": "No results found",
+      "desc": "Try a different category or keyword.",
+      "reset": "Reset filters"
     },
     "items": {
       "1": {
-        "q": "How do I book a consultation?",
-        "a": "You can book directly through the consultation page on the website. After submission, our team will contact you to confirm the appointment and guide you through the next steps."
+        "q": "How can I book a consultation?",
+        "a": "You can book directly through the consultation page on our website. After submission, our team will contact you to confirm the appointment and guide you through the next steps."
       },
       "2": {
-        "q": "What happens after the consultation?",
-        "a": "After the consultation, we review your requirements and prepare the design direction and proposal. Once approved, we move to the contract and execution planning stage."
+        "q": "What happens during the consultation?",
+        "a": "During the consultation, we work on understanding your needs, style, and the nature of the space to build a clear vision for your project from the start. We discuss ideas and initial concepts before defining the project scope and next steps."
       },
       "3": {
-        "q": "Do you provide a quotation or bill of quantities?",
-        "a": "Yes. Depending on the project scope, we provide an organized quotation that includes clear material items and execution scope."
+        "q": "How is the design cost calculated?",
+        "a": "Design cost depends on the project scope, whether it involves a full villa, specific floors, or selected spaces. We offer different packages, and pricing is determined based on the number of spaces and the level of detail required in the design and drawings."
       },
       "4": {
-        "q": "Can I choose materials according to my budget?",
-        "a": "Yes. We usually provide options at different levels and recommend the best balance between quality and cost for residential projects."
+        "q": "How is the execution cost calculated?",
+        "a": "Execution cost is calculated based on the approved drawings, project scope, and the bill of quantities and required materials, allowing accurate cost estimation and well-organized execution planning."
       },
       "5": {
-        "q": "Do you handle execution or design only?",
-        "a": "We can provide both. Many residential clients prefer full delivery (design + execution) with supervision to ensure quality and finishing."
+        "q": "Can I choose a design package based on my needs?",
+        "a": "Yes, we offer flexible packages including full villa design, floor-based design, or specific spaces, allowing you to select what best fits your needs and project scope."
       },
       "6": {
-        "q": "Who supervises site work?",
-        "a": "A specialized engineer supervises execution, tracks progress, and ensures that finishing quality matches the approved design."
+        "q": "Do design packages include execution drawings?",
+        "a": "Yes, all design packages include comprehensive execution drawings covering layouts, ceilings, walls, lighting, and electrical and plumbing distribution to ensure the project is ready for execution."
       },
       "7": {
-        "q": "How long does a residential project take?",
-        "a": "That depends on size and scope. After the consultation and confirming the scope, we provide an estimated timeline with the main stages."
+        "q": "Can additional spaces be added later?",
+        "a": "Yes, additional spaces can be added as needed and are calculated separately based on the type of space and scope of work."
       },
       "8": {
-        "q": "Can you execute a style I saw online?",
-        "a": "Yes. Share your references with us and we will adapt the style to suit your space, lighting, and practical needs."
+        "q": "Do you offer mood board services?",
+        "a": "Yes, we offer mood board services to help you visualize the design concept through curated ideas, colors, materials, and overall style before moving into detailed design."
+      },
+      "9": {
+        "q": "Are prices fixed or do they vary per project?",
+        "a": "Prices vary depending on the project scope, number of spaces, and level of detail. Packages provide an initial estimate, while the final cost is determined after understanding your requirements during the consultation."
+      },
+      "10": {
+        "q": "Does the design include all areas of the project?",
+        "a": "Design packages cover the main areas of the project, while some service areas such as driver rooms or service zones are excluded and can be added upon request."
+      },
+      "11": {
+        "q": "How do you ensure execution quality?",
+        "a": "Projects are executed based on approved drawings under direct supervision to ensure accuracy, attention to detail, and high-quality finishing throughout all stages."
+      },
+      "12": {
+        "q": "Will the design be executed exactly as shown?",
+        "a": "Yes, we ensure the design is implemented according to the approved drawings with continuous follow-up to match the final result with the original vision."
+      },
+      "13": {
+        "q": "What does a “space” mean in design?",
+        "a": "A space refers to any individual area within the project, such as a living room, bedroom, or majlis. Each space is treated as a complete design unit including furniture layout, lighting, and interior details."
+      },
+      "14": {
+        "q": "Can I choose materials based on my budget?",
+        "a": "Yes, we consider your budget when selecting materials and provide well-balanced options that maintain quality while managing cost."
+      },
+      "15": {
+        "q": "Do you handle execution and furnishing, or design only?",
+        "a": "We offer all options — from design-only services to full packages that include design, execution, and furnishing, with complete project management to ensure proper implementation."
+      },
+      "16": {
+        "q": "Is there a dedicated execution team supervising the site?",
+        "a": "Yes, we have a specialized execution team led by a responsible engineer who oversees all project phases from site handover to final delivery, ensuring accurate implementation and high-quality finishing."
+      },
+      "17": {
+        "q": "If I already have a design, can you execute it?",
+        "a": "Yes, we can execute existing designs. We review them for execution readiness and may suggest minor adjustments when needed to ensure the best possible outcome on site."
+      },
+      "18": {
+        "q": "Can you design only part of a room or specific furniture pieces?",
+        "a": "We focus on delivering complete space designs to ensure consistency across all elements. Therefore, we do not provide partial design for individual items, but rather a full design, execution, and furnishing approach."
+      },
+      "19": {
+        "q": "Are all design details feasible to execute in reality?",
+        "a": "Yes, all designs are developed using materials and elements that are available and practical, ensuring the design can be implemented accurately and realistically."
+      },
+      "20": {
+        "q": "Do you handle both residential and commercial projects?",
+        "a": "Yes, we provide design and execution services for both residential and commercial projects, adapting our approach to meet the specific requirements of each type."
       }
     }
   },
