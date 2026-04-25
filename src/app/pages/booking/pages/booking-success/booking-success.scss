@@ -153,14 +153,14 @@
 }
 
 .summary__value--time {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   font-size: 16px;
   font-weight: 950;
   letter-spacing: -0.2px;
 }
 
 .summary__value--phone {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   font-size: 15px;
   font-weight: 800;
   letter-spacing: 0.3px;
@@ -217,7 +217,7 @@
 /* ─── RTL tweaks ─────────────────────────────────────────── */
 :host-context(html[dir='rtl']) {
   .summary__value--time {
-    font-family: "Inter", system-ui, sans-serif;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
     direction: ltr;
     text-align: right;
     display: block;

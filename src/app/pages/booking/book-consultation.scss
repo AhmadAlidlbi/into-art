@@ -263,7 +263,7 @@
   font-weight: 700;
   color: var(--text);
   /* ✅ Inter for the date value text (e.g. 4/12/2026) */
-  font-family: "Inter", system-ui, sans-serif !important;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif !important;
   direction: ltr !important;
   text-align: left !important;
 }
@@ -353,7 +353,7 @@
   font-weight: 800;
   color: var(--text-2);
   /* ✅ Inter for time values (10:00 AM, 1:00 PM, 4:00 PM) */
-  font-family: "Inter", system-ui, sans-serif !important;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif !important;
   transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
 }
 
