@@ -42,7 +42,7 @@ export class FooterComponent {
 
   quickLinks: FooterLink[] = [
     { labelKey: 'footer.links.home', path: '/' },
-    // { labelKey: 'footer.links.about', path: '/about', disabled: true },
+    { labelKey: 'footer.links.about', path: '/about' },
     // { labelKey: 'footer.links.services', path: '/services', disabled: true },
     // { labelKey: 'footer.links.projects', path: '/projects', disabled: true },
     // { labelKey: 'footer.links.faq', path: '/faq', disabled: true },

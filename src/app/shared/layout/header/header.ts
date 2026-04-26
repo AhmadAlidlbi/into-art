@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Input, inject, signal, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Input,
+  inject,
+  signal,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -27,7 +35,7 @@ export class HeaderComponent {
 
   links: HeaderLink[] = [
     { labelKey: 'nav.home', path: '/', exact: true },
-    // { labelKey: 'nav.about', path: '/about', disabled: true },
+    { labelKey: 'nav.about', path: '/about' },
     // { labelKey: 'nav.services', path: '/services', disabled: true },
     // { labelKey: 'nav.projects', path: '/projects', disabled: true },
     // { labelKey: 'nav.faq', path: '/faq', disabled: true },
