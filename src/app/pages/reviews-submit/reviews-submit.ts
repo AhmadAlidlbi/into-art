@@ -1,7 +1,8 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, signal } from '@angular/core';
+import { Component, Inject, inject, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ThemeService } from '../../core/theme/theme.service';
 import { ReviewsSubmitService } from './services/reviews-submit.service';
 
 @Component({
@@ -12,6 +13,9 @@ import { ReviewsSubmitService } from './services/reviews-submit.service';
   styleUrl: './reviews-submit.scss',
 })
 export class ReviewsSubmitComponent {
+  private themeService = inject(ThemeService);
+  isDark = this.themeService.isDark;
+
   stars = [1, 2, 3, 4, 5];
 
   submitted = false;
@@ -46,6 +50,10 @@ export class ReviewsSubmitComponent {
 
   get showRatingError(): boolean {
     return this.ratingInvalid && this.ratingTouched;
+  }
+
+  toggleTheme(): void {
+    this.themeService.toggle();
   }
 
   toggleLanguage(): void {

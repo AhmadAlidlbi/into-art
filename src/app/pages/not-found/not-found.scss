@@ -138,6 +138,19 @@
   transform: scaleX(-1) translateX(-3px);
 }
 
+/* ─── Dark mode ──────────────────────────────────────────── */
+:host-context(html[data-theme="dark"]) {
+  .wrap {
+    background:
+      radial-gradient(ellipse 800px 500px at 10% 20%, rgba(215, 198, 178, 0.07), transparent 60%),
+      radial-gradient(ellipse 700px 400px at 90% 80%, rgba(170, 164, 156, 0.04), transparent 55%);
+  }
+  .eyebrow {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 560px) {
   .wrap {

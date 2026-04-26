@@ -1,0 +1,111 @@
+/* ══════════════════════════════════════════════════
+   DARK MODE — Global token overrides + shared rules
+   Activated by  html[data-theme="dark"]
+══════════════════════════════════════════════════ */
+
+html[data-theme="dark"] {
+  /* ─── Core palette ─── */
+  --bg:       #121010;
+  --surface:  #1E1B1B;
+  --surface-2:#181515;
+  --border:   rgba(255, 255, 255, 0.08);
+  --text:     #F0EDE8;
+  --text-2:   rgba(240, 237, 232, 0.55);
+
+  /* ─── Elevation (warm dark) ─── */
+  --stroke: 1px solid rgba(255, 255, 255, 0.08);
+  --shine:  inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --elev-1: 0 10px 26px rgba(0, 0, 0, 0.35);
+  --elev-2: 0 14px 34px rgba(0, 0, 0, 0.45);
+
+  /* ─── Shadows ─── */
+  --shadow-sm: 0 8px 18px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 14px 34px rgba(0, 0, 0, 0.38);
+
+  /* ─── Material token bridge ─── */
+  --mat-sys-surface: var(--bg);
+  --mat-sys-background: var(--bg);
+  --mat-sys-on-surface: var(--text);
+
+  color-scheme: dark;
+}
+
+/* ─── Eyebrow / kicker labels (hardcoded in every component) ── */
+html[data-theme="dark"] .eyebrow {
+  color: var(--text-2);
+}
+
+/* ─── Form field labels ────────────────────────────────────── */
+html[data-theme="dark"] .field__label {
+  color: rgba(240, 237, 232, 0.6);
+}
+
+/* ─── Home: Why Us + How We Work step numbers ─────────────── */
+html[data-theme="dark"] .why-item__num {
+  color: rgba(240, 237, 232, 0.14);
+}
+html[data-theme="dark"] .why-item:hover .why-item__num {
+  color: rgba(240, 237, 232, 0.22);
+}
+html[data-theme="dark"] .procedure-item__num {
+  color: rgba(240, 237, 232, 0.14);
+}
+html[data-theme="dark"] .procedure-item:hover .procedure-item__num {
+  color: rgba(240, 237, 232, 0.22);
+}
+
+/* ─── Contact: channel icon badges ────────────────────────── */
+html[data-theme="dark"] .channel__badge--whatsapp,
+html[data-theme="dark"] .channel__badge--call,
+html[data-theme="dark"] .channel__badge--email {
+  color: var(--text);
+}
+
+/* ─── Contact: channel arrows + info row keys ──────────────── */
+html[data-theme="dark"] .channel__arrow {
+  color: rgba(240, 237, 232, 0.3);
+}
+html[data-theme="dark"] .info-row__key {
+  color: rgba(240, 237, 232, 0.45);
+}
+
+/* ─── Booking: step numbers ────────────────────────────────── */
+html[data-theme="dark"] .step__num {
+  color: rgba(240, 237, 232, 0.35);
+}
+
+/* ─── Submit button (contact + booking) — invert for dark ──── */
+html[data-theme="dark"] .submit-btn {
+  background: #F0EDE8;
+  color: #121010;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+}
+html[data-theme="dark"] .submit-btn:hover:not(:disabled) {
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
+}
+
+/* ─── Primary button inverts in dark mode ──────── */
+html[data-theme="dark"] .btn--primary {
+  background: #F0EDE8;
+  color: #121010;
+}
+
+html[data-theme="dark"] .btn--ghost {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="dark"] .btn--secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ─── Smooth colour transition when toggling ───── */
+html.theme-transitioning,
+html.theme-transitioning * {
+  transition:
+    background-color 250ms ease,
+    background     250ms ease,
+    border-color   250ms ease,
+    color          250ms ease,
+    box-shadow     250ms ease !important;
+}

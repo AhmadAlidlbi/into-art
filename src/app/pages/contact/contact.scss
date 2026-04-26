@@ -2,7 +2,7 @@
 /* ─── Page Head ──────────────────────────────────────────── */
 .page-head {
   padding: 110px 0 52px;
-  background: #fff;
+  background: var(--bg);
   border-bottom: var(--stroke);
 }
 
@@ -428,6 +428,38 @@
 :host-context(html[dir='ltr']) .field__input::placeholder,
 :host-context(html[dir='ltr']) .field__textarea::placeholder {
   text-align: left;
+}
+
+/* ─── Dark mode ──────────────────────────────────────────── */
+:host-context(html[data-theme="dark"]) {
+  .page-head { background: var(--bg); border-bottom-color: rgba(255, 255, 255, 0.07); }
+  .section--alt { background: var(--surface-2); }
+
+  .channel-list { border-top-color: rgba(255, 255, 255, 0.07); }
+  .channel { border-bottom-color: rgba(255, 255, 255, 0.07); }
+  .channel__badge { background: rgba(215, 198, 178, 0.10); border-color: rgba(215, 198, 178, 0.18); }
+
+  .info-rows { border-top-color: rgba(255, 255, 255, 0.07); }
+  .info-row { border-bottom-color: rgba(255, 255, 255, 0.07); }
+
+  .field__input {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.08);
+    color-scheme: light;
+    color: var(--text);
+    &::placeholder { color: rgba(240, 237, 232, 0.32); }
+  }
+  .field__input:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(215, 198, 178, 0.45);
+    box-shadow: var(--shine), 0 0 0 4px rgba(215, 198, 178, 0.10);
+  }
+  .field__input:-webkit-autofill,
+  .field__input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #1e1c1c inset !important;
+    -webkit-text-fill-color: #F0EDE8 !important;
+    caret-color: #F0EDE8;
+  }
 }
 
 /* ─── Responsive ─────────────────────────────────────────── */

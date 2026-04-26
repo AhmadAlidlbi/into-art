@@ -416,6 +416,29 @@
   }
 }
 
+/* ─── Dark mode ──────────────────────────────────────────── */
+:host-context(html[data-theme="dark"]) {
+  .page-head { background: var(--bg); border-bottom-color: rgba(255, 255, 255, 0.07); }
+
+  .stats-bar { border-top-color: rgba(255, 255, 255, 0.07); }
+  .stat { border-right-color: rgba(255, 255, 255, 0.07); }
+
+  .scope-list { border-top-color: rgba(255, 255, 255, 0.07); }
+  .scope-item { border-bottom-color: rgba(255, 255, 255, 0.07); }
+  .next-step { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.08); }
+
+  .gallery__cell {
+    filter: brightness(0.9);
+    &:hover { filter: brightness(1); }
+  }
+
+  .cta {
+    background: rgba(255, 255, 255, 0.025);
+    border-top-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.2);
+  }
+}
+
 @media (max-width: 480px) {
   .lightbox__inner {
     flex-direction: column;

@@ -604,16 +604,32 @@
   border: 1px solid rgba(231, 224, 216, 0.95);
   box-shadow: 0 10px 26px rgba(22, 20, 20, 0.10);
 
-  display: grid;
-  place-items: center;
-  line-height: 1;
-  font-size: 26px;
-  font-weight: 400;
-  font-family: "Plus Jakarta Sans", system-ui, -apple-system, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0; /* hide the ‹ › text glyph; chevron drawn via ::before */
   color: var(--text);
-  direction: ltr;
 
   transition: transform 140ms ease, box-shadow 160ms ease, background 160ms ease;
+
+  /* CSS chevron — perfectly centered, no font-metric offset */
+  &::before {
+    content: '';
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    flex-shrink: 0;
+  }
+
+  &--prev::before {
+    transform: rotate(-135deg) translate(-1px, 1px); /* points left */
+  }
+
+  &--next::before {
+    transform: rotate(45deg) translate(-1px, 1px); /* points right */
+  }
 
   &:hover {
     background: #fff;
@@ -948,6 +964,47 @@
 @media (prefers-reduced-motion: reduce) {
   .enter-animation {
     animation: none !important;
+  }
+}
+
+/* ─── DARK MODE ──────────────────────────────────────────── */
+:host-context(html[data-theme="dark"]) {
+  .section--alt { background: rgba(255, 255, 255, 0.025); }
+
+  .service-bar {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shine), 0 20px 50px rgba(0, 0, 0, 0.3);
+  }
+  .service-bar__item:hover { background: rgba(255, 255, 255, 0.04); }
+  .service-bar__sep { background: rgba(255, 255, 255, 0.07); }
+  .service-bar__arrow { color: rgba(240, 237, 232, 0.35); }
+
+  .who__metrics { border-top-color: rgba(255, 255, 255, 0.07); }
+  .who__metric-sep { background: rgba(255, 255, 255, 0.07); }
+
+  .why-list { border-top-color: rgba(255, 255, 255, 0.07); }
+  .why-item { border-bottom-color: rgba(255, 255, 255, 0.07); }
+
+  .procedure-list { border-top-color: rgba(255, 255, 255, 0.07); }
+  .procedure-item { border-bottom-color: rgba(255, 255, 255, 0.07); }
+
+  .review-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .review-card__footer { border-top-color: rgba(255, 255, 255, 0.07); }
+
+  .slider__arrow {
+    background: rgba(26, 23, 23, 0.95);
+    border-color: rgba(255, 255, 255, 0.12);
+    &:hover { background: #1E1B1B; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4); }
+  }
+
+  .cta {
+    background: rgba(255, 255, 255, 0.025);
+    border-top-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.2);
   }
 }
 

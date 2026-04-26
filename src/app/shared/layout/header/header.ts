@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Input, signal, EventEmitter, Output } from '@angular/core';
+import { Component, HostListener, Input, inject, signal, EventEmitter, Output } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ThemeService } from '../../../core/theme/theme.service';
 
 type HeaderLink = {
   labelKey: string;
@@ -39,6 +40,13 @@ export class HeaderComponent {
   currentLang = signal<'en' | 'ar'>('ar');
 
   private readonly LANG_KEY = 'intoart_lang';
+
+  private themeService = inject(ThemeService);
+  isDark = this.themeService.isDark;
+
+  toggleTheme(): void {
+    this.themeService.toggle();
+  }
 
   constructor(private router: Router, private translate: TranslateService) {
     this.router.events

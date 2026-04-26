@@ -464,6 +464,28 @@
   order: -1;
 }
 
+/* ─── Dark mode ──────────────────────────────────────────── */
+:host-context(html[data-theme="dark"]) {
+  .page-head { background: var(--bg); border-bottom-color: rgba(255, 255, 255, 0.07); }
+
+  .meta__item { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.08); }
+  .meta__btn { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.08); }
+  .meta__btn--primary { background: #F0EDE8; color: #121010; border-color: transparent; }
+
+  .toc { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.08); }
+  .toc__link:hover { background: rgba(255, 255, 255, 0.06); }
+  .toc__link.is-active { background: rgba(255, 255, 255, 0.08); }
+  .toc__divider { background: rgba(255, 255, 255, 0.07); }
+  .toast { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.1); }
+
+  .doc__section { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.08); }
+  .doc__head { border-bottom-color: rgba(255, 255, 255, 0.07); }
+  .callout { background: rgba(215, 198, 178, 0.07); border-color: rgba(215, 198, 178, 0.18); }
+  .contact-card { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.07); }
+  .contact-card__btn { background: #F0EDE8; color: #121010; }
+  .contact-card__btn--ghost { background: rgba(255, 255, 255, 0.08); color: var(--text); }
+}
+
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 980px) {
   .layout {

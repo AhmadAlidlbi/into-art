@@ -122,8 +122,8 @@ export class HomePage implements OnInit, AfterViewInit, OnDestroy {
   private reviewsDragStartOffset = 0;
   private reviewsActivePtr: number | null = null;
 
-  /** px moved per animation frame (~27 px/s at 60 fps) */
-  private readonly REVIEWS_SPEED = 0.45;
+  /** px moved per animation frame (~17 px/s at 60 fps) */
+  private readonly REVIEWS_SPEED = 0.28;
 
   private readonly reviewsTick = (): void => {
     if (!this.reviewsDragging && this.reviewsSetWidth > 0) {

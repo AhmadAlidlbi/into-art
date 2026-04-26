@@ -54,10 +54,19 @@
       border-radius: 16px;
       left: 14px;
     }
-  
+
     :host-context(html[dir="rtl"]) .to-top {
       right: 14px;
       left: auto;
     }
   }
-  
+
+/* ─── Dark mode ──────────────────────────────────────────── */
+:host-context(html[data-theme="dark"]) {
+  .to-top {
+    background: rgba(40, 38, 38, 0.94);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .to-top__icon { color: rgba(240, 237, 232, 0.88); }
+}
