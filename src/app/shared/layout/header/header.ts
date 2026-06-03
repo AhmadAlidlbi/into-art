@@ -38,7 +38,7 @@ export class HeaderComponent {
     { labelKey: 'nav.about', path: '/about' },
     // { labelKey: 'nav.services', path: '/services', disabled: true },
     // { labelKey: 'nav.projects', path: '/projects', disabled: true },
-    // { labelKey: 'nav.faq', path: '/faq', disabled: true },
+    { labelKey: 'nav.faq', path: '/faq' },
     { labelKey: 'nav.contact', path: '/contact' },
   ];
 

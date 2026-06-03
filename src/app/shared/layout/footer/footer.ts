@@ -45,7 +45,7 @@ export class FooterComponent {
     { labelKey: 'footer.links.about', path: '/about' },
     // { labelKey: 'footer.links.services', path: '/services', disabled: true },
     // { labelKey: 'footer.links.projects', path: '/projects', disabled: true },
-    // { labelKey: 'footer.links.faq', path: '/faq', disabled: true },
+    { labelKey: 'footer.links.faq', path: '/faq' },
     { labelKey: 'footer.links.contact', path: '/contact' },
     { labelKey: 'footer.links.bookConsultation', path: '/book-consultation' },
   ];

@@ -15,7 +15,6 @@ export const FAQS: FaqItem[] = [
   { category: 'pricing', q: 'faq.items.5.q', a: 'faq.items.5.a' },
   { category: 'design', q: 'faq.items.6.q', a: 'faq.items.6.a' },
   { category: 'pricing', q: 'faq.items.7.q', a: 'faq.items.7.a' },
-  { category: 'design', q: 'faq.items.8.q', a: 'faq.items.8.a' },
   { category: 'pricing', q: 'faq.items.9.q', a: 'faq.items.9.a' },
   { category: 'design', q: 'faq.items.10.q', a: 'faq.items.10.a' },
 
